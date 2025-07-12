@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Title : MonoBehaviour
+public class Scene_Title : MonoBehaviour
 {
     public GameObject option;
 

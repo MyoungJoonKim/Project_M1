@@ -14,13 +14,14 @@ public partial class Scene_Manager : MonoBehaviour
 
         Scene = next;
 
-        SceneManager.LoadScene((int)next);
-
         if (loading)
         {
             SceneManager.LoadScene((int)SCENE.LOADING);
             return;
         }
+
+        SceneManager.LoadScene((int)Scene);
+
 
         switch (next) // 서버 데이터를 초기화(리셋)하기 위해 필요함.
         {
