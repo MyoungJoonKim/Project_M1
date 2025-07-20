@@ -14,3 +14,18 @@ public enum MENU
 {
     OPTION
 }
+
+public enum StatType
+{
+    Hp, Mp, Atk, Matk, Def, Mdef, Level, Exp
+}
+
+public enum BaseStatType
+{
+    Str, Dex, Int, Luk, StatPoint
+}
+
+public enum MaxStatType
+{
+    MaxHp, MaxMp, MaxExp
+}
