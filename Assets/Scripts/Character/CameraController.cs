@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public GameObject player;
-    private Vector3 position = new Vector3(0, 7.5f, -15);
+    private Vector3 position = new Vector3(0, 5f, -10f);
 
     // Start is called before the first frame update
     void Start()

@@ -15,6 +15,14 @@ public enum MENU
     OPTION
 }
 
+public enum AI
+{
+    AI_CREATE,
+    AI_SEARCH,
+    AI_MOVE,
+    AI_RESET
+}
+
 public enum StatType
 {
     Hp, Mp, Atk, Matk, Def, Mdef, Level, Exp

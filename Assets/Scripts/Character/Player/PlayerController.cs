@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public PlayerAnimator PlayerAnimator;
     private Rigidbody rigidbody;
     private Vector3 dir  = Vector3.zero;
     private bool ground;
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
+        PlayerAnimator = GetComponent<PlayerAnimator>();
     }
 
     // Update is called once per frame
@@ -35,12 +36,31 @@ public class PlayerController : MonoBehaviour
         dir.x = Input.GetAxis("Horizontal");
         dir.z = Input.GetAxis("Vertical");
         dir.Normalize(); // 정규화 
+        this.gameObject.transform.position += dir * speed * Time.deltaTime; // 이동
+
+        if (dir != Vector3.zero)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                PlayerAnimator.StartRunStandard();
+            }
+            else
+                PlayerAnimator.EndRunStandard();
+                PlayerAnimator.StartWalkStandard();
+        }
 
         CheckGround();
         if (Input.GetButtonDown("Jump") && ground)
         {
             Vector3 jumpPower = Vector3.up * jumpHeight;
             rigidbody.AddForce(jumpPower, ForceMode.VelocityChange);
+        }
+    }
+    void EndWalkStandard()
+    {
+        if (dir == Vector3.zero)
+        {
+            PlayerAnimator.animator.SetBool("Walk_Standard", false);
         }
     }
     void Rotation()
@@ -53,7 +73,6 @@ public class PlayerController : MonoBehaviour
             }
             transform.forward = Vector3.Lerp(transform.forward, dir , rotationSpeed * Time.deltaTime); // 이동 방향 바라보기
         }
-        this.gameObject.transform.position += dir * speed * Time.deltaTime; // 이동
     }
 
     void CheckGround()
