@@ -19,16 +19,8 @@ public class PlayerAnimator : MonoBehaviour
         
     }
 
-    public void StartWalkStandard()
+    public void SetMove(float move)
     {
-        animator.SetBool("Walk_Standard", true);
-    }
-    public void StartRunStandard()
-    {
-        animator.SetBool("Run_Standard", true);
-    }
-    public void EndRunStandard()
-    {
-        animator.SetBool("Run_Standard", false);
+        animator.SetFloat("Move", move);
     }
 }

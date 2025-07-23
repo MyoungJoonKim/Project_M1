@@ -6,19 +6,18 @@ public class Golem : Character
 {
     private void Awake()
     {
-        
+        name = "°ñ·½";
         stats[StatType.Level] = 1;
-        stats[StatType.Hp] = 1000;
-        stats[StatType.Mp] = 500;
+        stats[StatType.Hp] = 300;
+        stats[StatType.Mp] = 100;
         stats[StatType.Atk] = 30;
         stats[StatType.Matk] = 30;
         stats[StatType.Def] = 10;
         stats[StatType.Mdef] = 10;
-        stats[StatType.Exp] = 0;
+        stats[StatType.Exp] = 50;
 
-        maxStats[MaxStatType.MaxHp] = 1000;
-        maxStats[MaxStatType.MaxMp] = 500;
-        maxStats[MaxStatType.MaxExp] = 100;
+        maxStats[MaxStatType.MaxHp] = 300;
+        maxStats[MaxStatType.MaxMp] = 100;
     }
     // Start is called before the first frame update
     void Start()

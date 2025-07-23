@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidbody;
     private Vector3 dir  = Vector3.zero;
     private bool ground;
-
     public float speed = 5f;
     public float rotationSpeed = 15f;
     public float jumpHeight = 4f;
@@ -35,19 +34,24 @@ public class PlayerController : MonoBehaviour
     {
         dir.x = Input.GetAxis("Horizontal");
         dir.z = Input.GetAxis("Vertical");
+        float inputMagnitude = dir.magnitude;
         dir.Normalize(); // 정규화 
         this.gameObject.transform.position += dir * speed * Time.deltaTime; // 이동
-
+        
         if (dir != Vector3.zero)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                PlayerAnimator.StartRunStandard();
+                speed = 8f;
+                inputMagnitude *= 1.5f;
             }
             else
-                PlayerAnimator.EndRunStandard();
-                PlayerAnimator.StartWalkStandard();
+            {
+                speed = 5f;
+            }
         }
+
+        PlayerAnimator.SetMove(inputMagnitude);
 
         CheckGround();
         if (Input.GetButtonDown("Jump") && ground)
@@ -56,13 +60,8 @@ public class PlayerController : MonoBehaviour
             rigidbody.AddForce(jumpPower, ForceMode.VelocityChange);
         }
     }
-    void EndWalkStandard()
-    {
-        if (dir == Vector3.zero)
-        {
-            PlayerAnimator.animator.SetBool("Walk_Standard", false);
-        }
-    }
+    
+
     void Rotation()
     {
         if (dir != Vector3.zero)

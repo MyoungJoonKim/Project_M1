@@ -19,8 +19,4 @@ public class GolemAnimator : MonoBehaviour
         
     }
 
-    public void StartWalkStandard()
-    {
-        animator.SetBool("Walk_Standard", true);
-    }
 }
