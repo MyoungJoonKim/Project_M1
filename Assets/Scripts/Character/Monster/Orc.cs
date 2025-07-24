@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Orc : Character
+public class Monster : Character
 {
     public OrcAnimator orcAnimator;
     private float moveValue = 0f;

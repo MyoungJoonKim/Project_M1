@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject weapon;
+
+
     public PlayerAnimator PlayerAnimator;
     private Rigidbody rigidbody;
     private Vector3 dir  = Vector3.zero;
+    private bool battleState = false;
     private bool ground;
     public float speed = 5f;
     public float rotationSpeed = 15f;
     public float jumpHeight = 4f;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
         PlayerAnimator = GetComponent<PlayerAnimator>();
+        weapon.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,18 +57,42 @@ public class PlayerController : MonoBehaviour
                 speed = 5f;
             }
         }
+        EquipWeapon();
 
-        PlayerAnimator.SetMove(inputMagnitude);
-
-        CheckGround();
-        if (Input.GetButtonDown("Jump") && ground)
+        if (battleState)
         {
-            Vector3 jumpPower = Vector3.up * jumpHeight;
-            rigidbody.AddForce(jumpPower, ForceMode.VelocityChange);
+            PlayerAnimator.animator.SetBool("OnSwordShield_Idle", true);
+            PlayerAnimator.SetMove(-1f);
+            PlayerAnimator.SetBattleState(inputMagnitude);
         }
+        else
+        {
+            PlayerAnimator.animator.SetBool("OnSwordShield_Idle", false);
+            PlayerAnimator.SetBattleState(-1f);
+            PlayerAnimator.SetMove(inputMagnitude);
+        }
+
+
+        //CheckGround();
+        //if (Input.GetButtonDown("Jump") && ground)
+        //{
+        //    Vector3 jumpPower = Vector3.up * jumpHeight;
+        //    rigidbody.AddForce(jumpPower, ForceMode.VelocityChange);
+        //}
     }
     
-
+    void EquipWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            battleState = !battleState;
+            if (battleState)
+            { 
+                weapon.gameObject.SetActive(true); 
+            }
+            else weapon.gameObject.SetActive(false);
+        }
+    }
     void Rotation()
     {
         if (dir != Vector3.zero)

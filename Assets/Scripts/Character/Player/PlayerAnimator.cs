@@ -23,4 +23,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetFloat("Move", move);
     }
+
+    public void SetBattleState(float onSword)
+    {
+        animator.SetFloat("OnSwordShield", onSword);
+    }
 }
