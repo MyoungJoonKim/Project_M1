@@ -28,4 +28,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetFloat("OnSwordShield", onSword);
     }
+
+    public void SetAttack(float attack)
+    {
+        animator.SetFloat("Attack", attack);
+    }
 }

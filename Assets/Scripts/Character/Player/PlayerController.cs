@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 dir  = Vector3.zero;
     private bool battleState = false;
     private bool ground;
+    private bool attacking = false;
+    public float inputMagnitude;
     public float speed = 5f;
     public float rotationSpeed = 15f;
     public float jumpHeight = 4f;
@@ -41,8 +44,8 @@ public class PlayerController : MonoBehaviour
     {
         dir.x = Input.GetAxis("Horizontal");
         dir.z = Input.GetAxis("Vertical");
-        float inputMagnitude = dir.magnitude;
         dir.Normalize(); // 정규화 
+        inputMagnitude = dir.magnitude;
         this.gameObject.transform.position += dir * speed * Time.deltaTime; // 이동
         
         if (dir != Vector3.zero)
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 speed = 8f;
-                inputMagnitude *= 1.5f;
+                inputMagnitude = 1.5f;
             }
             else
             {
@@ -65,12 +68,17 @@ public class PlayerController : MonoBehaviour
             PlayerAnimator.SetMove(-1f);
             PlayerAnimator.SetBattleState(inputMagnitude);
         }
-        else
+        else if (attacking)
+        {
+
+        }
+        else 
         {
             PlayerAnimator.animator.SetBool("OnSwordShield_Idle", false);
             PlayerAnimator.SetBattleState(-1f);
             PlayerAnimator.SetMove(inputMagnitude);
         }
+        
 
 
         //CheckGround();
@@ -83,7 +91,7 @@ public class PlayerController : MonoBehaviour
     
     void EquipWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             battleState = !battleState;
             if (battleState)
@@ -91,6 +99,15 @@ public class PlayerController : MonoBehaviour
                 weapon.gameObject.SetActive(true); 
             }
             else weapon.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnButtonAttack()
+    {
+        if (battleState)
+        {
+            attacking = true;
+            PlayerAnimator.SetAttack(1f);
         }
     }
     void Rotation()

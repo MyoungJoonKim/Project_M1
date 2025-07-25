@@ -23,6 +23,12 @@ public enum AI
     AI_RESET
 }
 
+public enum AnimationLayer
+{
+    MoveLayer = 0,
+    AttackLayer = 1
+}
+
 public enum StatType
 {
     Hp, Mp, Atk, Matk, Def, Mdef, Level, Exp
