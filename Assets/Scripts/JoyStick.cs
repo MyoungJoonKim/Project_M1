@@ -1,51 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class JoyStick : MonoBehaviour
 {
-    //public Player_Controller player_Controller;
     public Image IMGBALL;
+    public RectTransform background;
 
-    Vector3 Input = Vector3.zero;
-    Vector3 Position = Vector3.zero;
-    public Vector2 vec = Vector2.zero;
+    public Vector2 Input = Vector2.zero;
+    private float radius = 100f;
 
-
-
+    public void SetPosition(Vector2 position)
+    {
+        background.position = position;
+        background.gameObject.SetActive(true);
+    }
     public void OnDown(PointerEventData eventData)
     {
-        IMGBALL.rectTransform.anchoredPosition = Vector3.zero;
+        IMGBALL.rectTransform.anchoredPosition = Vector2.zero;
     }
 
     public void OnUp(PointerEventData eventData)
     {
-        Input = Vector3.zero;
-        IMGBALL.rectTransform.anchoredPosition = Vector3.zero;
+        Input = Vector2.zero;
+        IMGBALL.rectTransform.anchoredPosition = Vector2.zero;
+
+        //Á¶ÀÌ½ºÆ½ ¼û±è
+        background.gameObject.SetActive(false);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(IMGBALL.rectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(background, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
         {
-            localPoint.x = localPoint.x / IMGBALL.rectTransform.sizeDelta.x;
-            localPoint.y = localPoint.y / IMGBALL.rectTransform.sizeDelta.y;
+            Input = localPoint / radius;
+            Input = (Input.magnitude > 1f) ? Input.normalized : Input;
 
-            Input.x = localPoint.x;
-            Input.y = localPoint.y;
-
-            Input = (Input.magnitude > 1.0f) ? Input.normalized : Input;
-
-            Position.x = Input.x * IMGBALL.rectTransform.sizeDelta.x / 2f;
-            Position.y = Input.y * IMGBALL.rectTransform.sizeDelta.y / 2f;
-
-            vec = new Vector2(Position.x, Position.y);
-
-            IMGBALL.rectTransform.anchoredPosition = vec;
-
-            // Ä³¸¯ÅÍ ÀÌµ¿
+            IMGBALL.rectTransform.anchoredPosition = Input * radius ;
         }
     }
 }
