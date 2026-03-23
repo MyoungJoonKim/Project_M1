@@ -4,20 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class JoyStick : MonoBehaviour
 {
     public Image IMGBALL;
-    public RectTransform background;
+    private float radius = 30f;
 
     public Vector2 Input = Vector2.zero;
-    private float radius = 100f;
 
-    public void SetPosition(Vector2 position)
-    {
-        background.position = position;
-        background.gameObject.SetActive(true);
-    }
     public void OnDown(PointerEventData eventData)
     {
         IMGBALL.rectTransform.anchoredPosition = Vector2.zero;
@@ -27,19 +23,16 @@ public class JoyStick : MonoBehaviour
     {
         Input = Vector2.zero;
         IMGBALL.rectTransform.anchoredPosition = Vector2.zero;
-
-        //Á¶ÀÌ½ºÆ½ ¼û±è
-        background.gameObject.SetActive(false);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(background, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(IMGBALL.rectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
         {
             Input = localPoint / radius;
             Input = (Input.magnitude > 1f) ? Input.normalized : Input;
 
-            IMGBALL.rectTransform.anchoredPosition = Input * radius ;
+            IMGBALL.rectTransform.anchoredPosition = Input * radius;
         }
     }
 }

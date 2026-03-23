@@ -2,13 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.Android;
+using UnityEngine.UI;
 
-public class JoyStickPanel : MonoBehaviour, IPointerDownHandler
+public class JoyStickPanel : MonoBehaviour
 {
     public JoyStick joyStick;
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(BaseEventData eventData)
     {
-        joyStick.SetPosition(eventData.position);
+        PointerEventData data = (PointerEventData)eventData;
+
+        // 클릭한 위치에 조이스틱 생성
+        joyStick.transform.position = data.position;
+
+        joyStick.gameObject.SetActive(true);
+        joyStick.OnDown(data);
+}
+
+    public void OnPointerUp(BaseEventData eventData)
+    {
+        joyStick.gameObject.SetActive(false);
+        joyStick.OnUp((PointerEventData)eventData);
+    }
+
+    public void OnDrag(BaseEventData eventData)
+    {
+        joyStick.OnDrag((PointerEventData)eventData);
     }
 }
