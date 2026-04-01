@@ -31,3 +31,16 @@ public enum MaxStatType
     MaxExp              // 레벨업 필요 경험치
 }
 
+public enum MonsterState
+{
+    Idle,
+    Move,
+    Attack,
+    Dead,
+
+    Stun,
+    Freeze,
+    Burn,
+    Knockback,
+}
+

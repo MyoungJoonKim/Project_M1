@@ -5,75 +5,56 @@ using UnityEngine;
 
 public class Monster_Attack : MonoBehaviour
 {
-    private Monster_Movement monster_Movement;
+    private Monster monster;
     private Monster_Animator monster_Animator;
 
-    private Transform target;
-    private Coroutine attackRoutine;
-    private float attackRange = 5f;
-    private float attackCooldown = 1.5f;
+    private bool isAttacking;
     private float lastAttackTime = -999f;
 
     private void Awake()
     {
-        monster_Movement = GetComponent<Monster_Movement>();
+        monster = GetComponent<Monster>();
         monster_Animator = GetComponent<Monster_Animator>();
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
-        if (monster_Movement == null)
-            Debug.Log("movement null");
-        if (monster_Animator == null)
-            Debug.Log("animator null");
-        if (target == null)
-            Debug.Log("target null");
     }
 
-    private void Start()
+    
+    public void TryAttack()
     {
-        StartCoroutine(AttackRange());
+        if (monster == null || monster.isDead)
+            return;
+
+        MonsterData data = monster.GetMonsterData();
+        if (data == null) 
+            return;
+
+        float cooldown = monster.GetStat(StatType.AttackCooldown);
+
+        if (Time.time < lastAttackTime + cooldown)
+            return;
+
+        EndAttack();
     }
 
-    // 공격범위 검사 코루틴
-    IEnumerator AttackRange()
+    public void EndAttack()
     {
-        while (true)
-        {
-            float distance = Vector2.Distance(target.position, this.transform.position);
+        MonsterData data = monster.GetMonsterData();
+        if (data == null) 
+            return;
 
-            if (distance <= attackRange)
-            {
-                if (attackRoutine == null)
-                    attackRoutine = StartCoroutine(TryAttack());
-            }
-            else if (distance > attackRange)
-            {
-                if (attackRoutine != null)
-                {
-                    StopCoroutine(attackRoutine);
-                    attackRoutine = null;
-                }
-            }
-            yield return null;
-        }
+        lastAttackTime = Time.time;
+        isAttacking = true;
+
+        if (monster_Animator != null)
+            monster_Animator.Attack();
+        isAttacking = false;
+    }
+    public void StopAttack()
+    {
+        isAttacking = false;
     }
 
-    // 공격 루프 코루틴
-    IEnumerator TryAttack()
+    public bool IsAttacking()
     {
-        while (true)
-        {
-            if (Time.time - lastAttackTime >= attackCooldown)
-            {
-                Attack();
-                lastAttackTime = Time.time;
-            }
-            yield return null;
-        }
-    }
-
-    // 공격 애니메이션 동작
-    public void Attack()
-    {
-        monster_Animator.Attack();
+        return isAttacking;
     }
 }

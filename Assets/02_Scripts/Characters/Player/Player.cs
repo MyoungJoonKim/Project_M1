@@ -5,8 +5,8 @@ using UnityEngine;
 public class Player : Character
 {
     [Header("Player Default Stats")]
-    [SerializeField] private float startHp = 100f;
-    [SerializeField] private float startAtk = 10f;
+    [SerializeField] private float startHp = 500f;
+    [SerializeField] private float startAtk = 50f;
     [SerializeField] private float startDef = 5f;
     [SerializeField] private float startMoveSpeed = 10f;
     [SerializeField] private float startLevel = 1f;
@@ -22,6 +22,8 @@ public class Player : Character
             startAtk, 
             startDef, 
             startMoveSpeed, 
+            0f,
+            0f,
             startLevel, 
             startExp, 
             startMaxExp
@@ -37,6 +39,39 @@ public class Player : Character
         }
     }
 
+    public void AddExp(float amount)
+    {
+        if (isDead)
+            return;
+
+        AddStat(StatType.Exp, amount);
+
+        while (GetStat(StatType.Exp) >= GetMaxStat(MaxStatType.MaxExp))
+        {
+            float remainExp = GetStat(StatType.Exp) - GetMaxStat(MaxStatType.MaxExp);
+
+            SetStat(StatType.Exp, remainExp);
+            LevelUp();
+        }
+    }
+
+    public void LevelUp()
+    {
+        AddStat(StatType.Level, 1f);
+
+        AddMaxStat(MaxStatType.MaxHp, 50f);
+        this.Heal(50f);
+
+        float newMaxExp = GetMaxStat(MaxStatType.MaxExp) + 50f;
+        SetMaxStat(MaxStatType.MaxExp, newMaxExp);
+
+        Debug.Log("플레이어 현재 레벨" + GetStat(StatType.Level));
+        Debug.Log("플레이어 현재 최대체력" + GetMaxStat(MaxStatType.MaxHp));
+        Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
+
+        // 카드 선택 시스템 추가
+
+    }
     public void OnDead()
     {
         Debug.Log("플레이어 사망");

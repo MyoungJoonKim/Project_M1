@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 1543579596}
   - component: {fileID: 1543579597}
   m_Layer: 5
-  m_Name: Spawner
+  m_Name: Spawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -514,14 +514,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7a5f863283f234dbf89384402d856a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
-  prefabs_Monster: {fileID: 564660651871660406, guid: 7e657be82e059cd4fab722425109b320, type: 3}
+  player: {fileID: 0}
+  monsterList:
+  - id: 01
+    prefab: {fileID: 1950238327129830617, guid: 34a3833850ccfea4d8e03f8f79f95a8e, type: 3}
+    data: {fileID: 11400000, guid: 4b07652e0e2d2214995f3ff231d3fbac, type: 2}
   mapMinX: 440
   mapMaxX: 640
   mapMinY: 860
   mapMaxY: 1060
-  safeRadius: 10
-  maxPoolsize: 10
+  safeRadius: 5
+  poolSize: 10
+  maxPoolSize: 50
 --- !u!1 &2086237740
 GameObject:
   m_ObjectHideFlags: 0

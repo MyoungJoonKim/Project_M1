@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
     public void AddStat(StatType type, float value)
     {
         if (!stats.ContainsKey(type))
-            stats.Add(type, value);
+            stats[type] = 0f;
 
         stats[type] += value;
     }
@@ -83,7 +83,7 @@ public class Character : MonoBehaviour
     public void AddMaxStat(MaxStatType type, float value)
     {
         if (!maxStats.ContainsKey(type))
-            maxStats.Add(type, value);
+            maxStats[type]= 0f;
 
         maxStats[type] += value;
     }
