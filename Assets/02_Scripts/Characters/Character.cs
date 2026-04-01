@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class Character : MonoBehaviour
 
     public bool isDead;
     protected bool deadHandled;
+
+    public event Action StatBarChange;
 
     // 초기 스탯 초기화 함수
     public void InitStats(
@@ -54,6 +57,7 @@ public class Character : MonoBehaviour
     public void SetStat(StatType type, float value)
     {
         stats[type] = value;
+        StatBarChange?.Invoke();
     }
 
     // 스탯 증가 함수
@@ -63,6 +67,7 @@ public class Character : MonoBehaviour
             stats[type] = 0f;
 
         stats[type] += value;
+        StatBarChange?.Invoke();
     }
 
     // 스탯 최댓값 반환 함수
@@ -77,6 +82,7 @@ public class Character : MonoBehaviour
     public void SetMaxStat(MaxStatType type, float value)
     {
         maxStats[type] = value;
+        StatBarChange?.Invoke();
     }
 
     // 스탯 최댓값 증가 함수
@@ -86,6 +92,7 @@ public class Character : MonoBehaviour
             maxStats[type]= 0f;
 
         maxStats[type] += value;
+        StatBarChange?.Invoke();
     }
 
     // 데미지 처리 함수
@@ -98,6 +105,7 @@ public class Character : MonoBehaviour
         float finalDamage = Mathf.Max(1f, damage - def);
 
         stats[StatType.Hp] -= finalDamage;
+        StatBarChange?.Invoke();
 
         if (stats[StatType.Hp] <= 0)
         {

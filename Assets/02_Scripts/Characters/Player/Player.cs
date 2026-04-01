@@ -13,6 +13,9 @@ public class Player : Character
     [SerializeField] private float startExp = 0f;
     [SerializeField] private float startMaxExp = 30f;
 
+    private Player_Controller player_Controller;
+    private Player_Animator player_Animator;
+
     private void Awake()
     {
         characterName = "Player";
@@ -28,6 +31,9 @@ public class Player : Character
             startExp, 
             startMaxExp
             );
+
+        player_Controller = GetComponent<Player_Controller>();
+        player_Animator = GetComponent<Player_Animator>();
     }
 
     void Update()
@@ -75,5 +81,15 @@ public class Player : Character
     public void OnDead()
     {
         Debug.Log("플레이어 사망");
+
+        if (player_Controller != null) 
+            player_Controller.enabled = false;
+
+        if (Shared.battle_Manager != null)
+            Shared.battle_Manager.PlayerDead(this);
+        
+        player_Animator.SetDead(isDead);
+        if (player_Animator != null)
+            player_Animator.enabled = false;
     }
 }

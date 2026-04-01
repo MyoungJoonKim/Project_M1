@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
+    [Header("Player Move Controller")]
     public JoyStick JoyStick;
+
     private Player_Animator player_Animator;
     private Rigidbody2D rb;
     private float speed = 10f;

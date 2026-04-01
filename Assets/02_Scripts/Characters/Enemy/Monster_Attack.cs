@@ -41,11 +41,18 @@ public class Monster_Attack : MonoBehaviour
         if (data == null) 
             return;
 
+        Player target = Shared.battle_Manager != null ? Shared.battle_Manager.player : null;
+        if(target == null ||  target.isDead)
+            return;
+
         lastAttackTime = Time.time;
         isAttacking = true;
 
         if (monster_Animator != null)
+        {
             monster_Animator.Attack();
+            target.TakeDamage(monster.stats[StatType.Atk]);
+        }
         isAttacking = false;
     }
     public void StopAttack()

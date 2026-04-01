@@ -10,4 +10,16 @@ public class Player_Animator : MonoBehaviour
     {
         animator.SetBool("isMoving", state);
     }
+
+    public void SetDead(bool state)
+    {
+        animator.SetBool("isDead", state);
+        StartCoroutine(StopAnimator());
+    }
+
+    IEnumerator StopAnimator()
+    {
+        yield return new WaitForSeconds(1f);
+        animator.speed = 0f;
+    }
 }

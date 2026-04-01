@@ -53,8 +53,19 @@ public class Monster_Ai : MonoBehaviour
 
     private void StateUpdate()
     {
-        if (monster.GetTarget() == null)
+        Transform target = monster.GetTarget();
+
+        if (target == null)
         {
+            ChangeState(MonsterState.Idle);
+            return;
+        }
+
+        // 플레이어 사망 시 추적x
+        Player player = target.GetComponent<Player>();
+        if (player != null && player.isDead)
+        {
+            monster.SetTarget(null);
             ChangeState(MonsterState.Idle);
             return;
         }
@@ -72,7 +83,10 @@ public class Monster_Ai : MonoBehaviour
                     ChangeState(MonsterState.Move);
                 break;
 
-            //case MonsterState.Move:
+            case MonsterState.Move:
+                if (distance <= data.attackRange)
+                    ChangeState(MonsterState.Attack);
+                break;
 
             case MonsterState.Attack:
                 if (distance > data.attackRange)
@@ -138,32 +152,5 @@ public class Monster_Ai : MonoBehaviour
         if (monster_Animator != null)
             monster_Animator.SetMove(false);
     }
-    //void MonsterMove()
-    //{
-    //    // 몬스터 추적 이동
-    //    if (target == null)
-    //        return;
-    //    Vector2 dir = (target.position - transform.position).normalized;
-    //    rb.velocity = dir * speed;
-
-    //    float moveX = rb.velocity.x;
-    //    Vector3 scale = transform.localScale;
-
-        
-    //    // 몬스터 좌우 반전
-    //    if (moveX < 0)
-    //        scale.x = Mathf.Abs(scale.x);
-    //    else if (moveX > 0)
-    //        scale.x = Mathf.Abs(scale.x);
-
-
-    //    // 몬스터 이동 애니메이션
-    //    if (rb.velocity != Vector2.zero)
-    //        monster_Animator.SetMove(true);
-    //    else
-    //        monster_Animator.SetMove(false);
-    //}
-
-    
     
 }

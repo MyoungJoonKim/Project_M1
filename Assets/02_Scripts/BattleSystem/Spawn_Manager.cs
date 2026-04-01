@@ -80,7 +80,7 @@ public class Spawn_Manager : MonoBehaviour
         if (monsterList == null || monsterList.Length == 0)
             return;
 
-        MonsterList list = monsterList[1];
+        MonsterList list = monsterList[0];
 
         if (list == null || list.prefab == null || list.data == null)
             return;
@@ -131,14 +131,6 @@ public class Spawn_Manager : MonoBehaviour
     private void OnGetMonster(Monster monster)
     {
         monster.gameObject.SetActive(true);
-
-        MonsterData data = monster.GetMonsterData();
-        if(data != null)
-        {
-            monster.SetMaxStat(MaxStatType.MaxHp, data.maxHp);
-            monster.SetStat(StatType.Hp, data.maxHp);
-            monster.SetStat(StatType.Atk, data.atk);
-        }
     }
 
     private void OnReleaseMonster(Monster monster)
