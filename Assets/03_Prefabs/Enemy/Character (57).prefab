@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: -8124505632096416518}
   m_Layer: 0
   m_Name: Character (57)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,6 +306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0010a59ae9fae1a4f8f9b9b1534ae5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
+  isDead: 0
+  monsterData: {fileID: 0}
+  rewardExp: 10
+  target: {fileID: 0}
 --- !u!114 &3797604449397344681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,8 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f641c7ea854df8448289b43e3c52a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
-  speed: 5
+  currentState: 0
 --- !u!114 &1936114395562582170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1ab338294dc0f4c9b20d8c02a49fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inAttackRange: 0
 --- !u!114 &2858788561306009997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfde38171c06964a8801a3787c03162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleFlip: {fileID: 0}
   animator: {fileID: 7303537966658447695}
 --- !u!95 &7303537966658447695
 Animator:

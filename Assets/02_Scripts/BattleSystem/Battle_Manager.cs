@@ -10,9 +10,14 @@ public class Battle_Manager : MonoBehaviour
     [Header("Monsters")]
     public List<Monster> monsters = new();
 
-    void Start()
+
+    private void Awake()
     {
-        Shared.battle_Manager = this;
+        if (Shared.battle_Manager == null)
+        {
+            Shared.battle_Manager = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     public void PlayerDead(Player player)

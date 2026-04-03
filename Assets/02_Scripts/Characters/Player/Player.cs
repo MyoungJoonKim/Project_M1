@@ -15,6 +15,7 @@ public class Player : Character
 
     private Player_Controller player_Controller;
     private Player_Animator player_Animator;
+    public EffectTest effect;
 
     private void Awake()
     {
@@ -38,11 +39,18 @@ public class Player : Character
 
     void Update()
     {
+        
+
         if (isDead && !deadHandled)
         {
             deadHandled = true;
             OnDead();
         }
+    }
+
+    public void Attack(Collider2D collider)
+    {
+        
     }
 
     public void AddExp(float amount)
