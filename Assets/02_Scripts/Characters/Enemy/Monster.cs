@@ -70,6 +70,10 @@ public class Monster : Character
 
         ReleaseMonster();
     }
+    public void OnHit()
+    {
+        monster_Animator.Hit();
+    }
 
     public void SetMonsterData(MonsterData data)
     {

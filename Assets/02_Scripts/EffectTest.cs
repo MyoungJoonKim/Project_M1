@@ -6,12 +6,14 @@ using UnityEngine;
 public class EffectTest : MonoBehaviour
 {
     //public float EffectRange = 8f;
+    
 
     public Transform target;
     public float radius = 7f;
     public float speed = 180f;
     private float angle;
-    private float damage = 15f;
+    private float damage = 50f;
+    private float lastHitTime;
 
 
 
@@ -23,14 +25,21 @@ public class EffectTest : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        Monster monster = collision.gameObject.GetComponent<Monster>();
+        if (Time.time >= lastHitTime + 0.1f)
+        {
+            Monster monster = collision.gameObject.GetComponent<Monster>();
 
-        if (monster == null || monster.isDead)
-            return;
+            if (monster == null || monster.isDead)
+                return;
+
+
+            monster.TakeDamage(damage, true);
+            monster.OnHit();
+
+            lastHitTime = Time.time;
+        }
         
-        monster.TakeDamage(damage);
     }
-
     void RatationEffect()
     {
         if (target == null)

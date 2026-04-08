@@ -51,7 +51,7 @@ public class Monster_Attack : MonoBehaviour
         if (monster_Animator != null)
         {
             monster_Animator.Attack();
-            target.TakeDamage(monster.stats[StatType.Atk]);
+            target.TakeDamage(monster.stats[StatType.Atk], false);
         }
         isAttacking = false;
     }

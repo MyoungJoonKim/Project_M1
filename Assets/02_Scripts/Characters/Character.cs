@@ -96,7 +96,7 @@ public class Character : MonoBehaviour
     }
 
     // 데미지 처리 함수
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool text)
     {
         if (isDead)
             return;
@@ -106,6 +106,14 @@ public class Character : MonoBehaviour
 
         stats[StatType.Hp] -= finalDamage;
         StatBarChange?.Invoke();
+
+        if (text)
+        {
+            Vector3 offset = new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(3f, 6f), 0f);
+
+            Vector3 textPositon = transform.position + offset;
+            Shared.damageTextManager.ShowDamage(damage, textPositon);
+        }    
 
         if (stats[StatType.Hp] <= 0)
         {

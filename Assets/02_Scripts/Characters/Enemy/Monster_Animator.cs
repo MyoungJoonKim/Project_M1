@@ -24,6 +24,14 @@ public class Monster_Animator : MonoBehaviour
         animator.SetTrigger("attack");
     }
 
+    public void Hit()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger("hit");
+    }
+
     public void Dead()
     {
         if (animator == null)
