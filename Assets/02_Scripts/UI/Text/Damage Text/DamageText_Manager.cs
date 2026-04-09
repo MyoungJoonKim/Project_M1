@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTextManager : MonoBehaviour
+public class DamageText_Manager : MonoBehaviour
 {
     [SerializeField] private DamageText damageTextPrefab;
 
     private void Awake()
     {
-        if (Shared.damageTextManager == null)
+        if (Shared.damageText_Manager == null)
         {
-            Shared.damageTextManager = this;
+            Shared.damageText_Manager = this;
             DontDestroyOnLoad(this);
         }
     }

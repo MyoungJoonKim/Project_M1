@@ -64,15 +64,14 @@ public class Monster : Character
         Debug.Log("몬스터 처치");
 
         if (player != null)
-            player.AddExp(GetRewardExp());
-        // 2. 드랍 경험치 아이콘 처리 
-        // 3. 사망 이펙트 처리
-
+            Shared.expDrop_Manager.SpawnExpGem(transform.position, GetRewardExp());
+        
         ReleaseMonster();
     }
     public void OnHit()
     {
-        monster_Animator.Hit();
+        if (monster_Animator != null)
+            monster_Animator.Hit();
     }
 
     public void SetMonsterData(MonsterData data)

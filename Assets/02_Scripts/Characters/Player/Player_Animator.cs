@@ -17,6 +17,14 @@ public class Player_Animator : MonoBehaviour
         StartCoroutine(StopAnimator());
     }
 
+    public void Hit()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger("isHit");
+    }
+
     IEnumerator StopAnimator()
     {
         yield return new WaitForSeconds(1f);

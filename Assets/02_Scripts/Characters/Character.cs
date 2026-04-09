@@ -112,7 +112,7 @@ public class Character : MonoBehaviour
             Vector3 offset = new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(3f, 6f), 0f);
 
             Vector3 textPositon = transform.position + offset;
-            Shared.damageTextManager.ShowDamage(damage, textPositon);
+            Shared.damageText_Manager.ShowDamage(damage, textPositon);
         }    
 
         if (stats[StatType.Hp] <= 0)
