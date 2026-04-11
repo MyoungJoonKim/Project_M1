@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public partial class Scene_Manager : MonoBehaviour
 {
-    public Scene scene;
-    public Scene nextScene;
+    public SceneType scene;
+    public SceneType nextScene;
 
-    public void ChangeScene(Scene next, bool loading = false)
+    public void ChangeScene(SceneType next, bool loading = false)
     {
         if (scene == next)
             return;
@@ -17,8 +17,8 @@ public partial class Scene_Manager : MonoBehaviour
         if (loading)
         {
             nextScene = next;
-            scene = Scene.LOADING;
-            SceneManager.LoadScene((int)Scene.LOADING);
+            scene = SceneType.LOADING;
+            SceneManager.LoadScene((int)SceneType.LOADING);
             return;
         }
 
@@ -27,15 +27,15 @@ public partial class Scene_Manager : MonoBehaviour
 
         switch (next)
         {
-            case Scene.TITLE:
+            case SceneType.TITLE:
                 break;
-            case Scene.LOADING:
+            case SceneType.LOADING:
                 break;
-            case Scene.LOBBY:
+            case SceneType.LOBBY:
                 break;
-            case Scene.BATTLE:
+            case SceneType.BATTLE:
                 break;
-            case Scene.END:
+            case SceneType.END:
                 break;
         }
     }

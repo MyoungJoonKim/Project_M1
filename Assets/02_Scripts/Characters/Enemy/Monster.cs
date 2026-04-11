@@ -4,6 +4,21 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Pool;
 
+
+public enum MonsterState
+{
+    Idle,
+    Move,
+    Attack,
+    Dead,
+
+    Stun,
+    Freeze,
+    Burn,
+    Knockback,
+}
+
+
 public class Monster : Character
 {
     [Header("Monster Data")]
@@ -15,7 +30,6 @@ public class Monster : Character
     public Transform target;
     private Player player;
     private Monster_Ai monster_Ai;
-    private Monster_Attack monster_Attack;
     private Monster_Animator monster_Animator;
 
 
@@ -24,7 +38,6 @@ public class Monster : Character
     private void Awake()
     {
         monster_Ai = gameObject.GetComponent<Monster_Ai>();
-        monster_Attack = gameObject.GetComponent<Monster_Attack>();
         monster_Animator = gameObject.GetComponent<Monster_Animator>();
 
         if (monsterData != null )
