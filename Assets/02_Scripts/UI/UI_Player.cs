@@ -5,7 +5,7 @@ using UnityEditor.TestTools.CodeCoverage;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Player : MonoBehaviour
+public class PlayerUI : MonoBehaviour
 {
     public Player player;
 

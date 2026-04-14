@@ -7,13 +7,23 @@ public class Skill_Manager : MonoBehaviour
     [SerializeField] private SkillData skillData;
     [SerializeField] private Transform player;
 
-    private int currentLevel = 1;
     private readonly List<SkillObject> skillObjects = new List<SkillObject> ();
+    private int currentLevel = 1;
+    public int CurrentLevel => currentLevel;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    CreateSkill();
+    //    StartCoroutine(SkillLoop());
+    //}
+
+    public void Init(SkillData data, Transform _player)
     {
+        skillData = data;
+        player = _player;
+        currentLevel = 1;
+
         CreateSkill();
-        StartCoroutine(SkillLoop());
     }
 
     public void LevelUp()

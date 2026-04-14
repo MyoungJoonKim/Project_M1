@@ -16,13 +16,13 @@ MonoBehaviour:
   skillType: 0
   skillPrefab: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
   maxLevel: 5
-  count: 01000000
+  count: 0100000002000000030000000400000005000000
   damage:
   - 15
+  - 20
+  - 25
   - 30
   - 50
-  - 70
-  - 100
   radius:
   - 7
   - 7.3

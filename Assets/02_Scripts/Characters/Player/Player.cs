@@ -15,7 +15,8 @@ public class Player : Character
 
     private Player_Controller player_Controller;
     private Player_Animator player_Animator;
-    public EffectTest effect;
+
+    public SkillSelectUI skillSelectUI;
 
     private void Awake()
     {
@@ -48,10 +49,6 @@ public class Player : Character
         }
     }
 
-    public void Attack(Collider2D collider)
-    {
-        
-    }
 
     public void AddExp(float amount)
     {
@@ -83,7 +80,7 @@ public class Player : Character
         Debug.Log("플레이어 현재 최대체력" + GetMaxStat(MaxStatType.MaxHp));
         Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
 
-        // 카드 선택 시스템 추가
+        skillSelectUI.Open();
 
     }
     public void OnDead()
