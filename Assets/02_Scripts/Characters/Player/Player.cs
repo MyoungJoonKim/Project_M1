@@ -16,7 +16,6 @@ public class Player : Character
     private Player_Controller player_Controller;
     private Player_Animator player_Animator;
 
-    public SkillSelectUI skillSelectUI;
 
     private void Awake()
     {
@@ -36,6 +35,11 @@ public class Player : Character
 
         player_Controller = GetComponent<Player_Controller>();
         player_Animator = GetComponent<Player_Animator>();
+    }
+
+    private void Start()
+    {
+        Shared.skillSelectUI.Open();
     }
 
     void Update()
@@ -80,7 +84,7 @@ public class Player : Character
         Debug.Log("플레이어 현재 최대체력" + GetMaxStat(MaxStatType.MaxHp));
         Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
 
-        skillSelectUI.Open();
+        Shared.skillSelectUI.Open();
 
     }
     public void OnDead()

@@ -10,31 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
-  m_Name: Skill Data
+  m_Name: Skill Data_Sun Area
   m_EditorClassIdentifier: 
-  skillName: Electric Ball
-  skillType: 0
-  skillPrefab: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
+  skillName: "\uD0DC\uC591 \uC7A5\uB9C9"
+  skillType: 1
+  skillPrefab: {fileID: 1206498299807332555, guid: af6c1e3f046eecd4d81330aeb285600f, type: 3}
+  icon: {fileID: 0}
+  skillInfo: "\uC8FC\uBCC0 \uBC94\uC704\uB97C \uD0DC\uC6B0\uB294 \uD0DC\uC591 \uC7A5\uB9C9"
   maxLevel: 5
-  count: 0100000002000000030000000400000005000000
+  count: 01000000
   damage:
+  - 10
   - 15
   - 20
   - 25
   - 30
-  - 50
   radius:
+  - 5
+  - 5.5
+  - 6
+  - 6.5
   - 7
-  - 7.3
-  - 7.5
-  - 7.8
-  - 8
-  speed:
-  - 180
-  - 190
-  - 200
-  - 210
-  - 220
+  speed: []
   hitInterval:
   - 0.3
   - 0.25

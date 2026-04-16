@@ -13,4 +13,6 @@ public class Shared : MonoBehaviour
     public static DamageText_Manager damageText_Manager;
 
     public static ExpDrop_Manager expDrop_Manager;
+
+    public static SkillSelectUI skillSelectUI;
 }

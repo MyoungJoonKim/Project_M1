@@ -23,14 +23,14 @@ public class SkillSlotUI : MonoBehaviour
         skillData = data;
         skillSelectUI = uI;
 
-        //if (icon != null ) 
-        //    icon.sprite = skillData.icon;
+        if (icon != null)
+            icon.sprite = skillData.icon;
 
         if (skillNameText != null)
             skillNameText.text = skillData.skillName;
 
-        //if (skillInfoText != null)
-        //    skillInfoText.text = skillData.skillInfo;
+        if (skillInfoText != null)
+            skillInfoText.text = skillData.skillInfo;
 
         int level = GetCurruentLevel();
 

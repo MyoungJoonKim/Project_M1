@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum SkillType
 {
@@ -19,6 +20,8 @@ public class SkillData : ScriptableObject
     public string skillName;
     public SkillType skillType;
     public GameObject skillPrefab;
+    public Sprite icon;
+    public string skillInfo;
 
     [Header("LevelUp Base")]
     public int maxLevel = 5;

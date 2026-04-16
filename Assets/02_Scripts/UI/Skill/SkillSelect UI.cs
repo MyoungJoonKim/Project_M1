@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillSelectUI : MonoBehaviour
 {
-    [SerializeField] private GameObject root;
+    [SerializeField] private GameObject panel;
     [SerializeField] private SkillSlotUI[] slots;
     [SerializeField] private List<SkillData> skills;
     [SerializeField] private Transform skillParent;
@@ -12,11 +12,19 @@ public class SkillSelectUI : MonoBehaviour
 
     private List<SkillData> randomSkills = new List<SkillData>();
 
+
+    private void Awake()
+    {
+        if (Shared.skillSelectUI == null)
+        {
+            Shared.skillSelectUI = this;
+        }
+    }
     public void Open()
     {
-        
+        Debug.Log("open");
 
-        root.SetActive(true);
+        panel.SetActive(true);
         Time.timeScale = 0f;
 
         randomSkills = GetRandomSkills(3);
@@ -29,7 +37,7 @@ public class SkillSelectUI : MonoBehaviour
 
     public void Close()
     {
-        root.SetActive(false);
+        panel.SetActive(false);
         Time.timeScale = 1f;
     }
 

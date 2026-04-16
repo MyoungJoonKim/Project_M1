@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
+  m_Name: Skill Data_Fire
+  m_EditorClassIdentifier: 
+  skillName: "\uD654\uC5FC \uBD84\uC0AC"
+  skillType: 2
+  skillPrefab: {fileID: 6294508013172393196, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
+  icon: {fileID: 0}
+  skillInfo: "\uC804\uBC29\uC73C\uB85C \uD654\uC5FC \uBD84\uC0AC"
+  maxLevel: 5
+  count: 01000000
+  damage:
+  - 10
+  - 15
+  - 20
+  - 25
+  - 35
+  radius:
+  - 7
+  - 7.3
+  - 7.5
+  - 7.8
+  - 8
+  speed: []
+  hitInterval:
+  - 0.2
+  - 0.175
+  - 0.15
+  - 0.125
+  - 0.1
+  duration: 5
+  cooldown: 1
