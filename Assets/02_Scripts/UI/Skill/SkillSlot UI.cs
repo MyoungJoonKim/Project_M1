@@ -32,23 +32,11 @@ public class SkillSlotUI : MonoBehaviour
         if (skillInfoText != null)
             skillInfoText.text = skillData.skillInfo;
 
-        int level = GetCurruentLevel();
+        int level = skillSelectUI.GetSkillLevel(skillData);
 
         UpdateStars(level);
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(OnClickSlot);
-    }
-
-    private int GetCurruentLevel()
-    {
-        Skill_Manager[] managers = FindObjectsOfType<Skill_Manager>();
-
-        foreach (Skill_Manager manager in managers)
-        {
-            if (manager.name == skillData.skillName)
-                return manager.CurrentLevel;
-        }
-        return 0;
     }
 
     // 스킬 현재 레벨 표시 함수

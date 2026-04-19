@@ -414,7 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 796329769}
   m_Layer: 0
-  m_Name: Skill Parent
+  m_Name: Skill Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -756,52 +756,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
   m_PrefabInstance: {fileID: 7649873723039376568}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1535498529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1535498531}
-  - component: {fileID: 1535498530}
-  m_Layer: 0
-  m_Name: Skill Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1535498530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535498529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b11a39a1a3fb2134a9007adf778b895f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillData: {fileID: 11400000, guid: 10facf422e49bd24c878789793fc1496, type: 2}
-  player: {fileID: 1313485663}
---- !u!4 &1535498531
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535498529}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 540.1877, y: 964.4739, z: -0.0979187}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1542651079 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4268736857568491192, guid: 1e4b8f34a71353e428cb90b601744512, type: 3}
@@ -893,6 +847,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6640278154123457491, guid: f3fecb2c9fbd68f458dc847b77091104, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6640278154123457500, guid: f3fecb2c9fbd68f458dc847b77091104, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -920,6 +878,10 @@ PrefabInstance:
     - target: {fileID: 6640278154807875245, guid: f3fecb2c9fbd68f458dc847b77091104, type: 3}
       propertyPath: m_Value
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640278154807875245, guid: f3fecb2c9fbd68f458dc847b77091104, type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6640278154807875246, guid: f3fecb2c9fbd68f458dc847b77091104, type: 3}
       propertyPath: m_Pivot.x
@@ -1166,7 +1128,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 145b8008996a68d458b258d075a04d7d, type: 2}
   - {fileID: 11400000, guid: 20fe38f4a5d2dc34baf3349b5f95c55b, type: 2}
   - {fileID: 11400000, guid: 825663e49d90a62469e3a67fc2bdbcad, type: 2}
-  skillParent: {fileID: 796329769}
+  skillRoot: {fileID: 796329769}
   player: {fileID: 1313485663}
 --- !u!1 &1845172738
 GameObject:
@@ -1783,5 +1745,4 @@ SceneRoots:
   - {fileID: 1620264518}
   - {fileID: 903962339}
   - {fileID: 5707526959944243029}
-  - {fileID: 1535498531}
   - {fileID: 1233487851}

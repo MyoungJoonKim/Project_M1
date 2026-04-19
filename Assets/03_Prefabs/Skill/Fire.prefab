@@ -44,8 +44,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.99607843, g: 0.6039216, b: 0.3764706, a: 1}
-  m_Intensity: 12.806034
-  m_Range: 8.60418
+  m_Intensity: 10.63301
+  m_Range: 9.15572
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -9607,6 +9607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6294508013172393185}
+  - component: {fileID: 7604790361203249584}
   - component: {fileID: 6294508013172393186}
   - component: {fileID: 6294508013172393187}
   - component: {fileID: 3770819115314925417}
@@ -9636,6 +9637,19 @@ Transform:
   - {fileID: 563568411351893999}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7604790361203249584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294508013172393196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25074a88ddc2fd140aae7c849648e893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
 --- !u!198 &6294508013172393186
 ParticleSystem:
   m_ObjectHideFlags: 0

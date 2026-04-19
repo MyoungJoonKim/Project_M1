@@ -4851,6 +4851,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206498299807332550}
+  - component: {fileID: 3968759981951769527}
   - component: {fileID: 1206498299807332549}
   - component: {fileID: 1206498299807332548}
   - component: {fileID: 8336275602659357518}
@@ -4879,6 +4880,19 @@ Transform:
   - {fileID: 4627149569080146888}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3968759981951769527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206498299807332555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25074a88ddc2fd140aae7c849648e893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
 --- !u!198 &1206498299807332549
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9912,7 +9926,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.6207441, b: 0.20392156, a: 1}
-  m_Intensity: 32.925503
+  m_Intensity: 32.715164
   m_Range: 6
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

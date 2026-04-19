@@ -9,13 +9,10 @@ public class Skill_Manager : MonoBehaviour
 
     private readonly List<SkillObject> skillObjects = new List<SkillObject> ();
     private int currentLevel = 1;
-    public int CurrentLevel => currentLevel;
+    private Coroutine skillLoop;
 
-    //private void Start()
-    //{
-    //    CreateSkill();
-    //    StartCoroutine(SkillLoop());
-    //}
+    public int CurrentLevel => currentLevel;
+    public SkillData Data => skillData;
 
     public void Init(SkillData data, Transform _player)
     {
@@ -24,6 +21,16 @@ public class Skill_Manager : MonoBehaviour
         currentLevel = 1;
 
         CreateSkill();
+
+        if (skillData.skillType == SkillType.TargetExplosion)
+        {
+            if (skillLoop != null) 
+                StopCoroutine(skillLoop);
+
+            skillLoop = StartCoroutine(SkillLoop());
+        }
+        else
+            CreateSkill();
     }
 
     public void LevelUp()
@@ -38,7 +45,45 @@ public class Skill_Manager : MonoBehaviour
 
     private void CreateSkill()
     {
+        for (int i = 0; i < skillObjects.Count; i++)
+        {
+            Destroy(skillObjects[i].gameObject);
+        }
+        skillObjects.Clear();
+
         int count = skillData.count[currentLevel - 1];
+
+        if (skillData.skillType == SkillType.TargetExplosion) // iceExplosion 스킬만 따로 처리
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Monster target = GetRandomMonster();
+
+                if (target == null)
+                {
+                    Debug.Log("null target");
+                    return;
+                }
+                Debug.Log("target");
+
+                Vector3 spawnPos = target.transform.position;
+
+                GameObject obj = Instantiate(skillData.skillPrefab, spawnPos, Quaternion.identity);
+                SkillObject skill = obj.GetComponent<SkillObject>();
+
+                skill.SetUp(
+                    player,
+                    i,
+                    count,
+                    skillData.damage[currentLevel - 1],
+                    skillData.radius[currentLevel - 1],
+                    skillData.speed[currentLevel - 1],
+                    skillData.hitInterval[currentLevel - 1],
+                    skillData.skillType
+                );
+            }
+            return;
+        }
 
         while (skillObjects.Count < count)
         {
@@ -71,11 +116,18 @@ public class Skill_Manager : MonoBehaviour
     {
         while (true)
         {
-            SetSkillAttack(true);
-            yield return new WaitForSeconds(skillData.duration);
-
-            SetSkillAttack(false);
-            yield return new WaitForSeconds(skillData.cooldown);
+            if (skillData.skillType == SkillType.TargetExplosion)
+            {
+                CreateSkill();
+                yield return new WaitForSeconds(skillData.cooldown);
+            }
+            else
+            {
+                SetSkillAttack(true);
+                yield return new WaitForSeconds(skillData.duration);
+                SetSkillAttack(false);
+                yield return new WaitForSeconds(skillData.cooldown);
+            }
         }
     }
 
@@ -86,6 +138,27 @@ public class Skill_Manager : MonoBehaviour
             if (skillObjects[i].gameObject.activeSelf)
                 skillObjects[i].SetAttack(value);
         }
+    }
+
+    private Monster GetRandomMonster()
+    {
+        List<Monster> list = new List<Monster>();
+
+        foreach (Monster monster in Shared.battle_Manager.monsters)
+        {
+            if (monster == null || monster.isDead)
+                continue;
+
+            float distance = Vector2.Distance(player.position, monster.transform.position);
+
+            if (distance < skillData.radius[currentLevel - 1])
+                list.Add(monster);
+        }
+
+        if (list.Count == 0)
+            return null;
+
+        return list[Random.Range(0, list.Count)];
     }
 
 

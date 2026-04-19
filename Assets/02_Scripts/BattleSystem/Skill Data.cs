@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public enum SkillType
 {
-    Rotation,       // 회전형
-    Area,           // 범위형
-    Summon,         // 소환형
-    Projection      // 투사체
+    Rotation,           // 회전형
+    Area,               // 범위형
+    Summon,             // 소환형
+    Direction,          // 방향추적
+    TargetExplosion,    // 타겟추적
+    Projection          // 투사체
 }
 
 [CreateAssetMenu(menuName ="Game Data/Skill Data")]
@@ -33,6 +35,4 @@ public class SkillData : ScriptableObject
 
     public float duration;
     public float cooldown;
-
-    
 }

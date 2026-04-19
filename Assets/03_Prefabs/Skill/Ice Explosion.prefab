@@ -9858,8 +9858,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.4719206, g: 0.800597, b: 0.990566, a: 1}
-  m_Intensity: 2.7613828
-  m_Range: 4.9851894
+  m_Intensity: 0
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -9917,12 +9917,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5112403345868107845}
+  - component: {fileID: 2095094196365082242}
   - component: {fileID: 5112403345868107844}
   - component: {fileID: 5112403345868107899}
   - component: {fileID: 5112403345868107846}
   - component: {fileID: 9099646912818641812}
   m_Layer: 0
-  m_Name: Hit Ice
+  m_Name: Ice Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9948,6 +9949,19 @@ Transform:
   - {fileID: 5112403345841327295}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2095094196365082242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5112403345868107898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25074a88ddc2fd140aae7c849648e893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
 --- !u!199 &5112403345868107844
 ParticleSystemRenderer:
   serializedVersion: 6

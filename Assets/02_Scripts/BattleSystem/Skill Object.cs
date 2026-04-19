@@ -20,8 +20,9 @@ public class SkillObject : MonoBehaviour
     private float angle;
 
     private bool canAttack = true;
+    private bool isTrigger = false;
 
-    private Dictionary<Monster, float> lasHitTimes = new Dictionary<Monster, float>();
+    private Dictionary<Monster, float> lastHitTimes = new Dictionary<Monster, float>();
 
     public void SetUp(
         Transform playerTarget,
@@ -65,13 +66,19 @@ public class SkillObject : MonoBehaviour
                 RotationSkill();
                 break;
             case SkillType.Area:
-
+                AreaSkill();
                 break;
             case SkillType.Summon:
-
+                SummonSkill();
+                break;
+            case SkillType.TargetExplosion:
+                TargetExplosionSkill();
+                break;
+            case SkillType.Direction:
+                DirectionSkill();
                 break;
             case SkillType.Projection:
-
+                ProjectionSkill();
                 break;
         }
     }
@@ -86,23 +93,21 @@ public class SkillObject : MonoBehaviour
         if (monster == null || monster.isDead)
             return;
 
-        if (!lasHitTimes.ContainsKey(monster))
-            lasHitTimes[monster] = -999f;
+        if (!lastHitTimes.ContainsKey(monster))
+            lastHitTimes[monster] = -999f;
 
-        if (Time.time >= lasHitTimes[monster] + hitInterval)
+        if (Time.time >= lastHitTimes[monster] + hitInterval)
         {
             monster.TakeDamage(damage, true);
             monster.OnHit();
 
-            lasHitTimes[monster] = Time.time;
+            lastHitTimes[monster] = Time.time;
         }
     }
 
     private void RotationSkill()
     {
-
         angle += speed * Time.deltaTime;
-
         float range = angle * Mathf.Deg2Rad;
 
         float x = Mathf.Cos(range) * radius;
@@ -110,4 +115,34 @@ public class SkillObject : MonoBehaviour
 
         transform.position = player.position + new Vector3(x, y, 0f);
     }
+
+    private void AreaSkill()
+    {
+        transform.position = player.position;
+    }
+
+    private void SummonSkill()
+    {
+
+    }
+
+    private void TargetExplosionSkill()
+    {
+        if (isTrigger)
+            return;
+        isTrigger = true;
+
+        Destroy(gameObject, 1f);
+    }
+
+    private void DirectionSkill()
+    {
+
+    }
+
+    private void ProjectionSkill()
+    {
+
+    }
+
 }
