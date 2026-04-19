@@ -18,10 +18,10 @@ public class SkillData : ScriptableObject
 {
     [Header("Info")]
     public string skillName;
+    public string skillInfo;
     public SkillType skillType;
     public GameObject skillPrefab;
     public Sprite icon;
-    public string skillInfo;
 
     [Header("LevelUp Base")]
     public int maxLevel = 5;

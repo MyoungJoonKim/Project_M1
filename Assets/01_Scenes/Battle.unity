@@ -1758,6 +1758,14 @@ PrefabInstance:
       propertyPath: skillParent
       value: 
       objectReference: {fileID: 796329769}
+    - target: {fileID: 9199777258305080450, guid: 1e4b8f34a71353e428cb90b601744512, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 22efeda9df2d8c247909ff35b4841182, type: 2}
+    - target: {fileID: 9199777258305080450, guid: 1e4b8f34a71353e428cb90b601744512, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1775,5 +1783,5 @@ SceneRoots:
   - {fileID: 1620264518}
   - {fileID: 903962339}
   - {fileID: 5707526959944243029}
-  - {fileID: 1233487851}
   - {fileID: 1535498531}
+  - {fileID: 1233487851}
