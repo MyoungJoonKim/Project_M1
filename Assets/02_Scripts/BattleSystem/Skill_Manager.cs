@@ -148,11 +148,11 @@ public class Skill_Manager : MonoBehaviour
         {
             if (monster == null || monster.isDead)
                 continue;
-
+            
             float distance = Vector2.Distance(player.position, monster.transform.position);
 
             if (distance < skillData.radius[currentLevel - 1])
-                list.Add(monster);
+            list.Add(monster);
         }
 
         if (list.Count == 0)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: 01
   monsterName: Monster01
-  maxHp: 150
+  maxHp: 100
   atk: 15
   def: 10
   moveSpeed: 5

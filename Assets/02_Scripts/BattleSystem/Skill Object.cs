@@ -132,12 +132,12 @@ public class SkillObject : MonoBehaviour
             return;
         isTrigger = true;
 
-        Destroy(gameObject, 1f);
+        //Destroy(gameObject, 1f);
     }
 
     private void DirectionSkill()
     {
-
+        transform.position = player.position;
     }
 
     private void ProjectionSkill()

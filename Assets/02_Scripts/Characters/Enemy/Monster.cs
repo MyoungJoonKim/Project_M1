@@ -54,6 +54,22 @@ public class Monster : Character
         }
     }
 
+    private void OnEnable()
+    {
+        if (Shared.battle_Manager != null && !Shared.battle_Manager.monsters.Contains(this))
+        {
+            Shared.battle_Manager.monsters.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (Shared.battle_Manager != null && Shared.battle_Manager.monsters.Contains(this))
+        {
+            Shared.battle_Manager.monsters.Remove(this);
+        }
+    }
+
     public void SetPlayer(Player player)
     {
         this.player = player;

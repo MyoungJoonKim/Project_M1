@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FxTemporaire
   - Enemy
+  - damagetext
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Water
   - UI
   - 
-  - Skill Effect
+  - 
   - 
   - 
   - 
@@ -42,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 898958977
+    locked: 0
+  - name: Effect
+    uniqueID: 3569382875
+    locked: 0
+  - name: Player
+    uniqueID: 2672399929
     locked: 0

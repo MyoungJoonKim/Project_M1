@@ -27,11 +27,11 @@ MonoBehaviour:
   - 80
   - 90
   radius:
-  - 50
-  - 4
-  - 5
-  - 6
-  - 7
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
   speed:
   - 0
   - 0
@@ -44,5 +44,5 @@ MonoBehaviour:
   - 3
   - 3
   - 3
-  duration: 5
-  cooldown: 3
+  duration: 1
+  cooldown: 1.5
