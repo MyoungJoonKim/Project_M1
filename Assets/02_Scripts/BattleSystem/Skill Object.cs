@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class SkillObject : MonoBehaviour
@@ -152,6 +153,7 @@ public class SkillObject : MonoBehaviour
             Debug.Log("EffectOff");
             return;
         }
+        
         Debug.Log("EffectOn");
         SetEffectActive(true);
 
@@ -168,8 +170,8 @@ public class SkillObject : MonoBehaviour
 
     private void SetEffectActive(bool value)
     {
-        if (effect != null) 
-            effect.SetActive(value); // 수정할 것.
+        if (effect != null)
+            effect.SetActive(value);
 
         if (collider2D != null)
             collider2D.enabled = value;
