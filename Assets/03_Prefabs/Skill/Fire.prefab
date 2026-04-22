@@ -44,8 +44,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.99607843, g: 0.6039216, b: 0.3764706, a: 1}
-  m_Intensity: 0
-  m_Range: 10
+  m_Intensity: 12.303937
+  m_Range: 9.150617
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -9650,6 +9650,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
+  effect: {fileID: 6294508013172393196}
+  collider2D: {fileID: 3184419931444847960}
 --- !u!198 &6294508013172393186
 ParticleSystem:
   m_ObjectHideFlags: 0

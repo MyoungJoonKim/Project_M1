@@ -7,12 +7,15 @@ using static UnityEngine.GraphicsBuffer;
 public class SkillObject : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private GameObject effect;
+    [SerializeField] private Collider2D collider2D;
     private SkillType skillType;
 
     private int index;
     private int totalCount;
 
     private float damage;
+    private float range;
     private float radius;
     private float speed;
     private float hitInterval;
@@ -24,11 +27,13 @@ public class SkillObject : MonoBehaviour
 
     private Dictionary<Monster, float> lastHitTimes = new Dictionary<Monster, float>();
 
+
     public void SetUp(
         Transform playerTarget,
         int objectIndex,
         int objectCount,
         float damageValue,
+        float rangeValue,
         float radiusValue,
         float speedValue,
         float hitIntervalValue,
@@ -38,11 +43,13 @@ public class SkillObject : MonoBehaviour
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
+        range = rangeValue;
         radius = radiusValue;
         speed = speedValue;
         hitInterval = hitIntervalValue;
         skillType = type;
 
+        //circleCollider.radius = radius;
         angle = (360f / totalCount) * index;
     }
 
@@ -108,10 +115,10 @@ public class SkillObject : MonoBehaviour
     private void RotationSkill()
     {
         angle += speed * Time.deltaTime;
-        float range = angle * Mathf.Deg2Rad;
+        float rotationRange = angle * Mathf.Deg2Rad;
 
-        float x = Mathf.Cos(range) * radius;
-        float y = Mathf.Sin(range) * radius;
+        float x = Mathf.Cos(rotationRange) * range;
+        float y = Mathf.Sin(rotationRange) * range;
 
         transform.position = player.position + new Vector3(x, y, 0f);
     }
@@ -131,13 +138,27 @@ public class SkillObject : MonoBehaviour
         if (isTrigger)
             return;
         isTrigger = true;
-
-        //Destroy(gameObject, 1f);
     }
 
     private void DirectionSkill()
     {
         transform.position = player.position;
+
+        Monster target = Shared.skill_Manager.GetRandomMonster();
+
+        if (target == null)
+        {
+            SetEffectActive(false);
+            Debug.Log("EffectOff");
+            return;
+        }
+        Debug.Log("EffectOn");
+        SetEffectActive(true);
+
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+        float directionAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(0f, 0f, directionAngle - 90f);
     }
 
     private void ProjectionSkill()
@@ -145,4 +166,14 @@ public class SkillObject : MonoBehaviour
 
     }
 
+    private void SetEffectActive(bool value)
+    {
+        if (effect != null) 
+            effect.SetActive(value); // 수정할 것.
+
+        if (collider2D != null)
+            collider2D.enabled = value;
+    }
+
+    
 }

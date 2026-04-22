@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Skill_Manager : MonoBehaviour
@@ -13,6 +14,13 @@ public class Skill_Manager : MonoBehaviour
 
     public int CurrentLevel => currentLevel;
     public SkillData Data => skillData;
+
+
+    private void Awake()
+    {
+        if (Shared.skill_Manager == null) 
+            Shared.skill_Manager = this;
+    }
 
     public void Init(SkillData data, Transform _player)
     {
@@ -76,6 +84,7 @@ public class Skill_Manager : MonoBehaviour
                     i,
                     count,
                     skillData.damage[currentLevel - 1],
+                    skillData.range[currentLevel - 1],
                     skillData.radius[currentLevel - 1],
                     skillData.speed[currentLevel - 1],
                     skillData.hitInterval[currentLevel - 1],
@@ -104,6 +113,7 @@ public class Skill_Manager : MonoBehaviour
                 i,
                 count,
                 skillData.damage[currentLevel - 1],
+                skillData.range[currentLevel - 1],
                 skillData.radius[currentLevel - 1],
                 skillData.speed[currentLevel - 1],
                 skillData.hitInterval[currentLevel - 1],
@@ -140,7 +150,7 @@ public class Skill_Manager : MonoBehaviour
         }
     }
 
-    private Monster GetRandomMonster()
+    public Monster GetRandomMonster()
     {
         List<Monster> list = new List<Monster>();
 
@@ -148,11 +158,12 @@ public class Skill_Manager : MonoBehaviour
         {
             if (monster == null || monster.isDead)
                 continue;
-            
+
             float distance = Vector2.Distance(player.position, monster.transform.position);
 
-            if (distance < skillData.radius[currentLevel - 1])
-            list.Add(monster);
+            if (distance < skillData.range[currentLevel - 1])
+                list.Add(monster);
+            
         }
 
         if (list.Count == 0)
@@ -160,6 +171,4 @@ public class Skill_Manager : MonoBehaviour
 
         return list[Random.Range(0, list.Count)];
     }
-
-
 }

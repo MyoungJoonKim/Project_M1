@@ -8,11 +8,14 @@ public class Shared : MonoBehaviour
 
     public static Scene_Manager scene_Manager;
 
-    public static DamageText damageText;
+    public static ExpDrop_Manager expDrop_Manager;
+
+    public static Skill_Manager skill_Manager;
 
     public static DamageText_Manager damageText_Manager;
 
-    public static ExpDrop_Manager expDrop_Manager;
+    public static DamageText damageText;
 
     public static SkillSelectUI skillSelectUI;
+
 }

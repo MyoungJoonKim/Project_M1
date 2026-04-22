@@ -9962,6 +9962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
+  effect: {fileID: 5112403345868107898}
+  collider2D: {fileID: 9099646912818641812}
 --- !u!199 &5112403345868107844
 ParticleSystemRenderer:
   serializedVersion: 6

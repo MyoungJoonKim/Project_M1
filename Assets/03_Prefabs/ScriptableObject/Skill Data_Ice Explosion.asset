@@ -26,12 +26,18 @@ MonoBehaviour:
   - 70
   - 80
   - 90
-  radius:
+  range:
   - 10
   - 15
   - 20
   - 25
   - 30
+  radius:
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
   speed:
   - 0
   - 0

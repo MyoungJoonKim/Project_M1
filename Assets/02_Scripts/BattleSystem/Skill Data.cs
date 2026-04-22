@@ -29,6 +29,7 @@ public class SkillData : ScriptableObject
     public int maxLevel = 5;
     public int[] count;
     public float[] damage;
+    public float[] range;
     public float[] radius;
     public float[] speed;
     public float[] hitInterval;
