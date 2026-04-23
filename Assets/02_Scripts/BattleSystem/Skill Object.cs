@@ -8,7 +8,8 @@ using static UnityEngine.GraphicsBuffer;
 public class SkillObject : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private GameObject effect;
+    [SerializeField] private Transform effectRoot;
+    [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
     private SkillType skillType;
 
@@ -50,7 +51,7 @@ public class SkillObject : MonoBehaviour
         hitInterval = hitIntervalValue;
         skillType = type;
 
-        //circleCollider.radius = radius;
+        SetEffectSize(radius);
         angle = (360f / totalCount) * index;
     }
 
@@ -150,11 +151,8 @@ public class SkillObject : MonoBehaviour
         if (target == null)
         {
             SetEffectActive(false);
-            Debug.Log("EffectOff");
             return;
         }
-        
-        Debug.Log("EffectOn");
         SetEffectActive(true);
 
         Vector2 direction = (target.transform.position - transform.position).normalized;
@@ -170,11 +168,17 @@ public class SkillObject : MonoBehaviour
 
     private void SetEffectActive(bool value)
     {
-        if (effect != null)
-            effect.SetActive(value);
+        if (effectObject != null)
+            effectObject.SetActive(value);
 
         if (collider2D != null)
             collider2D.enabled = value;
+    }
+
+    private void SetEffectSize(float size)
+    {
+        effectRoot.localScale = new Vector3(size, size, size);
+        effectObject.transform.localScale = effectRoot.localScale * 0.25f;
     }
 
     

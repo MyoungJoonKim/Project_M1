@@ -14795,7 +14795,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
-  effect: {fileID: 3190081733630994422}
+  effectRoot: {fileID: 9027514048236820042}
+  effectObject: {fileID: 3190081733630994422}
   collider2D: {fileID: 1872331056565498026}
 --- !u!58 &1872331056565498026
 CircleCollider2D:

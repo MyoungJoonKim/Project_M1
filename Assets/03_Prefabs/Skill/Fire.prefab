@@ -9532,7 +9532,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4349159841608655513}
@@ -9551,7 +9551,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
-  effect: {fileID: 6769927329249861432}
+  effectRoot: {fileID: 6294508013172393185}
+  effectObject: {fileID: 6769927329249861432}
   collider2D: {fileID: 2366466883578008642}
 --- !u!70 &2366466883578008642
 CapsuleCollider2D:
@@ -9586,7 +9587,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}
-  m_Size: {x: 0.8, y: 2}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!1 &6769927329249861432
 GameObject:

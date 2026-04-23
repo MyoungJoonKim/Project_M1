@@ -32,11 +32,11 @@ MonoBehaviour:
   - 8.5
   - 9
   radius:
-  - 1.5
   - 2
   - 2.5
   - 3
   - 3.5
+  - 4
   speed:
   - 180
   - 190
