@@ -1692,6 +1692,11 @@ PrefabInstance:
       propertyPath: JoyStick
       value: 
       objectReference: {fileID: 300656637}
+    - target: {fileID: 8124051755095982635, guid: d74f59d01d8796741b161f963a906c6e,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8258940960025444408, guid: d74f59d01d8796741b161f963a906c6e,
         type: 3}
       propertyPath: m_BodyType

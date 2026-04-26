@@ -37,6 +37,13 @@ public class Skill_Manager : MonoBehaviour
 
             skillLoop = StartCoroutine(SkillLoop());
         }
+        else if (skillData.skillType == SkillType.Summon)
+        {
+            if (skillLoop != null)
+                StopCoroutine(skillLoop);
+
+            skillLoop = StartCoroutine(SkillLoop());
+        }
         else
             CreateSkill();
     }
@@ -68,11 +75,7 @@ public class Skill_Manager : MonoBehaviour
                 Monster target = GetRandomMonster();
 
                 if (target == null)
-                {
-                    Debug.Log("null target");
                     return;
-                }
-                Debug.Log("target");
 
                 Vector3 spawnPos = target.transform.position;
 
@@ -94,7 +97,32 @@ public class Skill_Manager : MonoBehaviour
             return;
         }
 
-        while (skillObjects.Count < count)
+        if (skillData.skillType == SkillType.Summon)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Vector3 spawnPos = GetRandomPosition();
+
+                GameObject obj = Instantiate(skillData.skillPrefab, spawnPos, Quaternion.identity);
+                SkillObject skill = obj.GetComponent<SkillObject>();
+                skillObjects.Add(skill);
+
+                skill.SetUp(
+                    player,
+                    i,
+                    count,
+                    skillData.damage[currentLevel - 1],
+                    skillData.range[currentLevel - 1],
+                    skillData.radius[currentLevel - 1],
+                    skillData.speed[currentLevel - 1],
+                    skillData.hitInterval[currentLevel - 1],
+                    skillData.skillType
+                );
+            }
+            return;
+        }
+
+            while (skillObjects.Count < count)
         {
             GameObject obj = Instantiate(skillData.skillPrefab, player.position, Quaternion.identity);
             SkillObject skill = obj.GetComponent<SkillObject>();
@@ -131,6 +159,13 @@ public class Skill_Manager : MonoBehaviour
                 CreateSkill();
                 yield return new WaitForSeconds(skillData.cooldown);
             }
+            else if(skillData.skillType == SkillType.Summon)
+            {
+                CreateSkill();
+                yield return new WaitForSeconds(skillData.duration);
+                ClearSkillObjects();
+                yield return new WaitForSeconds(skillData.cooldown);
+            }
             else
             {
                 SetSkillAttack(true);
@@ -148,6 +183,17 @@ public class Skill_Manager : MonoBehaviour
             if (skillObjects[i].gameObject.activeSelf)
                 skillObjects[i].SetAttack(value);
         }
+    }
+
+    private void ClearSkillObjects()
+    {
+        for (int i = 0; i < skillObjects.Count; i++)
+        {
+            if (skillObjects[i] != null)
+                Destroy(skillObjects[i].gameObject);
+        }
+
+        skillObjects.Clear();
     }
 
     public Monster GetRandomMonster()
@@ -170,5 +216,11 @@ public class Skill_Manager : MonoBehaviour
             return null;
 
         return list[Random.Range(0, list.Count)];
+    }
+
+    private Vector3 GetRandomPosition()
+    {
+        Vector2 offset = Random.insideUnitCircle * skillData.range[currentLevel - 1];
+        return player.position + new Vector3(offset.x, offset.y, 0f);
     }
 }

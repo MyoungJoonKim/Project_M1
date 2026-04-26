@@ -132,7 +132,9 @@ public class SkillObject : MonoBehaviour
 
     private void SummonSkill()
     {
-
+        if (isTrigger)
+            return;
+        isTrigger = true;
     }
 
     private void TargetExplosionSkill()
