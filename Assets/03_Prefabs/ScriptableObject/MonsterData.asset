@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: 01
   monsterName: Monster01
+  prefab: {fileID: 1950238327129830617, guid: 34a3833850ccfea4d8e03f8f79f95a8e, type: 3}
   maxHp: 100
   atk: 15
   def: 10

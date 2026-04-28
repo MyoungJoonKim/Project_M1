@@ -38,11 +38,35 @@ public class Spawn_Manager : MonoBehaviour
 
         foreach (var list in monsterList)
         {
-            if (list == null || list.prefab == null || list.data == null) 
+            if (list == null)
                 continue;
 
-            string key = list.id;
-            Monster prefab = list.prefab;
+            if (string.IsNullOrEmpty(list.data.monsterID))
+            {
+                Debug.LogWarning("MonsterList id가 비어있음");
+                continue;
+            }
+
+            if (list.data.prefab == null)
+            {
+                Debug.LogWarning($"{list.data.prefab} prefab이 없음");
+                continue;
+            }
+
+            if (list.data == null)
+            {
+                Debug.LogWarning($"{list.data.prefab} data가 없음");
+                continue;
+            }
+
+            string key = list.data.monsterID;
+            Monster prefab = list.data.prefab;
+
+            if (pool.ContainsKey(key))
+            {
+                Debug.LogWarning($"중복된 몬스터 id: {key}");
+                continue;
+            }
 
             pool[key] = new ObjectPool<Monster>(
             () => CreateMonster(prefab, key),
@@ -82,13 +106,13 @@ public class Spawn_Manager : MonoBehaviour
 
         MonsterList list = monsterList[0];
 
-        if (list == null || list.prefab == null || list.data == null)
+        if (list == null || list.data.prefab == null || list.data == null)
             return;
 
-        if (!pool.ContainsKey(list.id))
+        if (!pool.ContainsKey(list.data.monsterID))
             return;
 
-        Monster monster = pool[list.id].Get();
+        Monster monster = pool[list.data.monsterID].Get();
 
         monster.transform.position = GetRandomPosition();
         monster.transform.rotation = Quaternion.identity;

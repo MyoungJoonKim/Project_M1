@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 [CreateAssetMenu(fileName = "MonsterData", menuName = "Game Data/Monster Data")]
 
@@ -9,6 +10,9 @@ public class MonsterData : ScriptableObject
     [Header("Info")]
     public string monsterID;
     public string monsterName;
+
+    [Header("Prefab")]
+    public Monster prefab;
 
     [Header("Stats")]
     public float maxHp = 200f;
