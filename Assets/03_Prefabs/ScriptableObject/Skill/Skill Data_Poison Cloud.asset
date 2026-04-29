@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
+  m_Name: Skill Data_Poison Cloud
+  m_EditorClassIdentifier: 
+  skillName: Poison Cloud
+  skillInfo: "\uC8FC\uBCC0 \uBC94\uC704\uC5D0 \uB3C5\uC548\uAC1C \uAD6C\uB984 \uC18C\uD658"
+  skillType: 2
+  skillPrefab: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf,
+    type: 3}
+  icon: {fileID: 0}
+  maxLevel: 5
+  count: 0100000002000000030000000400000005000000
+  damage:
+  - 30
+  - 50
+  - 70
+  - 90
+  - 120
+  range:
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
+  radius:
+  - 1.5
+  - 2
+  - 2.5
+  - 3
+  - 3.5
+  speed:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  hitInterval:
+  - 0.5
+  - 0.45
+  - 0.4
+  - 0.35
+  - 0.3
+  duration: 5
+  cooldown: 1

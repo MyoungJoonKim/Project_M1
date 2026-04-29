@@ -8,8 +8,9 @@ public class Spawn_Manager : MonoBehaviour
     [Header("Target")]
     [SerializeField] private Player player;
 
-    [Header("Monster List")]
-    [SerializeField] private MonsterList[] monsterList;
+    [Header("Monster Data")]
+    [SerializeField] private MonsterData[] monsterData;
+
 
     [Header("Map Spawn Range")]
     [SerializeField] float mapMinX;
@@ -22,10 +23,15 @@ public class Spawn_Manager : MonoBehaviour
     [SerializeField] int poolSize = 10;
     [SerializeField] int maxPoolSize = 50;
 
-    
+    private readonly List<Monster> activeMonsters = new();
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
 
-    void Start()
+    private void Awake()
+    {
+        if (Shared.spawn_Manager == null)
+            Shared.spawn_Manager = this;
+    }
+    private void Start()
     {
         CreatePool();
         StartCoroutine(SpawnRoutine());
@@ -33,34 +39,28 @@ public class Spawn_Manager : MonoBehaviour
 
     private void CreatePool()
     {
-        if (monsterList == null || monsterList.Length == 0)
+        if (monsterData == null || monsterData.Length == 0)
             return;
 
-        foreach (var list in monsterList)
+        foreach (var list in monsterData)
         {
             if (list == null)
                 continue;
 
-            if (string.IsNullOrEmpty(list.data.monsterID))
+            if (string.IsNullOrEmpty(list.monsterID))
             {
                 Debug.LogWarning("MonsterList id가 비어있음");
                 continue;
             }
 
-            if (list.data.prefab == null)
+            if (list.prefab == null)
             {
-                Debug.LogWarning($"{list.data.prefab} prefab이 없음");
+                Debug.LogWarning($"{list.prefab} prefab이 없음");
                 continue;
             }
 
-            if (list.data == null)
-            {
-                Debug.LogWarning($"{list.data.prefab} data가 없음");
-                continue;
-            }
-
-            string key = list.data.monsterID;
-            Monster prefab = list.data.prefab;
+            string key = list.monsterID;
+            Monster prefab = list.prefab;
 
             if (pool.ContainsKey(key))
             {
@@ -101,28 +101,27 @@ public class Spawn_Manager : MonoBehaviour
         if (player == null)
             return;
 
-        if (monsterList == null || monsterList.Length == 0)
+        if (monsterData == null || monsterData.Length == 0)
             return;
 
-        MonsterList list = monsterList[0];
-
-        if (list == null || list.data.prefab == null || list.data == null)
+        //MonsterData data = monsterData[Random.Range(0, monsterData.Length)];
+        MonsterData data = monsterData[0];
+        if (data == null || data.prefab == null)
             return;
 
-        if (!pool.ContainsKey(list.data.monsterID))
+        if (!pool.ContainsKey(data.monsterID))
             return;
 
-        Monster monster = pool[list.data.monsterID].Get();
+        Monster monster = pool[data.monsterID].Get();
 
         monster.transform.position = GetRandomPosition();
         monster.transform.rotation = Quaternion.identity;
 
-        monster.SetMonsterData(list.data);
+        monster.SetMonsterData(data);
         monster.SetTarget(player.transform);
         monster.SetPlayer(player);
         monster.ResetMonster();
     }
-
 
     Vector2 GetRandomPosition()
     {
@@ -143,6 +142,7 @@ public class Spawn_Manager : MonoBehaviour
 
         return pos;
     }
+
     private Monster CreateMonster(Monster prefab, string key)
     {
         Monster monster = Instantiate(prefab);
@@ -151,6 +151,41 @@ public class Spawn_Manager : MonoBehaviour
         monster.gameObject.SetActive(false);
         return monster;
     }
+
+    public void RegisterMonster(Monster monster)
+    {
+        if (monster == null)
+            return;
+
+        if (!activeMonsters.Contains(monster))
+            activeMonsters.Add(monster);
+    }
+
+    public void UnRegisterMonster(Monster monster)
+    {
+        if (monster == null)
+            return;
+
+        if (activeMonsters.Contains(monster))
+            activeMonsters.Remove(monster);
+    }
+
+    public List<Monster> GetActiveMonsters()
+    {
+        return activeMonsters;
+    }
+
+    public void ClearMonsterTargets()
+    {
+        foreach (var monster in activeMonsters)
+        {
+            if (monster == null)
+                continue;
+
+            monster.SetTarget(null);
+        }
+    }
+
 
     private void OnGetMonster(Monster monster)
     {

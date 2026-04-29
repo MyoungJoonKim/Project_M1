@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e6f0e512690864e92d050cce482fbb, type: 3}
+  m_Name: Boss Monster Data 1
+  m_EditorClassIdentifier: 
+  monsterID: B1
+  monsterName: Boss Monster1
+  prefab: {fileID: -3785755386977073061, guid: faba7cc91943b0a4896facd157e478ca, type: 3}
+  maxHp: 1000
+  atk: 80
+  def: 80
+  moveSpeed: 4
+  attackRange: 5
+  attackCooldown: 2
+  rewardExp: 100

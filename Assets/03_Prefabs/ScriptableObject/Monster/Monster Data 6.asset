@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e6f0e512690864e92d050cce482fbb, type: 3}
+  m_Name: Monster Data 6
+  m_EditorClassIdentifier: 
+  monsterID: N6
+  monsterName: Monster6
+  prefab: {fileID: -1162544167000737825, guid: 108430a325e08c14a980d8c5955d7732, type: 3}
+  maxHp: 225
+  atk: 35
+  def: 35
+  moveSpeed: 5
+  attackRange: 5
+  attackCooldown: 1.5
+  rewardExp: 35

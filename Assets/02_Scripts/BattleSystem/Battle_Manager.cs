@@ -7,9 +7,6 @@ public class Battle_Manager : MonoBehaviour
     [Header("Character Player")]
     public Player player;
 
-    [Header("Monsters")]
-    public List<Monster> monsters = new();
-
 
     private void Awake()
     {
@@ -22,11 +19,7 @@ public class Battle_Manager : MonoBehaviour
 
     public void PlayerDead(Player player)
     {
-        foreach (var monster in monsters)
-        {
-            if (monster == null) 
-                continue;
-            monster.SetTarget(null);
-        }
+        if (Shared.spawn_Manager != null) 
+            Shared.spawn_Manager.ClearMonsterTargets();
     }
 }

@@ -12,6 +12,8 @@ public class Shared : MonoBehaviour
 
     public static Skill_Manager skill_Manager;
 
+    public static Spawn_Manager spawn_Manager;
+
     public static DamageText_Manager damageText_Manager;
 
     public static DamageText damageText;

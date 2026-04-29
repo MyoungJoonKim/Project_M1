@@ -180,7 +180,7 @@ public class SkillObject : MonoBehaviour
     private void SetEffectSize(float size)
     {
         effectRoot.localScale = new Vector3(size, size, size);
-        effectObject.transform.localScale = effectRoot.localScale * 0.25f;
+        effectObject.transform.localScale = effectRoot.localScale;
     }
 
     

@@ -859,11 +859,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7649873723039376575}
-  monsterList:
-  - id: 01
-    prefab: {fileID: 1950238327129830617, guid: 34a3833850ccfea4d8e03f8f79f95a8e,
-      type: 3}
-    data: {fileID: 11400000, guid: 4b07652e0e2d2214995f3ff231d3fbac, type: 2}
+  monsterData:
+  - {fileID: 11400000, guid: 4b07652e0e2d2214995f3ff231d3fbac, type: 2}
+  - {fileID: 11400000, guid: 06f93ee914bf10c44b429da58415e7b6, type: 2}
+  - {fileID: 11400000, guid: 44c74c392c01dd242a4360dcef08b711, type: 2}
+  - {fileID: 11400000, guid: 28e92376fe200b94ea1f76c34b89ece8, type: 2}
+  - {fileID: 11400000, guid: 44d8d0788e2b08f46a621e634555224d, type: 2}
+  - {fileID: 11400000, guid: d49621bf554c9c645a8426a736203010, type: 2}
+  - {fileID: 11400000, guid: 0bda864df1ab2eb4589091334aad6138, type: 2}
+  - {fileID: 11400000, guid: e8e827171a7eeaf43be11ddf26ecb477, type: 2}
+  - {fileID: 11400000, guid: 303c0ccf30a91d846b245b1d53300630, type: 2}
+  - {fileID: 11400000, guid: 6a347ccbc48ae81468ac224a16e44950, type: 2}
   mapMinX: 440
   mapMaxX: 640
   mapMinY: 860
@@ -1251,7 +1257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7649873723039376575}
-  monsters: []
 --- !u!4 &1845172740
 Transform:
   m_ObjectHideFlags: 0

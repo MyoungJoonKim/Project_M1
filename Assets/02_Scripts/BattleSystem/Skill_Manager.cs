@@ -200,7 +200,7 @@ public class Skill_Manager : MonoBehaviour
     {
         List<Monster> list = new List<Monster>();
 
-        foreach (Monster monster in Shared.battle_Manager.monsters)
+        foreach (Monster monster in Shared.spawn_Manager.GetActiveMonsters())
         {
             if (monster == null || monster.isDead)
                 continue;
@@ -209,7 +209,6 @@ public class Skill_Manager : MonoBehaviour
 
             if (distance < skillData.range[currentLevel - 1])
                 list.Add(monster);
-            
         }
 
         if (list.Count == 0)
