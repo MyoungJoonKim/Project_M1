@@ -8,23 +8,36 @@ public class Spawn_Manager : MonoBehaviour
     [Header("Target")]
     [SerializeField] private Player player;
 
-    [Header("Monster Data")]
-    [SerializeField] private MonsterData[] monsterData;
+    [Header("Rounds")]
+    [SerializeField] private RoundData[] rounds;
 
+    [Header("Wave Settings")]
+    [SerializeField] private float waveSpawnDuration = 5f;
+    [SerializeField] private float nextWaveDelay = 20f;
+    [SerializeField] private float bossSpawnDelay = 30f;
+    [SerializeField] private float nextRoundDelay = 60f;
+
+    [SerializeField] private float spawnInterval = 1f;
+    [SerializeField] private int spawnCountPerTick = 5;
 
     [Header("Map Spawn Range")]
-    [SerializeField] float mapMinX;
-    [SerializeField] float mapMaxX; 
-    [SerializeField] float mapMinY; 
-    [SerializeField] float mapMaxY;
-    [SerializeField] float safeRadius = 5f;
+    [SerializeField] private float mapMinX;
+    [SerializeField] private float mapMaxX;
+    [SerializeField] private float mapMinY;
+    [SerializeField] private float mapMaxY;
+    [SerializeField] private float safeRadius = 5f;
 
     [Header("Pool")]
-    [SerializeField] int poolSize = 10;
-    [SerializeField] int maxPoolSize = 50;
+    [SerializeField] private int poolSize = 10;
+    [SerializeField] private int maxPoolSize = 50;
+
+    private int currentRoundIndex;
+    private int currentWaveIndex;
+    private int spawnIndex;
 
     private readonly List<Monster> activeMonsters = new();
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
+    
 
     private void Awake()
     {
@@ -34,78 +47,145 @@ public class Spawn_Manager : MonoBehaviour
     private void Start()
     {
         CreatePool();
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(RoundRoutine());
     }
 
     private void CreatePool()
     {
-        if (monsterData == null || monsterData.Length == 0)
+        if (rounds == null || rounds.Length == 0)
             return;
 
-        foreach (var list in monsterData)
+        foreach (RoundData round in rounds)
         {
-            if (list == null)
+            if (round == null || round.waves == null)
                 continue;
 
-            if (string.IsNullOrEmpty(list.monsterID))
+            foreach (WaveData wave in round.waves)
             {
-                Debug.LogWarning("MonsterList id가 비어있음");
-                continue;
+                if (wave == null)
+                    continue;
+
+                foreach (MonsterData data in wave.normalMonsters)
+                {
+                    CreatePoolMonster(data);
+                }
+                if (wave.spawnBoss)
+                    CreatePoolMonster(wave.bossMonster);
             }
+        }
+    }
 
-            if (list.prefab == null)
-            {
-                Debug.LogWarning($"{list.prefab} prefab이 없음");
-                continue;
-            }
+    private void CreatePoolMonster(MonsterData data)
+    {
+        if (data == null || data.prefab == null)
+            return;
 
-            string key = list.monsterID;
-            Monster prefab = list.prefab;
+        if (string.IsNullOrEmpty(data.monsterID))
+        {
+            Debug.LogWarning("MonsterList id가 비어있음");
+            return;
+        }
 
-            if (pool.ContainsKey(key))
-            {
-                Debug.LogWarning($"중복된 몬스터 id: {key}");
-                continue;
-            }
+        if (pool.ContainsKey(data.monsterID))
+            return;
 
-            pool[key] = new ObjectPool<Monster>(
-            () => CreateMonster(prefab, key),
+        string key = data.monsterID;
+
+        pool[key] = new ObjectPool<Monster>(
+            () => CreateMonster(data),
             OnGetMonster,
             OnReleaseMonster,
             OnDestroyMonster,
             true,
             poolSize,
             maxPoolSize
-            );
+        );
+    }
+
+    IEnumerator RoundRoutine()
+    {
+        currentRoundIndex = 0;
+
+        while (true)
+        {
+            if (rounds == null || rounds.Length == 0)
+                yield break;
+
+            RoundData round = rounds[currentRoundIndex];
+            Debug.Log($"{round.roundNumber} 라운드 시작");
+            yield return StartCoroutine(PlayRound(round));
+
+            Debug.Log($"{round.roundNumber} 라운드 종료");
+            yield return new WaitForSeconds(nextRoundDelay);
+
+            currentRoundIndex++;
+
+            if (currentRoundIndex >= rounds.Length)
+                currentRoundIndex = 0;
         }
     }
 
-    IEnumerator SpawnRoutine()
+    private IEnumerator PlayRound(RoundData round)
     {
-        float waveTime = 10f;
+        if (round == null || round.waves == null)
+            yield break;
+        
+        for (currentWaveIndex = 0; currentWaveIndex < round.waves.Count; currentWaveIndex++)
+        {
+            WaveData wave = round.waves[currentWaveIndex];
+
+            Debug.Log($"{round.roundNumber} 라운드 / {wave.waveNumber} 웨이브 시작");
+            yield return StartCoroutine(PlayWave(wave));
+
+            bool isLastWave = currentWaveIndex == round.waves.Count - 1;
+
+            if (isLastWave && wave.spawnBoss && wave.bossMonster != null)
+            {
+                yield return new WaitForSeconds(bossSpawnDelay);
+                SpawnMonster(wave.bossMonster);
+                Debug.Log($"{wave.bossMonster.monsterName} 보스 소환");
+            }
+            else
+                yield return new WaitForSeconds(nextWaveDelay);
+        }
+    }
+
+
+    private IEnumerator PlayWave(WaveData wave)
+    {
+        spawnIndex = 0;
         float timer = 0f;
 
-        while (timer < waveTime)
+        while (timer < waveSpawnDuration)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < spawnCountPerTick; i++)
             {
-                SpawnMonster();
+                MonsterData data = GetNextMonster(wave);
+                SpawnMonster(data);
             }
-            yield return new WaitForSeconds(1f);
-            timer += 1;
+            yield return new WaitForSeconds(spawnInterval);
+            timer += spawnInterval;
         }
-    }
+    }    
 
-    public void SpawnMonster()
+    private MonsterData GetNextMonster(WaveData wave)
+    {
+        if (wave == null || wave.normalMonsters == null || wave.normalMonsters.Count == 0)
+            return null;
+
+        MonsterData data = wave.normalMonsters[spawnIndex];
+        spawnIndex++;
+
+        if (spawnIndex >= wave.normalMonsters.Count)
+            spawnIndex = 0;
+
+        return data;
+    }
+    public void SpawnMonster(MonsterData data)
     {
         if (player == null)
             return;
 
-        if (monsterData == null || monsterData.Length == 0)
-            return;
-
-        //MonsterData data = monsterData[Random.Range(0, monsterData.Length)];
-        MonsterData data = monsterData[0];
         if (data == null || data.prefab == null)
             return;
 
@@ -143,11 +223,11 @@ public class Spawn_Manager : MonoBehaviour
         return pos;
     }
 
-    private Monster CreateMonster(Monster prefab, string key)
+    private Monster CreateMonster(MonsterData data)
     {
-        Monster monster = Instantiate(prefab);
-        monster.name = $"{key}_Pooled";
-        monster.SetManagedPool(pool[key]);
+        Monster monster = Instantiate(data.prefab);
+        monster.name = $"{data.monsterID}_Pooled";
+        monster.SetManagedPool(pool[data.monsterID]);
         monster.gameObject.SetActive(false);
         return monster;
     }

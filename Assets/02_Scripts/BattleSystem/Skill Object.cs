@@ -181,6 +181,15 @@ public class SkillObject : MonoBehaviour
     {
         effectRoot.localScale = new Vector3(size, size, size);
         effectObject.transform.localScale = effectRoot.localScale;
+        
+        if (collider2D is CircleCollider2D circle)
+        {
+            circle.radius = effectObject.transform.localScale.x;
+        }
+        else if (collider2D is CapsuleCollider2D capsule)
+        {
+            capsule.size = new Vector2(effectObject.transform.localScale.x / 2, effectObject.transform.localScale.y + 0.5f);
+        }
     }
 
     

@@ -16,21 +16,19 @@ public class MonsterData : ScriptableObject
     [Header("Info")]
     public string monsterID;
     public string monsterName;
+    public MonsterType monsterType;
 
     [Header("Prefab")]
     public Monster prefab;
 
-    [Header("Type")]
-    public MonsterType monsterType;
-
     [Header("Stats")]
-    public float maxHp = 200f;
-    public float atk = 30f;
-    public float def = 10f;
-    public float moveSpeed = 7f;
-    public float attackRange = 5f;
-    public float attackCooldown = 1.5f;
+    public float maxHp;
+    public float atk;
+    public float def;
+    public float moveSpeed;
+    public float attackRange;
+    public float attackCooldown;
 
     [Header("Reward")]
-    public int rewardExp = 10;
+    public int rewardExp;
 }
