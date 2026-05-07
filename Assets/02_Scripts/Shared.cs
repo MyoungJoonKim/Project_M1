@@ -18,6 +18,8 @@ public class Shared : MonoBehaviour
 
     public static DamageText damageText;
 
+    public static TMP_TextBlink TMP_TextBlink;
+
     public static SkillSelectUI skillSelectUI;
 
 }

@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Scene_Title : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnButtonGamePlay()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Shared.TMP_TextBlink.textBlink = false;
+        Shared.scene_Manager.ChangeScene(SceneType.LOBBY, true);
     }
 }
