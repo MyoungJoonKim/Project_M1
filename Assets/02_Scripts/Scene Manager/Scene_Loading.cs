@@ -30,7 +30,7 @@ public class Scene_Loading : MonoBehaviour
 
         while (true)
         {
-            bar.value += 0.01f;
+            bar.value += 0.02f;
             yield return new WaitForSeconds(0.01f);
             if (bar.value == timer)
                 break;

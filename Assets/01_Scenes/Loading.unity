@@ -474,7 +474,17 @@ PrefabInstance:
     - target: {fileID: 4834610534210919190, guid: c61d776448c73744e8a8b5d17ae2e925,
         type: 3}
       propertyPath: m_Value
-      value: 44
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834610534210919190, guid: c61d776448c73744e8a8b5d17ae2e925,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834610534210919190, guid: c61d776448c73744e8a8b5d17ae2e925,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
