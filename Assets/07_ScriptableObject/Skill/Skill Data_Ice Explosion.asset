@@ -18,7 +18,7 @@ MonoBehaviour:
   skillType: 4
   skillPrefab: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753,
     type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 1473f1a9dee0d734e83403dc0bee06d8, type: 3}
   maxLevel: 5
   count: 0100000002000000030000000400000005000000
   damage:

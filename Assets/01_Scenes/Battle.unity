@@ -466,8 +466,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe72216764273c2499ef23547197e4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expGemPrefab: {fileID: 2560319754640464759, guid: 8f9c79044aebb784cb32f0165939b0f6,
-    type: 3}
+  expGemPrefab:
+  - {fileID: 2560319754640464759, guid: 8f9c79044aebb784cb32f0165939b0f6, type: 3}
+  - {fileID: 2560319754640464759, guid: c07bd71398f291a4cb124f00c84de8ed, type: 3}
+  - {fileID: 2560319754640464759, guid: 230d7f9a36aedcf4eb11b18a9eaf6d10, type: 3}
+  - {fileID: 2560319754640464759, guid: 6468a349bc98c6f4c8c330e811bacf0f, type: 3}
+  - {fileID: 2560319754640464759, guid: 451ca2b9ed2bb764db60ee3326b227bc, type: 3}
+  - {fileID: 2560319754640464759, guid: e98c0999b25d43c4d8de728a56e2ebad, type: 3}
 --- !u!4 &903962339
 Transform:
   m_ObjectHideFlags: 0
@@ -1762,6 +1767,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1840091536}
     m_Modifications:
+    - target: {fileID: 1231433345503266342, guid: 1e4b8f34a71353e428cb90b601744512,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231433345503266342, guid: 1e4b8f34a71353e428cb90b601744512,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231433345503266342, guid: 1e4b8f34a71353e428cb90b601744512,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4669742052354052785, guid: 1e4b8f34a71353e428cb90b601744512,
         type: 3}
       propertyPath: m_Pivot.x

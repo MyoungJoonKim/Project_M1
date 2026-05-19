@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Scene_Lobby : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnButtonGamePlay()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Shared.scene_Manager.ChangeScene(SceneType.BATTLE, true);
     }
 }

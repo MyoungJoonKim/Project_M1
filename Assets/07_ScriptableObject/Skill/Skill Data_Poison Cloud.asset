@@ -17,7 +17,7 @@ MonoBehaviour:
   skillType: 2
   skillPrefab: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf,
     type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b97aa92582d6054448cbe50ffdc4e60d, type: 3}
   maxLevel: 5
   count: 0100000002000000030000000400000005000000
   damage:
@@ -34,10 +34,10 @@ MonoBehaviour:
   - 30
   radius:
   - 1.5
-  - 2
-  - 2.5
-  - 3
-  - 3.5
+  - 1.65
+  - 1.8
+  - 1.95
+  - 2.1
   speed:
   - 1
   - 1
