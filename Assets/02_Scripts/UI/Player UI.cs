@@ -42,7 +42,6 @@ public class PlayerUI : MonoBehaviour
             {
                 Vector3 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
                 hpBar.transform.position = screenPos + new Vector3(0,- 80, 0);
-                expBar.transform.position = screenPos + new Vector3(0, -900, 0);
                 yield return null;
             }
         } 
