@@ -24,8 +24,21 @@ public class Player_Controller : MonoBehaviour
 
     void Move()
     {
+        Player player = Shared.battle_Manager.player;
+
+        if (player == null || player.isDead)
+        {
+            rb.velocity = Vector2.zero;
+            player_Animator.SetMove(false);
+            return;
+        }
+
         // 플레이어 조이스틱 이동
         Vector2 input = JoyStick.Input;
+
+        if (input == null)
+            return;
+
         Vector2 move = input.normalized;
         rb.velocity = move * speed;
 

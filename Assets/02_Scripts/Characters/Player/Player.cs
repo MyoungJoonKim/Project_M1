@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class Player : Character
 {
@@ -13,8 +16,16 @@ public class Player : Character
     [SerializeField] private float startExp = 0f;
     [SerializeField] private float startMaxExp = 20f;
 
+    [Header("Player prefab")]
+    [SerializeField] private GameObject grave;
+    [SerializeField] private GameObject skillRoot;
+
+    [SerializeField] private GameObject joyStick; 
+
     private Player_Controller player_Controller;
     private Player_Animator player_Animator;
+    private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rigidbody2D;
 
 
     private void Awake()
@@ -35,17 +46,18 @@ public class Player : Character
 
         player_Controller = GetComponent<Player_Controller>();
         player_Animator = GetComponent<Player_Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
         Shared.skillSelectUI.Open();
+        grave.SetActive(false);
     }
 
     void Update()
     {
-        
-
         if (isDead && !deadHandled)
         {
             deadHandled = true;
@@ -90,16 +102,36 @@ public class Player : Character
     public void OnDead()
     {
         Debug.Log("플레이어 사망");
+        if (rigidbody2D != null)
+        {
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.angularVelocity = 0f;
+        }
 
-        if (player_Controller != null) 
+        if (player_Controller != null)
+        {
+            joyStick.SetActive(false);
             player_Controller.enabled = false;
+        }
 
         if (Shared.battle_Manager != null)
             Shared.battle_Manager.PlayerDead(this);
         
-        player_Animator.SetDead(isDead);
         if (player_Animator != null)
+        {
+            player_Animator.SetDead(isDead);
             player_Animator.enabled = false;
+        }
+
+        if (spriteRenderer != null)
+            spriteRenderer.enabled = false;
+
+        if (skillRoot != null)
+            skillRoot.SetActive(false);
+
+        if (grave != null)
+            grave.SetActive(true);
+        
     }
 
     public void OnHit()

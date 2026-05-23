@@ -43,15 +43,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
+  - name: Ground
     uniqueID: 2425651459
     locked: 0
-  - name: Layer 2
+  - name: Wall
     uniqueID: 4250941897
     locked: 0
   - name: Layer 3
     uniqueID: 4189426099
     locked: 0
+  - name: Drop Item
+    uniqueID: 1919042905
+    locked: 0
+  - name: Enemy
+    uniqueID: 1173433635
+    locked: 0
+  - name: Skill Effect
+    uniqueID: 3330741751
+    locked: 0
   - name: Player
     uniqueID: 1504885307
+    locked: 0
+  - name: Text Effect
+    uniqueID: 1617162093
     locked: 0

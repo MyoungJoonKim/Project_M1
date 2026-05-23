@@ -17,6 +17,7 @@ public class Battle_Manager : MonoBehaviour
         }
     }
 
+    // ¸ó½ºÅÍ Å¸°Ù ÃßÀû ¸ØÃã.
     public void PlayerDead(Player player)
     {
         if (Shared.spawn_Manager != null) 

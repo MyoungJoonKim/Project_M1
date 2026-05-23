@@ -65,6 +65,8 @@ public class Monster_Ai : MonoBehaviour
         Player player = target.GetComponent<Player>();
         if (player != null && player.isDead)
         {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0;
             monster.SetTarget(null);
             ChangeState(MonsterState.Idle);
             return;
@@ -79,7 +81,7 @@ public class Monster_Ai : MonoBehaviour
         switch (currentState)
         {
             case MonsterState.Idle:
-                if (distance > data.attackRange)
+                if (distance > data.attackRange && !player.isDead) 
                     ChangeState(MonsterState.Move);
                 break;
 
