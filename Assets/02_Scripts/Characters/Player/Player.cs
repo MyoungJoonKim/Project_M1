@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Player : Character
@@ -22,8 +20,8 @@ public class Player : Character
 
     [SerializeField] private GameObject joyStick; 
 
-    private Player_Controller player_Controller;
-    private Player_Animator player_Animator;
+    private PlayerController playerController;
+    private PlayerAnimator playerAnimator;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidbody2D;
 
@@ -44,8 +42,8 @@ public class Player : Character
             startMaxExp
             );
 
-        player_Controller = GetComponent<Player_Controller>();
-        player_Animator = GetComponent<Player_Animator>();
+        playerController = GetComponent<PlayerController>();
+        playerAnimator = GetComponent<PlayerAnimator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
@@ -108,19 +106,19 @@ public class Player : Character
             rigidbody2D.angularVelocity = 0f;
         }
 
-        if (player_Controller != null)
+        if (playerController != null)
         {
             joyStick.SetActive(false);
-            player_Controller.enabled = false;
+            playerController.enabled = false;
         }
 
-        if (Shared.battle_Manager != null)
-            Shared.battle_Manager.PlayerDead(this);
+        if (Shared.battleManager != null)
+            Shared.battleManager.PlayerDead(this);
         
-        if (player_Animator != null)
+        if (playerAnimator != null)
         {
-            player_Animator.SetDead(isDead);
-            player_Animator.enabled = false;
+            playerAnimator.SetDead(isDead);
+            playerAnimator.enabled = false;
         }
 
         if (spriteRenderer != null)
@@ -136,6 +134,6 @@ public class Player : Character
 
     public void OnHit()
     {
-        player_Animator.Hit();
+        playerAnimator.Hit();
     }
 }

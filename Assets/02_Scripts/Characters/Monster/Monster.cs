@@ -28,16 +28,16 @@ public class Monster : Character
 
     public Transform target;
     private Player player;
-    private Monster_Ai monster_Ai;
-    private Monster_Animator monster_Animator;
+    private MonsterAi monsterAi;
+    private MonsterAnimator monsterAnimator;
 
 
     private IObjectPool<Monster> monsterPool;
 
     private void Awake()
     {
-        monster_Ai = gameObject.GetComponent<Monster_Ai>();
-        monster_Animator = gameObject.GetComponent<Monster_Animator>();
+        monsterAi = gameObject.GetComponent<MonsterAi>();
+        monsterAnimator = gameObject.GetComponent<MonsterAnimator>();
 
         if (monsterData != null )
         {
@@ -55,17 +55,17 @@ public class Monster : Character
 
     private void OnEnable()
     {
-        if (Shared.spawn_Manager != null)
+        if (Shared.spawnManager != null)
         {
-            Shared.spawn_Manager.RegisterMonster(this);
+            Shared.spawnManager.RegisterMonster(this);
         }
     }
 
     private void OnDisable()
     {
-        if (Shared.spawn_Manager != null)
+        if (Shared.spawnManager != null)
         {
-            Shared.spawn_Manager.UnRegisterMonster(this);
+            Shared.spawnManager.UnRegisterMonster(this);
         }
     }
 
@@ -82,8 +82,8 @@ public class Monster : Character
         float maxHp = GetMaxStat(MaxStatType.MaxHp);
         SetStat(StatType.Hp, maxHp);
 
-        if (monster_Ai != null)
-            monster_Ai.ChangeState(MonsterState.Idle);
+        if (monsterAi != null)
+            monsterAi.ChangeState(MonsterState.Idle);
     }
 
     // 몬스터 사망 함수
@@ -92,14 +92,14 @@ public class Monster : Character
         Debug.Log("몬스터 처치");
 
         if (player != null)
-            Shared.expDrop_Manager.SpawnExpGem(transform.position, GetRewardExp());
+            Shared.expDropManager.SpawnExpGem(transform.position, GetRewardExp());
         
         ReleaseMonster();
     }
     public void OnHit()
     {
-        if (monster_Animator != null)
-            monster_Animator.Hit();
+        if (monsterAnimator != null)
+            monsterAnimator.Hit();
     }
 
     public void SetMonsterData(MonsterData data)

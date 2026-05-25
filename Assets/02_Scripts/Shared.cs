@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Shared : MonoBehaviour
 {
-    public static Battle_Manager battle_Manager;
+    public static BattleManager battleManager;
 
-    public static Scene_Manager scene_Manager;
+    public static SceneLoadManager sceneLoadManager;
 
-    public static ExpDrop_Manager expDrop_Manager;
+    public static ExpDropManager expDropManager;
 
-    public static Skill_Manager skill_Manager;
+    public static SkillManager skillManager;
 
-    public static Spawn_Manager spawn_Manager;
+    public static SpawnManager spawnManager;
 
-    public static DamageText_Manager damageText_Manager;
+    public static DamageTextManager damageTextManager;
 
     public static DamageText damageText;
 
-    public static TMP_TextBlink TMP_TextBlink;
+    public static TextBlink TextBlink;
 
     public static SkillSelectUI skillSelectUI;
 
