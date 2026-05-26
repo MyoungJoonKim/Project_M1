@@ -129,7 +129,8 @@ public class Player : Character
 
         if (grave != null)
             grave.SetActive(true);
-        
+
+        Shared.skillManager.DestroySkillObjects();
     }
 
     public void OnHit()

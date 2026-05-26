@@ -61,13 +61,15 @@ public class MonsterAi : MonoBehaviour
             return;
         }
 
-        // 플레이어 사망 시 추적x
+        // 플레이어 사망 시 추적x // 정상동작하도록 수정할 것.
         Player player = target.GetComponent<Player>();
         if (player != null && player.isDead)
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
             monster.SetTarget(null);
+            StopMove();
+            Debug.Log("1.monster stop"); // 
             ChangeState(MonsterState.Idle);
             return;
         }

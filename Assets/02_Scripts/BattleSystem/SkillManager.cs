@@ -194,6 +194,10 @@ public class SkillManager : MonoBehaviour
 
         skillObjects.Clear();
     }
+    public void DestroySkillObjects()
+    {
+        this.skillObjects.Clear();
+    }
 
     public Monster GetRandomMonster()
     {

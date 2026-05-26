@@ -35,7 +35,7 @@ public class SceneLoading : MonoBehaviour
             if (bar.value == timer)
                 break;
         }
-        SceneManager.LoadScene((int)Shared.sceneLoadManager.nextScene);
+        Shared.sceneLoadManager.ChangeScene(Shared.sceneLoadManager.nextScene, false);
     }
 
 

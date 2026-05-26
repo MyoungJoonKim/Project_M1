@@ -198,32 +198,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 819267780878101661, guid: 0ee52c94569a8ce4abe9e73fd67f71e1,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 155838825}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ee52c94569a8ce4abe9e73fd67f71e1, type: 3}
---- !u!1 &155838824 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 819267780878101661, guid: 0ee52c94569a8ce4abe9e73fd67f71e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 155838823}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &155838825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155838824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 239458dd35f9b0d4fa260d45db003c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadingBar: {fileID: 1944355385}
-  gamePlayButton: {fileID: 512669511}
 --- !u!1 &300296683
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,8 +377,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 155838825}
-        m_TargetAssemblyTypeName: Scene_Title, Assembly-CSharp
+      - m_Target: {fileID: 1671267624}
+        m_TargetAssemblyTypeName: SceneTitle, Assembly-CSharp
         m_MethodName: OnButtonGamePlay
         m_Mode: 1
         m_Arguments:
@@ -1109,8 +1085,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1671267623}
+  - component: {fileID: 1671267624}
   m_Layer: 5
-  m_Name: Title
+  m_Name: UI_Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1136,6 +1113,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1671267624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671267622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239458dd35f9b0d4fa260d45db003c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingBar: {fileID: 1944355385}
+  gamePlayButton: {fileID: 512669511}
 --- !u!1001 &1944355383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1297,7 +1288,7 @@ PrefabInstance:
     - target: {fileID: 4834610534210919190, guid: c61d776448c73744e8a8b5d17ae2e925,
         type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834610534210919190, guid: c61d776448c73744e8a8b5d17ae2e925,
         type: 3}
