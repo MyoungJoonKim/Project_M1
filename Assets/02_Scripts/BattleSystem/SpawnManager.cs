@@ -34,6 +34,7 @@ public class SpawnManager : MonoBehaviour
     private int currentRoundIndex;
     private int currentWaveIndex;
     private int spawnIndex;
+    private Coroutine roundCoroutine;
 
     private readonly List<Monster> activeMonsters = new();
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
@@ -47,7 +48,7 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         CreatePool();
-        StartCoroutine(RoundRoutine());
+        roundCoroutine = StartCoroutine(RoundRoutine());
     }
 
     private void CreatePool()
@@ -108,14 +109,27 @@ public class SpawnManager : MonoBehaviour
 
         while (true)
         {
+            // 전투 시작 전이면 기다림
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            {
+                yield return null;
+                continue;
+            }
+
             if (rounds == null || rounds.Length == 0)
                 yield break;
 
             RoundData round = rounds[currentRoundIndex];
-            Debug.Log($"{round.roundNumber} 라운드 시작");
+
             yield return StartCoroutine(PlayRound(round));
 
-            Debug.Log($"{round.roundNumber} 라운드 종료");
+            // 플레이어 사망 등으로 전투가 끝났으면 여기서 기다림
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            {
+                yield return null;
+                continue;
+            }
+
             yield return new WaitForSeconds(nextRoundDelay);
 
             currentRoundIndex++;
@@ -125,28 +139,48 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void StopSpawn()
+    {
+        if (roundCoroutine != null)
+        {
+            StopCoroutine(roundCoroutine);
+            roundCoroutine = null;
+        }
+        StopAllCoroutines();
+    }
+
     private IEnumerator PlayRound(RoundData round)
     {
         if (round == null || round.waves == null)
             yield break;
-        
+
         for (currentWaveIndex = 0; currentWaveIndex < round.waves.Count; currentWaveIndex++)
         {
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                yield break;
+
             WaveData wave = round.waves[currentWaveIndex];
 
-            Debug.Log($"{round.roundNumber} 라운드 / {wave.waveNumber} 웨이브 시작");
             yield return StartCoroutine(PlayWave(wave));
+
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                yield break;
 
             bool isLastWave = currentWaveIndex == round.waves.Count - 1;
 
             if (isLastWave && wave.spawnBoss && wave.bossMonster != null)
             {
                 yield return new WaitForSeconds(bossSpawnDelay);
+
+                if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                    yield break;
+
                 SpawnMonster(wave.bossMonster);
-                Debug.Log($"{wave.bossMonster.monsterName} 보스 소환");
             }
             else
+            {
                 yield return new WaitForSeconds(nextWaveDelay);
+            }
         }
     }
 
@@ -158,11 +192,15 @@ public class SpawnManager : MonoBehaviour
 
         while (timer < waveSpawnDuration)
         {
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                yield break;
+
             for (int i = 0; i < spawnCountPerTick; i++)
             {
                 MonsterData data = GetNextMonster(wave);
                 SpawnMonster(data);
             }
+
             yield return new WaitForSeconds(spawnInterval);
             timer += spawnInterval;
         }
@@ -183,6 +221,9 @@ public class SpawnManager : MonoBehaviour
     }
     public void SpawnMonster(MonsterData data)
     {
+        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            return;
+
         if (player == null)
             return;
 
@@ -262,7 +303,7 @@ public class SpawnManager : MonoBehaviour
             if (monster == null)
                 continue;
 
-            monster.SetTarget(null);
+            monster.StopMonster();
         }
     }
 

@@ -61,6 +61,7 @@ public class SkillObject : MonoBehaviour
     {
         UpdateSkillType();
     }
+
     private void UpdateSkillType()
     {
         if (player == null)
@@ -189,5 +190,16 @@ public class SkillObject : MonoBehaviour
         }
     }
 
-    
+    public void StopSkill()
+    {
+        canAttack = false;
+
+        if (collider2D != null)
+            collider2D.enabled = false;
+
+        SetEffectActive(false);
+
+        gameObject.SetActive(false);
+    }
+
 }

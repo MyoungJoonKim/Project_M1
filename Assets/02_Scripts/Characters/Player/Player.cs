@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Player : Character
 {
     [Header("Player Default Stats")]
-    [SerializeField] private float startHp = 500f;
+    [SerializeField] private float startHp = 50f;
     [SerializeField] private float startAtk = 1f;
     [SerializeField] private float startDef = 1f;
     [SerializeField] private float startMoveSpeed = 10f;
@@ -130,7 +130,6 @@ public class Player : Character
         if (grave != null)
             grave.SetActive(true);
 
-        Shared.skillManager.DestroySkillObjects();
     }
 
     public void OnHit()

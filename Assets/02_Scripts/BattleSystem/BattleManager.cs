@@ -38,8 +38,14 @@ public class BattleManager : MonoBehaviour
         if (battleUI != null)
             battleUI.StopBattleUI();
 
-        if (Shared.spawnManager != null) 
+        if (Shared.spawnManager != null)
+        {
+            Shared.spawnManager.StopSpawn();
             Shared.spawnManager.ClearMonsterTargets();
+        }
+
+        if (Shared.skillManager != null)
+            Shared.skillManager.StopAllSkills();
     }
 
     IEnumerator GameTimeUpdate()

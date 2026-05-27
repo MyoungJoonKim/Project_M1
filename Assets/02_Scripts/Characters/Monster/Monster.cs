@@ -102,6 +102,29 @@ public class Monster : Character
             monsterAnimator.Hit();
     }
 
+    public void StopMonster()
+    {
+        SetTarget(null);
+
+        MonsterAi ai = GetComponent<MonsterAi>();
+        if (ai != null)
+            ai.ChangeState(MonsterState.Idle);
+
+        MonsterAttack attack = GetComponent<MonsterAttack>();
+        if (attack != null)
+            attack.StopAttack();
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        if (monsterAnimator != null)
+            monsterAnimator.SetMove(false);
+    }
+
     public void SetMonsterData(MonsterData data)
     {
         monsterData = data;

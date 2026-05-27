@@ -24,12 +24,26 @@ public class MonsterAi : MonoBehaviour
     private void FixedUpdate()
     {
         if (monster == null || monster.isDead)
+        {
+            StopMove();
             return;
+        }
+
+        if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
+        {
+            StopMove();
+            ChangeState(MonsterState.Idle);
+            return;
+        }
 
         switch (currentState)
         {
             case MonsterState.Move:
                 MoveToTarget();
+                break;
+            case MonsterState.Idle:
+            case MonsterState.Attack:
+                StopMove();
                 break;
         }
     }
@@ -53,23 +67,37 @@ public class MonsterAi : MonoBehaviour
 
     private void StateUpdate()
     {
-        Transform target = monster.GetTarget();
-
-        if (target == null)
+        if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
         {
+            monster.SetTarget(null);
+            StopMove();
+
+            if (monsterAttack != null)
+                monsterAttack.StopAttack();
+
             ChangeState(MonsterState.Idle);
             return;
         }
 
-        // 플레이어 사망 시 추적x // 정상동작하도록 수정할 것.
+        Transform target = monster.GetTarget();
+
+        if (target == null)
+        {
+            StopMove();
+            ChangeState(MonsterState.Idle);
+            return;
+        }
+
         Player player = target.GetComponent<Player>();
+
         if (player != null && player.isDead)
         {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0;
             monster.SetTarget(null);
             StopMove();
-            Debug.Log("1.monster stop"); // 
+
+            if (monsterAttack != null)
+                monsterAttack.StopAttack();
+
             ChangeState(MonsterState.Idle);
             return;
         }
@@ -78,12 +106,12 @@ public class MonsterAi : MonoBehaviour
         if (data == null)
             return;
 
-        float distance = Vector2.Distance(transform.position, monster.GetTarget().position);
+        float distance = Vector2.Distance(transform.position, target.position);
 
         switch (currentState)
         {
             case MonsterState.Idle:
-                if (distance > data.attackRange && !player.isDead) 
+                if (distance > data.attackRange) 
                     ChangeState(MonsterState.Move);
                 break;
 
@@ -111,6 +139,10 @@ public class MonsterAi : MonoBehaviour
         switch (state)
         {
             case MonsterState.Idle:
+                StopMove();
+
+                if (monsterAttack != null)
+                    monsterAttack.StopAttack();
                 break;
 
             case MonsterState.Move:
@@ -125,6 +157,7 @@ public class MonsterAi : MonoBehaviour
                 StopMove();
                 if (monsterAttack != null)
                     monsterAttack.StopAttack();
+
                 if (monsterAnimator != null)
                     monsterAnimator.Dead();
                 break;
@@ -134,7 +167,18 @@ public class MonsterAi : MonoBehaviour
     {
         Transform target = monster.GetTarget();
         if (target == null)
+        {
+            StopMove();
+            ChangeState(MonsterState.Idle);
             return;
+        }
+
+        if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
+        {
+            StopMove();
+            ChangeState(MonsterState.Idle);
+            return;
+        }
 
         Vector2 dir = (target.position - transform.position).normalized;
 

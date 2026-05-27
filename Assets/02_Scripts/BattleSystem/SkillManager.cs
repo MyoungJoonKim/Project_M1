@@ -67,7 +67,7 @@ public class SkillManager : MonoBehaviour
 
         int count = skillData.count[currentLevel - 1];
 
-        if (skillData.skillType == SkillType.TargetExplosion) // iceExplosion 스킬만 따로 처리
+        if (skillData.skillType == SkillType.TargetExplosion)
         {
             for (int i = 0; i < count; i++)
             {
@@ -81,6 +81,8 @@ public class SkillManager : MonoBehaviour
                 GameObject obj = Instantiate(skillData.skillPrefab, spawnPos, Quaternion.identity);
                 SkillObject skill = obj.GetComponent<SkillObject>();
 
+                skillObjects.Add(skill);
+
                 skill.SetUp(
                     player,
                     i,
@@ -93,6 +95,7 @@ public class SkillManager : MonoBehaviour
                     skillData.skillType
                 );
             }
+
             return;
         }
 
@@ -194,9 +197,23 @@ public class SkillManager : MonoBehaviour
 
         skillObjects.Clear();
     }
-    public void DestroySkillObjects()
+
+    
+    public void StopAllSkills()
     {
-        this.skillObjects.Clear();
+        if (skillLoop != null)
+        {
+            StopCoroutine(skillLoop);
+            skillLoop = null;
+        }
+
+        for (int i = 0; i < skillObjects.Count; i++)
+        {
+            if (skillObjects[i] == null)
+                continue;
+
+            skillObjects[i].StopSkill();
+        }
     }
 
     public Monster GetRandomMonster()
