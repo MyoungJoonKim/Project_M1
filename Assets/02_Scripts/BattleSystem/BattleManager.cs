@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 public class BattleManager : MonoBehaviour
 {
@@ -8,25 +9,28 @@ public class BattleManager : MonoBehaviour
     public Player player;
 
     private Coroutine gameTimeCoroutine;
+
     public float GameTime {  get; private set; }
+    public int killRecord;
     public bool isBattlePlaying;
+
 
 
     private void Awake()
     {
-        if (Shared.battleManager != null && Shared.battleManager != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Shared.battleManager = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
+        Time.timeScale = 1f;
         StartBattle();
+    }
+
+    private void OnDestroy()
+    {
+        if (Shared.battleManager == this)
+            Shared.battleManager = null;
     }
 
     // ∏ÛΩ∫≈Õ ≈∏∞Ÿ √ﬂ¿˚ ∏ÿ√„.
@@ -36,7 +40,10 @@ public class BattleManager : MonoBehaviour
 
         BattleUI battleUI = FindObjectOfType<BattleUI>();
         if (battleUI != null)
+        {
             battleUI.StopBattleUI();
+            StartCoroutine(battleUI.GameOverUI());
+        }
 
         if (Shared.spawnManager != null)
         {
@@ -59,6 +66,7 @@ public class BattleManager : MonoBehaviour
     }
     public void StartBattle()
     {
+        killRecord = 0;
         GameTime = 0f;
         isBattlePlaying = true;
 
@@ -77,5 +85,15 @@ public class BattleManager : MonoBehaviour
             StopCoroutine(gameTimeCoroutine);
             gameTimeCoroutine = null;
         }
+    }
+
+    public int GetRewardUserExp()
+    {
+        int rewardExp = 0;
+
+        rewardExp += Mathf.FloorToInt(GameTime);
+        rewardExp += killRecord * 2;
+
+        return rewardExp;
     }
 }

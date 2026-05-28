@@ -14,17 +14,29 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text roundText;
+    [SerializeField] private TMP_Text survivalTimeText;
+    [SerializeField] private TMP_Text killRecordText;
+
+    [Header("UI Panel")]
+    [SerializeField] private GameObject gameOverUI;
+
+    [Header("UserExp Slider")]
+    [SerializeField] private Slider userExp;
 
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
     private Coroutine roundTextCoroutine;
-    
+
+    public string TimeText => timeText.text;
+
 
     private void Start()
     {
+        gameOverUI.SetActive(false);
         FindPlayer();
         StartBattleUI();
     }
+
     private IEnumerator UpdateLevelUI()
     {
         while (true)
@@ -133,6 +145,15 @@ public class BattleUI : MonoBehaviour
             StopCoroutine(roundTextCoroutine);
             roundTextCoroutine = null;
         }
+    }
+
+    public IEnumerator GameOverUI()
+    {
+        yield return new WaitForSeconds(3f);
+        gameOverUI.SetActive(true);
+        killRecordText.text = $"{Shared.battleManager.killRecord}";
+        survivalTimeText.text = timeText.text;
+
     }
 
     private void FindPlayer()

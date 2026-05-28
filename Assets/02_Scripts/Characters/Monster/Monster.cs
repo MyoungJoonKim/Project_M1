@@ -186,5 +186,6 @@ public class Monster : Character
     public void ReleaseMonster()
     {
         this.monsterPool.Release(this);
+        Shared.battleManager.killRecord++;
     }
 }

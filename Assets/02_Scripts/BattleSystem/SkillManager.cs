@@ -17,8 +17,13 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.skillManager == null) 
-            Shared.skillManager = this;
+        Shared.skillManager = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Shared.skillManager == this)
+            Shared.skillManager = null;
     }
 
     public void Init(SkillData data, Transform _player)

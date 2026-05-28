@@ -8,14 +8,13 @@ public class DamageTextManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.damageTextManager != null && Shared.damageTextManager != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Shared.damageTextManager = this;
-        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (Shared.damageTextManager == this)
+            Shared.damageTextManager = null;
     }
 
     public void ShowDamage(float damage, Vector3 position)

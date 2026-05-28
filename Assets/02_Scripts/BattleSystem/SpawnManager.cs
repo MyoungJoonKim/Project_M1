@@ -42,13 +42,18 @@ public class SpawnManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.spawnManager == null)
-            Shared.spawnManager = this;
+        Shared.spawnManager = this;
     }
     private void Start()
     {
         CreatePool();
         roundCoroutine = StartCoroutine(RoundRoutine());
+    }
+
+    private void OnDestroy()
+    {
+        if (Shared.spawnManager == this)
+            Shared.spawnManager = null;
     }
 
     private void CreatePool()

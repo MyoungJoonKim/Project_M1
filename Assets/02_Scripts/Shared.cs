@@ -14,6 +14,8 @@ public class Shared : MonoBehaviour
 
     public static SpawnManager spawnManager;
 
+    public static UserManager userManager;
+
     public static DamageTextManager damageTextManager;
 
     public static DamageText damageText;

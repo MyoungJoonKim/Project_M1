@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class SceneBattle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnButtonExit()
     {
+        Time.timeScale = 1f;
         
-    }
+        int rewardExp = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Shared.battleManager != null)
+            rewardExp = Shared.battleManager.GetRewardUserExp();
+
+        if (Shared.userManager != null)
+            Shared.userManager.AddUserExp(rewardExp);
+
+        Shared.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
     }
 }

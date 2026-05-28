@@ -12,11 +12,13 @@ public class DamageText : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.damageText == null)
-        {
-            Shared.damageText = this;
-            DontDestroyOnLoad(this);
-        }
+        Shared.damageText = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Shared.damageText == this)
+            Shared.damageText = null;
     }
 
     public void SetUp(float damage)

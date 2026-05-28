@@ -10,11 +10,15 @@ public class ExpDropManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.expDropManager == null)
-        {
-            Shared.expDropManager = this;
-        }
+        Shared.expDropManager = this;
     }
+
+    private void OnDestroy()
+    {
+        if (Shared.expDropManager == this)
+            Shared.expDropManager = null;
+    }
+
 
     public void SpawnExpGem(Vector3 position, float expAmount)
     {
