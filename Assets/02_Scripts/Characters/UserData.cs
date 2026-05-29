@@ -7,7 +7,12 @@ public class UserData
     public float userExp = 0f;
     public float userMaxExp = 100f;
 
-    public int glod = 0;
+    public int gold = 0;
+
+    public void AddGold(int amount)
+    {
+        gold += amount;
+    }
 
     public void AddUserExp(float amount)
     {

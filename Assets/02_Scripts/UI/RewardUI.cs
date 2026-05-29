@@ -10,20 +10,36 @@ public class RewardUI : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
 
     [Header("UserExp Slider")]
-    [SerializeField] private Slider userExp;
+    [SerializeField] private Slider userExpSlider;
 
-    [Header("Texts")]
+    [Header("Result Texts")]
     [SerializeField] private TMP_Text survivalTimeText;
     [SerializeField] private TMP_Text killRecordText;
 
-    private BattleUI battleUI;
+    [Header("Reward Texts")]
+    [SerializeField] private TMP_Text addGoldText;
+    [SerializeField] private TMP_Text addExpText;
+
+    [Header("User Texts")]
+    [SerializeField] private TMP_Text userLevelText;
+    [SerializeField] private TMP_Text userExpText;
+
+
+    private int rewardGold;
+    private int rewardExp;
+    private bool rewardApplied;
+    private Coroutine rewardCoroutine;
+
+
     private void Start()
     {
-        gameOverUI.SetActive(false);
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
     }
 
     public IEnumerator GameOverUI()
     {
+        BattleUI battleUI = FindAnyObjectByType<BattleUI>();
         yield return new WaitForSeconds(3f);
         gameOverUI.SetActive(true);
         killRecordText.text = $"{Shared.battleManager.killRecord}";

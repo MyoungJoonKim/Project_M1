@@ -23,6 +23,11 @@ public class UserManager : MonoBehaviour
             Shared.userManager = null;
     }
 
+    public void AddGold(int amount)
+    {
+        userData.AddGold(amount);
+    }
+
     public void AddUserExp(float amount)
     {
         userData.AddUserExp(amount);
@@ -41,5 +46,10 @@ public class UserManager : MonoBehaviour
     public float GetUserMaxExp()
     {
         return userData.userMaxExp;
+    }
+
+    public int GetGold()
+    {
+        return userData.gold;
     }
 }

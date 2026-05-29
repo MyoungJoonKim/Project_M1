@@ -39,10 +39,11 @@ public class BattleManager : MonoBehaviour
         StopBattle();
 
         BattleUI battleUI = FindObjectOfType<BattleUI>();
+        RewardUI rewardUI = FindObjectOfType<RewardUI>();
         if (battleUI != null)
         {
             battleUI.StopBattleUI();
-            StartCoroutine(battleUI.GameOverUI());
+            StartCoroutine(rewardUI.GameOverUI());
         }
 
         if (Shared.spawnManager != null)
@@ -87,12 +88,16 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public int GetRewardGold()
+    {
+        return killRecord * 10;
+    }
+
     public int GetRewardUserExp()
     {
         int rewardExp = 0;
 
-        rewardExp += Mathf.FloorToInt(GameTime);
-        rewardExp += killRecord * 2;
+        rewardExp += killRecord * 5;
 
         return rewardExp;
     }
