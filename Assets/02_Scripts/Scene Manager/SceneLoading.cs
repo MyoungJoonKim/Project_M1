@@ -16,7 +16,7 @@ public class SceneLoading : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(LoadingBarUpdate(loadingBar,5f));
+        StartCoroutine(LoadingBarUpdate(loadingBar,3f));
         //StartCoroutine(BackgroundUpdate(5f));
     }
 

@@ -59,6 +59,9 @@ public class SkillObject : MonoBehaviour
 
     private void Update()
     {
+        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            return;
+
         UpdateSkillType();
     }
 
@@ -92,6 +95,9 @@ public class SkillObject : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
+        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            return;
+
         if (!canAttack) 
             return;
 
@@ -193,13 +199,16 @@ public class SkillObject : MonoBehaviour
     public void StopSkill()
     {
         canAttack = false;
+        isTrigger = false;
+        lastHitTimes.Clear();
 
         if (collider2D != null)
             collider2D.enabled = false;
 
-        SetEffectActive(false);
+        if (effectObject != null)
+            effectObject.SetActive(false);
 
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
 }

@@ -206,19 +206,18 @@ public class SkillManager : MonoBehaviour
     
     public void StopAllSkills()
     {
-        if (skillLoop != null)
-        {
-            StopCoroutine(skillLoop);
-            skillLoop = null;
-        }
+        StopAllCoroutines();
+        skillLoop = null;
 
-        for (int i = 0; i < skillObjects.Count; i++)
+        for (int i = skillObjects.Count - 1; i >= 0; i--)
         {
             if (skillObjects[i] == null)
                 continue;
 
             skillObjects[i].StopSkill();
         }
+
+        skillObjects.Clear();
     }
 
     public Monster GetRandomMonster()

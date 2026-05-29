@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: Skill Data_Electric Ball
   m_EditorClassIdentifier: 
-  skillName: electric ball
+  skillName: Electric Ball
   skillInfo: "\uD68C\uC804\uD558\uB294 \uC804\uAE30 \uAD6C\uCCB4 1\uAC1C \uC18C\uD658"
   skillType: 0
   skillPrefab: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991,

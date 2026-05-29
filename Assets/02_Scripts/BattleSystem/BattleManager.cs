@@ -39,12 +39,13 @@ public class BattleManager : MonoBehaviour
         StopBattle();
 
         BattleUI battleUI = FindObjectOfType<BattleUI>();
-        RewardUI rewardUI = FindObjectOfType<RewardUI>();
+        RewardUI rewardUI = FindObjectOfType<RewardUI>(true);
+
         if (battleUI != null)
-        {
             battleUI.StopBattleUI();
+
+        if (rewardUI != null)
             StartCoroutine(rewardUI.GameOverUI());
-        }
 
         if (Shared.spawnManager != null)
         {
@@ -97,7 +98,7 @@ public class BattleManager : MonoBehaviour
     {
         int rewardExp = 0;
 
-        rewardExp += killRecord * 5;
+        rewardExp += killRecord * 2;
 
         return rewardExp;
     }
