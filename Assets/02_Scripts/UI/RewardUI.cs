@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +14,7 @@ public class RewardUI : MonoBehaviour
     [SerializeField] private Slider userExpSlider;
 
     [Header("Result Texts")]
+    [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text survivalTimeText;
     [SerializeField] private TMP_Text killRecordText;
 
@@ -59,6 +62,11 @@ public class RewardUI : MonoBehaviour
         rewardExp = Shared.battleManager.GetRewardUserExp();
 
         BattleUI battleUI = FindAnyObjectByType<BattleUI>();
+
+        if (titleText != null && Shared.battleManager.player.isDead)
+            titleText.text = "사망\n\n생존시간";
+        else if (titleText != null && !Shared.battleManager.player.isDead)
+            titleText.text = "승리\n\n생존시간";
 
         if (survivalTimeText != null && battleUI != null)
             survivalTimeText.text = battleUI.TimeText;

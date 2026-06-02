@@ -12,13 +12,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private RoundData[] rounds;
 
     [Header("Wave Settings")]
-    [SerializeField] private float waveSpawnDuration = 5f;
-    [SerializeField] private float nextWaveDelay = 30f;
-    [SerializeField] private float bossSpawnDelay = 40f;
-    [SerializeField] private float nextRoundDelay = 60f;
+    [SerializeField] private float waveSpawnDuration = 6f;
+    [SerializeField] private float nextWaveDelay = 10f;
+    [SerializeField] private float bossSpawnDelay = 20f;
+    [SerializeField] private float nextRoundDelay = 30f;
 
     [SerializeField] private float spawnInterval = 1f;
-    [SerializeField] private int spawnCountPerTick = 5;
+    [SerializeField] private int spawnCountPerTick = 6;
 
     [Header("Map Spawn Range")]
     [SerializeField] private float mapMinX;
@@ -28,8 +28,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float safeRadius = 5f;
 
     [Header("Pool")]
-    [SerializeField] private int poolSize = 10;
-    [SerializeField] private int maxPoolSize = 50;
+    [SerializeField] private int poolSize = 5;
+    [SerializeField] private int maxPoolSize = 30;
 
     private int currentRoundIndex;
     private int currentWaveIndex;

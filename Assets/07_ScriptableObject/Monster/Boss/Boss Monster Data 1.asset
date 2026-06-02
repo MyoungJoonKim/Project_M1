@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: B1
   monsterName: Boss Monster1
+  monsterType: 0
   prefab: {fileID: -3785755386977073061, guid: faba7cc91943b0a4896facd157e478ca, type: 3}
   maxHp: 1000
   atk: 80
@@ -21,4 +22,4 @@ MonoBehaviour:
   moveSpeed: 4
   attackRange: 5
   attackCooldown: 2
-  rewardExp: 100
+  rewardExp: 200

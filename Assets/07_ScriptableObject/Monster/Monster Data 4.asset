@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: N4
   monsterName: Monster4
+  monsterType: 0
   prefab: {fileID: -7423486525358889034, guid: 8380884e642db8443af87c7857bf7829, type: 3}
-  maxHp: 175
+  maxHp: 250
   atk: 25
   def: 25
   moveSpeed: 5
   attackRange: 5
   attackCooldown: 1.5
-  rewardExp: 25
+  rewardExp: 40

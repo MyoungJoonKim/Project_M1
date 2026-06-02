@@ -12,7 +12,7 @@ public class Player : Character
     [SerializeField] private float startMoveSpeed = 10f;
     [SerializeField] private float startLevel = 1f;
     [SerializeField] private float startExp = 0f;
-    [SerializeField] private float startMaxExp = 20f;
+    [SerializeField] private float startMaxExp = 100f;
 
     [Header("Player prefab")]
     [SerializeField] private GameObject grave;
@@ -87,7 +87,7 @@ public class Player : Character
         AddMaxStat(MaxStatType.MaxHp, 50f);
         this.Heal(50f);
 
-        float newMaxExp = GetMaxStat(MaxStatType.MaxExp) + 50f;
+        float newMaxExp = GetMaxStat(MaxStatType.MaxExp) * 1.5f;
         SetMaxStat(MaxStatType.MaxExp, newMaxExp);
 
         Debug.Log("플레이어 현재 레벨" + GetStat(StatType.Level));
