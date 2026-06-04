@@ -4,21 +4,41 @@ using UnityEngine;
 
 public class ExpGem : MonoBehaviour
 {
-    [SerializeField] private float expAmount = 1f;
-
-    public void Init(float amount)
+    private ExpDropManager manager;
+    private int poolIndex;
+    private float expAmount;
+    public void SetManager(ExpDropManager manager)
     {
-        expAmount = amount;
+        this.manager = manager;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void SetPoolIndex(int index)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
+        poolIndex = index;
+    }
+
+    public int GetPoolIndex()
+    {
+        return poolIndex;
+    }
+
+    public void Init(float expAmount)
+    {
+        this.expAmount = expAmount;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Player player = collision.GetComponent<Player>();
 
         if (player == null)
             return;
 
         player.AddExp(expAmount);
-        gameObject.SetActive(false);
+
+        if (manager != null)
+            manager.Release(this);
+        else
+            gameObject.SetActive(false);
     }
 }

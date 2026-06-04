@@ -55,6 +55,12 @@ public class BattleManager : MonoBehaviour
 
         if (Shared.skillManager != null)
             Shared.skillManager.StopAllSkills();
+
+        if (Shared.expDropManager != null)
+            Shared.expDropManager.ClearAll();
+
+        if (Shared.damageTextManager != null)
+            Shared.damageTextManager.ClearAll();
     }
 
     IEnumerator GameTimeUpdate()
@@ -97,9 +103,7 @@ public class BattleManager : MonoBehaviour
     public int GetRewardUserExp()
     {
         int rewardExp = 0;
-
         rewardExp += killRecord * 2;
-
         return rewardExp;
     }
 }

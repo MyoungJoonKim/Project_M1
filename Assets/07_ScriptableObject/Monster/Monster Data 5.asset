@@ -22,4 +22,4 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 5
   attackCooldown: 1.5
-  rewardExp: 50
+  rewardExp: 90

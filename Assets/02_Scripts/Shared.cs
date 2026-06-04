@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Shared : MonoBehaviour
 {
-    public static BattleManager battleManager;
-
     public static SceneLoadManager sceneLoadManager;
+
+    public static BattleManager battleManager;
 
     public static ExpDropManager expDropManager;
 
@@ -17,8 +17,6 @@ public class Shared : MonoBehaviour
     public static UserManager userManager;
 
     public static DamageTextManager damageTextManager;
-
-    public static DamageText damageText;
 
     public static TextBlink TextBlink;
 

@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class MonsterAi : MonoBehaviour
 {
     private Monster monster;
     private MonsterAttack monsterAttack;
     private MonsterAnimator monsterAnimator;
-
     private Rigidbody2D rb;
 
     public MonsterState currentState = MonsterState.Idle;
 
-    private void Start()
+    private void Awake()
     {
         monster = GetComponent<Monster>();
         monsterAttack = GetComponent<MonsterAttack>();
@@ -31,8 +27,7 @@ public class MonsterAi : MonoBehaviour
 
         if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
         {
-            StopMove();
-            ChangeState(MonsterState.Idle);
+            StopAI();
             return;
         }
 
@@ -41,6 +36,7 @@ public class MonsterAi : MonoBehaviour
             case MonsterState.Move:
                 MoveToTarget();
                 break;
+
             case MonsterState.Idle:
             case MonsterState.Attack:
                 StopMove();
@@ -56,9 +52,32 @@ public class MonsterAi : MonoBehaviour
         StateUpdate();
     }
 
+    public void ResetAI()
+    {
+        StopMove();
+
+        if (monsterAttack != null)
+            monsterAttack.StopAttack();
+
+        currentState = MonsterState.Idle;
+    }
+
+    public void StopAI()
+    {
+        if (monster != null)
+            monster.SetTarget(null);
+
+        StopMove();
+
+        if (monsterAttack != null)
+            monsterAttack.StopAttack();
+
+        currentState = MonsterState.Idle;
+    }
+
     public void ChangeState(MonsterState newState)
     {
-        if (currentState == newState) 
+        if (currentState == newState)
             return;
 
         currentState = newState;
@@ -69,13 +88,7 @@ public class MonsterAi : MonoBehaviour
     {
         if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
         {
-            monster.SetTarget(null);
-            StopMove();
-
-            if (monsterAttack != null)
-                monsterAttack.StopAttack();
-
-            ChangeState(MonsterState.Idle);
+            StopAI();
             return;
         }
 
@@ -83,8 +96,7 @@ public class MonsterAi : MonoBehaviour
 
         if (target == null)
         {
-            StopMove();
-            ChangeState(MonsterState.Idle);
+            StopAI();
             return;
         }
 
@@ -92,17 +104,12 @@ public class MonsterAi : MonoBehaviour
 
         if (player != null && player.isDead)
         {
-            monster.SetTarget(null);
-            StopMove();
-
-            if (monsterAttack != null)
-                monsterAttack.StopAttack();
-
-            ChangeState(MonsterState.Idle);
+            StopAI();
             return;
         }
 
         MonsterData data = monster.GetMonsterData();
+
         if (data == null)
             return;
 
@@ -111,8 +118,10 @@ public class MonsterAi : MonoBehaviour
         switch (currentState)
         {
             case MonsterState.Idle:
-                if (distance > data.attackRange) 
+                if (distance > data.attackRange)
                     ChangeState(MonsterState.Move);
+                else
+                    ChangeState(MonsterState.Attack);
                 break;
 
             case MonsterState.Move:
@@ -149,34 +158,34 @@ public class MonsterAi : MonoBehaviour
                 break;
 
             case MonsterState.Attack:
+                StopMove();
+
                 if (monsterAttack != null)
                     monsterAttack.TryAttack();
                 break;
 
             case MonsterState.Dead:
-                StopMove();
-                if (monsterAttack != null)
-                    monsterAttack.StopAttack();
+                StopAI();
 
                 if (monsterAnimator != null)
                     monsterAnimator.Dead();
                 break;
         }
     }
+
     private void MoveToTarget()
     {
         Transform target = monster.GetTarget();
+
         if (target == null)
         {
-            StopMove();
-            ChangeState(MonsterState.Idle);
+            StopAI();
             return;
         }
 
         if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
         {
-            StopMove();
-            ChangeState(MonsterState.Idle);
+            StopAI();
             return;
         }
 
@@ -195,10 +204,12 @@ public class MonsterAi : MonoBehaviour
     private void StopMove()
     {
         if (rb != null)
+        {
             rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
 
         if (monsterAnimator != null)
             monsterAnimator.SetMove(false);
     }
-    
 }

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
-
 
 public enum MonsterState
 {
@@ -17,7 +14,6 @@ public enum MonsterState
     Knockback,
 }
 
-
 public class Monster : Character
 {
     [Header("Monster Data")]
@@ -27,23 +23,26 @@ public class Monster : Character
     [SerializeField] private float rewardExp = 10f;
 
     public Transform target;
+
     private Player player;
     private MonsterAi monsterAi;
     private MonsterAnimator monsterAnimator;
-
+    private MonsterAttack monsterAttack;
+    private Rigidbody2D rb;
 
     private IObjectPool<Monster> monsterPool;
 
     private void Awake()
     {
-        monsterAi = gameObject.GetComponent<MonsterAi>();
-        monsterAnimator = gameObject.GetComponent<MonsterAnimator>();
+        monsterAi = GetComponent<MonsterAi>();
+        monsterAnimator = GetComponent<MonsterAnimator>();
+        monsterAttack = GetComponent<MonsterAttack>();
+        rb = GetComponent<Rigidbody2D>();
 
-        if (monsterData != null )
-        {
+        if (monsterData != null)
             ApplyMonsterData(monsterData);
-        }
     }
+
     private void Update()
     {
         if (isDead && !deadHandled)
@@ -56,73 +55,18 @@ public class Monster : Character
     private void OnEnable()
     {
         if (Shared.spawnManager != null)
-        {
             Shared.spawnManager.RegisterMonster(this);
-        }
     }
 
     private void OnDisable()
     {
         if (Shared.spawnManager != null)
-        {
             Shared.spawnManager.UnRegisterMonster(this);
-        }
     }
 
     public void SetPlayer(Player player)
     {
         this.player = player;
-    }
-
-    public void ResetMonster()
-    {
-        isDead = false;
-        deadHandled = false;
-
-        float maxHp = GetMaxStat(MaxStatType.MaxHp);
-        SetStat(StatType.Hp, maxHp);
-
-        if (monsterAi != null)
-            monsterAi.ChangeState(MonsterState.Idle);
-    }
-
-    // 몬스터 사망 함수
-    public void OnDead()
-    {
-        Debug.Log("몬스터 처치");
-
-        if (player != null)
-            Shared.expDropManager.SpawnExpGem(transform.position, GetRewardExp());
-        
-        ReleaseMonster();
-    }
-    public void OnHit()
-    {
-        if (monsterAnimator != null)
-            monsterAnimator.Hit();
-    }
-
-    public void StopMonster()
-    {
-        SetTarget(null);
-
-        MonsterAi ai = GetComponent<MonsterAi>();
-        if (ai != null)
-            ai.ChangeState(MonsterState.Idle);
-
-        MonsterAttack attack = GetComponent<MonsterAttack>();
-        if (attack != null)
-            attack.StopAttack();
-
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
-
-        if (monsterAnimator != null)
-            monsterAnimator.SetMove(false);
     }
 
     public void SetMonsterData(MonsterData data)
@@ -155,7 +99,70 @@ public class Monster : Character
             1f,
             0f,
             0f
-            );
+        );
+    }
+
+    public void ResetMonster()
+    {
+        isDead = false;
+        deadHandled = false;
+
+        float maxHp = GetMaxStat(MaxStatType.MaxHp);
+        SetStat(StatType.Hp, maxHp);
+
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        if (monsterAttack != null)
+            monsterAttack.StopAttack();
+
+        if (monsterAnimator != null)
+            monsterAnimator.SetMove(false);
+
+        if (monsterAi != null)
+            monsterAi.ResetAI();
+    }
+
+    public void OnDead()
+    {
+        Debug.Log("몬스터 처치");
+
+        if (monsterAi != null)
+            monsterAi.StopAI();
+
+        if (player != null && Shared.expDropManager != null)
+            Shared.expDropManager.SpawnExpGem(transform.position, GetRewardExp());
+
+        ReleaseMonster(true);
+    }
+
+    public void OnHit()
+    {
+        if (monsterAnimator != null)
+            monsterAnimator.Hit();
+    }
+
+    public void StopMonster()
+    {
+        SetTarget(null);
+
+        if (monsterAi != null)
+            monsterAi.StopAI();
+
+        if (monsterAttack != null)
+            monsterAttack.StopAttack();
+
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        if (monsterAnimator != null)
+            monsterAnimator.SetMove(false);
     }
 
     public void SetTarget(Transform target)
@@ -170,7 +177,7 @@ public class Monster : Character
 
     public void SetRewardExp(float exp)
     {
-        this.rewardExp = exp;
+        rewardExp = exp;
     }
 
     public float GetRewardExp()
@@ -180,12 +187,19 @@ public class Monster : Character
 
     public void SetManagedPool(IObjectPool<Monster> pool)
     {
-        this.monsterPool = pool;
+        monsterPool = pool;
     }
 
-    public void ReleaseMonster()
+    public void ReleaseMonster(bool addKillCount = true)
     {
-        this.monsterPool.Release(this);
-        Shared.battleManager.killRecord++;
+        StopMonster();
+
+        if (addKillCount && Shared.battleManager != null)
+            Shared.battleManager.killRecord++;
+
+        if (monsterPool != null)
+            monsterPool.Release(this);
+        else
+            gameObject.SetActive(false);
     }
 }

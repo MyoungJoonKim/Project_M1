@@ -9,39 +9,48 @@ public class DamageText : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float lifeTime = 1f;
 
+    private DamageTextManager manager;
+    private Coroutine effectCoroutine;
 
-    private void Awake()
+    public void SetManager(DamageTextManager manager)
     {
-        Shared.damageText = this;
+        this.manager = manager;
     }
 
-    private void OnDestroy()
-    {
-        if (Shared.damageText == this)
-            Shared.damageText = null;
-    }
 
     public void SetUp(float damage)
     {
-        textMeshPro.text = damage.ToString();
+        if (textMeshPro != null)
+            textMeshPro.text = damage.ToString();
 
-        StartCoroutine(TextEffect());
+        StopEffect();
+        effectCoroutine = StartCoroutine(TextEffect());
     }
 
     IEnumerator TextEffect()
     {
         float timer = lifeTime;
 
-        while (timer > 0)
+        while (timer > 0f)
         {
             transform.position += Vector3.up * moveSpeed * Time.deltaTime;
-
             timer -= Time.deltaTime;
-            float time = 1f - (timer /  lifeTime);
-
             yield return null;
         }
 
-        gameObject.SetActive(false);
+        effectCoroutine = null;
+
+        if (manager != null)
+            manager.Release(this);
+        else
+            gameObject.SetActive(false);
+    }
+    public void StopEffect()
+    {
+        if (effectCoroutine != null)
+        {
+            StopCoroutine(effectCoroutine);
+            effectCoroutine = null;
+        }
     }
 }
