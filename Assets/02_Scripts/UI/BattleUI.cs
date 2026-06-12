@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.ComponentModel;
 
 public class BattleUI : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text roundText;
+
+    [Header("UIs")]
+    [SerializeField] private GameObject optionUI;
+
 
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
@@ -151,5 +156,11 @@ public class BattleUI : MonoBehaviour
         }
 
         player = FindObjectOfType<Player>();
+    }
+
+    public void OnClickPauseButton()
+    {
+        Time.timeScale = 0f;
+        optionUI.gameObject.SetActive(true);
     }
 }
