@@ -14,13 +14,14 @@ public class SkillSlotUI : MonoBehaviour
     [SerializeField] private TMP_Text skillInfoText;
     [SerializeField] private Button button;
 
-    private SkillData skillData;
     private SkillSelectUI skillSelectUI;
+    private SkillData skillData;
+    public SkillData SkillData => skillData;
 
-    public void SetSlot(SkillData data, SkillSelectUI uI)
+    public void SetSlot(SkillData data, SkillSelectUI ui)
     {
         skillData = data;
-        skillSelectUI = uI;
+        skillSelectUI = ui;
 
         if (icon != null)
             icon.sprite = skillData.icon;
@@ -37,6 +38,7 @@ public class SkillSlotUI : MonoBehaviour
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(OnClickSlot);
     }
+
 
     // 스킬 현재 레벨 표시 함수
     private void UpdateStars(int level)
