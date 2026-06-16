@@ -17,7 +17,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private TMP_Text roundText;
 
     [Header("UIs")]
-    [SerializeField] private GameObject optionUI;
+    [SerializeField] private PauseUI pauseUI;
 
 
     private Coroutine levelTextCoroutine;
@@ -160,7 +160,7 @@ public class BattleUI : MonoBehaviour
 
     public void OnClickPauseButton()
     {
-        Time.timeScale = 0f;
-        optionUI.gameObject.SetActive(true);
+        if (pauseUI != null)
+            pauseUI.Open();
     }
 }

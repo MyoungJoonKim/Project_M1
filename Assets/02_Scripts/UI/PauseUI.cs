@@ -11,12 +11,11 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private GameObject optionUI;
 
     [Header("Image Sprites")]
-
     [SerializeField] private Image soundIcon;
     [SerializeField] private Sprite soundOn; 
     [SerializeField] private Sprite soundOff;
 
-
+    [Header("Skill List UI")]
     [SerializeField] private SkillSlotUI[] slots;
     [SerializeField] private Transform skillRoot;
 
@@ -27,34 +26,74 @@ public class PauseUI : MonoBehaviour
     private void Start()
     {
         activeSound = true;
+
         if (soundIcon.sprite == null)
             soundIcon.sprite = soundOn;
+
+        if (optionUI != null)
+            optionUI.SetActive(false);
+
+        ClearAllSlots();
+    }
+
+    public void Open()
+    {
+        if (optionUI != null)
+            optionUI.SetActive(true);
+
+        Time.timeScale = 0f;
 
         if (skillListUICoroutine != null)
             StopCoroutine(skillListUICoroutine);
 
         skillListUICoroutine = StartCoroutine(SkillListUIUpdate());
-
     }
+
     private IEnumerator SkillListUIUpdate()
     {
+        if (skillRoot == null)
+        {
+            ClearAllSlots();
+            skillListUICoroutine = null;
+            yield break;
+        }
         SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>();
 
         for (int i = 0; i < slots.Length; i++)
         {
+            if (slots[i] == null)
+                continue;
+
             if (i < managers.Length)
             {
-                slots[i].SetSlot(managers[i].Data, null);
+                SkillManager manager = managers[i];
+
+                if (manager != null && manager.Data != null)
+                {
+                    slots[i].SetSlot(manager.Data, manager.CurrentLevel);
+                }
+                else
+                    slots[i].ClearSlot();
             }
             else
-                slots[i].gameObject.SetActive(false);
-        }
-        yield return null;
+                slots[i].ClearSlot();
 
+            yield return null;
+        }
         skillListUICoroutine = null;
     }
 
+    private void ClearAllSlots()
+    {
+        if (slots == null)
+            return;
 
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] != null)
+                slots[i].ClearSlot();
+        }
+    }
     public void OnClickPlayButton()
     {
         if (skillListUICoroutine != null)

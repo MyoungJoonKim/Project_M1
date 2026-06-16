@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SkillSelectUI : MonoBehaviour
 {
@@ -50,7 +51,7 @@ public class SkillSelectUI : MonoBehaviour
             if (i < randomSkills.Count)
             {
                 slots[i].gameObject.SetActive(true);
-                slots[i].SetSlot(randomSkills[i], this);
+                SetSkillSlot(i, randomSkills[i]);
             }
             else
                 slots[i].gameObject.SetActive(false);
@@ -76,6 +77,21 @@ public class SkillSelectUI : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+
+    private void SetSkillSlot(int index, SkillData data)
+    {
+        int level = GetSkillLevel(data);
+
+        slots[index].SetSlot(data, level);
+
+        Button button = slots[index].GetComponent<Button>();
+
+        if (button != null)
+        {
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => SelectSkill(data));
+        }
+    }
     public void SelectSkill(SkillData skill)
     {
         if (!isSelectUI)

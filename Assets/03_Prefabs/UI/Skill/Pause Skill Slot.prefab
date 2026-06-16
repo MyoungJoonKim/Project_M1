@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b251f2015720443a00dcf26cd7e803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 8434640564283663815}
   stars:
   - {fileID: 5594388765893732024}
   - {fileID: 3880859996073725803}
