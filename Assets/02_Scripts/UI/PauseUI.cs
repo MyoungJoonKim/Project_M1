@@ -9,6 +9,7 @@ public class PauseUI : MonoBehaviour
 {
     [Header("UI Panel")]
     [SerializeField] private GameObject optionUI;
+    [SerializeField] private GameObject giveUpConfirmUI;
 
     [Header("Image Sprites")]
     [SerializeField] private Image soundIcon;
@@ -33,6 +34,9 @@ public class PauseUI : MonoBehaviour
         if (optionUI != null)
             optionUI.SetActive(false);
 
+        if (giveUpConfirmUI != null)
+            giveUpConfirmUI.SetActive(false);
+
         ClearAllSlots();
     }
 
@@ -40,6 +44,9 @@ public class PauseUI : MonoBehaviour
     {
         if (optionUI != null)
             optionUI.SetActive(true);
+
+        if (giveUpConfirmUI != null)
+            giveUpConfirmUI.SetActive(false);
 
         Time.timeScale = 0f;
 
@@ -106,6 +113,12 @@ public class PauseUI : MonoBehaviour
         Time.timeScale = 1f;
     }
     public void OnClickLobbyButton()
+    {
+        if (giveUpConfirmUI != null)
+            giveUpConfirmUI.SetActive(true);
+    }
+
+    public void OnClickGiveUpButton()
     {
         Time.timeScale = 1f;
 
