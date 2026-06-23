@@ -16,6 +16,8 @@ public class Shared : MonoBehaviour
 
     public static UserManager userManager;
 
+    public static LobbyMenuManager lobbyMenuManager;
+
     public static DamageTextManager damageTextManager;
 
     public static TextBlink TextBlink;
