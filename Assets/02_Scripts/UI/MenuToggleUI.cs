@@ -14,54 +14,91 @@ public class MenuToggleUI : MonoBehaviour
     [Header("Menu Lock Off")]
     [SerializeField] private int lockOffLevel;
 
-    private Coroutine ToggleCoroutine;
+    [Header("Icon Scale")]
+    [SerializeField] private float normalScale = 1f;
+    [SerializeField] private float selectScale = 1.8f;
+    [SerializeField] private float scaleSpeed = 5f;
+    [SerializeField] private Vector3 selectPosition = new Vector3(0f, 0f, 0f);
+
+    private Coroutine lockCheckCoroutine;
+    private Coroutine iconScaleCoroutine;
+
+    private Vector3 normalPosition;
+    private bool isUnlock;
 
     private void Start()
     {
-        lockIcon.SetActive(true);
-        MenuIcon.SetActive(false);
-        text.gameObject.SetActive(false);
+        normalPosition = Vector3.zero;
+        SetLockMenu();
 
-        if (ToggleCoroutine != null)
-            StopCoroutine(ToggleCoroutine);
+        lockCheckCoroutine = StartCoroutine(MenuLockUpdate());
+        iconScaleCoroutine = StartCoroutine(MenuIconScaleUpdate());
+    }
 
-        ToggleCoroutine = StartCoroutine(MenuLockUpdate());
+    private void SetLockMenu()
+    {
+        if (menuToggle != null)
+            menuToggle.interactable = false;
+
+        if (lockIcon != null)
+            lockIcon.SetActive(true);
+
+        if (MenuIcon != null)
+            MenuIcon.SetActive(false);
+
+        if (text != null)
+            text.gameObject.SetActive(false);
+        
+        isUnlock = false;
+    }
+    private void SetUnlockMenu()
+    {
+        if (menuToggle != null)
+            menuToggle.interactable = true;
+
+        if (lockIcon != null)
+            lockIcon.SetActive(false);
+
+        if (MenuIcon != null)
+            MenuIcon.SetActive(true);
+
+        if (text != null)
+            text.gameObject.SetActive(true);
+
+        isUnlock = true;
     }
 
     IEnumerator MenuLockUpdate()
     {
-        if (lockIcon.activeSelf)
-        {
-            menuToggle.interactable = false;
-        }
-
-        while (!menuToggle.interactable)
+        while (!isUnlock)
         {
             if (Shared.userManager.GetUserLevel() >= lockOffLevel)
             {
-                lockIcon.SetActive(false);
-                MenuIcon.SetActive(true);
-                menuToggle.interactable = true;
-                text.gameObject.SetActive(true);
+                SetUnlockMenu();
                 break;
             }
             yield return null;
         }
     }
 
-    IEnumerator MenuIconScaleUp() // 사용하도록 수정할것.
+    IEnumerator MenuIconScaleUpdate()
     {
-        if (menuToggle.isOn)
+        while (true)
         {
-            Vector3 offset = new Vector3(0, -30, 0);
-            MenuIcon.transform.localScale *= 1.8f;
-            MenuIcon.transform.localPosition += offset;
+            if (!isUnlock)
+            {
+                yield return null;
+                continue;
+            }
+
+            float scale = menuToggle.isOn ? selectScale : normalScale;
+            Vector3 position = menuToggle.isOn ? selectPosition : normalPosition;
+
+            MenuIcon.transform.localScale = Vector3.Lerp(MenuIcon.transform.localScale, Vector3.one * scale, Time.unscaledDeltaTime * scaleSpeed);
+
+            MenuIcon.transform.localPosition = Vector3.Lerp(MenuIcon.transform.localPosition, position, Time.unscaledDeltaTime * scaleSpeed);
+
+            yield return null;
         }
-        else
-        {
-            MenuIcon.transform.localScale = new Vector3(1, 1, 1);
-            MenuIcon.transform.localPosition = new Vector3(0, 0, 0);
-        }
-        yield return null;
     }
 }

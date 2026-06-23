@@ -240,6 +240,11 @@ PrefabInstance:
       propertyPath: lockOffLevel
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
+        type: 3}
+      propertyPath: selectPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6656622378320124971, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
       propertyPath: m_Name
@@ -1046,6 +1051,11 @@ PrefabInstance:
       propertyPath: lockOffLevel
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
+        type: 3}
+      propertyPath: selectPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6656622378320124971, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
       propertyPath: m_Name
@@ -1345,6 +1355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: lockOffLevel
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
+        type: 3}
+      propertyPath: selectPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656622378320124971, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
@@ -1722,8 +1737,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
+      propertyPath: scaleSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
+        type: 3}
       propertyPath: lockOffLevel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
+        type: 3}
+      propertyPath: selectPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656622378320124971, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
@@ -1919,6 +1944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: lockOffLevel
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
+        type: 3}
+      propertyPath: selectPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656622378320124971, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
