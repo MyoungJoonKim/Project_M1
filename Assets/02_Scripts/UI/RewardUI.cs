@@ -36,7 +36,8 @@ public class RewardUI : MonoBehaviour
 
     private void Start()
     {
-        gameOverUI.SetActive(false);
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
     }
 
     public IEnumerator GameOverUI()

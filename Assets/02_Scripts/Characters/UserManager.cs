@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UserManager : MonoBehaviour
 {
     public UserData userData = new UserData();
 
+    
     private void Awake()
     {
         if (Shared.userManager != null && Shared.userManager != this)
