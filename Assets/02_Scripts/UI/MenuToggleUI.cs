@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private GameObject lockIcon;
     [SerializeField] private TMP_Text text;
 
+    [Header("Panel")]
+    [SerializeField] private GameObject menuPanel;
+
     [Header("Menu Lock Off")]
     [SerializeField] private int lockOffLevel;
 
@@ -19,6 +23,8 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private float selectScale = 1.8f;
     [SerializeField] private float scaleSpeed = 5f;
     [SerializeField] private Vector3 selectPosition = new Vector3(0f, 0f, 0f);
+
+    [SerializeField] private TextFadeOut textFadeOut;
 
     private Coroutine lockCheckCoroutine;
     private Coroutine iconScaleCoroutine;
@@ -39,7 +45,7 @@ public class MenuToggleUI : MonoBehaviour
     {
         if (menuToggle != null)
             menuToggle.interactable = false;
-
+        
         if (lockIcon != null)
             lockIcon.SetActive(true);
 
@@ -48,6 +54,9 @@ public class MenuToggleUI : MonoBehaviour
 
         if (text != null)
             text.gameObject.SetActive(false);
+
+        if (menuPanel != null)
+            menuPanel.SetActive(false);
         
         isUnlock = false;
     }
@@ -65,6 +74,9 @@ public class MenuToggleUI : MonoBehaviour
         if (text != null)
             text.gameObject.SetActive(true);
 
+        if (menuPanel != null)
+            menuPanel.SetActive(true);
+
         isUnlock = true;
     }
 
@@ -79,6 +91,7 @@ public class MenuToggleUI : MonoBehaviour
             }
             yield return null;
         }
+
     }
 
     IEnumerator MenuIconScaleUpdate()
@@ -99,6 +112,15 @@ public class MenuToggleUI : MonoBehaviour
             MenuIcon.transform.localPosition = Vector3.Lerp(MenuIcon.transform.localPosition, position, Time.unscaledDeltaTime * scaleSpeed);
 
             yield return null;
+        }
+    }
+
+    public void OnClickToggleButton()
+    {
+        if (Shared.userManager.GetUserLevel() < lockOffLevel)
+        {
+            textFadeOut.Open();
+            Debug.Log("토글버튼 클릭");
         }
     }
 }

@@ -21,10 +21,10 @@ public class TextBlink : MonoBehaviour
             Shared.TextBlink = this;
 
         TouchTheScreen = GetComponent<TextMeshProUGUI>();
-        StartCoroutine(TextBlinkUpdate());
+        StartCoroutine(TextBlinkEffect());
     }
 
-    IEnumerator TextBlinkUpdate()
+    IEnumerator TextBlinkEffect()
     {
         while (textBlink)
         {
