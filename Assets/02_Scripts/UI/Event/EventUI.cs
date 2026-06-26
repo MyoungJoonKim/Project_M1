@@ -35,9 +35,9 @@ public class EventUI : MonoBehaviour
     {
         if (warningEventUI.activeSelf)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
             warningTextUI.gameObject.SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3.5f);
             warningTextUI.gameObject.SetActive(false);
         }
         warningTextCoroutine = null;
