@@ -74,9 +74,6 @@ public class MenuToggleUI : MonoBehaviour
         if (text != null)
             text.gameObject.SetActive(true);
 
-        if (menuPanel != null)
-            menuPanel.SetActive(true);
-
         isUnlock = true;
     }
 
@@ -110,6 +107,8 @@ public class MenuToggleUI : MonoBehaviour
             MenuIcon.transform.localScale = Vector3.Lerp(MenuIcon.transform.localScale, Vector3.one * scale, Time.unscaledDeltaTime * scaleSpeed);
 
             MenuIcon.transform.localPosition = Vector3.Lerp(MenuIcon.transform.localPosition, position, Time.unscaledDeltaTime * scaleSpeed);
+
+            menuPanel.SetActive(menuToggle.isOn);
 
             yield return null;
         }

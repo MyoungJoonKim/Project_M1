@@ -130,7 +130,7 @@ public class RewardUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.001f);
         }
 
-        ApplyReward();
+        //ApplyReward();
 
         bar.maxValue = Shared.userManager.GetUserMaxExp();
         bar.value = Shared.userManager.GetUserExp();
@@ -173,6 +173,8 @@ public class RewardUI : MonoBehaviour
     public void OnClickEndButton()
     {
         Time.timeScale = 1f;
+
+        ApplyReward();
 
         if (Shared.sceneLoadManager != null)
             Shared.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);

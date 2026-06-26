@@ -39,6 +39,8 @@ public class SpawnManager : MonoBehaviour
     private int spawnIndex;
     private Coroutine roundCoroutine;
 
+    public int CurrentWaveIndex => currentWaveIndex;
+
     private readonly List<Monster> activeMonsters = new();
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
 
