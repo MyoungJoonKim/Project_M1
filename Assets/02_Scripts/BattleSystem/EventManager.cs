@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -9,8 +10,11 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventUI eventUI;
     [SerializeField] private int eventWave = 2;
 
-    [Header("Event Objects")]
-    [SerializeField] private GameObject[] eventPoints;
+    [Header("Event Points")]
+    [SerializeField] private Transform[] eventPositions;
+
+    [Header("Event Pillar Prefabs")]
+    [SerializeField] private GameObject[] pillarProps;
     
 
     [SerializeField] private SpawnManager spawnManager;
@@ -30,6 +34,15 @@ public class EventManager : MonoBehaviour
                 break;
             }
             yield return null;
+        }
+    }
+
+    private void PillarSpawn()
+    {
+        for (int i = 0; i < eventPositions.Length; i++)
+        {
+            
+
         }
     }
 }

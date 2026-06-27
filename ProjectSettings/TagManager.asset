@@ -6,6 +6,7 @@ TagManager:
   tags:
   - damagetext
   - Enemy
+  - Prop
   layers:
   - Default
   - TransparentFX

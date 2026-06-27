@@ -137,6 +137,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5055698509961064898}
+  - component: {fileID: 8271030711010119424}
+  - component: {fileID: 7188295847342651887}
   - component: {fileID: 5055698509961064899}
   - component: {fileID: 5055698509961064900}
   m_Layer: 20
@@ -163,6 +165,37 @@ Transform:
   - {fileID: 5055698510374027887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8271030711010119424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055698509961064897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b15983b362f0ea4cb5419d90758f2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: 
+  isDead: 0
+  propData: {fileID: 0}
+  rigidbody: {fileID: 0}
+--- !u!114 &7188295847342651887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055698509961064897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c7c7952fbb8d4fb4b0680539d2657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runePrillar: {fileID: 0}
+  brokenPillar: {fileID: 0}
+  durationTime: 30
 --- !u!212 &5055698509961064899
 SpriteRenderer:
   m_ObjectHideFlags: 0

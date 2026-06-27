@@ -12,7 +12,7 @@ public enum SkillType
     Projection          // ≈ıªÁ√º
 }
 
-[CreateAssetMenu(menuName ="Game Data/Skill Data")]
+[CreateAssetMenu(fileName = "SkillData", menuName ="Game Data/Skill Data")]
 public class SkillData : ScriptableObject
 {
     [Header("Info")]
