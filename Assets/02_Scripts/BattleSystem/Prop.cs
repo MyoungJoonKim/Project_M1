@@ -38,10 +38,4 @@ public class Prop : Character
             0f
         );
     }
-
-    public void OnBroken()
-    {
-
-    }
-
 }

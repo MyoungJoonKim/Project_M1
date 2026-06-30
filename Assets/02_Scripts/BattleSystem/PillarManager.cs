@@ -1,31 +1,35 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
 public class PillarManager : MonoBehaviour
 {
-    [Header("Pillar Roots")]
-    [SerializeField] private GameObject[] pillarRoot;
-
-    [Header("RunePillar State")]
-    [SerializeField] private bool[] setActiveRune;
+    [Header("Pillars")]
+    [SerializeField] private Pillar[] pillars;
 
 
-    public int PillarCount => pillarRoot.Length;
-    public bool[] SetActiveRune => setActiveRune;
-
-
-    private void SetActiveRandRune()
+    public Pillar SetActiveRandRune()
     {
-        int rand = Random.Range(0, pillarRoot.Length);
+        List<Pillar> list = new List<Pillar>();
 
-        while (setActiveRune[rand])
+        for (int i = 0; i < pillars.Length; i++)
         {
-            rand = Random.Range(0, pillarRoot.Length);
+            if (pillars[i].SetActiveRune)
+            {
+                list.Add(pillars[i]);
+            }
         }
 
-        setActiveRune[rand] = true;
+        if (list.Count == 0)
+            return null;
+
+        int rand = Random.Range(0, list.Count);
+        Pillar selectedPillar = list[rand];
+
+        selectedPillar.ActiveRune();
+
+        return selectedPillar;
     }
 
 

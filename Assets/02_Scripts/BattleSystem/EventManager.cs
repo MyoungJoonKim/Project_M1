@@ -10,15 +10,12 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventUI eventUI;
     [SerializeField] private int eventWave = 2;
 
-    [Header("Event Points")]
-    [SerializeField] private Transform[] eventPositions;
-
-    [Header("Event Pillar Prefabs")]
-    [SerializeField] private GameObject[] pillarProps;
-    
-
+    [Header("Event Managers")]
     [SerializeField] private SpawnManager spawnManager;
-    
+    [SerializeField] private PillarManager pillarManager;
+
+    private bool isEventStart;
+
     private void Start()
     {
         StartCoroutine(WarningEvent());
@@ -26,23 +23,31 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator WarningEvent()
     {
-        while (spawnManager.CurrentWaveIndex <= eventWave)
+        while (!isEventStart)
         {
             if (spawnManager.CurrentWaveIndex == eventWave)
             {
-                eventUI.Open();
-                break;
+                StartPillarEvent();
+                yield break;
             }
             yield return null;
         }
     }
 
-    private void PillarSpawn()
+    private void StartPillarEvent()
     {
-        for (int i = 0; i < eventPositions.Length; i++)
-        {
-            
+        isEventStart = true;
 
+        eventUI.Open();
+
+        Pillar activePillar = pillarManager.SetActiveRandRune();
+
+        if (activePillar == null)
+        {
+            Debug.Log("ÀÌº¥Æ®¿ë ·é±âµÕ ¼ÒÁø");
+            return;
         }
+        Debug.Log("ÀÌº¥Æ®¿ë ·é±âµÕ ·£´ý È°¼ºÈ­");
     }
+
 }
