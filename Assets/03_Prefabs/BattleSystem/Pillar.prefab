@@ -55,6 +55,7 @@ MonoBehaviour:
   basePrillar: {fileID: 2784509313518355361}
   runePrillar: {fileID: 477302145426832602}
   brokenPillar: {fileID: 8544788029502099957}
+  runeSprite: {fileID: 477302145118265273}
   eventManager: {fileID: 0}
 --- !u!114 &836779840141798822
 MonoBehaviour:
@@ -81,12 +82,12 @@ PrefabInstance:
     - target: {fileID: 7947911505737750448, guid: 8728cc48d2747494893fd60426c06f6e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.281
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750448, guid: 8728cc48d2747494893fd60426c06f6e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.924
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750448, guid: 8728cc48d2747494893fd60426c06f6e,
         type: 3}
@@ -166,12 +167,12 @@ PrefabInstance:
     - target: {fileID: 1360264394729772852, guid: 4fad9c4de6b725a43bb1200ed9479c08,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360264394729772852, guid: 4fad9c4de6b725a43bb1200ed9479c08,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.076
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360264394729772852, guid: 4fad9c4de6b725a43bb1200ed9479c08,
         type: 3}
@@ -246,12 +247,12 @@ PrefabInstance:
     - target: {fileID: 5055698509961064898, guid: 6d6991dbbdeecb1488bbf78c063d1235,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.27
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5055698509961064898, guid: 6d6991dbbdeecb1488bbf78c063d1235,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5055698509961064898, guid: 6d6991dbbdeecb1488bbf78c063d1235,
         type: 3}
@@ -298,6 +299,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d6991dbbdeecb1488bbf78c063d1235, type: 3}
+--- !u!212 &477302145118265273 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5055698509786747554, guid: 6d6991dbbdeecb1488bbf78c063d1235,
+    type: 3}
+  m_PrefabInstance: {fileID: 4663130825531968795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &477302145426832601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5055698509961064898, guid: 6d6991dbbdeecb1488bbf78c063d1235,

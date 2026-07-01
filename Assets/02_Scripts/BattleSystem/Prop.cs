@@ -13,13 +13,12 @@ public class Prop : Character
 
     private void Awake()
     {
-        propData = GetComponent<PropData>();
         collider2D = GetComponent<Collider2D>();
 
         if (propData != null)
-            PropData(propData);
+            Init(propData);
     }
-    public void PropData(PropData data)
+    public void Init(PropData data)
     {
         if (data == null)
             return;

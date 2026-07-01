@@ -16,6 +16,7 @@ public class Pillar : Prop
     [SerializeField] private GameObject basePrillar;
     [SerializeField] private GameObject runePrillar;
     [SerializeField] private GameObject brokenPillar;
+    [SerializeField] private SpriteRenderer runeSprite;
 
     [Header("Manager")]
     [SerializeField] private EventManager eventManager;
@@ -46,21 +47,30 @@ public class Pillar : Prop
         switch (state)
         {
             case PillarState.Base:
-                basePrillar.SetActive(true);
-                runePrillar.SetActive(false);
-                brokenPillar.SetActive(false);
+                SetActiveObject(basePrillar, true);
+                SetActiveObject(runePrillar, false);
+                SetActiveObject(brokenPillar, false);
+                runeSprite.enabled = false;
                 break;
             case PillarState.RuneActive:
-                basePrillar.SetActive(false);
-                runePrillar.SetActive(true);
-                brokenPillar.SetActive(false);
+                SetActiveObject(basePrillar, false);
+                SetActiveObject(runePrillar, true);
+                SetActiveObject(brokenPillar, false);
+                runeSprite.enabled = true;
                 break;
             case PillarState.Broken:
-                basePrillar.SetActive(false);
-                runePrillar.SetActive(false);
-                brokenPillar.SetActive(true);
+                SetActiveObject(basePrillar, false);
+                SetActiveObject(runePrillar, false);
+                SetActiveObject(brokenPillar, true);
+                runeSprite.enabled = false;
                 break;
         }
+    }
+
+    private void SetActiveObject(GameObject gameObject, bool isOn)
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = isOn;
+        gameObject.GetComponent<Collider2D>().enabled = isOn;
     }
 
     private IEnumerator PillarBroken()
