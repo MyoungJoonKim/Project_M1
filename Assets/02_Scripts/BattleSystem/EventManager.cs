@@ -7,14 +7,17 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     [Header("Events")]
-    [SerializeField] private EventUI eventUI;
+    [SerializeField] private EventTextUI eventTextUI;
     [SerializeField] private int eventWave = 2;
+    [SerializeField] private float durationTime = 30f;
 
     [Header("Event Managers")]
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
 
     private bool isEventStart;
+    private bool endEvent;
+    public bool EndEvent => endEvent;
 
     private void Start()
     {
@@ -37,8 +40,9 @@ public class EventManager : MonoBehaviour
     private void StartPillarEvent()
     {
         isEventStart = true;
+        float timer = 0f;
 
-        eventUI.Open();
+        eventTextUI.Open();
 
         Pillar activePillar = pillarManager.SetActiveRandRune();
 
@@ -48,6 +52,14 @@ public class EventManager : MonoBehaviour
             return;
         }
         Debug.Log("ÀÌº¥Æ®¿ë ·é±âµÕ ·£´ý È°¼ºÈ­");
+
+        while(!endEvent)
+        {
+            timer += Time.deltaTime;
+
+            if (timer > durationTime)
+                endEvent = true;
+        }
     }
 
 }

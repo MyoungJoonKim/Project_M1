@@ -24,8 +24,8 @@ public class SkillObject : MonoBehaviour
     private bool canAttack = true;
     private bool isTrigger = false;
 
-    private Dictionary<Monster, float> lastHitTimes = new Dictionary<Monster, float>();
-
+    private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
+    private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
 
     public void SetUp(
         Transform playerTarget,
@@ -102,19 +102,35 @@ public class SkillObject : MonoBehaviour
             return;
 
         Monster monster = collision.GetComponent<Monster>();
+        Prop prop = collision.GetComponent<Prop>();
 
-        if (monster == null || monster.isDead)
-            return;
-
-        if (!lastHitTimes.ContainsKey(monster))
-            lastHitTimes[monster] = -999f;
-
-        if (Time.time >= lastHitTimes[monster] + hitInterval)
+        if (monster != null && !monster.isDead)
         {
-            monster.TakeDamage(damage, true);
-            monster.OnHit();
+            if (!monsterLastHitTimes.ContainsKey(monster))
+                monsterLastHitTimes[monster] = -999f;
 
-            lastHitTimes[monster] = Time.time;
+            if (Time.time >= monsterLastHitTimes[monster] + hitInterval)
+            {
+                monster.TakeDamage(damage, true);
+                monster.OnHit();
+
+                monsterLastHitTimes[monster] = Time.time;
+            }
+            return;
+        }
+
+        if (prop != null && prop.GetPropType())
+        {
+            if (!propLastHitTimes.ContainsKey(prop))
+                propLastHitTimes[prop] = -999f;
+
+            if (Time.time >= propLastHitTimes[prop] + hitInterval)
+            {
+                prop.TakeDamage(damage, true);
+
+                propLastHitTimes[prop] = Time.time;
+            }
+            return;
         }
     }
 
@@ -200,7 +216,8 @@ public class SkillObject : MonoBehaviour
     {
         canAttack = false;
         isTrigger = false;
-        lastHitTimes.Clear();
+        monsterLastHitTimes.Clear();
+        propLastHitTimes.Clear();
 
         if (collider2D != null)
             collider2D.enabled = false;

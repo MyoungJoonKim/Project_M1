@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,14 @@ public class Prop : Character
 {
     [Header("Prop Data")]
     [SerializeField] private PropData propData;
-    [SerializeField] private Rigidbody2D rigidbody;
+    [SerializeField] private Collider2D collider2D;
 
+    private bool canAttack;
 
     private void Awake()
     {
         propData = GetComponent<PropData>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        collider2D = GetComponent<Collider2D>();
 
         if (propData != null)
             PropData(propData);
@@ -37,5 +39,16 @@ public class Prop : Character
             0f,
             0f
         );
+    }
+
+    public bool GetPropType()
+    {
+        if (propData.propType == PropType.Attackable)
+            canAttack = true;
+
+        if (propData.propType == PropType.NonAttackable)
+            canAttack = false;
+
+        return canAttack;
     }
 }

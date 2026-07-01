@@ -138,12 +138,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5055698509961064898}
   - component: {fileID: 8271030711010119424}
-  - component: {fileID: 7188295847342651887}
   - component: {fileID: 5055698509961064899}
   - component: {fileID: 5055698509961064900}
   m_Layer: 20
   m_Name: PF Props - Rune Pillar X2
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,25 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b15983b362f0ea4cb5419d90758f2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: RunePillar
   isDead: 0
-  propData: {fileID: 0}
-  rigidbody: {fileID: 0}
---- !u!114 &7188295847342651887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5055698509961064897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e48c7c7952fbb8d4fb4b0680539d2657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runePrillar: {fileID: 0}
-  brokenPillar: {fileID: 0}
-  durationTime: 30
+  propData: {fileID: 11400000, guid: c003702e1823ee349bf6303b8a388c7f, type: 2}
+  collider2D: {fileID: 5055698509961064900}
 --- !u!212 &5055698509961064899
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -277,7 +261,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0017902851, y: 0.25253916}

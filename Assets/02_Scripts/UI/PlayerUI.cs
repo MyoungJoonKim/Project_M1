@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public Player player;
+    [Header("Player")]
+    [SerializeField] private Player player;
 
     [Header("Slider Bars")]
-    public Slider hpBar;
-    public Slider expBar;
+    [SerializeField] private Slider hpBar;
+    [SerializeField] private Slider expBar;
 
 
     private void Start()
@@ -28,7 +29,7 @@ public class PlayerUI : MonoBehaviour
         StartCoroutine(BarPositionUpdate());
     }
 
-    IEnumerator BarPositionUpdate()
+    private IEnumerator BarPositionUpdate()
     {
         while (true)
         {
@@ -50,7 +51,7 @@ public class PlayerUI : MonoBehaviour
             player.StatBarChange -= ResetBars;
     }
 
-    public void ResetBars()
+    private void ResetBars()
     {
         if (player == null)
             return;
@@ -59,7 +60,7 @@ public class PlayerUI : MonoBehaviour
         SetBar(expBar, player.stats[StatType.Exp], player.maxStats[MaxStatType.MaxExp]);
     }
 
-    void SetBar(Slider bar, float current, float max)
+    private void SetBar(Slider bar, float current, float max)
     {
         if (bar == null)
             return;

@@ -15,7 +15,7 @@ public class PillarManager : MonoBehaviour
 
         for (int i = 0; i < pillars.Length; i++)
         {
-            if (pillars[i].SetActiveRune)
+            if (pillars[i].CanActiveRune)
             {
                 list.Add(pillars[i]);
             }

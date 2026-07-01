@@ -17,13 +17,14 @@ public class Pillar : Prop
     [SerializeField] private GameObject runePrillar;
     [SerializeField] private GameObject brokenPillar;
 
-    [Header("Slider Bar")]
-    [SerializeField] private Slider runeHpBar;
+    [Header("Manager")]
+    [SerializeField] private EventManager eventManager;
+
 
     private PillarState currentState;
     public PillarState CurrentState => currentState;
 
-    public bool SetActiveRune => currentState == PillarState.Base;
+    public bool CanActiveRune => currentState == PillarState.Base;
     public bool IsBroken => currentState == PillarState.Broken;
 
     private Coroutine brokenCoroutine;
@@ -66,6 +67,12 @@ public class Pillar : Prop
     {
         while (currentState == PillarState.RuneActive)
         {
+            if (eventManager.EndEvent)
+            {
+                currentState = PillarState.Base;
+                yield break;
+            }
+
             if (stats[StatType.Hp] <= 0)
             {
                 currentState = PillarState.Broken;
@@ -83,12 +90,6 @@ public class Pillar : Prop
         currentState = PillarState.RuneActive;
     }
 
-    private void Broken()
-    {
-        if (currentState != PillarState.RuneActive)
-            return;
-        currentState = PillarState.Broken;
-    }
 
     
 
