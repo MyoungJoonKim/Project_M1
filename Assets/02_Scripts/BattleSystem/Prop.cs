@@ -42,12 +42,9 @@ public class Prop : Character
 
     public bool GetPropType()
     {
-        if (propData.propType == PropType.Attackable)
-            canAttack = true;
+        if (propData == null)
+            return false;
 
-        if (propData.propType == PropType.NonAttackable)
-            canAttack = false;
-
-        return canAttack;
+        return propData.propType == PropType.Attackable;
     }
 }

@@ -15,13 +15,23 @@ public class EventManager : MonoBehaviour
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
 
+    private Pillar currentActivePillar;
+    public Pillar CurrentActivePillar => currentActivePillar;   
+
     private bool isEventStart;
     private bool endEvent;
     public bool EndEvent => endEvent;
 
+
     private void Start()
     {
         StartCoroutine(WarningEvent());
+    }
+
+    private void Awake()
+    {
+        if (Shared.eventManager == null)
+            Shared.eventManager = this;
     }
 
     private IEnumerator WarningEvent()
@@ -30,26 +40,26 @@ public class EventManager : MonoBehaviour
         {
             if (spawnManager.CurrentWaveIndex == eventWave)
             {
-                StartPillarEvent();
+                StartCoroutine(StartPillarEvent());
                 yield break;
             }
             yield return null;
         }
     }
 
-    private void StartPillarEvent()
+    private IEnumerator StartPillarEvent()
     {
         isEventStart = true;
         float timer = 0f;
 
         eventTextUI.Open();
 
-        Pillar activePillar = pillarManager.SetActiveRandRune();
+        currentActivePillar = pillarManager.SetActiveRandRune();
 
-        if (activePillar == null)
+        if (currentActivePillar == null)
         {
             Debug.Log("이벤트용 룬기둥 소진");
-            return;
+            yield return null;
         }
         Debug.Log("이벤트용 룬기둥 랜덤 활성화");
 
@@ -59,7 +69,10 @@ public class EventManager : MonoBehaviour
 
             if (timer > durationTime)
                 endEvent = true;
+            Debug.Log($"{timer}");
+            yield return null;
         }
+            Debug.Log("이벤트 종료");
     }
 
 }

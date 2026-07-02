@@ -101,8 +101,8 @@ public class SkillObject : MonoBehaviour
         if (!canAttack) 
             return;
 
-        Monster monster = collision.GetComponent<Monster>();
-        Prop prop = collision.GetComponent<Prop>();
+        Monster monster = collision.GetComponentInParent<Monster>();
+        Prop prop = collision.GetComponentInParent<Prop>();
 
         if (monster != null && !monster.isDead)
         {
@@ -127,6 +127,7 @@ public class SkillObject : MonoBehaviour
             if (Time.time >= propLastHitTimes[prop] + hitInterval)
             {
                 prop.TakeDamage(damage, true);
+                Debug.Log("prop attack");
 
                 propLastHitTimes[prop] = Time.time;
             }
@@ -168,8 +169,8 @@ public class SkillObject : MonoBehaviour
     {
         transform.position = player.position;
 
-        Monster target = Shared.skillManager.GetRandomMonster();
-
+        Transform target = GetDirectionTarget();
+        
         if (target == null)
         {
             SetEffectActive(false);
@@ -186,6 +187,21 @@ public class SkillObject : MonoBehaviour
     private void ProjectionSkill()
     {
 
+    }
+
+    private Transform GetDirectionTarget()
+    {
+        Monster monster = Shared.skillManager.GetRandomMonster();
+
+        if (monster != null)
+            return monster.transform;
+
+        Pillar pillar = Shared.eventManager.CurrentActivePillar;
+
+        if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
+            return pillar.transform;
+
+        return null;
     }
 
     private void SetEffectActive(bool value)

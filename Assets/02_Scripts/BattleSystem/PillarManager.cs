@@ -27,7 +27,7 @@ public class PillarManager : MonoBehaviour
         int rand = Random.Range(0, list.Count);
         Pillar selectedPillar = list[rand];
 
-        selectedPillar.ActiveRune();
+        selectedPillar.ActiveRune();    
 
         return selectedPillar;
     }
