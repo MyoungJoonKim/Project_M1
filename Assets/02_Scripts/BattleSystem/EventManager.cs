@@ -10,17 +10,18 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventTextUI eventTextUI;
     [SerializeField] private int eventWave = 2;
     [SerializeField] private float durationTime = 30f;
-
+    
     [Header("Event Managers")]
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
 
     private Pillar currentActivePillar;
-    public Pillar CurrentActivePillar => currentActivePillar;   
+    public Pillar CurrentActivePillar => currentActivePillar;
 
     private bool isEventStart;
     private bool endEvent;
     public bool EndEvent => endEvent;
+    public float Timer => durationTime;
 
 
     private void Start()
@@ -50,7 +51,6 @@ public class EventManager : MonoBehaviour
     private IEnumerator StartPillarEvent()
     {
         isEventStart = true;
-        float timer = 0f;
 
         eventTextUI.Open();
 
@@ -65,11 +65,10 @@ public class EventManager : MonoBehaviour
 
         while(!endEvent)
         {
-            timer += Time.deltaTime;
+            durationTime -= Time.deltaTime;
 
-            if (timer > durationTime)
+            if (durationTime <= 0)
                 endEvent = true;
-            Debug.Log($"{timer}");
             yield return null;
         }
             Debug.Log("이벤트 종료");

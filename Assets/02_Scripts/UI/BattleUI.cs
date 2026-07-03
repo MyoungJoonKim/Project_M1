@@ -102,9 +102,9 @@ public class BattleUI : MonoBehaviour
                 yield break;
 
             if (Shared.spawnManager != null)
-                roundText.text = $"Round {Shared.spawnManager.CurrentRoundNumber}";
+                roundText.text = $"Round {Shared.spawnManager.CurrentRoundNumber} / Wave {Shared.spawnManager.CurrentWaveIndex}";
             else
-                roundText.text = "Round -";
+                roundText.text = "Round - / Wave -";
 
             yield return null;
         }

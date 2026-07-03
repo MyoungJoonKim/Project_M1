@@ -9,7 +9,6 @@ public class Prop : Character
     [SerializeField] private PropData propData;
     [SerializeField] private Collider2D collider2D;
 
-    private bool canAttack;
 
     private void Awake()
     {

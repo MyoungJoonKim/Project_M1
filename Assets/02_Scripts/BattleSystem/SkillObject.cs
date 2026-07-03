@@ -102,6 +102,7 @@ public class SkillObject : MonoBehaviour
             return;
 
         Monster monster = collision.GetComponentInParent<Monster>();
+        Pillar pillar = collision.GetComponentInParent<Pillar>();
         Prop prop = collision.GetComponentInParent<Prop>();
 
         if (monster != null && !monster.isDead)
@@ -115,6 +116,20 @@ public class SkillObject : MonoBehaviour
                 monster.OnHit();
 
                 monsterLastHitTimes[monster] = Time.time;
+            }
+            return;
+        }
+
+        if (pillar != null && pillar.GetPropType())
+        {
+            if (!propLastHitTimes.ContainsKey(pillar))
+                propLastHitTimes[pillar] = -999f;
+
+            if (Time.time >= propLastHitTimes[pillar] + hitInterval)
+            {
+                pillar.TakeDamage(damage, true);
+
+                propLastHitTimes[pillar] = Time.time;
             }
             return;
         }

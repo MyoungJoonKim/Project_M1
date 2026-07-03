@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
+  m_Name: SkillData_Crystal Spire
+  m_EditorClassIdentifier: 
+  skillName: Crystal Spire
+  skillInfo: "\uC804\uBC29\uC73C\uB85C \uD37C\uC9C0\uBA70 \uD0C0\uACA9\uD558\uB294
+    \uACB0\uC815"
+  skillType: 3
+  skillPrefab: {fileID: 3156866507962234106, guid: 645ebd7cef59b7b40b27c29bf3e99cf2,
+    type: 3}
+  icon: {fileID: 21300000, guid: 0282b9bd7be368841afc8529f1db9570, type: 3}
+  maxLevel: 5
+  count: 0100000001000000010000000100000001000000
+  damage:
+  - 50
+  - 60
+  - 70
+  - 80
+  - 90
+  range:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  radius:
+  - 2
+  - 2.2
+  - 2.4
+  - 2.6
+  - 2.8
+  speed:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  hitInterval:
+  - 0.5
+  - 0.175
+  - 0.15
+  - 0.125
+  - 0.1
+  duration: 1.5
+  cooldown: 1
