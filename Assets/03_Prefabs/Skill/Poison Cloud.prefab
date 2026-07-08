@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 3928459347336897841}
   - component: {fileID: 6214867187757762208}
   m_Layer: 0
-  m_Name: Poison Cloud
+  m_Name: Skill Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

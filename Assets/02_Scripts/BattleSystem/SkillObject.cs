@@ -182,10 +182,14 @@ public class SkillObject : MonoBehaviour
 
     private void DirectionSkill()
     {
+        if (isTrigger)
+            return;
+        isTrigger = true;
+
         transform.position = player.position;
 
         Transform target = GetDirectionTarget();
-        
+
         if (target == null)
         {
             SetEffectActive(false);

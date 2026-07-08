@@ -16,29 +16,29 @@ MonoBehaviour:
   skillInfo: "\uC804\uBC29\uC73C\uB85C \uD37C\uC9C0\uBA70 \uD0C0\uACA9\uD558\uB294
     \uACB0\uC815"
   skillType: 3
-  skillPrefab: {fileID: 3156866507962234106, guid: 645ebd7cef59b7b40b27c29bf3e99cf2,
+  skillPrefab: {fileID: 466711331275666377, guid: 2071fbf825d8bc84482d7f06d9da1cd3,
     type: 3}
-  icon: {fileID: 21300000, guid: 0282b9bd7be368841afc8529f1db9570, type: 3}
+  icon: {fileID: 21300000, guid: c846d02640c5aaf4fac0fe3251b1568c, type: 3}
   maxLevel: 5
-  count: 0100000001000000010000000100000001000000
+  count: 0100000001000000020000000200000003000000
   damage:
   - 50
-  - 60
   - 70
   - 80
-  - 90
+  - 100
+  - 110
   range:
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
+  - 9
+  - 9
+  - 9
+  - 9
+  - 9
   radius:
-  - 2
-  - 2.2
-  - 2.4
-  - 2.6
-  - 2.8
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
   speed:
   - 0
   - 0
@@ -46,10 +46,10 @@ MonoBehaviour:
   - 0
   - 0
   hitInterval:
-  - 0.5
-  - 0.175
-  - 0.15
-  - 0.125
-  - 0.1
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
   duration: 1.5
   cooldown: 1
