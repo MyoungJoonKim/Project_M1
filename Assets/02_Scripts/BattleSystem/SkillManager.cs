@@ -48,6 +48,13 @@ public class SkillManager : MonoBehaviour
 
             skillLoop = StartCoroutine(SkillLoop());
         }
+        else if (skillData.skillType == SkillType.Direction)
+        {
+            if (skillLoop != null)
+                StopCoroutine(skillLoop);
+
+            skillLoop = StartCoroutine(SkillLoop());
+        }
         else
             CreateSkill();
     }
@@ -161,12 +168,8 @@ public class SkillManager : MonoBehaviour
     {
         while (true)
         {
-            if (skillData.skillType == SkillType.TargetExplosion)
-            {
-                CreateSkill();
-                yield return new WaitForSeconds(skillData.cooldown);
-            }
-            else if(skillData.skillType == SkillType.Summon)
+            if (skillData.skillType == SkillType.TargetExplosion || skillData.skillType == SkillType.Summon
+                || skillData.skillType == SkillType.Direction)
             {
                 CreateSkill();
                 yield return new WaitForSeconds(skillData.duration);

@@ -9,7 +9,8 @@ public enum SkillType
     Summon,             // 소환형
     Direction,          // 방향추적
     TargetExplosion,    // 타겟추적
-    Projection          // 투사체
+    Projection,         // 투사체
+    EventSummon,        // 이벤트 소환형
 }
 
 [CreateAssetMenu(fileName = "SkillData", menuName ="Game Data/Skill Data")]

@@ -46,10 +46,10 @@ MonoBehaviour:
   - 0
   - 0
   hitInterval:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
-  duration: 0.01
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
+  duration: 0.3
   cooldown: 1.5

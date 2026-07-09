@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Lightning Strike
   skillInfo: "\uB79C\uB364 \uC704\uCE58\uC5D0 \uB5A8\uC5B4\uC9C0\uB294 \uBC88\uAC1C"
-  skillType: 2
-  skillPrefab: {fileID: 8974203713140315807, guid: 709b0bd6b0b625249a98409dd7a87343,
+  skillType: 6
+  skillPrefab: {fileID: 6634605696528871231, guid: b0654be0ad45d4743a69bf76fbbd251e,
     type: 3}
   icon: {fileID: 21300000, guid: 01dd0812f38f5b34994ecf1f7d8ee0ab, type: 3}
   maxLevel: 1
-  count: 1e00000001000000010000000100000001000000
+  count: 3200000001000000010000000100000001000000
   damage:
   - 500
   - 1
@@ -27,7 +27,7 @@ MonoBehaviour:
   - 1
   - 1
   range:
-  - 100
+  - 60
   - 1
   - 1
   - 1
@@ -45,10 +45,10 @@ MonoBehaviour:
   - 0
   - 0
   hitInterval:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
-  duration: 0.01
-  cooldown: 0
+  - 7
+  - 7
+  - 7
+  - 7
+  - 7
+  duration: 30
+  cooldown: 0.5

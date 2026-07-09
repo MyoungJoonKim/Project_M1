@@ -27,6 +27,18 @@ public class SkillObject : MonoBehaviour
     private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
 
+    private Monster monster;
+    private Pillar pillar;
+    private Prop prop;
+
+    private void Update()
+    {
+        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            return;
+
+        UpdateSkillType();
+    }
+
     public void SetUp(
         Transform playerTarget,
         int objectIndex,
@@ -57,13 +69,6 @@ public class SkillObject : MonoBehaviour
         canAttack = value;
     }
 
-    private void Update()
-    {
-        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
-            return;
-
-        UpdateSkillType();
-    }
 
     private void UpdateSkillType()
     {
@@ -90,6 +95,9 @@ public class SkillObject : MonoBehaviour
             case SkillType.Projection:
                 ProjectionSkill();
                 break;
+            case SkillType.EventSummon:
+                EventSummonSkill();
+                break;
         }
     }
 
@@ -101,9 +109,9 @@ public class SkillObject : MonoBehaviour
         if (!canAttack) 
             return;
 
-        Monster monster = collision.GetComponentInParent<Monster>();
-        Pillar pillar = collision.GetComponentInParent<Pillar>();
-        Prop prop = collision.GetComponentInParent<Prop>();
+        monster = collision.GetComponentInParent<Monster>();
+        pillar = collision.GetComponentInParent<Pillar>();
+        prop = collision.GetComponentInParent<Prop>();
 
         if (monster != null && !monster.isDead)
         {
@@ -142,10 +150,10 @@ public class SkillObject : MonoBehaviour
             if (Time.time >= propLastHitTimes[prop] + hitInterval)
             {
                 prop.TakeDamage(damage, true);
-                Debug.Log("prop attack");
 
                 propLastHitTimes[prop] = Time.time;
             }
+            prop.TakeDamage(damage, true);
             return;
         }
     }
@@ -184,9 +192,6 @@ public class SkillObject : MonoBehaviour
     {
         if (isTrigger)
             return;
-        isTrigger = true;
-
-        transform.position = player.position;
 
         Transform target = GetDirectionTarget();
 
@@ -195,17 +200,29 @@ public class SkillObject : MonoBehaviour
             SetEffectActive(false);
             return;
         }
-        SetEffectActive(true);
+        isTrigger = true;
 
-        Vector2 direction = (target.transform.position - transform.position).normalized;
+        Vector3 startPosition = player.position;
+        transform.position = startPosition;
+
+        Vector2 direction = (target.transform.position - startPosition).normalized;
         float directionAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, directionAngle - 90f);
+        transform.rotation = Quaternion.Euler(0f, 0f, directionAngle);
+
+        SetEffectActive(true);
+        StartCoroutine(DirectionSkillEnd());
     }
 
     private void ProjectionSkill()
     {
 
+    }
+    private void EventSummonSkill()
+    {
+        if (isTrigger)
+            return;
+        isTrigger = true;
     }
 
     private Transform GetDirectionTarget()
@@ -261,6 +278,13 @@ public class SkillObject : MonoBehaviour
             effectObject.SetActive(false);
 
         Destroy(gameObject);
+    }
+
+    private IEnumerator DirectionSkillEnd()
+    {
+        yield return new WaitForSeconds(2);
+        SetEffectActive(false);
+        isTrigger = false;
     }
 
 }
