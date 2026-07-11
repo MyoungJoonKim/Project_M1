@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -8,7 +9,9 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private Transform player;
 
     private readonly List<SkillObject> skillObjects = new List<SkillObject> ();
+
     private int currentLevel = 1;
+
     private Coroutine skillLoop;
 
     public int CurrentLevel => currentLevel;
@@ -34,29 +37,15 @@ public class SkillManager : MonoBehaviour
 
         CreateSkill();
 
-        if (skillData.skillType == SkillType.TargetExplosion)
+        if (skillData.skillType == SkillType.TargetExplosion || 
+            skillData.skillType == SkillType.Summon || 
+            skillData.skillType == SkillType.Direction)
         {
             if (skillLoop != null) 
                 StopCoroutine(skillLoop);
 
             skillLoop = StartCoroutine(SkillLoop());
         }
-        else if (skillData.skillType == SkillType.Summon)
-        {
-            if (skillLoop != null)
-                StopCoroutine(skillLoop);
-
-            skillLoop = StartCoroutine(SkillLoop());
-        }
-        else if (skillData.skillType == SkillType.Direction)
-        {
-            if (skillLoop != null)
-                StopCoroutine(skillLoop);
-
-            skillLoop = StartCoroutine(SkillLoop());
-        }
-        else
-            CreateSkill();
     }
 
     public void LevelUp()
@@ -71,84 +60,54 @@ public class SkillManager : MonoBehaviour
 
     private void CreateSkill()
     {
-        for (int i = 0; i < skillObjects.Count; i++)
-        {
-            Destroy(skillObjects[i].gameObject);
-        }
-        skillObjects.Clear();
-
         int count = skillData.count[currentLevel - 1];
 
-        if (skillData.skillType == SkillType.TargetExplosion)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                Monster target = GetRandomMonster();
-
-                if (target == null)
-                    return;
-
-                Vector3 spawnPos = target.transform.position;
-
-                GameObject obj = Instantiate(skillData.skillPrefab, spawnPos, Quaternion.identity);
-                SkillObject skill = obj.GetComponent<SkillObject>();
-
-                skillObjects.Add(skill);
-
-                skill.SetUp(
-                    player,
-                    i,
-                    count,
-                    skillData.damage[currentLevel - 1],
-                    skillData.range[currentLevel - 1],
-                    skillData.radius[currentLevel - 1],
-                    skillData.speed[currentLevel - 1],
-                    skillData.hitInterval[currentLevel - 1],
-                    skillData.skillType
-                );
-            }
-
-            return;
-        }
-
-        if (skillData.skillType == SkillType.Summon)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                Vector3 spawnPos = GetRandomPosition();
-
-                GameObject obj = Instantiate(skillData.skillPrefab, spawnPos, Quaternion.identity);
-                SkillObject skill = obj.GetComponent<SkillObject>();
-                skillObjects.Add(skill);
-
-                skill.SetUp(
-                    player,
-                    i,
-                    count,
-                    skillData.damage[currentLevel - 1],
-                    skillData.range[currentLevel - 1],
-                    skillData.radius[currentLevel - 1],
-                    skillData.speed[currentLevel - 1],
-                    skillData.hitInterval[currentLevel - 1],
-                    skillData.skillType
-                );
-            }
-            return;
-        }
-
-            while (skillObjects.Count < count)
+        while (skillObjects.Count < count)
         {
             GameObject obj = Instantiate(skillData.skillPrefab, player.position, Quaternion.identity);
             SkillObject skill = obj.GetComponent<SkillObject>();
+
+            if (skill == null)
+            {
+                Destroy(obj);
+                continue;
+            }
             skillObjects.Add(skill);
         }
 
         for (int i = 0; i < skillObjects.Count; i++)
         {
             bool active = i < count;
-            skillObjects[i].gameObject.SetActive(active);
 
-            if (!active) continue;
+            if (!active)
+            {
+                skillObjects[i].gameObject.SetActive(false);
+                continue;
+            }
+
+            if (skillData.skillType == SkillType.TargetExplosion)
+            {
+                Monster target = GetRandomMonster();
+
+                if (target == null)
+                {
+                    skillObjects[i].gameObject.SetActive(false);
+                    continue;
+                }
+
+                skillObjects[i].transform.position = target.transform.position;
+            }
+            else if (skillData.skillType == SkillType.Summon ||
+                skillData.skillType == SkillType.EventSummon) // 이벤트 성공 시 스킬가져오기 수정할 것.
+            {
+                skillObjects[i].transform.position = GetRandomPosition();
+            }
+            else
+            {
+                skillObjects[i].transform.position = player.position;
+            }
+
+            skillObjects[i].gameObject.SetActive(true);
 
             skillObjects[i].SetUp(
                 player,
@@ -161,37 +120,18 @@ public class SkillManager : MonoBehaviour
                 skillData.hitInterval[currentLevel - 1],
                 skillData.skillType
                 );
-        }
-    }
 
+            skillObjects[i].SetAttack(true);
+        } 
+    }
     private IEnumerator SkillLoop()
     {
         while (true)
         {
-            if (skillData.skillType == SkillType.TargetExplosion || skillData.skillType == SkillType.Summon
-                || skillData.skillType == SkillType.Direction)
-            {
-                CreateSkill();
-                yield return new WaitForSeconds(skillData.duration);
-                ClearSkillObjects();
-                yield return new WaitForSeconds(skillData.cooldown);
-            }
-            else
-            {
-                SetSkillAttack(true);
-                yield return new WaitForSeconds(skillData.duration);
-                SetSkillAttack(false);
-                yield return new WaitForSeconds(skillData.cooldown);
-            }
-        }
-    }
-
-    private void SetSkillAttack(bool value)
-    {
-        for (int i = 0;i < skillObjects.Count;i++)
-        {
-            if (skillObjects[i].gameObject.activeSelf)
-                skillObjects[i].SetAttack(value);
+            CreateSkill();
+            yield return new WaitForSeconds(skillData.duration);
+            ClearSkillObjects();
+            yield return new WaitForSeconds(skillData.cooldown);
         }
     }
 
@@ -199,11 +139,12 @@ public class SkillManager : MonoBehaviour
     {
         for (int i = 0; i < skillObjects.Count; i++)
         {
-            if (skillObjects[i] != null)
-                Destroy(skillObjects[i].gameObject);
-        }
+            if (skillObjects[i] == null)
+                continue;
 
-        skillObjects.Clear();
+            skillObjects[i].StopSkill();
+            skillObjects[i].gameObject.SetActive(false);
+        }
     }
 
     

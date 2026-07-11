@@ -220,9 +220,15 @@ public class SkillObject : MonoBehaviour
     }
     private void EventSummonSkill()
     {
-        if (isTrigger)
+        if (Shared.eventManager == null)
             return;
-        isTrigger = true;
+
+        if (Shared.eventManager.EventSuccess) // 이벤트 성공 시 스킬가져오기 수정할 것.
+        {
+            if (isTrigger)
+                return;
+            isTrigger = true;
+        }
     }
 
     private Transform GetDirectionTarget()
@@ -277,7 +283,7 @@ public class SkillObject : MonoBehaviour
         if (effectObject != null)
             effectObject.SetActive(false);
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     private IEnumerator DirectionSkillEnd()

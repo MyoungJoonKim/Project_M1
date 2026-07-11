@@ -15,17 +15,21 @@ public class EventManager : MonoBehaviour
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
 
+    private Pillar pillar;
     private Pillar currentActivePillar;
     public Pillar CurrentActivePillar => currentActivePillar;
 
     private bool isEventStart;
     private bool endEvent;
-    public bool EndEvent => endEvent;
+    private bool eventSuccess; // 이벤트 성공 시 스킬가져오기 수정할 것.
+    public bool EventFail => endEvent;
+    public bool EventSuccess => pillar.IsBroken; // 이벤트 성공 시 스킬가져오기 수정할 것.
     public float Timer => durationTime;
 
 
     private void Start()
     {
+        pillar = GetComponentInChildren<Pillar>();
         StartCoroutine(WarningEvent());
     }
 

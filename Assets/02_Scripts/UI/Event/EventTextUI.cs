@@ -68,7 +68,7 @@ public class EventTextUI : MonoBehaviour
 
     private IEnumerator UpdateTimeUI()
     {
-        while (!Shared.eventManager.EndEvent)
+        while (!Shared.eventManager.EventFail)
         {
             if (Shared.battleManager == null)
             {

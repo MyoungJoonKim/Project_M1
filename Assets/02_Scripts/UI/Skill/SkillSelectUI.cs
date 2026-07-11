@@ -9,6 +9,7 @@ public class SkillSelectUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private SkillSlotUI[] slots;
     [SerializeField] private List<SkillData> skills;
+    [SerializeField] private SkillData eventSkill;
     [SerializeField] private Transform player;
     [SerializeField] private Transform skillRoot;
 
@@ -92,7 +93,7 @@ public class SkillSelectUI : MonoBehaviour
             button.onClick.AddListener(() => SelectSkill(data));
         }
     }
-    public void SelectSkill(SkillData skill)
+    private void SelectSkill(SkillData skill)
     {
         if (!isSelectUI)
             return;
@@ -117,6 +118,11 @@ public class SkillSelectUI : MonoBehaviour
         newSkill.Init(skill, player);
 
         Close();
+    }
+
+    public void GetEventSkill(SkillData data) // 이벤트 성공 시 스킬가져오기 수정할 것.
+    {
+        SelectSkill(eventSkill);
     }
     private void AutoSelectRandomSkill()
     {

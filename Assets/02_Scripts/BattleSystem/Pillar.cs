@@ -30,7 +30,7 @@ public class Pillar : Prop
     public PillarState CurrentState => currentState;
 
     public bool CanActiveRune => currentState == PillarState.Base;
-    public bool IsBroken => currentState == PillarState.Broken;
+    public bool IsBroken => currentState == PillarState.Broken; // 이벤트 성공 시 스킬가져오기 수정할 것.
 
     private Coroutine brokenCoroutine;
 
@@ -90,16 +90,17 @@ public class Pillar : Prop
     {
         while (currentState != PillarState.Broken)
         {
-            if (eventManager.EndEvent)
+            if (eventManager.EventFail)
             {
                 currentState = PillarState.Base;
-                Debug.Log("이벤트 종료 확인용");
+                Debug.Log("룬기둥 파괴 실패");
                 yield break;
             }
 
             if (stats[StatType.Hp] <= 0)
             {
-                currentState = PillarState.Broken;
+                currentState = PillarState.Broken; // 이벤트 성공 시 스킬가져오기 수정할 것.
+                Debug.Log("룬기둥 파괴 성공");
             }
             yield return null;
         }
