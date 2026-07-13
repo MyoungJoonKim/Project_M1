@@ -35,6 +35,9 @@ public class SkillManager : MonoBehaviour
         player = _player;
         currentLevel = 1;
 
+        if (skillData.skillType == SkillType.EventSummon)
+            return;
+
         CreateSkill();
 
         if (skillData.skillType == SkillType.TargetExplosion || 
@@ -97,10 +100,13 @@ public class SkillManager : MonoBehaviour
 
                 skillObjects[i].transform.position = target.transform.position;
             }
-            else if (skillData.skillType == SkillType.Summon ||
-                skillData.skillType == SkillType.EventSummon) // 이벤트 성공 시 스킬가져오기 수정할 것.
+            else if (skillData.skillType == SkillType.Summon)
             {
                 skillObjects[i].transform.position = GetRandomPosition();
+            }
+            else if (skillData.skillType == SkillType.EventSummon)
+            {
+                skillObjects[i].transform.position = Shared.spawnManager.GetRandomPosition();
             }
             else
             {
@@ -124,17 +130,6 @@ public class SkillManager : MonoBehaviour
             skillObjects[i].SetAttack(true);
         } 
     }
-    private IEnumerator SkillLoop()
-    {
-        while (true)
-        {
-            CreateSkill();
-            yield return new WaitForSeconds(skillData.duration);
-            ClearSkillObjects();
-            yield return new WaitForSeconds(skillData.cooldown);
-        }
-    }
-
     private void ClearSkillObjects()
     {
         for (int i = 0; i < skillObjects.Count; i++)
@@ -147,7 +142,50 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    
+    public void CreateEventSkill()
+    {
+        if (skillData == null)
+            return;
+
+        if (skillData.skillType != SkillType.EventSummon)
+            return;
+
+        if (skillLoop != null)
+        {
+            StopCoroutine(skillLoop);
+            skillLoop = null;
+        }
+
+        //CreateSkill();
+        skillLoop = StartCoroutine(EventSkillLoop());
+    }
+
+    private IEnumerator SkillLoop()
+    {
+        while (true)
+        {
+            CreateSkill();
+            yield return new WaitForSeconds(skillData.duration);
+            ClearSkillObjects();
+            yield return new WaitForSeconds(skillData.cooldown);
+        }
+    }
+
+    private IEnumerator EventSkillLoop()
+    {
+        float timer = 0;
+
+        while (timer < skillData.duration)
+        {
+            CreateSkill();
+            yield return new WaitForSeconds(skillData.cooldown);
+            timer += skillData.cooldown;
+        }
+
+        ClearSkillObjects();
+        skillLoop = null;
+    }
+
     public void StopAllSkills()
     {
         StopAllCoroutines();
@@ -163,7 +201,7 @@ public class SkillManager : MonoBehaviour
 
         skillObjects.Clear();
     }
-
+    
     public Monster GetRandomMonster()
     {
         List<Monster> list = new List<Monster>();

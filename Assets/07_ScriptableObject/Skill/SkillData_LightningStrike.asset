@@ -33,7 +33,7 @@ MonoBehaviour:
   - 1
   - 1
   radius:
-  - 1
+  - 2
   - 1
   - 1
   - 1
@@ -50,5 +50,5 @@ MonoBehaviour:
   - 7
   - 7
   - 7
-  duration: 30
-  cooldown: 0.5
+  duration: 0.5
+  cooldown: 0.05

@@ -262,7 +262,7 @@ public class SpawnManager : MonoBehaviour
         monster.gameObject.SetActive(true);
     }
 
-    private Vector2 GetRandomPosition()
+    public Vector2 GetRandomPosition()
     {
         Vector2 pos;
         int count = 0;

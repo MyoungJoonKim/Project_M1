@@ -23,6 +23,7 @@ public class SkillObject : MonoBehaviour
 
     private bool canAttack = true;
     private bool isTrigger = false;
+    private Coroutine skillCoroutine;
 
     private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
@@ -31,13 +32,6 @@ public class SkillObject : MonoBehaviour
     private Pillar pillar;
     private Prop prop;
 
-    private void Update()
-    {
-        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
-            return;
-
-        UpdateSkillType();
-    }
 
     public void SetUp(
         Transform playerTarget,
@@ -62,6 +56,27 @@ public class SkillObject : MonoBehaviour
 
         SetEffectSize(radius);
         angle = (360f / totalCount) * index;
+
+        if (skillCoroutine != null)
+        {
+            StopCoroutine(skillCoroutine);
+            skillCoroutine = null;
+        }
+        skillCoroutine = StartCoroutine(SkillTypeCoroutine());
+    }
+
+    private IEnumerator SkillTypeCoroutine()
+    {
+        while (true)
+        {
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            {
+                yield return null;
+                continue;
+            }
+            UpdateSkillType();
+            yield return null;
+        }
     }
 
     public void SetAttack(bool value)
@@ -220,15 +235,10 @@ public class SkillObject : MonoBehaviour
     }
     private void EventSummonSkill()
     {
-        if (Shared.eventManager == null)
+        if (isTrigger)
             return;
-
-        if (Shared.eventManager.EventSuccess) // 이벤트 성공 시 스킬가져오기 수정할 것.
-        {
-            if (isTrigger)
-                return;
-            isTrigger = true;
-        }
+        isTrigger = true;
+        SetEffectActive(true);
     }
 
     private Transform GetDirectionTarget()
@@ -277,13 +287,17 @@ public class SkillObject : MonoBehaviour
         monsterLastHitTimes.Clear();
         propLastHitTimes.Clear();
 
+        if (skillCoroutine != null)
+        {
+            StopCoroutine(skillCoroutine);
+            skillCoroutine = null;
+        }
+
         if (collider2D != null)
             collider2D.enabled = false;
 
         if (effectObject != null)
             effectObject.SetActive(false);
-
-        //Destroy(gameObject);
     }
 
     private IEnumerator DirectionSkillEnd()

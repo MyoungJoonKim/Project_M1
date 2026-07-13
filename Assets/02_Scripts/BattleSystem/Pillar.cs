@@ -22,7 +22,7 @@ public class Pillar : Prop
     [Header("Manager")]
     [SerializeField] private EventManager eventManager;
 
-    [Header("Ui")]
+    [Header("UIs")]
     [SerializeField] private EventSliderUI eventSliderUI;
 
 
@@ -99,7 +99,11 @@ public class Pillar : Prop
 
             if (stats[StatType.Hp] <= 0)
             {
-                currentState = PillarState.Broken; // 이벤트 성공 시 스킬가져오기 수정할 것.
+                currentState = PillarState.Broken;
+
+                if (eventManager != null)
+                    eventManager.StartEventSkill();
+
                 Debug.Log("룬기둥 파괴 성공");
             }
             yield return null;

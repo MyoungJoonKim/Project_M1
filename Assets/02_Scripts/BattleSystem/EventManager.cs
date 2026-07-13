@@ -10,8 +10,14 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventTextUI eventTextUI;
     [SerializeField] private int eventWave = 2;
     [SerializeField] private float durationTime = 30f;
+
+    [Header("Event Skill")]
+    [SerializeField] private SkillData eventSkillData;
+    [SerializeField] private Transform player;
+    [SerializeField] private Transform skillRoot;
     
     [Header("Event Managers")]
+    [SerializeField] private SkillManager skillManager;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
 
@@ -21,15 +27,14 @@ public class EventManager : MonoBehaviour
 
     private bool isEventStart;
     private bool endEvent;
-    private bool eventSuccess; // 이벤트 성공 시 스킬가져오기 수정할 것.
     public bool EventFail => endEvent;
-    public bool EventSuccess => pillar.IsBroken; // 이벤트 성공 시 스킬가져오기 수정할 것.
     public float Timer => durationTime;
 
 
     private void Start()
     {
         pillar = GetComponentInChildren<Pillar>();
+
         StartCoroutine(WarningEvent());
     }
 
@@ -37,6 +42,48 @@ public class EventManager : MonoBehaviour
     {
         if (Shared.eventManager == null)
             Shared.eventManager = this;
+    }
+    public void StartEventSkill()
+    {
+        if (skillManager == null)
+            CreateSkillManager();
+
+        if (skillManager == null)
+            return;
+
+        skillManager.CreateEventSkill();
+    }
+    private void CreateSkillManager()
+    {
+        if (eventSkillData == null)
+        {
+            Debug.Log("스킬 데이터가 없습니다.");
+            return;
+        }
+
+        if (skillRoot == null)
+        {
+            Debug.Log("SkillRoot 연결되지 않았습니다.");
+            return;
+        }
+
+        SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>(true);
+
+        foreach (SkillManager manager in managers)
+        {
+            if (manager.Data == eventSkillData)
+            {
+                skillManager = manager;
+                return;
+            }
+        }
+
+        GameObject obj = new GameObject(eventSkillData.skillName);
+        obj.transform.parent = skillRoot;
+        obj.transform.localPosition = Vector3.zero;
+
+        skillManager = obj.AddComponent<SkillManager>();
+        skillManager.Init(eventSkillData, player);
     }
 
     private IEnumerator WarningEvent()

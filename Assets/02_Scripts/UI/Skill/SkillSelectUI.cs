@@ -9,7 +9,6 @@ public class SkillSelectUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private SkillSlotUI[] slots;
     [SerializeField] private List<SkillData> skills;
-    [SerializeField] private SkillData eventSkill;
     [SerializeField] private Transform player;
     [SerializeField] private Transform skillRoot;
 
@@ -98,9 +97,12 @@ public class SkillSelectUI : MonoBehaviour
         if (!isSelectUI)
             return;
 
+        if (skill == null)
+            return;
+
         SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>();
 
-        foreach (var  manager in managers)
+        foreach (var manager in managers)
         {
             if (manager.Data == skill)
             {
@@ -119,11 +121,7 @@ public class SkillSelectUI : MonoBehaviour
 
         Close();
     }
-
-    public void GetEventSkill(SkillData data) // 이벤트 성공 시 스킬가져오기 수정할 것.
-    {
-        SelectSkill(eventSkill);
-    }
+    
     private void AutoSelectRandomSkill()
     {
         if (!isSelectUI)
