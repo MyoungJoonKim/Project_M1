@@ -20,6 +20,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] private SkillManager skillManager;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
+    [SerializeField] private EventSpawnManager eventSpawnManager;
+
 
     private Pillar pillar;
     private Pillar currentActivePillar;
@@ -119,10 +121,18 @@ public class EventManager : MonoBehaviour
             durationTime -= Time.deltaTime;
 
             if (durationTime <= 0)
+            {
                 endEvent = true;
+
+                if (eventSpawnManager != null)
+                    eventSpawnManager.SpawnEventWave();
+
+                Debug.Log("·é±âµÕ ÆÄ±« ½ÇÆÐ");
+
+                yield break;
+            }
             yield return null;
         }
-            Debug.Log("ÀÌº¥Æ® Á¾·á");
     }
 
 }
