@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e6f0e512690864e92d050cce482fbb, type: 3}
+  m_Name: Monster Data 8
+  m_EditorClassIdentifier: 
+  monsterID: N8
+  monsterName: Monster8
+  monsterType: 0
+  prefab: {fileID: 3983815191598457074, guid: 04557c871a7e606499e4598668edaafa, type: 3}
+  maxHp: 450
+  atk: 45
+  def: 45
+  moveSpeed: 5
+  attackRange: 5
+  attackCooldown: 1.5
+  rewardExp: 150

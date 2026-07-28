@@ -309,7 +309,7 @@ public class SpawnManager : MonoBehaviour
                 monster.gameObject.SetActive(false);
                 return monster;
             },
-            OnGetMonster,
+            null,
             OnReleaseMonster,
             OnDestroyMonster,
             true,
