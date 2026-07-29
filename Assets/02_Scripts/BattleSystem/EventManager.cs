@@ -116,23 +116,27 @@ public class EventManager : MonoBehaviour
         }
         Debug.Log("ÀÌº¥Æ®¿ë ·é±âµÕ ·£´ý È°¼ºÈ­");
 
-        while(!endEvent)
+        while (durationTime > 0f)
         {
             durationTime -= Time.deltaTime;
 
-            if (durationTime <= 0)
+            // ·é±âµÕ ÆÄ±« ½Ã ÀÌº¥Æ® ¼º°ø
+            if (currentActivePillar.IsBroken)
             {
                 endEvent = true;
-
-                if (eventSpawnManager != null)
-                    eventSpawnManager.SpawnEventWave();
-
-                Debug.Log("·é±âµÕ ÆÄ±« ½ÇÆÐ");
-
+                currentActivePillar = null;
                 yield break;
             }
             yield return null;
         }
+
+        // Á¦ÇÑ½Ã°£ ³»¿¡ ·é±âµÕ ÆÄ±« ¸øÇÏ¸é ÀÌº¥Æ® ½ÇÆÐ
+        endEvent = true;
+
+        if (eventSpawnManager != null)
+            eventSpawnManager.SpawnEventWave();
+
+        currentActivePillar = null;    
     }
 
 }

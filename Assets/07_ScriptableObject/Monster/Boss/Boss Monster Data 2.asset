@@ -15,7 +15,7 @@ MonoBehaviour:
   monsterID: B2
   monsterName: Boss Monster2
   monsterType: 0
-  prefab: {fileID: 4692810723823321682, guid: d58a714be4d79244685ad402c0f7401c, type: 3}
+  prefab: {fileID: -8128519323831593338, guid: 38d1b8d56cd9d64438e48e07a5870cab, type: 3}
   maxHp: 2000
   atk: 200
   def: 200

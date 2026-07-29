@@ -249,7 +249,7 @@ PrefabInstance:
     - target: {fileID: 8974203713140315807, guid: 709b0bd6b0b625249a98409dd7a87343,
         type: 3}
       propertyPath: m_Name
-      value: Plexus AoE
+      value: Skill Object
       objectReference: {fileID: 0}
     - target: {fileID: 9008258146034474280, guid: 709b0bd6b0b625249a98409dd7a87343,
         type: 3}
