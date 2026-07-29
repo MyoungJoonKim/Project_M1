@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1173433635
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 2067027362, guid: 0c1e734fa85636743af3bc22c6d99ba8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1173433635
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_Sprite: {fileID: 2067027362, guid: 0c1e734fa85636743af3bc22c6d99ba8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: -435677893181653544}
   - component: {fileID: -1171381621217313811}
   - component: {fileID: 6784485628401300956}
+  - component: {fileID: 7128932330442750141}
   - component: {fileID: 4432204481464301371}
   - component: {fileID: -5558896800237734222}
   - component: {fileID: 7497487131454232360}
@@ -223,9 +224,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   isDead: 0
-  monsterData: {fileID: 0}
-  rewardExp: 10
-  target: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: af6d89b934495854998fafb1a74f9d04, type: 2}
+  rewardExp: 0
+  target: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
 --- !u!114 &-435677893181653544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +264,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfde38171c06964a8801a3787c03162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleFlip: {fileID: 0}
+  scaleFlip: {fileID: 4762235425215752773}
   animator: {fileID: 4432204481464301371}
+--- !u!114 &7128932330442750141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762235425215752772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa4def5397b414e911b30fcda0e1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 8909632720232798007}
 --- !u!95 &4432204481464301371
 Animator:
   serializedVersion: 5
@@ -419,7 +433,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1173433635
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1013629663, guid: 0c1e734fa85636743af3bc22c6d99ba8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

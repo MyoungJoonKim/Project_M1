@@ -95,6 +95,11 @@ public class EventSpawnManager : MonoBehaviour
                 monster.SetMonsterData(eventMonsterData);
                 monster.ResetMonster();
             }
+
+            MonsterAi monsterAi = monsters[i].GetComponent<MonsterAi>();
+
+            if (monsterAi != null)
+                monsterAi.enabled = false;
         }
     }
 

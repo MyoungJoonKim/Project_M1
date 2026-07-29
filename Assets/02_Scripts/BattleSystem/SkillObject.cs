@@ -194,6 +194,7 @@ public class SkillObject : MonoBehaviour
         if (isTrigger)
             return;
         isTrigger = true;
+        SetEffectActive(true);
     }
 
     private void TargetExplosionSkill()
@@ -201,6 +202,7 @@ public class SkillObject : MonoBehaviour
         if (isTrigger)
             return;
         isTrigger = true;
+        SetEffectActive(true);
     }
 
     private void DirectionSkill()
@@ -267,6 +269,9 @@ public class SkillObject : MonoBehaviour
 
     private void SetEffectSize(float size)
     {
+        if (effectRoot == null)
+            return;
+
         effectRoot.localScale = new Vector3(size, size, size);
         effectObject.transform.localScale = effectRoot.localScale;
         
