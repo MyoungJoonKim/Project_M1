@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class PlayerSkillManager : MonoBehaviour
 {
     [SerializeField] private SkillData skillData;
     [SerializeField] private Transform player;
 
-    private readonly List<SkillObject> skillObjects = new List<SkillObject> ();
+    private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();
 
     private int currentLevel = 1;
 
@@ -20,13 +20,13 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        Shared.skillManager = this;
+        Shared.playerSkillManager = this;
     }
 
     private void OnDestroy()
     {
-        if (Shared.skillManager == this)
-            Shared.skillManager = null;
+        if (Shared.playerSkillManager == this)
+            Shared.playerSkillManager = null;
     }
 
     public void Init(SkillData data, Transform _player)
@@ -68,7 +68,7 @@ public class SkillManager : MonoBehaviour
         while (skillObjects.Count < count)
         {
             GameObject obj = Instantiate(skillData.skillPrefab, player.position, Quaternion.identity);
-            SkillObject skill = obj.GetComponent<SkillObject>();
+            PlayerSkillObject skill = obj.GetComponent<PlayerSkillObject>();
 
             if (skill == null)
             {

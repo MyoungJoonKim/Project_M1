@@ -100,7 +100,7 @@ public class SkillSelectUI : MonoBehaviour
         if (skill == null)
             return;
 
-        SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>();
+        PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();
 
         foreach (var manager in managers)
         {
@@ -116,7 +116,7 @@ public class SkillSelectUI : MonoBehaviour
         obj.transform.parent = skillRoot;
         obj.transform.localPosition = Vector3.zero;
 
-        SkillManager newSkill = obj.AddComponent<SkillManager>();
+        PlayerSkillManager newSkill = obj.AddComponent<PlayerSkillManager>();
         newSkill.Init(skill, player);
 
         Close();
@@ -169,7 +169,7 @@ public class SkillSelectUI : MonoBehaviour
 
     public int GetSkillLevel(SkillData skill)
     {
-        SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>();
+        PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();
 
         foreach (var manager in managers)
         {

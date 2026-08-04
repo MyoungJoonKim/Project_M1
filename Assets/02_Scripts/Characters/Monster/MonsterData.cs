@@ -30,4 +30,9 @@ public class MonsterData : ScriptableObject
 
     [Header("Reward")]
     public int rewardExp;
+
+    [Header("Boss Skills")]
+    public SkillData projectionSkill;
+    public SkillData targetExplosionSkill;
+    public SkillData summonSkill;
 }

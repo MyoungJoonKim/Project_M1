@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillObject : MonoBehaviour
+public class PlayerSkillObject : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Transform effectRoot;
@@ -245,7 +245,7 @@ public class SkillObject : MonoBehaviour
 
     private Transform GetDirectionTarget()
     {
-        Monster monster = Shared.skillManager.GetRandomMonster();
+        Monster monster = Shared.playerSkillManager.GetRandomMonster();
 
         if (monster != null)
             return monster.transform;

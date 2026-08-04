@@ -10,7 +10,7 @@ public class Shared : MonoBehaviour
 
     public static ExpDropManager expDropManager;
 
-    public static SkillManager skillManager;
+    public static PlayerSkillManager playerSkillManager;
 
     public static SpawnManager spawnManager;
 

@@ -53,8 +53,8 @@ public class BattleManager : MonoBehaviour
             Shared.spawnManager.ClearMonsterTargets();
         }
 
-        if (Shared.skillManager != null)
-            Shared.skillManager.StopAllSkills();
+        if (Shared.playerSkillManager != null)
+            Shared.playerSkillManager.StopAllSkills();
 
         if (Shared.expDropManager != null)
             Shared.expDropManager.ClearAll();

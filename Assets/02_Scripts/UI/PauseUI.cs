@@ -64,7 +64,7 @@ public class PauseUI : MonoBehaviour
             skillListUICoroutine = null;
             yield break;
         }
-        SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>();
+        PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -73,7 +73,7 @@ public class PauseUI : MonoBehaviour
 
             if (i < managers.Length)
             {
-                SkillManager manager = managers[i];
+                PlayerSkillManager manager = managers[i];
 
                 if (manager != null && manager.Data != null)
                 {

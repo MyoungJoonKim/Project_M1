@@ -17,7 +17,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private Transform skillRoot;
     
     [Header("Event Managers")]
-    [SerializeField] private SkillManager skillManager;
+    [SerializeField] private PlayerSkillManager playerSkillManager;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
     [SerializeField] private EventSpawnManager eventSpawnManager;
@@ -47,13 +47,13 @@ public class EventManager : MonoBehaviour
     }
     public void StartEventSkill()
     {
-        if (skillManager == null)
+        if (playerSkillManager == null)
             CreateSkillManager();
 
-        if (skillManager == null)
+        if (playerSkillManager == null)
             return;
 
-        skillManager.CreateEventSkill();
+        playerSkillManager.CreateEventSkill();
     }
     private void CreateSkillManager()
     {
@@ -69,13 +69,13 @@ public class EventManager : MonoBehaviour
             return;
         }
 
-        SkillManager[] managers = skillRoot.GetComponentsInChildren<SkillManager>(true);
+        PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>(true);
 
-        foreach (SkillManager manager in managers)
+        foreach (PlayerSkillManager manager in managers)
         {
             if (manager.Data == eventSkillData)
             {
-                skillManager = manager;
+                playerSkillManager = manager;
                 return;
             }
         }
@@ -84,8 +84,8 @@ public class EventManager : MonoBehaviour
         obj.transform.parent = skillRoot;
         obj.transform.localPosition = Vector3.zero;
 
-        skillManager = obj.AddComponent<SkillManager>();
-        skillManager.Init(eventSkillData, player);
+        playerSkillManager = obj.AddComponent<PlayerSkillManager>();
+        playerSkillManager.Init(eventSkillData, player);
     }
 
     private IEnumerator WarningEvent()
