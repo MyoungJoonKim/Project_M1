@@ -8,14 +8,15 @@ public class BossSkillManager : MonoBehaviour
     [SerializeField] private Transform bossMonster;
     [SerializeField] private Transform targetPlayer;
 
-    private Coroutine skillLoop;
+    [SerializeField] private SkillData skillData;
 
-    private SkillData skillData;
     public SkillData Data => skillData;
 
     private readonly List<BossSkillObject> skillObjects = new List<BossSkillObject> ();
     private int currentLevel = 0;
     private bool isSkillLoop = true;
+
+    private Coroutine skillLoop;
 
     public void Init(MonsterData monsterData, SkillData _skillData, Transform bossTransform, Transform playerTransform)
     {
@@ -24,6 +25,17 @@ public class BossSkillManager : MonoBehaviour
 
         if (monsterData.monsterType != MonsterType.Boss)
             return;
+
+        if (_skillData == null)
+            return;
+        
+        if (skillLoop != null)
+        {
+            StopCoroutine(skillLoop);
+            skillLoop = null;
+        }
+
+        ClearSkillObjects();
 
         skillData = _skillData;
         bossMonster = bossTransform;
@@ -81,6 +93,7 @@ public class BossSkillManager : MonoBehaviour
 
             skillObjects[i].SetUp(
                 bossMonster,
+                targetPlayer,
                 i,
                 count,
                 skillData.damage[currentLevel],

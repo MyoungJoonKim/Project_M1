@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a21649e33636f346a571213db88c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossMonster: {fileID: 6386461652087588831, guid: 2b214d67225396c41b6e252ceb50cf9f,
+  bossMonster: {fileID: 6386461652087588831, guid: faba7cc91943b0a4896facd157e478ca,
     type: 3}
   targetPlayer: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e,
     type: 3}

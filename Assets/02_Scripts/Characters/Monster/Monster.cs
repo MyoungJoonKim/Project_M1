@@ -67,6 +67,19 @@ public class Monster : Character
     public void SetPlayer(Player player)
     {
         this.player = player;
+
+        if (player == null)
+            return;
+
+        if (monsterData == null)
+            return;
+
+        if (monsterData.monsterType != MonsterType.Boss)
+            return;
+
+        BossSkill(monsterData.projectionSkill);
+        BossSkill(monsterData.summonSkill);
+        BossSkill(monsterData.targetExplosionSkill);
     }
 
     public void SetMonsterData(MonsterData data)
@@ -100,27 +113,26 @@ public class Monster : Character
             0f,
             0f
         );
-
-        if (monsterData.monsterType == MonsterType.Boss)
-        {
-            BossSkill(monsterData.projectionSkill);
-            BossSkill(monsterData.summonSkill);
-            BossSkill(monsterData.targetExplosionSkill);
-        }
     }
     private void BossSkill(SkillData skill)
     {
         if (skill == null)
             return;
 
+        if (player == null) 
+            return;
+
         Transform bossMonster = this.gameObject.transform;
 
-        BossSkillManager[] managers = bossMonster.GetComponentsInChildren<BossSkillManager>();
+        BossSkillManager[] managers = bossMonster.GetComponentsInChildren<BossSkillManager>(true);
 
-        foreach (var manager in managers)
+        foreach (BossSkillManager manager in managers)
         {
             if (manager.Data == skill)
+            {
+                manager.Init(monsterData, skill, bossMonster, player.transform);
                 return;
+            }
         }
 
         GameObject obj = new GameObject(skill.skillName);

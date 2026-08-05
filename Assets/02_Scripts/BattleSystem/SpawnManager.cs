@@ -255,11 +255,11 @@ public class SpawnManager : MonoBehaviour
         monster.transform.rotation = Quaternion.identity;
 
         monster.SetMonsterData(data);
-        monster.SetTarget(player.transform);
+        monster.gameObject.SetActive(true);
         monster.SetPlayer(player);
+        monster.SetTarget(player.transform);
         monster.ResetMonster();
 
-        monster.gameObject.SetActive(true);
     }
 
     public Vector2 GetRandomPosition()

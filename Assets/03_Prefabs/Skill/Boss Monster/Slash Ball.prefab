@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9dc56dda01aa64dabf153707485c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 6386461652087588831, guid: 2b214d67225396c41b6e252ceb50cf9f, type: 3}
+  boss: {fileID: 6386461652087588831, guid: faba7cc91943b0a4896facd157e478ca, type: 3}
   effectRoot: {fileID: 6803036819928679328}
   effectObject: {fileID: 6136050497332428181}
   collider2D: {fileID: 8475410882451343171}

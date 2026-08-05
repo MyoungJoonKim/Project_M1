@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BossSkillObject : MonoBehaviour
 {
     [SerializeField] private Transform boss;
+    [SerializeField] private Transform targetPlayer;
     [SerializeField] private Transform effectRoot;
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
@@ -21,18 +23,18 @@ public class BossSkillObject : MonoBehaviour
 
     private float angle;
 
+    private Vector2 moveDirection;
+
     private bool canAttack = true;
     private bool isTrigger = false;
     private Coroutine skillCoroutine;
 
     private Dictionary<Player, float> playerLastHitTimes = new Dictionary<Player, float>();
 
-    private Player player;
-
-    
 
     public void SetUp(
         Transform bossTransform,
+        Transform playerTransform,
         int objectIndex,
         int objectCount,
         float damageValue,
@@ -42,6 +44,7 @@ public class BossSkillObject : MonoBehaviour
         SkillType type)
     {
         boss = bossTransform;
+        targetPlayer = playerTransform;
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
@@ -107,7 +110,7 @@ public class BossSkillObject : MonoBehaviour
         if (!canAttack)
             return;
 
-        player = collision.GetComponentInParent<Player>();
+        Player player = collision.GetComponentInParent<Player>();
 
         if (player != null && !player.isDead)
         {
@@ -156,28 +159,26 @@ public class BossSkillObject : MonoBehaviour
 
     private void ProjectionSkill()
     {
-        if (isTrigger)
-            return;
-
-        Transform target = player.transform;
-
-        if (target == null)
+        if (targetPlayer == null)
         {
             SetEffectActive(false);
             return;
         }
-        isTrigger = true;
+        if (!isTrigger)
+        {
+            isTrigger = true;
 
-        Vector3 startPosition = boss.position;
-        transform.position = startPosition;
+            Vector3 startPosition = boss.position;
+            transform.position = startPosition;
 
-        Vector2 direction = (target.transform.position - startPosition).normalized;
-        float directionAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            moveDirection = (targetPlayer.position - startPosition).normalized;
+            float directionAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, directionAngle);
-
-        SetEffectActive(true);
-        StartCoroutine(DirectionSkillEnd());
+            transform.rotation = Quaternion.Euler(0f, 0f, directionAngle);
+            
+            SetEffectActive(true);
+        }
+        transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
     }
 
     private void SetEffectActive(bool value)

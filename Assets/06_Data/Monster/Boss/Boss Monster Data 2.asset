@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: B2
   monsterName: Boss Monster2
-  monsterType: 0
-  prefab: {fileID: -8128519323831593338, guid: 38d1b8d56cd9d64438e48e07a5870cab, type: 3}
-  maxHp: 2000
+  monsterType: 1
+  prefab: {fileID: -8128519323831593338, guid: d58a714be4d79244685ad402c0f7401c, type: 3}
+  maxHp: 5000
   atk: 200
   def: 200
   moveSpeed: 4
   attackRange: 5
   attackCooldown: 2
   rewardExp: 1000
+  projectionSkill: {fileID: 11400000, guid: f7f05a4207209ab45a086ead6601e2a6, type: 2}
+  targetExplosionSkill: {fileID: 11400000, guid: de7f438857d938948bf909a5348ee3a1,
+    type: 2}
+  summonSkill: {fileID: 11400000, guid: cedb5a412d5a65a48a7614014dfc1a07, type: 2}
