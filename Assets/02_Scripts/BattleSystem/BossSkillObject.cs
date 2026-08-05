@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class BossSkillObject : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform boss;
     [SerializeField] private Transform effectRoot;
+    [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
     private SkillType skillType;
 
@@ -14,7 +16,6 @@ public class BossSkillObject : MonoBehaviour
 
     private float damage;
     private float range;
-    private float radius;
     private float speed;
     private float hitInterval;
 
@@ -24,32 +25,31 @@ public class BossSkillObject : MonoBehaviour
     private bool isTrigger = false;
     private Coroutine skillCoroutine;
 
-    private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
+    private Dictionary<Player, float> playerLastHitTimes = new Dictionary<Player, float>();
+
+    private Player player;
 
     
 
     public void SetUp(
-        Transform playerTarget,
+        Transform bossTransform,
         int objectIndex,
         int objectCount,
         float damageValue,
         float rangeValue,
-        float radiusValue,
         float speedValue,
         float hitIntervalValue,
         SkillType type)
     {
-        player = playerTarget;
+        boss = bossTransform;
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
         range = rangeValue;
-        radius = radiusValue;
         speed = speedValue;
         hitInterval = hitIntervalValue;
         skillType = type;
 
-        //SetEffectSize(radius);
         angle = (360f / totalCount) * index;
 
         if (skillCoroutine != null)
@@ -69,7 +69,7 @@ public class BossSkillObject : MonoBehaviour
                 yield return null;
                 continue;
             }
-            //UpdateSkillType();
+            UpdateSkillType();
             yield return null;
         }
     }
@@ -80,201 +80,139 @@ public class BossSkillObject : MonoBehaviour
     }
 
 
-    //private void UpdateSkillType()
-    //{
-    //    if (player == null)
-    //        return;
+    private void UpdateSkillType()
+    {
+        if (boss == null)
+            return;
 
-    //    switch (skillType)
-    //    {
-    //        case SkillType.Rotation:
-    //            RotationSkill();
-    //            break;
-    //        case SkillType.Area:
-    //            AreaSkill();
-    //            break;
-    //        case SkillType.Summon:
-    //            SummonSkill();
-    //            break;
-    //        case SkillType.TargetExplosion:
-    //            TargetExplosionSkill();
-    //            break;
-    //        case SkillType.Direction:
-    //            DirectionSkill();
-    //            break;
-    //        case SkillType.Projection:
-    //            ProjectionSkill();
-    //            break;
-    //        case SkillType.EventSummon:
-    //            EventSummonSkill();
-    //            break;
-    //    }
-    //}
+        switch (skillType)
+        {
+            case SkillType.Projection:
+                ProjectionSkill();
+                break;
+            case SkillType.Summon:
+                SummonSkill();
+                break;
+            case SkillType.TargetExplosion:
+                TargetExplosionSkill();
+                break;
+        }
+    }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
         if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
             return;
 
-        if (!canAttack) 
+        if (!canAttack)
             return;
 
-        //monster = collision.GetComponentInParent<Monster>();
+        player = collision.GetComponentInParent<Player>();
 
-        //if (monster != null && !monster.isDead)
-        //{
-        //    if (!monsterLastHitTimes.ContainsKey(monster))
-        //        monsterLastHitTimes[monster] = -999f;
+        if (player != null && !player.isDead)
+        {
+            if (!playerLastHitTimes.ContainsKey(player))
+                playerLastHitTimes[player] = -999f;
 
-        //    if (Time.time >= monsterLastHitTimes[monster] + hitInterval)
-        //    {
-        //        monster.TakeDamage(damage, true);
-        //        monster.OnHit();
+            if (Time.time >= playerLastHitTimes[player] + hitInterval)
+            {
+                player.TakeDamage(damage, true);
+                player.OnHit();
 
-        //        monsterLastHitTimes[monster] = Time.time;
-        //    }
-        //    return;
-        //}
+                playerLastHitTimes[player] = Time.time;
+            }
+            return;
+        }
     }
-    
 
-    //private void RotationSkill()
-    //{
-    //    angle += speed * Time.deltaTime;
-    //    float rotationRange = angle * Mathf.Deg2Rad;
 
-    //    float x = Mathf.Cos(rotationRange) * range;
-    //    float y = Mathf.Sin(rotationRange) * range;
-
-    //    transform.position = player.position + new Vector3(x, y, 0f);
-    //}
-
-    //private void AreaSkill()
-    //{
-    //    transform.position = player.position;
-    //}
-
-    //private void SummonSkill()
-    //{
-    //    if (isTrigger)
-    //        return;
-    //    isTrigger = true;
-    //    SetEffectActive(true);
-    //}
-
-    //private void TargetExplosionSkill()
-    //{
-    //    if (isTrigger)
-    //        return;
-    //    isTrigger = true;
-    //    SetEffectActive(true);
-    //}
-
-    //private void DirectionSkill()
-    //{
-    //    if (isTrigger)
-    //        return;
-
-    //    Transform target = GetDirectionTarget();
-
-    //    if (target == null)
-    //    {
-    //        SetEffectActive(false);
-    //        return;
-    //    }
-    //    isTrigger = true;
-
-    //    Vector3 startPosition = player.position;
-    //    transform.position = startPosition;
-
-    //    Vector2 direction = (target.transform.position - startPosition).normalized;
-    //    float directionAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-    //    transform.rotation = Quaternion.Euler(0f, 0f, directionAngle);
-
-    //    SetEffectActive(true);
-    //    StartCoroutine(DirectionSkillEnd());
-    //}
-
-    //private void ProjectionSkill()
-    //{
-
-    //}
-    //private void EventSummonSkill()
-    //{
-    //    if (isTrigger)
-    //        return;
-    //    isTrigger = true;
-    //    SetEffectActive(true);
-    //}
-
-    private Transform GetDirectionTarget()
+    private void RotationSkill()
     {
-        Monster monster = Shared.playerSkillManager.GetRandomMonster();
+        angle += speed * Time.deltaTime;
+        float rotationRange = angle * Mathf.Deg2Rad;
 
-        if (monster != null)
-            return monster.transform;
+        float x = Mathf.Cos(rotationRange) * range;
+        float y = Mathf.Sin(rotationRange) * range;
 
-        Pillar pillar = Shared.eventManager.CurrentActivePillar;
-
-        if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
-            return pillar.transform;
-
-        return null;
+        transform.position = boss.position + new Vector3(x, y, 0f);
     }
 
-    //private void SetEffectActive(bool value)
-    //{
-    //    if (effectObject != null)
-    //        effectObject.SetActive(value);
 
-    //    if (collider2D != null)
-    //        collider2D.enabled = value;
-    //}
+    private void SummonSkill()
+    {
+        if (isTrigger)
+            return;
+        isTrigger = true;
+        SetEffectActive(true);
+    }
 
-    //private void SetEffectSize(float size)
-    //{
-    //    if (effectRoot == null)
-    //        return;
+    private void TargetExplosionSkill()
+    {
+        if (isTrigger)
+            return;
+        isTrigger = true;
+        SetEffectActive(true);
+    }
 
-    //    effectRoot.localScale = new Vector3(size, size, size);
-    //    effectObject.transform.localScale = effectRoot.localScale;
-        
-    //    if (collider2D is CircleCollider2D circle)
-    //    {
-    //        circle.radius = effectObject.transform.localScale.x;
-    //    }
-    //    else if (collider2D is CapsuleCollider2D capsule)
-    //    {
-    //        capsule.size = new Vector2(effectObject.transform.localScale.x / 2, effectObject.transform.localScale.y + 0.5f);
-    //    }
-    //}
+    private void ProjectionSkill()
+    {
+        if (isTrigger)
+            return;
 
-    //public void StopSkill()
-    //{
-    //    canAttack = false;
-    //    isTrigger = false;
-    //    monsterLastHitTimes.Clear();
-    //    propLastHitTimes.Clear();
+        Transform target = player.transform;
 
-    //    if (skillCoroutine != null)
-    //    {
-    //        StopCoroutine(skillCoroutine);
-    //        skillCoroutine = null;
-    //    }
+        if (target == null)
+        {
+            SetEffectActive(false);
+            return;
+        }
+        isTrigger = true;
 
-    //    if (collider2D != null)
-    //        collider2D.enabled = false;
+        Vector3 startPosition = boss.position;
+        transform.position = startPosition;
 
-    //    if (effectObject != null)
-    //        effectObject.SetActive(false);
-    //}
+        Vector2 direction = (target.transform.position - startPosition).normalized;
+        float directionAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-    //private IEnumerator DirectionSkillEnd()
-    //{
-    //    yield return new WaitForSeconds(2);
-    //    SetEffectActive(false);
-    //    isTrigger = false;
-    //}
+        transform.rotation = Quaternion.Euler(0f, 0f, directionAngle);
+
+        SetEffectActive(true);
+        StartCoroutine(DirectionSkillEnd());
+    }
+
+    private void SetEffectActive(bool value)
+    {
+        if (effectObject != null)
+            effectObject.SetActive(value);
+
+        if (collider2D != null)
+            collider2D.enabled = value;
+    }
+
+    public void StopSkill()
+    {
+        canAttack = false;
+        isTrigger = false;
+        playerLastHitTimes.Clear();
+
+        if (skillCoroutine != null)
+        {
+            StopCoroutine(skillCoroutine);
+            skillCoroutine = null;
+        }
+
+        if (collider2D != null)
+            collider2D.enabled = false;
+
+        if (effectObject != null)
+            effectObject.SetActive(false);
+    }
+
+    private IEnumerator DirectionSkillEnd()
+    {
+        yield return new WaitForSeconds(3);
+        SetEffectActive(false);
+        isTrigger = false;
+    }
 
 }

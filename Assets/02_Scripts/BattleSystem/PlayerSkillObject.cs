@@ -34,7 +34,7 @@ public class PlayerSkillObject : MonoBehaviour
 
 
     public void SetUp(
-        Transform playerTarget,
+        Transform playerTransform,
         int objectIndex,
         int objectCount,
         float damageValue,
@@ -44,7 +44,7 @@ public class PlayerSkillObject : MonoBehaviour
         float hitIntervalValue,
         SkillType type)
     {
-        player = playerTarget;
+        player = playerTransform;
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;

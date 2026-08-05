@@ -100,6 +100,35 @@ public class Monster : Character
             0f,
             0f
         );
+
+        if (monsterData.monsterType == MonsterType.Boss)
+        {
+            BossSkill(monsterData.projectionSkill);
+            BossSkill(monsterData.summonSkill);
+            BossSkill(monsterData.targetExplosionSkill);
+        }
+    }
+    private void BossSkill(SkillData skill)
+    {
+        if (skill == null)
+            return;
+
+        Transform bossMonster = this.gameObject.transform;
+
+        BossSkillManager[] managers = bossMonster.GetComponentsInChildren<BossSkillManager>();
+
+        foreach (var manager in managers)
+        {
+            if (manager.Data == skill)
+                return;
+        }
+
+        GameObject obj = new GameObject(skill.skillName);
+        obj.transform.parent = bossMonster;
+        obj.transform.localPosition = Vector3.zero;
+
+        BossSkillManager newSkill = obj.AddComponent<BossSkillManager>();
+        newSkill.Init(monsterData, skill, bossMonster, player.transform);
     }
 
     public void ResetMonster()
