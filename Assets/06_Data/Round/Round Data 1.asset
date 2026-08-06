@@ -22,8 +22,8 @@ MonoBehaviour:
   - waveNumber: 2
     normalMonsters:
     - {fileID: 11400000, guid: 06f93ee914bf10c44b429da58415e7b6, type: 2}
-    spawnBoss: 1
-    bossMonster: {fileID: 11400000, guid: b620074f0a6230f468b02744db4812ba, type: 2}
+    spawnBoss: 0
+    bossMonster: {fileID: 0}
   - waveNumber: 3
     normalMonsters:
     - {fileID: 11400000, guid: 44c74c392c01dd242a4360dcef08b711, type: 2}

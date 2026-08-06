@@ -31,4 +31,4 @@ MonoBehaviour:
   hitInterval:
   - 10
   duration: 2
-  cooldown: 5
+  cooldown: 3

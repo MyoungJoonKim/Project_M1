@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Rendering;
 
 public enum MonsterState
 {
@@ -178,6 +179,11 @@ public class Monster : Character
             Shared.expDropManager.SpawnExpGem(transform.position, GetRewardExp());
 
         ReleaseMonster(true);
+
+        if (monsterData.monsterType == MonsterType.Boss)
+        {
+            Shared.bossSkillManager.StopAllSkills();
+        }
     }
 
     public void OnHit()

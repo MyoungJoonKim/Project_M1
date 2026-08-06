@@ -27,7 +27,7 @@ MonoBehaviour:
   radius:
   - 1
   speed:
-  - 10
+  - 15
   hitInterval:
   - 10
   duration: 3

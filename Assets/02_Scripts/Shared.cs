@@ -12,6 +12,8 @@ public class Shared : MonoBehaviour
 
     public static PlayerSkillManager playerSkillManager;
 
+    public static BossSkillManager bossSkillManager;
+
     public static SpawnManager spawnManager;
 
     public static UserManager userManager;

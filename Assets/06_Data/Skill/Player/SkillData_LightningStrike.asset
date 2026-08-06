@@ -50,5 +50,5 @@ MonoBehaviour:
   - 7
   - 7
   - 7
-  duration: 0.5
-  cooldown: 0.05
+  duration: 0.6
+  cooldown: 0.07

@@ -23,12 +23,12 @@ MonoBehaviour:
   damage:
   - 100
   range:
-  - 5
+  - 10
   radius:
   - 1
   speed:
   - 180
   hitInterval:
   - 1.5
-  duration: 4.5
-  cooldown: 15
+  duration: 1.1
+  cooldown: 5

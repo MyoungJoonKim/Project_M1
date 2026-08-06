@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.Rendering.DebugUI;
 
 public class BossSkillObject : MonoBehaviour
 {
@@ -128,24 +129,19 @@ public class BossSkillObject : MonoBehaviour
         }
     }
 
-
-    private void RotationSkill()
-    {
-        angle += speed * Time.deltaTime;
-        float rotationRange = angle * Mathf.Deg2Rad;
-
-        float x = Mathf.Cos(rotationRange) * range;
-        float y = Mathf.Sin(rotationRange) * range;
-
-        transform.position = boss.position + new Vector3(x, y, 0f);
-    }
-
-
     private void SummonSkill()
     {
         if (isTrigger)
             return;
         isTrigger = true;
+
+        float radius = angle * Mathf.Deg2Rad;
+
+        float x = Mathf.Cos(radius) * range;
+        float y = Mathf.Sin(radius) * range;
+
+        transform.position = boss.position + new Vector3(x, y, 0f);
+
         SetEffectActive(true);
     }
 
@@ -186,8 +182,16 @@ public class BossSkillObject : MonoBehaviour
         if (effectObject != null)
             effectObject.SetActive(value);
 
-        if (collider2D != null)
-            collider2D.enabled = value;
+        if (skillType == SkillType.TargetExplosion)
+        {
+            if (collider2D != null)
+                StartCoroutine(TargetExplosionColliderTimer(value));
+        }
+        else
+        {
+            if (collider2D != null)
+                collider2D.enabled = value;
+        }
     }
 
     public void StopSkill()
@@ -209,11 +213,10 @@ public class BossSkillObject : MonoBehaviour
             effectObject.SetActive(false);
     }
 
-    private IEnumerator DirectionSkillEnd()
+    private IEnumerator TargetExplosionColliderTimer(bool value)
     {
-        yield return new WaitForSeconds(3);
-        SetEffectActive(false);
-        isTrigger = false;
+        yield return new WaitForSeconds(0.9f);
+        collider2D.enabled = value;
     }
 
 }

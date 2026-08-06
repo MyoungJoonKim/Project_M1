@@ -19,13 +19,13 @@ MonoBehaviour:
     type: 3}
   icon: {fileID: 21300000, guid: 902c7f24890012746aa939a1f6bc6b4f, type: 3}
   maxLevel: 5
-  count: 0100000001000000010000000100000001000000
+  count: 0100000001000000020000000200000003000000
   damage:
-  - 60
-  - 80
   - 100
-  - 120
   - 150
+  - 200
+  - 300
+  - 400
   range:
   - 10
   - 15
@@ -51,4 +51,4 @@ MonoBehaviour:
   - 10
   - 10
   duration: 0.3
-  cooldown: 1.5
+  cooldown: 1.2

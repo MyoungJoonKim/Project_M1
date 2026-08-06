@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossSkillManager : MonoBehaviour
@@ -17,6 +18,12 @@ public class BossSkillManager : MonoBehaviour
     private bool isSkillLoop = true;
 
     private Coroutine skillLoop;
+
+    private void Awake()
+    {
+        if (Shared.bossSkillManager == null) 
+            Shared.bossSkillManager = this;
+    }
 
     public void Init(MonsterData monsterData, SkillData _skillData, Transform bossTransform, Transform playerTransform)
     {
@@ -48,7 +55,7 @@ public class BossSkillManager : MonoBehaviour
         skillLoop = StartCoroutine(SkillLoop());
     }
 
-    private void CreateSkill()
+    private void CreateSkill(int summonSkillStage = 0)
     {
         int count = skillData.count[currentLevel];
 
@@ -75,7 +82,14 @@ public class BossSkillManager : MonoBehaviour
                 continue;
             }
 
-            if (skillData.skillType == SkillType.TargetExplosion)
+            float curruntRange = skillData.range[currentLevel];
+
+            if (skillData.skillType == SkillType.Summon)
+            {
+                curruntRange *= summonSkillStage + 1;
+                skillObjects[i].transform.position = bossMonster.position;
+            }
+            else if (skillData.skillType == SkillType.TargetExplosion)
             {
                 if (targetPlayer == null)
                 {
@@ -124,10 +138,34 @@ public class BossSkillManager : MonoBehaviour
 
         while (isSkillLoop)
         {
-            CreateSkill();
-            yield return new WaitForSeconds(skillData.duration);
-            ClearSkillObjects();
+            if (skillData.skillType == SkillType.Summon)
+            {
+                yield return StartCoroutine(SummonSkillSequence());
+            }
+            else
+            {
+                CreateSkill();
+                yield return new WaitForSeconds(skillData.duration);
+                ClearSkillObjects();
+            } 
             yield return new WaitForSeconds(skillData.cooldown);
+        }
+    }
+
+    private IEnumerator SummonSkillSequence()
+    {
+        int stageCount = 3;
+
+        float activeTime = skillData.duration / stageCount;
+
+        for (int stage = 0; stage < stageCount; stage++)
+        {
+            CreateSkill(stage);
+            yield return new WaitForSeconds(activeTime);
+            ClearSkillObjects() ;
+
+            if (stage < stageCount - 1)
+                yield return new WaitForSeconds(0.25f);
         }
     }
 
