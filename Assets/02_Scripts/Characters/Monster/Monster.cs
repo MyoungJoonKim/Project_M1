@@ -23,12 +23,14 @@ public class Monster : Character
     [Header("Monster Reward")]
     [SerializeField] private float rewardExp = 10f;
 
+
     public Transform target;
 
     private Player player;
     private MonsterAi monsterAi;
     private MonsterAnimator monsterAnimator;
     private MonsterAttack monsterAttack;
+    private BossSliderUI bossSliderUI;
     private Rigidbody2D rb;
 
     private IObjectPool<Monster> monsterPool;
@@ -168,6 +170,11 @@ public class Monster : Character
             monsterAi.ResetAI();
     }
 
+    public void SetBossSliderUI(BossSliderUI sliderUI)
+    {
+        bossSliderUI = sliderUI;
+    }
+
     public void OnDead()
     {
         Debug.Log("몬스터 처치");
@@ -175,15 +182,20 @@ public class Monster : Character
         if (monsterAi != null)
             monsterAi.StopAI();
 
+        if (monsterData.monsterType == MonsterType.Boss)
+        {
+            BossSkillManager[] bossSkills = GetComponentsInChildren<BossSkillManager>(true);
+            for (int i = 0; i < bossSkills.Length; i++)
+            {
+                bossSkills[i].StopAllSkills();
+            }
+            bossSliderUI.SetActiveBar(false);
+        }
+
         if (player != null && Shared.expDropManager != null)
             Shared.expDropManager.SpawnExpGem(transform.position, GetRewardExp());
 
         ReleaseMonster(true);
-
-        if (monsterData.monsterType == MonsterType.Boss)
-        {
-            Shared.bossSkillManager.StopAllSkills();
-        }
     }
 
     public void OnHit()

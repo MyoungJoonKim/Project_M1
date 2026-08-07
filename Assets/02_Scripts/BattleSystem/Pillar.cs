@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum PillarState
 {
@@ -111,12 +108,16 @@ public class Pillar : Prop
         brokenCoroutine = null;
     }
 
-
     public void ActiveRune()
     {
         if (currentState != PillarState.Base)
             return;
         currentState = PillarState.RuneActive;
+    }
+
+    public bool CanTakeDamage()
+    {
+        return currentState == PillarState.RuneActive;
     }
 
 }

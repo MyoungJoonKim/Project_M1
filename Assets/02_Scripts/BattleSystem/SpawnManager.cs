@@ -11,6 +11,9 @@ public class SpawnManager : MonoBehaviour
     [Header("Rounds")]
     [SerializeField] private RoundData[] rounds;
 
+    [Header("UI")]
+    [SerializeField] private BossSliderUI bossSliderUI;
+
     [Header("Wave Settings")]
     [SerializeField] private float waveSpawnDuration = 6f;
     [SerializeField] private float nextWaveDelay = 10f;
@@ -259,6 +262,13 @@ public class SpawnManager : MonoBehaviour
         monster.SetPlayer(player);
         monster.SetTarget(player.transform);
         monster.ResetMonster();
+
+        if (data.monsterType == MonsterType.Boss)
+        {
+            monster.SetBossSliderUI(bossSliderUI);
+            if (bossSliderUI != null) 
+                bossSliderUI.Init(monster);
+        }
 
     }
 

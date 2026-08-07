@@ -21,7 +21,7 @@ MonoBehaviour:
   maxLevel: 1
   count: 01000000
   damage:
-  - 150
+  - 120
   range:
   - 20
   radius:

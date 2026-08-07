@@ -145,6 +145,9 @@ public class PlayerSkillObject : MonoBehaviour
 
         if (pillar != null && pillar.GetPropType())
         {
+            if (!pillar.CanTakeDamage())
+                return;
+            
             if (!propLastHitTimes.ContainsKey(pillar))
                 propLastHitTimes[pillar] = -999f;
 

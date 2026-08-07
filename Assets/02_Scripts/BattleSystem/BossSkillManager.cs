@@ -19,11 +19,6 @@ public class BossSkillManager : MonoBehaviour
 
     private Coroutine skillLoop;
 
-    private void Awake()
-    {
-        if (Shared.bossSkillManager == null) 
-            Shared.bossSkillManager = this;
-    }
 
     public void Init(MonsterData monsterData, SkillData _skillData, Transform bossTransform, Transform playerTransform)
     {
@@ -87,7 +82,9 @@ public class BossSkillManager : MonoBehaviour
             if (skillData.skillType == SkillType.Summon)
             {
                 curruntRange *= summonSkillStage + 1;
-                skillObjects[i].transform.position = bossMonster.position;
+                Vector3 range = new Vector3(curruntRange, curruntRange);
+
+                skillObjects[i].transform.position = bossMonster.position + range;
             }
             else if (skillData.skillType == SkillType.TargetExplosion)
             {

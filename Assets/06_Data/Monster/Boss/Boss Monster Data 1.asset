@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterID: B1
   monsterName: Boss Monster1
   monsterType: 1
-  prefab: {fileID: 756814087552902747, guid: faba7cc91943b0a4896facd157e478ca, type: 3}
-  maxHp: 2000
+  prefab: {fileID: 756814087552902747, guid: 2b214d67225396c41b6e252ceb50cf9f, type: 3}
+  maxHp: 1500
   atk: 100
-  def: 100
+  def: 50
   moveSpeed: 4
   attackRange: 5
   attackCooldown: 2
