@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4ab2ffcdaf1284f94437793f9eca5f, type: 3}
+  m_Name: PassiveSkillData_DamageUp
+  m_EditorClassIdentifier: 
+  passiveSkillName: "\uACF5\uACA9 \uAC15\uD654 \uC0AC\uD0D5"
+  skillInfo: "\uC2A4\uD0AC \uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  passiveType: 3
+  icon: {fileID: 21300000, guid: 27adfaee3f8bee14280e634021049f50, type: 3}
+  maxLevel: 5
+  valuePerLevel: 0.05

@@ -117,7 +117,7 @@ public class Monster : Character
             0f
         );
     }
-    private void BossSkill(SkillData skill)
+    private void BossSkill(ActiveSkillData skill)
     {
         if (skill == null)
             return;
