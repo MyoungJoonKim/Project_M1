@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEditor;
 
 public class SkillSelectUI : MonoBehaviour
 {
@@ -10,17 +12,17 @@ public class SkillSelectUI : MonoBehaviour
     [SerializeField] private SkillSlotUI[] slots;
     [SerializeField] private List<ActiveSkillData> activeSkills;
     [SerializeField] private List<PassiveSkillData> passiveSkills;
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform skillRoot;
+    [SerializeField] private PassiveSkillManager passiveSkillManager;
 
-    private List<ActiveSkillData> randomSkills = new List<ActiveSkillData>();
+    private List<SkillSelect> randomSkills = new List<SkillSelect>();
 
     [Header("Skill Select Timer")]
     [SerializeField] private float SelectTime = 30f;
     [SerializeField] private TMP_Text selectTimeText;
 
     private float currentSelectTime;
-
 
     private Coroutine selectTimeCoroutine;
     public bool isSelectUI;
@@ -37,6 +39,14 @@ public class SkillSelectUI : MonoBehaviour
     {
         panel.SetActive(false);
     }
+
+    private class SkillSelect
+    {
+        public ActiveSkillData activeSkill;
+        public PassiveSkillData passiveSkill;
+        public bool IsPassive => passiveSkill != null;
+    }
+
     public void Open()
     {
         isSelectUI = true;
@@ -49,13 +59,20 @@ public class SkillSelectUI : MonoBehaviour
 
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < randomSkills.Count)
+            if (i >= randomSkills.Count)
             {
-                slots[i].gameObject.SetActive(true);
-                SetSkillSlot(i, randomSkills[i]);
-            }
-            else
                 slots[i].gameObject.SetActive(false);
+                continue;
+            }
+
+            slots[i].gameObject.SetActive(true);
+
+            SkillSelect select = randomSkills[i];
+
+            if (select.IsPassive)
+            {
+                
+            }
         }
 
         if (selectTimeCoroutine != null)
@@ -77,7 +94,7 @@ public class SkillSelectUI : MonoBehaviour
         panel.SetActive(false);
         Time.timeScale = 1f;
     }
-
+    
 
     private void SetSkillSlot(int index, ActiveSkillData data)
     {
@@ -93,6 +110,7 @@ public class SkillSelectUI : MonoBehaviour
             button.onClick.AddListener(() => SelectSkill(data));
         }
     }
+
     private void SelectSkill(ActiveSkillData skill)
     {
         if (!isSelectUI)
@@ -118,7 +136,7 @@ public class SkillSelectUI : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         PlayerSkillManager newSkill = obj.AddComponent<PlayerSkillManager>();
-        newSkill.Init(skill, player);
+        newSkill.Init(skill, playerTransform);
 
         Close();
     }
@@ -135,14 +153,16 @@ public class SkillSelectUI : MonoBehaviour
         }
 
         int rand = Random.Range(0, randomSkills.Count);
-        ActiveSkillData randomSkill = randomSkills[rand];
+        //ActiveSkillData randomSkill = randomSkills[rand];
 
-        SelectSkill(randomSkill);
+        //SelectSkill(randomSkill);
     }
 
-    private List<ActiveSkillData> GetRandomSkills(int count)
+    private List<SkillSelect> GetRandomSkills(int count)
     {
-        List<ActiveSkillData> skillList = new List<ActiveSkillData>();
+        List<SkillSelect> selectSkill = new List<SkillSelect>();
+
+        List<ActiveSkillData> activeSkillList = new List<ActiveSkillData>();
 
         for (int i = 0; i < activeSkills.Count; i++)
         {
@@ -153,21 +173,66 @@ public class SkillSelectUI : MonoBehaviour
 
             int currentLevel = GetSkillLevel(skill);
 
+            // 스킬 최대 레벨 시 제외
             if (currentLevel < skill.maxLevel)
-                skillList.Add(skill);
+                activeSkillList.Add(skill);
         }
 
-        List<ActiveSkillData> randomList = new List<ActiveSkillData>();
+        Player player = playerTransform.GetComponent<Player>();
 
-        while (randomList.Count < count && skillList.Count > 0)
+        int playerLevel = (int)player.stats[StatType.Level];
+
+        if (playerLevel > 5)
         {
-            int rand = UnityEngine.Random.Range(0, skillList.Count);
-            randomList.Add(skillList[rand]);
-            skillList.RemoveAt(rand);
+            PassiveSkillData passive = GetRandomPassiveSkill();
+
+            if (passive != null)
+            {
+                SkillSelect select = new SkillSelect();
+                select.passiveSkill = passive;
+                selectSkill.Add(select);
+            }
         }
-        return randomList;
+
+        while (selectSkill.Count < count && activeSkillList.Count > 0)
+        {
+            int rand = Random.Range(0, activeSkillList.Count);
+            ActiveSkillData active = activeSkillList[rand];
+
+            SkillSelect select = new SkillSelect();
+            select.activeSkill = active;
+            selectSkill.Add(select);
+            activeSkillList.RemoveAt(rand);
+        }
+
+        return selectSkill;
     }
 
+    private PassiveSkillData GetRandomPassiveSkill()
+    {
+        List<PassiveSkillData> passiveSkillList = new List<PassiveSkillData>();
+
+        for (int i = 0; i < passiveSkillList.Count; i++)
+        {
+            PassiveSkillData skill = passiveSkillList[i];
+
+            if (skill == null)
+                continue;
+
+            int currentLevel = passiveSkillManager.GetLevel(skill.passiveType);
+
+            // 스킬 최대 레벨 시 제외
+            if (currentLevel < skill.maxLevel)
+                passiveSkillList.Add(skill);
+        }
+
+        if (passiveSkillList.Count == 0)
+            return null;
+
+        int rand = Random.Range(0, passiveSkillList.Count);
+
+        return passiveSkillList[rand];
+    }
     public int GetSkillLevel(ActiveSkillData skill)
     {
         PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();
