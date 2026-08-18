@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PassiveSkillData_SpeedUp
   m_EditorClassIdentifier: 
   passiveSkillName: "\uC18D\uB3C4 \uC99D\uAC00 \uC54C\uC57D"
-  skillInfo: "\uC774\uB3D9\uC18D\uB3C4 10% \uC99D\uAC00"
+  skillInfo: "\uC774\uB3D9\uC18D\uB3C4 15% \uC99D\uAC00"
   passiveType: 1
   icon: {fileID: 21300000, guid: 31386f8ef53e6d3458a85ce7ea83bf64, type: 3}
   maxLevel: 5
-  valuePerLevel: 0.1
+  valuePerLevel: 0.15

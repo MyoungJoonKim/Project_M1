@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MonsterAi : MonoBehaviour
@@ -6,9 +7,14 @@ public class MonsterAi : MonoBehaviour
     private MonsterAttack monsterAttack;
     private MonsterAnimator monsterAnimator;
     private Rigidbody2D rb;
+    private Coroutine stateCheckCoroutine;
 
     public MonsterState currentState = MonsterState.Idle;
 
+    private void Start()
+    {
+        stateCheckCoroutine = StartCoroutine(StateCheck());
+    }
     private void Awake()
     {
         monster = GetComponent<Monster>();
@@ -44,12 +50,14 @@ public class MonsterAi : MonoBehaviour
         }
     }
 
-    private void Update()
+    private IEnumerator StateCheck()
     {
-        if (monster == null || monster.isDead)
-            return;
-
-        StateUpdate();
+        while (monster != null && !monster.isDead)
+        {
+            StateUpdate();
+            yield return null;
+        }
+        stateCheckCoroutine = null;
     }
 
     public void ResetAI()
@@ -60,6 +68,11 @@ public class MonsterAi : MonoBehaviour
             monsterAttack.StopAttack();
 
         currentState = MonsterState.Idle;
+
+        if (stateCheckCoroutine != null)
+            StopCoroutine(stateCheckCoroutine);
+
+        stateCheckCoroutine = StartCoroutine(StateCheck());
     }
 
     public void StopAI()

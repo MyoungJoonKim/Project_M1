@@ -17,8 +17,8 @@ public class SpawnManager : MonoBehaviour
     [Header("Wave Settings")]
     [SerializeField] private float waveSpawnDuration = 6f;
     [SerializeField] private float nextWaveDelay = 10f;
-    [SerializeField] private float bossSpawnDelay = 20f;
-    [SerializeField] private float nextRoundDelay = 30f;
+    [SerializeField] private float bossSpawnDelay = 15f;
+    [SerializeField] private float nextRoundDelay = 35f;
 
     [SerializeField] private float spawnInterval = 1f;
     [SerializeField] private int spawnCountPerTick = 6;

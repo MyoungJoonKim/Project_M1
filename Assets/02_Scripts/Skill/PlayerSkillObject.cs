@@ -8,6 +8,7 @@ public class PlayerSkillObject : MonoBehaviour
     [SerializeField] private Transform effectRoot;
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
+
     private SkillType skillType;
 
     private int index;
@@ -31,7 +32,6 @@ public class PlayerSkillObject : MonoBehaviour
     private Monster monster;
     private Pillar pillar;
     private Prop prop;
-
 
     public void SetUp(
         Transform playerTransform,
@@ -171,7 +171,6 @@ public class PlayerSkillObject : MonoBehaviour
 
                 propLastHitTimes[prop] = Time.time;
             }
-            prop.TakeDamage(damage, true);
             return;
         }
     }

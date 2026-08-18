@@ -5,8 +5,8 @@ public class EventManager : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private EventTextUI eventTextUI;
-    [SerializeField] private int eventWave = 2;
-    [SerializeField] private float durationTime = 30f;
+    [SerializeField] private int eventWave = 5;
+    [SerializeField] private float durationTime = 45f;
 
     [Header("Event Skill")]
     [SerializeField] private ActiveSkillData eventSkillData;

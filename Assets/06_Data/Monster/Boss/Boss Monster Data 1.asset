@@ -22,7 +22,7 @@ MonoBehaviour:
   moveSpeed: 4
   attackRange: 5
   attackCooldown: 2
-  rewardExp: 1000
+  rewardExp: 10000
   projectionSkill: {fileID: 11400000, guid: f7f05a4207209ab45a086ead6601e2a6, type: 2}
   targetExplosionSkill: {fileID: 11400000, guid: de7f438857d938948bf909a5348ee3a1,
     type: 2}

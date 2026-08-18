@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Player : Character
 {
@@ -25,6 +28,7 @@ public class Player : Character
     private PlayerAnimator playerAnimator;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidbody2D;
+    private Coroutine deadCheckCoroutine;
 
 
     private void Awake()
@@ -54,17 +58,28 @@ public class Player : Character
     {
         Shared.skillSelectUI.Open();
         grave.SetActive(false);
+
+        if (deadCheckCoroutine != null)
+            StopCoroutine(deadCheckCoroutine);
+
+        deadCheckCoroutine = StartCoroutine(DeadCheck());
     }
 
-    void Update()
+    private IEnumerator DeadCheck()
     {
-        if (isDead && !deadHandled)
+        while (true)
         {
-            deadHandled = true;
-            OnDead();
+            if (isDead && !deadHandled)
+            {
+                deadHandled = true;
+                OnDead();
+
+                deadCheckCoroutine = null;
+                yield break;
+            }
+            yield return null;
         }
     }
-
 
     public void AddExp(float amount)
     {

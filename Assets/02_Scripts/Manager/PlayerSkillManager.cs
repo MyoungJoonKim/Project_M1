@@ -19,11 +19,6 @@ public class PlayerSkillManager : MonoBehaviour
     public ActiveSkillData Data => skillData;
 
 
-    private void Awake()
-    {
-        Shared.playerSkillManager = this;
-    }
-
     private void OnDestroy()
     {
         if (Shared.playerSkillManager == this)
@@ -35,8 +30,8 @@ public class PlayerSkillManager : MonoBehaviour
         skillData = data;
         player = _player;
         currentLevel = 1;
-
-        passiveSkillManager = player.GetComponent<PassiveSkillManager>();
+        // 실행 확인할 것.
+        passiveSkillManager = player.GetComponentInParent<PassiveSkillManager>();
 
         if (skillData.skillType == SkillType.EventSummon)
             return;

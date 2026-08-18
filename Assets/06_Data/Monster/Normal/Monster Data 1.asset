@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: N1
   monsterName: Monster1
+  monsterType: 0
   prefab: {fileID: 1950238327129830617, guid: 34a3833850ccfea4d8e03f8f79f95a8e, type: 3}
   maxHp: 100
   atk: 10
@@ -21,4 +22,7 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 5
   attackCooldown: 1.5
-  rewardExp: 10
+  rewardExp: 8
+  projectionSkill: {fileID: 0}
+  targetExplosionSkill: {fileID: 0}
+  summonSkill: {fileID: 0}

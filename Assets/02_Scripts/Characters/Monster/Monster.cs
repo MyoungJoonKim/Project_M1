@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
@@ -35,6 +36,8 @@ public class Monster : Character
 
     private IObjectPool<Monster> monsterPool;
 
+    private Coroutine deadCheckCoroutine;
+
     private void Awake()
     {
         monsterAi = GetComponent<MonsterAi>();
@@ -44,14 +47,23 @@ public class Monster : Character
 
         if (monsterData != null)
             ApplyMonsterData(monsterData);
+
+        deadCheckCoroutine = StartCoroutine(DeadCheck());
     }
 
-    private void Update()
+    private IEnumerator DeadCheck()
     {
-        if (isDead && !deadHandled)
+        while (true)
         {
-            deadHandled = true;
-            OnDead();
+            if (isDead && !deadHandled)
+            {
+                deadHandled = true;
+                OnDead();
+
+                deadCheckCoroutine = null;
+                yield break;
+            }
+            yield return null;
         }
     }
 
@@ -168,6 +180,8 @@ public class Monster : Character
 
         if (monsterAi != null)
             monsterAi.ResetAI();
+
+        deadCheckCoroutine = StartCoroutine(DeadCheck());
     }
 
     public void SetBossSliderUI(BossSliderUI sliderUI)

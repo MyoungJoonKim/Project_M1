@@ -129,6 +129,7 @@ public class Character : MonoBehaviour
         stats[StatType.Hp] -= finalDamage;
         StatBarChange?.Invoke();
 
+        //피해량 텍스트 ui 출력 함수
         if (text)
         {
             Vector3 offset = new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(3f, 6f), 0f);
