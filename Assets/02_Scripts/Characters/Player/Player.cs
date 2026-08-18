@@ -18,7 +18,8 @@ public class Player : Character
     [SerializeField] private GameObject grave;
     [SerializeField] private GameObject skillRoot;
 
-    [SerializeField] private GameObject joyStick; 
+    [SerializeField] private GameObject joyStick;
+    [SerializeField] private PassiveSkillManager passiveSkillManager;
 
     private PlayerController playerController;
     private PlayerAnimator playerAnimator;
@@ -42,6 +43,7 @@ public class Player : Character
             startMaxExp
             );
 
+        passiveSkillManager = GetComponent<PassiveSkillManager>();
         playerController = GetComponent<PlayerController>();
         playerAnimator = GetComponent<PlayerAnimator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -68,6 +70,11 @@ public class Player : Character
     {
         if (isDead)
             return;
+
+        if (passiveSkillManager != null)
+        {
+            amount *= passiveSkillManager.ExpBonusRate;
+        }
 
         AddStat(StatType.Exp, amount);
 

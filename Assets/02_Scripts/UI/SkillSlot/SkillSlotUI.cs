@@ -17,12 +17,8 @@ public class SkillSlotUI : MonoBehaviour
     [SerializeField] private Sprite offStar;
 
 
-    private ActiveSkillData skillData;
-
     public void SetSlot(ActiveSkillData data, int level)
     {
-        skillData = data;
-
         if (data == null)
         {
             gameObject.SetActive(false);
@@ -31,20 +27,40 @@ public class SkillSlotUI : MonoBehaviour
         gameObject.SetActive(true);
 
         if (icon != null)
-            icon.sprite = skillData.icon;
+            icon.sprite = data.icon;
 
         if (skillNameText != null)
-            skillNameText.text = skillData.skillName;
+            skillNameText.text = data.skillName;
 
         if (skillInfoText != null)
-            skillInfoText.text = skillData.skillInfo;
+            skillInfoText.text = data.skillInfo;
+
+        UpdateStars(level);
+    }
+
+    public void SetSlot(PassiveSkillData data, int level)
+    {
+        if (data == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        gameObject.SetActive(true);
+
+        if (icon != null)
+            icon.sprite = data.icon;
+
+        if (skillNameText != null)
+            skillNameText.text = data.passiveSkillName;
+
+        if (skillInfoText != null)
+            skillInfoText.text = data.skillInfo;
 
         UpdateStars(level);
     }
 
     public void ClearSlot()
     {
-        skillData = null;
         gameObject.SetActive(true);
 
         if (icon != null)

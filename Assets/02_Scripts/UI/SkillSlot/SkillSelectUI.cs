@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using UnityEditor;
 
 public class SkillSelectUI : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class SkillSelectUI : MonoBehaviour
     [SerializeField] private SkillSlotUI[] slots;
     [SerializeField] private List<ActiveSkillData> activeSkills;
     [SerializeField] private List<PassiveSkillData> passiveSkills;
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Player player;
     [SerializeField] private Transform skillRoot;
     [SerializeField] private PassiveSkillManager passiveSkillManager;
 
@@ -59,20 +57,13 @@ public class SkillSelectUI : MonoBehaviour
 
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i >= randomSkills.Count)
+            if (i < randomSkills.Count)
             {
+                slots[i].gameObject.SetActive(true);
+                SetSkillSlot(i, randomSkills[i]);
+            }
+            else
                 slots[i].gameObject.SetActive(false);
-                continue;
-            }
-
-            slots[i].gameObject.SetActive(true);
-
-            SkillSelect select = randomSkills[i];
-
-            if (select.IsPassive)
-            {
-                
-            }
         }
 
         if (selectTimeCoroutine != null)
@@ -96,28 +87,56 @@ public class SkillSelectUI : MonoBehaviour
     }
     
 
-    private void SetSkillSlot(int index, ActiveSkillData data)
+    private void SetSkillSlot(int index, SkillSelect selectData)
     {
-        int level = GetSkillLevel(data);
-
-        slots[index].SetSlot(data, level);
-
         Button button = slots[index].GetComponent<Button>();
 
         if (button != null)
         {
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => SelectSkill(data));
+            button.onClick.AddListener(() => SelectSkill(selectData));
         }
+
+        if (selectData.IsPassive)
+        {
+            PassiveSkillData data = selectData.passiveSkill;
+
+            int level = passiveSkillManager.GetLevel(data);
+
+            slots[index].SetSlot(data, level);
+        }
+        else
+        {
+            ActiveSkillData data = selectData.activeSkill;
+
+            int level = GetSkillLevel(data);
+
+            slots[index].SetSlot(data, level);
+        }
+
     }
 
-    private void SelectSkill(ActiveSkillData skill)
+    private void SelectSkill(SkillSelect selectSkill)
     {
         if (!isSelectUI)
             return;
 
+        if (selectSkill.IsPassive)
+        {
+            if (selectSkill.passiveSkill == null)
+                return;
+
+            passiveSkillManager.LevelUp(selectSkill.passiveSkill);
+
+            Close();
+            return;
+        }
+
+        ActiveSkillData skill = selectSkill.activeSkill;
+
         if (skill == null)
             return;
+
 
         PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();
 
@@ -136,7 +155,7 @@ public class SkillSelectUI : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         PlayerSkillManager newSkill = obj.AddComponent<PlayerSkillManager>();
-        newSkill.Init(skill, playerTransform);
+        newSkill.Init(skill, player.transform);
 
         Close();
     }
@@ -153,15 +172,13 @@ public class SkillSelectUI : MonoBehaviour
         }
 
         int rand = Random.Range(0, randomSkills.Count);
-        //ActiveSkillData randomSkill = randomSkills[rand];
 
-        //SelectSkill(randomSkill);
+        SelectSkill(randomSkills[rand]);
     }
 
     private List<SkillSelect> GetRandomSkills(int count)
     {
         List<SkillSelect> selectSkill = new List<SkillSelect>();
-
         List<ActiveSkillData> activeSkillList = new List<ActiveSkillData>();
 
         for (int i = 0; i < activeSkills.Count; i++)
@@ -177,8 +194,6 @@ public class SkillSelectUI : MonoBehaviour
             if (currentLevel < skill.maxLevel)
                 activeSkillList.Add(skill);
         }
-
-        Player player = playerTransform.GetComponent<Player>();
 
         int playerLevel = (int)player.stats[StatType.Level];
 
@@ -205,6 +220,16 @@ public class SkillSelectUI : MonoBehaviour
             activeSkillList.RemoveAt(rand);
         }
 
+        // 슬롯 순서 랜덤
+        for (int i = 0; i < selectSkill.Count; i++)
+        {
+            int rand =
+                Random.Range(i, selectSkill.Count);
+
+            SkillSelect temp = selectSkill[i];
+            selectSkill[i] = selectSkill[rand];
+            selectSkill[rand] = temp;
+        }
         return selectSkill;
     }
 
@@ -212,14 +237,14 @@ public class SkillSelectUI : MonoBehaviour
     {
         List<PassiveSkillData> passiveSkillList = new List<PassiveSkillData>();
 
-        for (int i = 0; i < passiveSkillList.Count; i++)
+        for (int i = 0; i < passiveSkills.Count; i++)
         {
-            PassiveSkillData skill = passiveSkillList[i];
+            PassiveSkillData skill = passiveSkills[i];
 
             if (skill == null)
                 continue;
 
-            int currentLevel = passiveSkillManager.GetLevel(skill.passiveType);
+            int currentLevel = passiveSkillManager.GetLevel(skill);
 
             // 스킬 최대 레벨 시 제외
             if (currentLevel < skill.maxLevel)
@@ -233,6 +258,7 @@ public class SkillSelectUI : MonoBehaviour
 
         return passiveSkillList[rand];
     }
+
     public int GetSkillLevel(ActiveSkillData skill)
     {
         PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();

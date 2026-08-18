@@ -17,8 +17,10 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Sprite soundOff;
 
     [Header("Skill List UI")]
-    [SerializeField] private SkillSlotUI[] slots;
+    [SerializeField] private SkillSlotUI[] activeSlots;
+    [SerializeField] private SkillSlotUI[] passiveSlots;
     [SerializeField] private Transform skillRoot;
+    [SerializeField] private PassiveSkillManager passiveSkillManager;
 
     private bool activeSound;
     private Coroutine skillListUICoroutine;
@@ -66,9 +68,9 @@ public class PauseUI : MonoBehaviour
         }
         PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>();
 
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < activeSlots.Length; i++)
         {
-            if (slots[i] == null)
+            if (activeSlots[i] == null)
                 continue;
 
             if (i < managers.Length)
@@ -77,28 +79,56 @@ public class PauseUI : MonoBehaviour
 
                 if (manager != null && manager.Data != null)
                 {
-                    slots[i].SetSlot(manager.Data, manager.CurrentLevel);
+                    activeSlots[i].SetSlot(manager.Data, manager.CurrentLevel);
                 }
                 else
-                    slots[i].ClearSlot();
+                    activeSlots[i].ClearSlot();
             }
             else
-                slots[i].ClearSlot();
+                activeSlots[i].ClearSlot();
 
             yield return null;
         }
+
+        Dictionary<PassiveSkillData, int> passiveSkills = passiveSkillManager.GetPassiveSkills();
+
+        int passiveIndex = 0;
+
+        foreach (var skill in passiveSkills)
+        {
+            if (passiveIndex >= passiveSlots.Length)
+                break;
+
+            passiveSlots[passiveIndex].SetSlot(skill.Key, skill.Value);
+            passiveIndex++;
+        }
+
+        for (int i = passiveIndex; i < passiveSlots.Length; i++)
+        {
+            passiveSlots[i].ClearSlot();
+        }
+
         skillListUICoroutine = null;
     }
 
     private void ClearAllSlots()
     {
-        if (slots == null)
-            return;
-
-        for (int i = 0; i < slots.Length; i++)
+        if (activeSlots != null)
         {
-            if (slots[i] != null)
-                slots[i].ClearSlot();
+            for (int i = 0; i < activeSlots.Length; i++)
+            {
+                if (activeSlots[i] != null)
+                    activeSlots[i].ClearSlot();
+            }
+        }
+
+        if (passiveSlots != null)
+        {
+            for (int i = 0; i < passiveSlots.Length; i++)
+            {
+                if (passiveSlots[i] != null)
+                    passiveSlots[i].ClearSlot();
+            }
         }
     }
     public void OnClickPlayButton()

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PassiveSkillData_DamageReduction
   m_EditorClassIdentifier: 
   passiveSkillName: "\uBC29\uC5B4\uB825 \uC99D\uAC00"
-  skillInfo: "\uBC1B\uB294 \uD53C\uD574\uB7C9 5% \uAC10\uC18C"
+  skillInfo: "\uBC1B\uB294 \uD53C\uD574\uB7C9 10% \uAC10\uC18C"
   passiveType: 4
   icon: {fileID: 21300000, guid: 324849b1831425c4e9f6f7e0acb6a6d6, type: 3}
   maxLevel: 5
-  valuePerLevel: 0.05
+  valuePerLevel: 0.1

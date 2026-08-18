@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PassiveSkillManager : MonoBehaviour
 {
-    private Dictionary<PassiveType, int> passiveLevels = new Dictionary<PassiveType, int>();
+    [SerializeField] private CircleCollider2D pickupCollider2D;
 
-    public float ExpGainRate { get; private set; } = 1f;
+    private Dictionary<PassiveSkillData, int> passiveLevels = new Dictionary<PassiveSkillData, int>();
+
+    public float ExpBonusRate { get; private set; } = 1f;
     public float SkillDamageRate { get; private set; } = 1f;
-    public float DamageReductionRate { get; private set; } = 1f;
+    public float DamageReductionRate { get; private set; } = 0f;
 
     private Player player;
 
@@ -19,52 +21,73 @@ public class PassiveSkillManager : MonoBehaviour
 
     }
 
-    public void LevelUp(PassiveType type)
+    public void LevelUp(PassiveSkillData data)
     {
-        int level = GetLevel(type);
-
-        if (level > 5)
+        if (data == null) 
             return;
 
-        passiveLevels[type] = level + 1;
+        int level = GetLevel(data);
 
-        ApplyPassive(type);
+        if (level >= data.maxLevel)
+            return;
+
+        passiveLevels[data] = level + 1;
+
+        ApplyPassive(data);
     }
 
-    public int GetLevel(PassiveType type)
+    public int GetLevel(PassiveSkillData data)
     {
-        if (passiveLevels.ContainsKey(type))
-            return passiveLevels[type];
+        if (passiveLevels.ContainsKey(data))
+            return passiveLevels[data];
 
         return 0;
     }
 
-    private void ApplyPassive(PassiveType type)
+    private void ApplyPassive(PassiveSkillData data)
     {
-        int level = passiveLevels[type];
+        PassiveType type = data.passiveType;
+
+        int level = GetLevel(data);
+
+        float value = data.valuePerLevel;
 
         switch (type)
         {
             case PassiveType.ExpBonus:
-                ApplyValue(level);
-                break;
-            case PassiveType.DamageReduction:
-                ApplyValue(level);
+                ExpBonusRate = 1f + (value * level);
                 break;
             case PassiveType.DamageBonus:
-                ApplyValue(level);
+                SkillDamageRate = 1f + (value * level);
+                break;
+            case PassiveType.DamageReduction:
+                DamageReductionRate = value * level;
                 break;
             case PassiveType.PickupRange:
-                ApplyValue(level);
+                PickupRangeRate(value, level);
                 break;
             case PassiveType.MoveSpeed:
-                ApplyValue(level);
+                MoveSpeedRate(value, level);
                 break;
         }
     }
 
-    private void ApplyValue(int level)
+    private void MoveSpeedRate(float value, int level)
     {
+        float rate = 1f + (value * level);
 
+        player.stats[StatType.MoveSpeed] *= rate;
+    }
+
+    private void PickupRangeRate(float value, int level)
+    {
+        float rate = 1f + (value * level);
+
+        pickupCollider2D.radius *= rate;
+    }
+
+    public Dictionary<PassiveSkillData, int> GetPassiveSkills()
+    {
+        return passiveLevels;
     }
 }
