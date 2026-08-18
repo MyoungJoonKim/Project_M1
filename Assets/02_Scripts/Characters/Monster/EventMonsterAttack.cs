@@ -7,7 +7,7 @@ public class EventMonsterAttack : MonoBehaviour
 {
     [SerializeField] private Monster monster;
 
-    private float lastAttackTime = -999f;
+    private static float lastAttackTime = -999f;
 
     private void Awake()
     {
@@ -23,14 +23,19 @@ public class EventMonsterAttack : MonoBehaviour
 
     public void TryAttack(Collider2D collision)
     {
+        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            return;
+
         if (monster == null || monster.isDead)
             return;
 
-        Player target = Shared.battleManager != null ? Shared.battleManager.player : null;
+        Player target = collision.GetComponentInParent<Player>();
+
         if (target == null || target.isDead)
             return;
 
         MonsterData data = monster.GetMonsterData();
+
         if (data == null) 
             return;
 
@@ -41,7 +46,21 @@ public class EventMonsterAttack : MonoBehaviour
 
         lastAttackTime = Time.time;
 
-        target.TakeDamage(monster.stats[StatType.Atk], false);
+        float damage = monster.stats[StatType.Atk];
+
+        PassiveSkillManager passiveSkillManager = target.GetComponent<PassiveSkillManager>();
+
+        if (passiveSkillManager != null)
+        {
+            damage *= 1f - passiveSkillManager.DamageReductionRate;
+        }
+
+        target.TakeDamage(damage, false);
         target.OnHit();
+    }
+
+    public static void ResetAttackTime()
+    {
+        lastAttackTime = -999f;
     }
 }

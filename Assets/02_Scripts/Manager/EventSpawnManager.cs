@@ -24,12 +24,6 @@ public class EventSpawnManager : MonoBehaviour
     private List<GameObject> monsters = new List<GameObject>();
     private Coroutine moveCoroutine;
 
-
-    private void Awake()
-    {
-            
-    }
-
     private void CreatePool()
     {
         if (eventMonsterPrefab ==  null) 
@@ -45,6 +39,9 @@ public class EventSpawnManager : MonoBehaviour
 
     public void SpawnEventWave()
     {
+        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            return;
+
         if (eventMonsterPrefab == null)
             return;
 
@@ -54,12 +51,14 @@ public class EventSpawnManager : MonoBehaviour
         if (monsters.Count == 0) 
             CreatePool();
 
+       EventMonsterAttack.ResetAttackTime();
+
         if (moveCoroutine != null)
             StopCoroutine(moveCoroutine);
 
         SetMonsterPosition();
-        SetMonsterData();
         SetMonsterActive(true);
+        SetMonsterData();
 
         moveCoroutine = StartCoroutine(MoveWave());
     }
@@ -93,7 +92,7 @@ public class EventSpawnManager : MonoBehaviour
             if (monster != null)
             {
                 monster.SetMonsterData(eventMonsterData);
-                monster.ResetMonster();
+                monster.ResetMonster(false);
             }
 
             MonsterAi monsterAi = monsters[i].GetComponent<MonsterAi>();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: ActiveSkillData_Crystal Wave
   m_EditorClassIdentifier: 
-  skillName: Crystal Wave
+  skillName: "\uD06C\uB9AC\uC2A4\uD0C8 \uC6E8\uC774\uBE0C"
   skillInfo: "\uC804\uBC29\uC73C\uB85C \uD37C\uC9C0\uBA70 \uD0C0\uACA9\uD558\uB294
     \uACB0\uC815"
   skillType: 3

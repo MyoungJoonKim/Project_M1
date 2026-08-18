@@ -158,7 +158,7 @@ public class Monster : Character
         newSkill.Init(monsterData, skill, bossMonster, player.transform);
     }
 
-    public void ResetMonster()
+    public void ResetMonster(bool useAI = true)
     {
         isDead = false;
         deadHandled = false;
@@ -178,8 +178,15 @@ public class Monster : Character
         if (monsterAnimator != null)
             monsterAnimator.SetMove(false);
 
-        if (monsterAi != null)
+        // 일반 몬스터만 AI 초기화 (이벤트몬스터만 제외)
+        if (useAI && monsterAi != null)
             monsterAi.ResetAI();
+
+        if (deadCheckCoroutine != null)
+        {
+            StopCoroutine(deadCheckCoroutine);
+            deadCheckCoroutine = null;
+        }
 
         deadCheckCoroutine = StartCoroutine(DeadCheck());
     }

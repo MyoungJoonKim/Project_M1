@@ -8,7 +8,7 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField] private ActiveSkillData skillData;
     [SerializeField] private Transform player;
     
-    private PassiveSkillManager passiveSkillManager;
+    
     private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();
 
     private int currentLevel = 1;
@@ -30,9 +30,7 @@ public class PlayerSkillManager : MonoBehaviour
         skillData = data;
         player = _player;
         currentLevel = 1;
-        // 실행 확인할 것.
-        passiveSkillManager = player.GetComponentInParent<PassiveSkillManager>();
-
+        
         if (skillData.skillType == SkillType.EventSummon)
             return;
 
@@ -62,12 +60,6 @@ public class PlayerSkillManager : MonoBehaviour
     private void CreateSkill()
     {
         int count = skillData.count[currentLevel - 1];
-        float damage = skillData.damage[currentLevel - 1];
-
-        if (passiveSkillManager != null)
-        {
-            damage *= passiveSkillManager.SkillDamageRate;
-        }
 
         while (skillObjects.Count < count)
         {
@@ -123,7 +115,7 @@ public class PlayerSkillManager : MonoBehaviour
                 player,
                 i,
                 count,
-                damage,
+                skillData.damage[currentLevel - 1],
                 skillData.range[currentLevel - 1],
                 skillData.radius[currentLevel - 1],
                 skillData.speed[currentLevel - 1],

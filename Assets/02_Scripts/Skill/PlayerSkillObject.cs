@@ -24,14 +24,12 @@ public class PlayerSkillObject : MonoBehaviour
 
     private bool canAttack = true;
     private bool isTrigger = false;
+
     private Coroutine skillCoroutine;
+    private PassiveSkillManager passiveSkillManager;
 
     private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
-
-    private Monster monster;
-    private Pillar pillar;
-    private Prop prop;
 
     public void SetUp(
         Transform playerTransform,
@@ -45,6 +43,9 @@ public class PlayerSkillObject : MonoBehaviour
         SkillType type)
     {
         player = playerTransform;
+
+        passiveSkillManager = player.GetComponentInParent<PassiveSkillManager>();
+
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
@@ -124,9 +125,16 @@ public class PlayerSkillObject : MonoBehaviour
         if (!canAttack) 
             return;
 
-        monster = collision.GetComponentInParent<Monster>();
-        pillar = collision.GetComponentInParent<Pillar>();
-        prop = collision.GetComponentInParent<Prop>();
+        float finalDamage = damage;
+
+        if (passiveSkillManager != null)
+        {
+            finalDamage *= passiveSkillManager.SkillDamageRate;
+        }
+
+        Monster monster = collision.GetComponentInParent<Monster>();
+        Pillar pillar = collision.GetComponentInParent<Pillar>();
+        Prop prop = collision.GetComponentInParent<Prop>();
 
         if (monster != null && !monster.isDead)
         {
@@ -135,7 +143,7 @@ public class PlayerSkillObject : MonoBehaviour
 
             if (Time.time >= monsterLastHitTimes[monster] + hitInterval)
             {
-                monster.TakeDamage(damage, true);
+                monster.TakeDamage(finalDamage, true);
                 monster.OnHit();
 
                 monsterLastHitTimes[monster] = Time.time;
@@ -153,7 +161,7 @@ public class PlayerSkillObject : MonoBehaviour
 
             if (Time.time >= propLastHitTimes[pillar] + hitInterval)
             {
-                pillar.TakeDamage(damage, true);
+                pillar.TakeDamage(finalDamage, true);
 
                 propLastHitTimes[pillar] = Time.time;
             }
@@ -167,7 +175,7 @@ public class PlayerSkillObject : MonoBehaviour
 
             if (Time.time >= propLastHitTimes[prop] + hitInterval)
             {
-                prop.TakeDamage(damage, true);
+                prop.TakeDamage(finalDamage, true);
 
                 propLastHitTimes[prop] = Time.time;
             }
@@ -235,8 +243,8 @@ public class PlayerSkillObject : MonoBehaviour
 
     private void ProjectionSkill()
     {
-
     }
+
     private void EventSummonSkill()
     {
         if (isTrigger)
@@ -247,17 +255,46 @@ public class PlayerSkillObject : MonoBehaviour
 
     private Transform GetDirectionTarget()
     {
-        Monster monster = Shared.playerSkillManager.GetRandomMonster();
+        Monster monster = GetRandomMonster();
 
         if (monster != null)
             return monster.transform;
 
-        Pillar pillar = Shared.eventManager.CurrentActivePillar;
+        if (Shared.eventManager != null)
+        {
+            Pillar pillar = Shared.eventManager.CurrentActivePillar;
 
-        if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
-            return pillar.transform;
-
+            if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
+            {
+                return pillar.transform;
+            }
+        }
         return null;
+    }
+    private Monster GetRandomMonster()
+    {
+        if (Shared.spawnManager == null)
+            return null;
+
+        List<Monster> monsters = new List<Monster>();
+
+        foreach (Monster monster in Shared.spawnManager.GetActiveMonsters())
+        {
+            if (monster == null || monster.isDead)
+                continue;
+
+            float distance = Vector2.Distance(player.position, monster.transform.position);
+
+            if (distance <= range)
+                monsters.Add(monster);
+        }
+
+        if (monsters.Count == 0)
+            return null;
+
+        int rand = Random.Range(0, monsters.Count);
+
+        return monsters[rand];
     }
 
     private void SetEffectActive(bool value)
