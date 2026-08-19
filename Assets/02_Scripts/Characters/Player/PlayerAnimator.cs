@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    public Animator animator;
+    [Header("Player Animator")]
+    [SerializeField] private Animator animator;
 
     public void SetMove(bool state)
     {

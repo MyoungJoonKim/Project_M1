@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerSkillObject : MonoBehaviour
 {
+    [Header("Transform")]
     [SerializeField] private Transform player;
     [SerializeField] private Transform effectRoot;
+
+    [Header("Skill Object")]
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
 

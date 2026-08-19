@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExpGem : MonoBehaviour
 {
     private ExpDropManager manager;
+
     private int poolIndex;
     private float expAmount;
+
     public void SetManager(ExpDropManager manager)
     {
         this.manager = manager;

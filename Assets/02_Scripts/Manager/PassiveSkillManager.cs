@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PassiveSkillManager : MonoBehaviour
 {
+    [Header("Player Pickup Collider")]
     [SerializeField] private CircleCollider2D pickupCollider2D;
 
     private Dictionary<PassiveSkillData, int> passiveLevels = new Dictionary<PassiveSkillData, int>();

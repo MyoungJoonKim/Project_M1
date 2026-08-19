@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Prop : Character
@@ -8,7 +5,6 @@ public class Prop : Character
     [Header("Prop Data")]
     [SerializeField] private PropData propData;
     [SerializeField] private Collider2D collider2D;
-
 
     private void Awake()
     {

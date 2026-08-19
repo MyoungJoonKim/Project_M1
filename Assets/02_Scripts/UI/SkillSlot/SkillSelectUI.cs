@@ -6,24 +6,30 @@ using UnityEngine.UI;
 
 public class SkillSelectUI : MonoBehaviour
 {
-    [SerializeField] private GameObject panel;
-    [SerializeField] private SkillSlotUI[] slots;
-    [SerializeField] private List<ActiveSkillData> activeSkills;
-    [SerializeField] private List<PassiveSkillData> passiveSkills;
+    [Header("Player")]
     [SerializeField] private Player player;
     [SerializeField] private Transform skillRoot;
-    [SerializeField] private PassiveSkillManager passiveSkillManager;
 
-    private List<SkillSelect> randomSkills = new List<SkillSelect>();
+    [Header("UI")]
+    [SerializeField] private GameObject panel;
+    [SerializeField] private SkillSlotUI[] slots;
+
+    [Header("Skill Data")]
+    [SerializeField] private List<ActiveSkillData> activeSkills;
+    [SerializeField] private List<PassiveSkillData> passiveSkills;
+
+    [Header("Manager")]
+    [SerializeField] private PassiveSkillManager passiveSkillManager;
 
     [Header("Skill Select Timer")]
     [SerializeField] private float SelectTime = 30f;
     [SerializeField] private TMP_Text selectTimeText;
 
+    public bool isSelectUI;
     private float currentSelectTime;
 
     private Coroutine selectTimeCoroutine;
-    public bool isSelectUI;
+    private List<SkillSelect> randomSkills = new List<SkillSelect>();
 
     private void Awake()
     {

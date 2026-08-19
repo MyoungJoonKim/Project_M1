@@ -1,10 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Player : Character
 {
@@ -21,7 +16,10 @@ public class Player : Character
     [SerializeField] private GameObject grave;
     [SerializeField] private GameObject skillRoot;
 
+    [Header("Player JoyStick Panel")]
     [SerializeField] private GameObject joyStick;
+
+    [Header("Manager")]
     [SerializeField] private PassiveSkillManager passiveSkillManager;
 
     private PlayerController playerController;

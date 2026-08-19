@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextFadeOut : MonoBehaviour
 {
+    [Header("Menu Lock UI")]
     [SerializeField] private Image background;
     [SerializeField] private TMP_Text text;
     [SerializeField] private float fadeTime = 3f;
@@ -16,13 +15,14 @@ public class TextFadeOut : MonoBehaviour
         background.gameObject.SetActive(false);
         text.gameObject.SetActive(false);
     }
+
     public void Open()
     {
         StartCoroutine(BackgroundFadeOutEffect());
         StartCoroutine(TextFadeOutEffect());
     }
 
-    IEnumerator BackgroundFadeOutEffect()
+    private IEnumerator BackgroundFadeOutEffect()
     {
         background.gameObject.SetActive(true);
 
@@ -45,7 +45,7 @@ public class TextFadeOut : MonoBehaviour
         background.gameObject.SetActive(false);
     }
 
-    IEnumerator TextFadeOutEffect()
+    private IEnumerator TextFadeOutEffect()
     {
         text.gameObject.SetActive(true);
 

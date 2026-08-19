@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageTextManager : MonoBehaviour
 {
+    [Header("Prefab")]
     [SerializeField] private DamageText damageTextPrefab;
 
     [Header("Pool")]

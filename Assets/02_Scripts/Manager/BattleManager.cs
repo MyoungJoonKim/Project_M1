@@ -1,19 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 
 public class BattleManager : MonoBehaviour
 {
     [Header("Character Player")]
     public Player player;
 
-    private Coroutine gameTimeCoroutine;
-
     public float GameTime {  get; private set; }
-    public int killRecord;
     public bool isBattlePlaying;
+    public int killRecord;
 
+    private Coroutine gameTimeCoroutine;
 
 
     private void Awake()

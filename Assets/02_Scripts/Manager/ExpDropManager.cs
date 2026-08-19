@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ExpDropManager : MonoBehaviour
 {
     [Header("Exp Gem Prefab")]
-    public ExpGem[] expGemPrefab;
+    [SerializeField] private ExpGem[] expGemPrefab;
 
     [Header("Pool")]
     [SerializeField] private int startPoolSizePerType = 25;

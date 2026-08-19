@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.Rendering;
 
 public enum MonsterState
 {
@@ -33,10 +32,10 @@ public class Monster : Character
     private MonsterAttack monsterAttack;
     private BossSliderUI bossSliderUI;
     private Rigidbody2D rb;
+    private Coroutine deadCheckCoroutine;
 
     private IObjectPool<Monster> monsterPool;
 
-    private Coroutine deadCheckCoroutine;
 
     private void Awake()
     {

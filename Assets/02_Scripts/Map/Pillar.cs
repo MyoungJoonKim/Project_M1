@@ -19,7 +19,7 @@ public class Pillar : Prop
     [Header("Manager")]
     [SerializeField] private EventManager eventManager;
 
-    [Header("UIs")]
+    [Header("UI")]
     [SerializeField] private EventSliderUI eventSliderUI;
 
 

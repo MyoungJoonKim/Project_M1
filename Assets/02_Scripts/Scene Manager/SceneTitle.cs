@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneTitle : MonoBehaviour
@@ -25,7 +23,7 @@ public class SceneTitle : MonoBehaviour
         StartCoroutine(LoadingBarUpdate(loadingBar, 3f));
     }
 
-    IEnumerator LoadingBarUpdate(Slider bar, float timer)
+    private IEnumerator LoadingBarUpdate(Slider bar, float timer)
     {
         if (bar == null)
             yield break;

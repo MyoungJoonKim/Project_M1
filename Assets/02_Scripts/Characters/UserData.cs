@@ -1,11 +1,9 @@
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 [System.Serializable]
 public class UserData
 {
+    [Header("User Info")]
     public Sprite userIcon;
     public string userName;
     public int userLevel = 1;

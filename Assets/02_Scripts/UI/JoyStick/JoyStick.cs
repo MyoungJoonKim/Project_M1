@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class JoyStick : MonoBehaviour
 {
-    public Image IMGBALL;
+    [Header("Joystick Ball Icon")]
+    [SerializeField] private Image IMGBALL;
+
     private float radius = 30f;
 
     public Vector2 Input = Vector2.zero;

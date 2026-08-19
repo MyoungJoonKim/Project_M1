@@ -5,7 +5,10 @@ using TMPro;
 
 public class DamageText : MonoBehaviour
 {
+    [Header("TMP")]
     [SerializeField] private TextMeshPro textMeshPro;
+
+    [Header("Text Effect Value")]
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float lifeTime = 1f;
 
@@ -17,7 +20,6 @@ public class DamageText : MonoBehaviour
         this.manager = manager;
     }
 
-
     public void SetUp(float damage)
     {
         if (textMeshPro != null)
@@ -27,7 +29,7 @@ public class DamageText : MonoBehaviour
         effectCoroutine = StartCoroutine(TextEffect());
     }
 
-    IEnumerator TextEffect()
+    private IEnumerator TextEffect()
     {
         float timer = lifeTime;
 

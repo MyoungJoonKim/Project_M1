@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -129,8 +127,6 @@ public class RewardUI : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(0.001f);
         }
-
-        //ApplyReward();
 
         bar.maxValue = Shared.userManager.GetUserMaxExp();
         bar.value = Shared.userManager.GetUserExp();

@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class JoyStickPanel : MonoBehaviour
 {
-    public JoyStick joyStick;
+    [Header("Joystick")]
+    [SerializeField] private JoyStick joyStick;
 
     public void OnPointerDown(BaseEventData eventData)
     {

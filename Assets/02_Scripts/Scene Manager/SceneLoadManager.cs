@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +14,7 @@ public class SceneLoadManager : MonoBehaviour
 {
     public SceneType scene;
     public SceneType nextScene;
+
     private void Awake()
     {
         if (Shared.sceneLoadManager != null && Shared.sceneLoadManager != this)

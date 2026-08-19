@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossSkillManager : MonoBehaviour
@@ -9,15 +8,16 @@ public class BossSkillManager : MonoBehaviour
     [SerializeField] private Transform bossMonster;
     [SerializeField] private Transform targetPlayer;
 
+    [Header("Skill Data")]
     [SerializeField] private ActiveSkillData skillData;
 
     public ActiveSkillData Data => skillData;
+    private Coroutine skillLoop;
 
     private readonly List<BossSkillObject> skillObjects = new List<BossSkillObject> ();
     private int currentLevel = 0;
     private bool isSkillLoop = true;
 
-    private Coroutine skillLoop;
 
 
     public void Init(MonsterData monsterData, ActiveSkillData _skillData, Transform bossTransform, Transform playerTransform)

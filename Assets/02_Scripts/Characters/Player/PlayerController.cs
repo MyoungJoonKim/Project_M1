@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Move Controller")]
-    public JoyStick JoyStick;
+    [SerializeField] private JoyStick JoyStick;
 
     private PlayerAnimator playerAnimator;
     private Rigidbody2D rb;

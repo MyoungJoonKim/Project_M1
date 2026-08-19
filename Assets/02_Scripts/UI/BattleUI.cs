@@ -15,13 +15,11 @@ public class BattleUI : MonoBehaviour
     [Header("UIs")]
     [SerializeField] private PauseUI pauseUI;
 
-
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
     private Coroutine roundTextCoroutine;
 
     public string TimeText => timeText.text;
-
 
     private void Start()
     {
@@ -138,7 +136,6 @@ public class BattleUI : MonoBehaviour
             roundTextCoroutine = null;
         }
     }
-
 
     private void FindPlayer()
     {

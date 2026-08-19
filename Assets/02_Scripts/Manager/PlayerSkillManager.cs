@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerSkillManager : MonoBehaviour
 {
-    [SerializeField] private ActiveSkillData skillData;
+    [Header("Player Transform")]
     [SerializeField] private Transform player;
+
+    [Header("Active Skill Data")]
+    [SerializeField] private ActiveSkillData skillData;
     
     
     private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();

@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.Rendering.DebugUI;
 
 public class BossSkillObject : MonoBehaviour
 {
+    [Header("Transform")]
     [SerializeField] private Transform boss;
     [SerializeField] private Transform targetPlayer;
     [SerializeField] private Transform effectRoot;
+
+    [Header("Skill Object")]
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
+
     private SkillType skillType;
 
     private int index;

@@ -1,26 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneLoading : MonoBehaviour
 {
-    public Slider loadingBar;
-    //public Text Texts;
-    //public Image Background;
-    //public Sprite[] Images;
-
-    //List<string> texts = new List<string>();
+    [Header("Loading Bar Slider")]
+    [SerializeField] private Slider loadingBar;
 
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(LoadingBarUpdate(loadingBar,3f));
-        //StartCoroutine(BackgroundUpdate(5f));
     }
 
-    IEnumerator LoadingBarUpdate(Slider bar, float timer)
+    private IEnumerator LoadingBarUpdate(Slider bar, float timer)
     {
         if (bar == null)
             yield break;
@@ -37,36 +30,4 @@ public class SceneLoading : MonoBehaviour
         }
         Shared.sceneLoadManager.ChangeScene(Shared.sceneLoadManager.nextScene, false);
     }
-
-
-    //IEnumerator BackgroundUpdate(float timer)
-    //{
-    //    while (true)
-    //    {
-    //        RandomUpdateBackground();
-    //        RandomUpdateText();
-    //        yield return new WaitForSeconds(2f);
-
-    //        if (LoadingBar.value == timer)
-    //            break;
-    //    }
-    //}
-
-    //public void RandomUpdateBackground()
-    //{
-    //    int rand = Random.Range(0, Images.Length);
-    //    Background.sprite = Images[rand];
-    //}
-
-    //public void RandomUpdateText()
-    //{
-    //    texts.Add("1.");
-    //    texts.Add("2,");
-    //    texts.Add("3.");
-    //    texts.Add("4.");
-    //    texts.Add("5.");
-
-    //    int rand = Random.Range(0, texts.Count);
-    //    Texts.text = texts[rand];
-    //}
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,7 +76,7 @@ public class MenuToggleUI : MonoBehaviour
         isUnlock = true;
     }
 
-    IEnumerator MenuLockUpdate()
+    private IEnumerator MenuLockUpdate()
     {
         while (!isUnlock)
         {
@@ -91,7 +90,7 @@ public class MenuToggleUI : MonoBehaviour
 
     }
 
-    IEnumerator MenuIconScaleUpdate()
+    private IEnumerator MenuIconScaleUpdate()
     {
         while (true)
         {

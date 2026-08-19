@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,8 +33,8 @@ public class Character : MonoBehaviour
     public Dictionary<StatType, float> stats = new();
     public Dictionary<MaxStatType, float> maxStats = new();
 
-    public bool isDead;
     protected bool deadHandled;
+    public bool isDead;
 
     public event Action StatBarChange;
 

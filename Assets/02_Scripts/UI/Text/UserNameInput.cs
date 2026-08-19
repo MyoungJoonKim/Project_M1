@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -27,6 +25,7 @@ public class UserNameInput : MonoBehaviour
         else
             panel.SetActive(false);
     }
+
     public void OnClickApplyButton()
     {
         if (inputField.text.Length >= minLength)

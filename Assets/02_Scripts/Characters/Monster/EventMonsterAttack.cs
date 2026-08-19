@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class EventMonsterAttack : MonoBehaviour
 {
+    [Header("Monster")]
     [SerializeField] private Monster monster;
 
     private static float lastAttackTime = -999f;
