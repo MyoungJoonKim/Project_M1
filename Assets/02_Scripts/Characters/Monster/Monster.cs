@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 
 public enum MonsterState
@@ -60,6 +61,12 @@ public class Monster : Character
                 OnDead();
 
                 deadCheckCoroutine = null;
+
+                if (monsterData.monsterID == "B2")
+                {
+                    Debug.Log("보스처치");
+                    player.GameWin();
+                }
                 yield break;
             }
             yield return null;
@@ -197,8 +204,6 @@ public class Monster : Character
 
     public void OnDead()
     {
-        Debug.Log("몬스터 처치");
-
         if (monsterAi != null)
             monsterAi.StopAI();
 

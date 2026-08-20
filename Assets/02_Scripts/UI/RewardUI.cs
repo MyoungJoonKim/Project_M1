@@ -38,13 +38,13 @@ public class RewardUI : MonoBehaviour
             gameOverUI.SetActive(false);
     }
 
-    public IEnumerator GameOverUI()
+    public IEnumerator GameOverUI(bool isVictory)
     {
         yield return new WaitForSecondsRealtime(3f);
-        OpenUI();
+        OpenUI(isVictory);
     }
 
-    private void OpenUI()
+    private void OpenUI(bool isVictory)
     {
         if (gameOverUI != null)
             gameOverUI.SetActive(true);
@@ -62,9 +62,9 @@ public class RewardUI : MonoBehaviour
 
         BattleUI battleUI = FindAnyObjectByType<BattleUI>();
 
-        if (titleText != null && Shared.battleManager.player.isDead)
+        if (titleText != null && !isVictory)
             titleText.text = "사망\n\n생존시간";
-        else if (titleText != null && !Shared.battleManager.player.isDead)
+        else if (titleText != null && isVictory)
             titleText.text = "승리\n\n생존시간";
 
         if (survivalTimeText != null && battleUI != null)
@@ -105,7 +105,7 @@ public class RewardUI : MonoBehaviour
 
         while (addExp > 0)
         {
-            float addValue = 0.1f;
+            float addValue = 0.2f;
 
             if (addExp < addValue)
                 addValue = addExp;

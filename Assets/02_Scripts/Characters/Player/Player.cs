@@ -117,9 +117,35 @@ public class Player : Character
         Shared.skillSelectUI.Open();
 
     }
+
+    public void GameWin()
+    {
+        if (rigidbody2D != null)
+        {
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.angularVelocity = 0f;
+        }
+
+        if (playerController != null)
+        {
+            joyStick.SetActive(false);
+            playerController.enabled = false;
+        }
+
+        if (playerAnimator != null)
+        {
+            playerAnimator.enabled = false;
+        }
+
+        if (skillRoot != null)
+            skillRoot.SetActive(false);
+
+        if (Shared.battleManager != null)
+            Shared.battleManager.EndGame(this);
+    }
+
     public void OnDead()
     {
-        Debug.Log("플레이어 사망");
         if (rigidbody2D != null)
         {
             rigidbody2D.velocity = Vector2.zero;
@@ -133,7 +159,7 @@ public class Player : Character
         }
 
         if (Shared.battleManager != null)
-            Shared.battleManager.PlayerDead(this);
+            Shared.battleManager.EndGame(this);
         
         if (playerAnimator != null)
         {
@@ -149,7 +175,6 @@ public class Player : Character
 
         if (grave != null)
             grave.SetActive(true);
-
     }
 
     public void OnHit()

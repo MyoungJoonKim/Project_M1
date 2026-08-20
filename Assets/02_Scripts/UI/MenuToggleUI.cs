@@ -118,7 +118,6 @@ public class MenuToggleUI : MonoBehaviour
         if (Shared.userManager.GetUserLevel() < lockOffLevel)
         {
             textFadeOut.Open();
-            Debug.Log("토글버튼 클릭");
         }
     }
 }

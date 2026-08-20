@@ -16,7 +16,7 @@ MonoBehaviour:
   monsterName: Boss Monster1
   monsterType: 1
   prefab: {fileID: 756814087552902747, guid: 2b214d67225396c41b6e252ceb50cf9f, type: 3}
-  maxHp: 1500
+  maxHp: 3000
   atk: 100
   def: 50
   moveSpeed: 4

@@ -154,7 +154,6 @@ public class PlayerSkillManager : MonoBehaviour
             skillLoop = null;
         }
 
-        //CreateSkill();
         skillLoop = StartCoroutine(EventSkillLoop());
     }
 

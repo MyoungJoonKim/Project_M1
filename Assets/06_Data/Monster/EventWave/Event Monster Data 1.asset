@@ -16,7 +16,7 @@ MonoBehaviour:
   monsterName: Event Monster1
   monsterType: 0
   prefab: {fileID: 8909632720232798007, guid: c6cab51adfe6094498f6aca1862b0c32, type: 3}
-  maxHp: 5000
+  maxHp: 15000
   atk: 400
   def: 0
   moveSpeed: 10

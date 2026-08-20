@@ -10,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     [Header("Slider Bars")]
     [SerializeField] private Slider hpBar;
     [SerializeField] private Slider expBar;
+    [SerializeField] private float hpBarOffset = -3.5f;
 
 
     private void Start()
@@ -38,10 +39,13 @@ public class PlayerUI : MonoBehaviour
 
             if (Camera.main != null)
             {
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
-                hpBar.transform.position = screenPos + new Vector3(0,- 80, 0);
-                yield return null;
+                Vector3 worldPos = player.transform.position;
+                worldPos.y += hpBarOffset;
+
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+                hpBar.transform.position = screenPos;
             }
+            yield return null;
         } 
     }
 

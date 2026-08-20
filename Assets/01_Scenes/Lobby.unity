@@ -320,9 +320,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 104693306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -480, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 68, y: -58}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &76992535
@@ -624,9 +624,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 104693306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 323, y: -28}
   m_SizeDelta: {x: 350, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &296833484
@@ -855,10 +855,10 @@ RectTransform:
   - {fileID: 1566464468}
   m_Father: {fileID: 762557476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 380, y: 60}
+  m_SizeDelta: {x: -716, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &321364649
 CanvasRenderer:
@@ -3077,7 +3077,7 @@ PrefabInstance:
     - target: {fileID: 536749066242395292, guid: 765b2da0d02078646b7ec75bac7ca8eb,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 536749066242395292, guid: 765b2da0d02078646b7ec75bac7ca8eb,
         type: 3}
@@ -3087,7 +3087,7 @@ PrefabInstance:
     - target: {fileID: 536749066242395292, guid: 765b2da0d02078646b7ec75bac7ca8eb,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 536749066242395292, guid: 765b2da0d02078646b7ec75bac7ca8eb,
         type: 3}
@@ -3097,7 +3097,7 @@ PrefabInstance:
     - target: {fileID: 536749066242395292, guid: 765b2da0d02078646b7ec75bac7ca8eb,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 1950
       objectReference: {fileID: 0}
     - target: {fileID: 536749066242395292, guid: 765b2da0d02078646b7ec75bac7ca8eb,
         type: 3}

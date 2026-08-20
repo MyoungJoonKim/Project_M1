@@ -22,7 +22,7 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 5
   attackCooldown: 1.5
-  rewardExp: 320
+  rewardExp: 300
   projectionSkill: {fileID: 0}
   targetExplosionSkill: {fileID: 0}
   summonSkill: {fileID: 0}

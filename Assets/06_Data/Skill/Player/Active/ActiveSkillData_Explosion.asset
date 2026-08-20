@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_Explosion
   m_EditorClassIdentifier: 
   skillName: "\uC775\uC2A4\uD50C\uB85C\uC804"
-  skillInfo: "\uC8FC\uBCC0 \uC77C\uC815 \uBC94\uC704\uC5D0\uC11C \uD3ED\uBC1C"
+  skillInfo: "\uC8FC\uBCC0 \uBC94\uC704 \uD3ED\uBC1C"
   skillType: 4
   skillPrefab: {fileID: 1011184593278320210, guid: e75cee982fae73b42987a690a401e26d,
     type: 3}

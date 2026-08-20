@@ -31,7 +31,7 @@ public class BattleManager : MonoBehaviour
     }
 
     // ∏ÛΩ∫≈Õ ≈∏∞Ÿ √ﬂ¿˚ ∏ÿ√„.
-    public void PlayerDead(Player player)
+    public void EndGame(Player player)
     {
         StopBattle();
 
@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour
             battleUI.StopBattleUI();
 
         if (rewardUI != null)
-            StartCoroutine(rewardUI.GameOverUI());
+            StartCoroutine(rewardUI.GameOverUI(!player.isDead));
 
         if (Shared.spawnManager != null)
         {
@@ -100,7 +100,7 @@ public class BattleManager : MonoBehaviour
     public int GetRewardUserExp()
     {
         int rewardExp = 0;
-        rewardExp += killRecord * 2;
+        rewardExp += killRecord * (int)1.15f;
         return rewardExp;
     }
 }

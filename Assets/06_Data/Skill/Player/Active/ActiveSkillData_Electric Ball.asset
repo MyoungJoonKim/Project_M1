@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_Electric Ball
   m_EditorClassIdentifier: 
   skillName: "\uC77C\uB809\uD2B8\uB9AD \uBCFC"
-  skillInfo: "\uD68C\uC804\uD558\uB294 \uC804\uAE30 \uAD6C\uCCB4 1\uAC1C \uC18C\uD658"
+  skillInfo: "\uD68C\uC804\uD558\uB294 \uC804\uAE30 \uAD6C\uCCB4 1\uAC1C \uCD94\uAC00"
   skillType: 0
   skillPrefab: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991,
     type: 3}
@@ -24,8 +24,8 @@ MonoBehaviour:
   - 40
   - 50
   - 65
-  - 90
-  - 120
+  - 80
+  - 100
   range:
   - 7
   - 7.5
