@@ -9,6 +9,7 @@ public class TextFadeOut : MonoBehaviour
     [SerializeField] private Image background;
     [SerializeField] private TMP_Text text;
     [SerializeField] private float fadeTime = 3f;
+    [SerializeField] private Vector3 position = new Vector3(270, 500, 0);
 
     private MenuToggleUI menuToggleUI;
 
@@ -29,6 +30,7 @@ public class TextFadeOut : MonoBehaviour
     private IEnumerator BackgroundFadeOutEffect()
     {
         background.gameObject.SetActive(true);
+        background.transform.position = position;
 
         Color color = background.color;
         color.a = 1f;
@@ -52,6 +54,7 @@ public class TextFadeOut : MonoBehaviour
     private IEnumerator TextFadeOutEffect()
     {
         text.gameObject.SetActive(true);
+        text.transform.position = position;
         text.text = $"{menuToggleUI.LockOffLevel}∑π∫ß ¿Ã»ƒ ƒ¡≈Ÿ√˜ «ÿ¡¶";
 
         Color color = text.color;
