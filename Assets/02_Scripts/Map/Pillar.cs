@@ -85,34 +85,56 @@ public class Pillar : Prop
 
     private IEnumerator PillarBroken()
     {
-        while (currentState != PillarState.Broken)
+        while (currentState == PillarState.RuneActive)
         {
-            if (eventManager.EventFail)
+            // Á¦ÇÑ½Ã°£ ÃÊ°ú ½ÇÆÐ
+            if (eventManager != null && eventManager.EventFail)
             {
-                currentState = PillarState.Base;
-                Debug.Log("·é±âµÕ ÆÄ±« ½ÇÆÐ");
+                ChangeState(PillarState.Base);
+                brokenCoroutine = null;
                 yield break;
             }
 
+            // ·é±âµÕ ÆÄ±« ¼º°ø
             if (stats[StatType.Hp] <= 0)
             {
-                currentState = PillarState.Broken;
+                ChangeState(PillarState.Broken);
 
                 if (eventManager != null)
                     eventManager.StartEventSkill();
 
-                Debug.Log("·é±âµÕ ÆÄ±« ¼º°ø");
+                brokenCoroutine = null;
+                yield break;
             }
             yield return null;
         }
         brokenCoroutine = null;
     }
 
-    public void ActiveRune()
+    public void ActiveRune(int roundIndex)
     {
         if (currentState != PillarState.Base)
             return;
-        currentState = PillarState.RuneActive;
+
+        float hp = GetMaxStat(MaxStatType.MaxHp);
+
+        if (roundIndex == 1)
+        {
+            hp *= 2.7f;
+        }
+
+        SetMaxStat(MaxStatType.MaxHp, hp);
+        SetStat(StatType.Hp, hp);
+
+        ChangeState(PillarState.RuneActive);
+
+        if (brokenCoroutine != null)
+        {
+            StopCoroutine(brokenCoroutine);
+            brokenCoroutine = null;
+        }
+
+        brokenCoroutine = StartCoroutine(PillarBroken());
     }
 
     public bool CanTakeDamage()

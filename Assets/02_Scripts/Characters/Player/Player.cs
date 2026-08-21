@@ -104,7 +104,7 @@ public class Player : Character
     {
         AddStat(StatType.Level, 1f);
 
-        AddMaxStat(MaxStatType.MaxHp, 200f);
+        AddMaxStat(MaxStatType.MaxHp, 250f);
         this.Heal(GetMaxStat(MaxStatType.MaxHp) / 2);
 
         float newMaxExp = GetMaxStat(MaxStatType.MaxExp) * 1.5f;

@@ -9,6 +9,7 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private Toggle menuToggle;
     [SerializeField] private GameObject MenuIcon;
     [SerializeField] private GameObject lockIcon;
+    [SerializeField] private GameObject lockButton;
     [SerializeField] private TMP_Text text;
 
     [Header("Panel")]
@@ -23,7 +24,7 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private float scaleSpeed = 5f;
     [SerializeField] private Vector3 selectPosition = new Vector3(0f, 0f, 0f);
 
-    [SerializeField] private TextFadeOut textFadeOut;
+    private TextFadeOut textFadeOut;
 
     private Coroutine lockCheckCoroutine;
     private Coroutine iconScaleCoroutine;
@@ -31,8 +32,11 @@ public class MenuToggleUI : MonoBehaviour
     private Vector3 normalPosition;
     private bool isUnlock;
 
+    public int LockOffLevel => lockOffLevel;
+
     private void Start()
     {
+        textFadeOut = GetComponentInChildren<TextFadeOut>();
         normalPosition = Vector3.zero;
         SetLockMenu();
 
@@ -67,6 +71,9 @@ public class MenuToggleUI : MonoBehaviour
         if (lockIcon != null)
             lockIcon.SetActive(false);
 
+        if (lockButton != null)
+            lockButton.SetActive(false);
+
         if (MenuIcon != null)
             MenuIcon.SetActive(true);
 
@@ -87,7 +94,6 @@ public class MenuToggleUI : MonoBehaviour
             }
             yield return null;
         }
-
     }
 
     private IEnumerator MenuIconScaleUpdate()

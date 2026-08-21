@@ -26,8 +26,12 @@ public class EventManager : MonoBehaviour
 
     private bool isEventStart;
     private bool endEvent;
+    private float currentDurationTime;
+    private int lastEventRound = -1;
+
     public bool EventFail => endEvent;
-    public float Timer => durationTime;
+    public float Timer => currentDurationTime;
+    
 
 
     private void Start()
@@ -87,41 +91,62 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator WarningEvent()
     {
-        while (!isEventStart)
+        while (true)
         {
-            if (spawnManager.CurrentWaveIndex == eventWave)
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
             {
-                StartCoroutine(StartPillarEvent());
-                yield break;
+                yield return null;
+                continue;
+            }
+
+            int roundIndex = spawnManager.CurrentRoundIndex;
+            int waveNumber = spawnManager.CurrentWaveIndex + 1;
+
+            if (waveNumber == eventWave && lastEventRound != roundIndex && !isEventStart)
+            {
+                lastEventRound = roundIndex;
+                yield return StartCoroutine(StartPillarEvent(roundIndex));
             }
             yield return null;
         }
     }
 
-    private IEnumerator StartPillarEvent()
+    private IEnumerator StartPillarEvent(int roundIndex)
     {
         isEventStart = true;
+        endEvent = false;
+
+        currentDurationTime = durationTime;
 
         eventTextUI.Open();
 
-        currentActivePillar = pillarManager.SetActiveRandRune();
+        currentActivePillar = pillarManager.SetActiveRandRune(roundIndex);
 
         if (currentActivePillar == null)
         {
             Debug.Log("ÀÌº¥Æ®¿ë ·é±âµÕ ¼ÒÁø");
+            isEventStart = false;
             yield return null;
         }
         Debug.Log("ÀÌº¥Æ®¿ë ·é±âµÕ ·£´ý È°¼ºÈ­");
 
-        while (durationTime > 0f)
+        while (currentDurationTime > 0f)
         {
-            durationTime -= Time.deltaTime;
+            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            {
+                currentActivePillar = null;
+                isEventStart= false;
+                yield break;
+            }
+
+            currentDurationTime -= Time.deltaTime;
 
             // ·é±âµÕ ÆÄ±« ½Ã ÀÌº¥Æ® ¼º°ø
             if (currentActivePillar.IsBroken)
             {
                 endEvent = true;
                 currentActivePillar = null;
+                isEventStart = false;
                 yield break;
             }
             yield return null;
@@ -131,9 +156,10 @@ public class EventManager : MonoBehaviour
         endEvent = true;
 
         if (eventSpawnManager != null)
-            eventSpawnManager.SpawnEventWave();
+            eventSpawnManager.SpawnEventWave(roundIndex);
 
         currentActivePillar = null;    
+        isEventStart = false;
     }
 
 }

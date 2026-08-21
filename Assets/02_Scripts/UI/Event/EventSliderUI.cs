@@ -10,8 +10,17 @@ public class EventSliderUI : MonoBehaviour
     [Header("Slider Bar")]
     [SerializeField] private Slider runeHpBar;
 
+    [Header("Position")]
+    [SerializeField] private float offset = -2.5f;
+
     private void Start()
     {
+        if (prop == null)
+            prop = GetComponent<Prop>();
+
+        if (prop == null)
+            return;
+
         ResetBars();
         prop.StatBarChange += ResetBars;
         StartCoroutine(BarPositionUpdate());
@@ -30,24 +39,23 @@ public class EventSliderUI : MonoBehaviour
             if (prop == null)
                 yield break;
 
-            if (Camera.main != null)
+            if (Camera.main != null && runeHpBar != null)
             {
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(prop.transform.position);
-                runeHpBar.transform.position = screenPos + new Vector3(0, -50, 0);
-                yield return null;
+                Vector3 worldPos = prop.transform.position + new Vector3(0f, offset, 0f);
+
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+
+                runeHpBar.transform.position = screenPos;
             }
+            yield return null;
         }
     }
 
     private void ResetBars()
     {
-        Vector3 offset = new Vector3(0, -1, 0);
-        Vector3 position = prop.transform.position + offset;
-
-        if (prop == null)
+        if (prop == null || runeHpBar == null)
             return;
 
-        runeHpBar.transform.position += position;
         SetBar(runeHpBar, prop.stats[StatType.Hp], prop.maxStats[MaxStatType.MaxHp]);
     }
 

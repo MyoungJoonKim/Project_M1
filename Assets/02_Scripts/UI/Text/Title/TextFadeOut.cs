@@ -10,8 +10,12 @@ public class TextFadeOut : MonoBehaviour
     [SerializeField] private TMP_Text text;
     [SerializeField] private float fadeTime = 3f;
 
+    private MenuToggleUI menuToggleUI;
+
     private void Start()
     {
+        menuToggleUI = GetComponentInParent<MenuToggleUI>();
+
         background.gameObject.SetActive(false);
         text.gameObject.SetActive(false);
     }
@@ -27,7 +31,7 @@ public class TextFadeOut : MonoBehaviour
         background.gameObject.SetActive(true);
 
         Color color = background.color;
-        color.a = 150f;
+        color.a = 1f;
         background.color = color;
         float timer = 0f;
 
@@ -35,7 +39,7 @@ public class TextFadeOut : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            color.a = Mathf.Lerp(150f, 0f, timer / fadeTime);
+            color.a = Mathf.Lerp(1f, 0f, timer / fadeTime);
             background.color = color;
 
             yield return null;
@@ -48,9 +52,10 @@ public class TextFadeOut : MonoBehaviour
     private IEnumerator TextFadeOutEffect()
     {
         text.gameObject.SetActive(true);
+        text.text = $"{menuToggleUI.LockOffLevel}∑π∫ß ¿Ã»ƒ ƒ¡≈Ÿ√˜ «ÿ¡¶";
 
         Color color = text.color;
-        color.a = 255f;
+        color.a = 1f;
         text.color = color;
         float timer = 0f;
 
@@ -58,7 +63,7 @@ public class TextFadeOut : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            color.a = Mathf.Lerp(255f, 0f, timer / fadeTime);
+            color.a = Mathf.Lerp(1f, 0f, timer / fadeTime);
             text.color = color;
 
             yield return null;

@@ -6,7 +6,7 @@ public class PillarManager : MonoBehaviour
     [Header("Pillars")]
     [SerializeField] private Pillar[] pillars;
 
-    public Pillar SetActiveRandRune()
+    public Pillar SetActiveRandRune(int roundIndex)
     {
         List<Pillar> list = new List<Pillar>();
 
@@ -24,7 +24,7 @@ public class PillarManager : MonoBehaviour
         int rand = Random.Range(0, list.Count);
         Pillar selectedPillar = list[rand];
 
-        selectedPillar.ActiveRune();    
+        selectedPillar.ActiveRune(roundIndex);    
 
         return selectedPillar;
     }

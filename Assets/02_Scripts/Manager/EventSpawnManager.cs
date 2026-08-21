@@ -5,10 +5,10 @@ using UnityEngine;
 public class EventSpawnManager : MonoBehaviour
 {
     [Header("Prefab")]
-    [SerializeField] private GameObject eventMonsterPrefab;
+    [SerializeField] private GameObject[] eventMonsterPrefabs;
 
     [Header("Monster Data")]
-    [SerializeField] private MonsterData eventMonsterData;
+    [SerializeField] private MonsterData[] eventMonsterDatas;
 
     [Header("Spawn Position")]
     [SerializeField] private float leftX = 471f;
@@ -19,41 +19,64 @@ public class EventSpawnManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private int monsterCount = 28;
 
+    private GameObject currentMonsterPrefab;
+    private MonsterData currentMonsterData;
     private List<GameObject> monsters = new List<GameObject>();
     private Coroutine moveCoroutine;
 
     private void CreatePool()
     {
-        if (eventMonsterPrefab ==  null) 
+        if (currentMonsterPrefab ==  null) 
             return;
 
         for (int i = 0; i < monsterCount; i++)
         {
-            GameObject monster = Instantiate(eventMonsterPrefab, transform);
+            GameObject monster = Instantiate(currentMonsterPrefab, transform);
             monster.SetActive(false);
             monsters.Add(monster);
         }
     }
 
-    public void SpawnEventWave()
+    private void ClearPool()
+    {
+        for (int i = 0; i < monsters.Count; i++)
+        {
+            if (monsters[i] != null)
+                Destroy(monsters[i]);
+        }
+        monsters.Clear();
+    }
+
+    public void SpawnEventWave(int roundIndex)
     {
         if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
             return;
 
-        if (eventMonsterPrefab == null)
+        if (eventMonsterPrefabs == null|| eventMonsterDatas == null)
             return;
 
-        if (eventMonsterData == null)
+        if (roundIndex < 0)
             return;
 
-        if (monsters.Count == 0) 
-            CreatePool();
+        currentMonsterPrefab = eventMonsterPrefabs[roundIndex];
+        currentMonsterData = eventMonsterDatas[roundIndex];
 
-       EventMonsterAttack.ResetAttackTime();
+        if (currentMonsterPrefab == null|| currentMonsterData == null) 
+            return;
 
         if (moveCoroutine != null)
+        {
             StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+        ClearPool();
+        CreatePool();
 
+        EventMonsterAttack.ResetAttackTime();
+
+        if (monsters.Count == 0)
+            return;
+            
         SetMonsterPosition();
         SetMonsterActive(true);
         SetMonsterData();
@@ -89,7 +112,7 @@ public class EventSpawnManager : MonoBehaviour
 
             if (monster != null)
             {
-                monster.SetMonsterData(eventMonsterData);
+                monster.SetMonsterData(currentMonsterData);
                 monster.ResetMonster(false);
             }
 
@@ -117,7 +140,7 @@ public class EventSpawnManager : MonoBehaviour
             { 
                 if (monsters[i] == null)
                     continue;
-                monsters[i].transform.position += Vector3.down * eventMonsterData.moveSpeed * Time.deltaTime;
+                monsters[i].transform.position += Vector3.down * currentMonsterData.moveSpeed * Time.deltaTime;
             }
 
             if (monsters.Count > 0 && monsters[0].transform.position.y <= endY)

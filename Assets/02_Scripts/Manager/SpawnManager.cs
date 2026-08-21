@@ -43,6 +43,7 @@ public class SpawnManager : MonoBehaviour
     private Coroutine roundCoroutine;
 
     public int CurrentWaveIndex => currentWaveIndex;
+    public int CurrentRoundIndex => currentRoundIndex;
 
     private readonly List<Monster> activeMonsters = new();
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
@@ -135,10 +136,27 @@ public class SpawnManager : MonoBehaviour
                     yield break;
 
                 PrepareMonsterPool(wave.bossMonster);
-                SpawnMonster(wave.bossMonster);
+                Monster boss = SpawnMonster(wave.bossMonster);
 
-                // 보스도 다시 안 나오는 구조라면 스폰 종료 표시.
+                if (boss == null)
+                {
+                    Debug.LogError($"보스 생성 실패 : {wave.bossMonster.monsterID}");
+
+                    yield break;
+                }
+
+                Debug.Log($"보스 생성 성공 : {wave.bossMonster.monsterID}");
+
                 CloseMonsterSpawn(wave.bossMonster);
+
+                // 보스가 죽을 때까지 현재 라운드 유지
+                while (boss != null && boss.gameObject.activeSelf && !boss.isDead)
+                {
+                    if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                        yield break;
+
+                    yield return null;
+                }
             }
             else
             {
@@ -227,33 +245,56 @@ public class SpawnManager : MonoBehaviour
         return data;
     }
 
-    public void SpawnMonster(MonsterData data)
+    public Monster SpawnMonster(MonsterData data)
     {
-        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
-            return;
+        if (Shared.battleManager == null)
+        {
+            Debug.LogError("보스 생성 실패 원인 : BattleManager null");
+            return null;
+        }
 
-        if (activeMonsters.Count >= maxActiveMonsterCount)
-            return;
+        if (!Shared.battleManager.isBattlePlaying)
+        {
+            Debug.LogError("보스 생성 실패 원인 : 전투 종료 상태");
+            return null;
+        }
 
         if (player == null)
-            return;
+        {
+            Debug.LogError("보스 생성 실패 원인 : Player null");
+            return null;
+        }
 
-        if (data == null || data.prefab == null)
-            return;
+        if (data == null)
+        {
+            Debug.LogError("보스 생성 실패 원인 : MonsterData null");
+            return null;
+        }
+
+        if (data.prefab == null)
+        {
+            Debug.LogError(
+                $"보스 생성 실패 원인 : {data.monsterID} Prefab 없음");
+            return null;
+        }
 
         if (string.IsNullOrEmpty(data.monsterID))
-            return;
+        {
+            Debug.LogError("보스 생성 실패 원인 : MonsterID 없음");
+            return null;
+        }
+
+        if (data.monsterType != MonsterType.Boss && activeMonsters.Count >= maxActiveMonsterCount)
+            return null;
 
         if (!pool.ContainsKey(data.monsterID))
             CreatePoolMonster(data);
 
         if (!pool.ContainsKey(data.monsterID))
-            return;
+            return null;
 
         Monster monster = pool[data.monsterID].Get();
 
-        // OnEnable에서 RegisterMonster가 호출되므로,
-        // 반드시 SetActive(true) 전에 데이터와 위치를 먼저 세팅한다.
         monster.transform.position = GetRandomPosition();
         monster.transform.rotation = Quaternion.identity;
 
@@ -266,10 +307,10 @@ public class SpawnManager : MonoBehaviour
         if (data.monsterType == MonsterType.Boss)
         {
             monster.SetBossSliderUI(bossSliderUI);
-            if (bossSliderUI != null) 
+            if (bossSliderUI != null)
                 bossSliderUI.Init(monster);
         }
-
+        return monster;
     }
 
     public Vector2 GetRandomPosition()

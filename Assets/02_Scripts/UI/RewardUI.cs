@@ -97,6 +97,7 @@ public class RewardUI : MonoBehaviour
         float maxExp = data.userMaxExp;
         int level = data.userLevel;
 
+        bar.wholeNumbers = false;
         bar.minValue = 0;
         bar.maxValue = maxExp;
         bar.value = exp;
@@ -120,22 +121,20 @@ public class RewardUI : MonoBehaviour
                 maxExp *= 1.5f;
 
                 bar.maxValue = maxExp;
+                bar.value = 0f;
             }
 
+            bar.maxValue = maxExp;
             bar.value = exp;
+
             RefreshUserExpUI(level, exp, maxExp);
 
             yield return new WaitForSecondsRealtime(0.001f);
         }
 
-        bar.maxValue = Shared.userManager.GetUserMaxExp();
-        bar.value = Shared.userManager.GetUserExp();
-
-        RefreshUserExpUI(
-            Shared.userManager.GetUserLevel(),
-            Shared.userManager.GetUserExp(),
-            Shared.userManager.GetUserMaxExp()
-        );
+        bar.maxValue = maxExp;
+        bar.value = exp;
+        RefreshUserExpUI(level, exp, maxExp);
 
         if (endButton != null)
             endButton.interactable = true;

@@ -92,15 +92,17 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    // À¯Àú °ñµå È¹µæ·®
     public int GetRewardGold()
     {
-        return killRecord * 10;
+        return killRecord * 2;
     }
 
+    // À¯Àú °æÇèÄ¡ È¹µæ·®
     public int GetRewardUserExp()
     {
         int rewardExp = 0;
-        rewardExp += killRecord * (int)1.15f;
+        rewardExp += killRecord / (int)5f;
         return rewardExp;
     }
 }

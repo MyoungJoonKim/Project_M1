@@ -15,14 +15,14 @@ MonoBehaviour:
   monsterID: B1
   monsterName: Boss Monster1
   monsterType: 1
-  prefab: {fileID: 756814087552902747, guid: 2b214d67225396c41b6e252ceb50cf9f, type: 3}
-  maxHp: 3000
+  prefab: {fileID: 756814087552902747, guid: faba7cc91943b0a4896facd157e478ca, type: 3}
+  maxHp: 10000
   atk: 100
   def: 50
   moveSpeed: 4
   attackRange: 5
   attackCooldown: 2
-  rewardExp: 10000
+  rewardExp: 8000
   projectionSkill: {fileID: 11400000, guid: f7f05a4207209ab45a086ead6601e2a6, type: 2}
   targetExplosionSkill: {fileID: 11400000, guid: de7f438857d938948bf909a5348ee3a1,
     type: 2}
