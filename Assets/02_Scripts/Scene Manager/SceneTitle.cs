@@ -20,7 +20,7 @@ public class SceneTitle : MonoBehaviour
         Shared.TextBlink.textBlink = false;
         gamePlayButton.gameObject.SetActive(false);
         loadingBar.gameObject.SetActive(true);
-        StartCoroutine(LoadingBarUpdate(loadingBar, 3f));
+        StartCoroutine(LoadingBarUpdate(loadingBar, 2f));
     }
 
     private IEnumerator LoadingBarUpdate(Slider bar, float timer)

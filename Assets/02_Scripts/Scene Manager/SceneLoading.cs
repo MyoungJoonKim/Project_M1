@@ -10,7 +10,7 @@ public class SceneLoading : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(LoadingBarUpdate(loadingBar,3f));
+        StartCoroutine(LoadingBarUpdate(loadingBar,2f));
     }
 
     private IEnumerator LoadingBarUpdate(Slider bar, float timer)
