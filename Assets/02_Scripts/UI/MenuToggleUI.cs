@@ -14,6 +14,7 @@ public class MenuToggleUI : MonoBehaviour
 
     [Header("Panel")]
     [SerializeField] private GameObject menuPanel;
+    [SerializeField] private TextFadeOut textFadeOut;
 
     [Header("Menu Lock Off")]
     [SerializeField] private int lockOffLevel;
@@ -24,7 +25,6 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private float scaleSpeed = 5f;
     [SerializeField] private Vector3 selectPosition = new Vector3(0f, 0f, 0f);
 
-    private TextFadeOut textFadeOut;
 
     private Coroutine lockCheckCoroutine;
     private Coroutine iconScaleCoroutine;
@@ -36,7 +36,6 @@ public class MenuToggleUI : MonoBehaviour
 
     private void Start()
     {
-        textFadeOut = GetComponentInChildren<TextFadeOut>();
         normalPosition = Vector3.zero;
         SetLockMenu();
 
@@ -123,7 +122,7 @@ public class MenuToggleUI : MonoBehaviour
     {
         if (Shared.userManager.GetUserLevel() < lockOffLevel)
         {
-            textFadeOut.Open();
+            textFadeOut.Open(lockOffLevel);
         }
     }
 }

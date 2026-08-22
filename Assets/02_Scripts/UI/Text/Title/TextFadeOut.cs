@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,28 +10,30 @@ public class TextFadeOut : MonoBehaviour
     [SerializeField] private Image background;
     [SerializeField] private TMP_Text text;
     [SerializeField] private float fadeTime = 3f;
-    [SerializeField] private Vector3 position = new Vector3(270, 500, 0);
 
-    private MenuToggleUI menuToggleUI;
+    private Coroutine backgroundFadeOutCoroutine;
+    private Coroutine textFadeOutCoroutine;
 
     private void Start()
     {
-        menuToggleUI = GetComponentInParent<MenuToggleUI>();
-
         background.gameObject.SetActive(false);
         text.gameObject.SetActive(false);
     }
 
-    public void Open()
+    public void Open(int lockOffLevel)
     {
-        StartCoroutine(BackgroundFadeOutEffect());
-        StartCoroutine(TextFadeOutEffect());
+        if (backgroundFadeOutCoroutine != null || textFadeOutCoroutine != null)
+        {
+            StopCoroutine(backgroundFadeOutCoroutine);
+            StopCoroutine(textFadeOutCoroutine);
+        }
+        backgroundFadeOutCoroutine = StartCoroutine(BackgroundFadeOutEffect());
+        textFadeOutCoroutine = StartCoroutine(TextFadeOutEffect(lockOffLevel));
     }
 
     private IEnumerator BackgroundFadeOutEffect()
     {
         background.gameObject.SetActive(true);
-        background.transform.position = position;
 
         Color color = background.color;
         color.a = 1f;
@@ -49,13 +52,14 @@ public class TextFadeOut : MonoBehaviour
         color.a = 0f;
         background.color = color;
         background.gameObject.SetActive(false);
+
+        backgroundFadeOutCoroutine = null;
     }
 
-    private IEnumerator TextFadeOutEffect()
+    private IEnumerator TextFadeOutEffect(int lockOffLevel)
     {
         text.gameObject.SetActive(true);
-        text.transform.position = position;
-        text.text = $"{menuToggleUI.LockOffLevel}∑π∫ß ¿Ã»ƒ ƒ¡≈Ÿ√˜ «ÿ¡¶";
+        text.text = $"{lockOffLevel}∑π∫ß ¿Ã»ƒ ƒ¡≈Ÿ√˜ «ÿ¡¶";
 
         Color color = text.color;
         color.a = 1f;
@@ -74,6 +78,8 @@ public class TextFadeOut : MonoBehaviour
         color.a = 0f;
         text.color = color;
         text.gameObject.SetActive(false);
+
+        textFadeOutCoroutine = null;
     }
 
 
