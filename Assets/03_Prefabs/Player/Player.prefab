@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
+  damageTextManager: {fileID: 1289991515110263958, guid: ae45aa0710493a444a071814251e5180,
+    type: 3}
   isDead: 0
   startHp: 50
   startAtk: 1

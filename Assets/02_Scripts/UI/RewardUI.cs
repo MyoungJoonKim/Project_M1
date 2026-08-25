@@ -56,7 +56,7 @@ public class RewardUI : MonoBehaviour
         if (battleManager == null)
             return;
 
-        if (Shared.userManager == null)
+        if (CoreService.userManager == null)
             return;
 
         rewardApplied = false;
@@ -95,7 +95,7 @@ public class RewardUI : MonoBehaviour
         if (bar == null)
             yield break;
 
-        UserData data = Shared.userManager.userData;
+        UserData data = CoreService.userManager.userData;
 
         float exp = data.userExp;
         float maxExp = data.userMaxExp;
@@ -162,11 +162,11 @@ public class RewardUI : MonoBehaviour
 
         rewardApplied = true;
 
-        if (Shared.userManager == null)
+        if (CoreService.userManager == null)
             return;
 
-        Shared.userManager.AddGold(rewardGold);
-        Shared.userManager.AddUserExp(rewardExp);
+        CoreService.userManager.AddGold(rewardGold);
+        CoreService.userManager.AddUserExp(rewardExp);
     }
 
     public void OnClickEndButton()
@@ -175,7 +175,7 @@ public class RewardUI : MonoBehaviour
 
         ApplyReward();
 
-        if (Shared.sceneLoadManager != null)
-            Shared.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
+        if (CoreService.sceneLoadManager != null)
+            CoreService.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
     }
 }

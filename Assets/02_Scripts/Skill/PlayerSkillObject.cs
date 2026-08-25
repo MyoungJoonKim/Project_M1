@@ -12,6 +12,9 @@ public class PlayerSkillObject : MonoBehaviour
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
 
+    [Header("Manager")]
+    [SerializeField] private EventManager eventManager;
+
     private SkillType skillType;
 
     private int index;
@@ -29,14 +32,16 @@ public class PlayerSkillObject : MonoBehaviour
     private bool isTrigger = false;
 
     private Coroutine skillCoroutine;
-    private PassiveSkillManager passiveSkillManager;
+    private SpawnManager spawnManager;
     private BattleManager battleManager;
+    private PassiveSkillManager passiveSkillManager;
 
-    private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
+    private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
 
     public void SetUp(
         Transform playerTransform,
+        SpawnManager _spawnManager,
         BattleManager _battleManager,
         int objectIndex,
         int objectCount,
@@ -51,6 +56,7 @@ public class PlayerSkillObject : MonoBehaviour
 
         passiveSkillManager = player.GetComponentInParent<PassiveSkillManager>();
 
+        spawnManager = _spawnManager;
         battleManager = _battleManager;
         index = objectIndex;
         totalCount = objectCount;
@@ -266,9 +272,9 @@ public class PlayerSkillObject : MonoBehaviour
         if (monster != null)
             return monster.transform;
 
-        if (Shared.eventManager != null)
+        if (eventManager != null)
         {
-            Pillar pillar = Shared.eventManager.CurrentActivePillar;
+            Pillar pillar = eventManager.CurrentActivePillar;
 
             if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
             {
@@ -279,12 +285,12 @@ public class PlayerSkillObject : MonoBehaviour
     }
     private Monster GetRandomMonster()
     {
-        if (Shared.spawnManager == null)
+        if (spawnManager == null)
             return null;
 
         List<Monster> monsters = new List<Monster>();
 
-        foreach (Monster monster in Shared.spawnManager.GetActiveMonsters())
+        foreach (Monster monster in spawnManager.GetActiveMonsters())
         {
             if (monster == null || monster.isDead)
                 continue;

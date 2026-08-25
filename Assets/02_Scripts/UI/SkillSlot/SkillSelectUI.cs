@@ -20,6 +20,7 @@ public class SkillSelectUI : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private PassiveSkillManager passiveSkillManager;
+    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private BattleManager battleManager;
 
     [Header("Skill Select Timer")]
@@ -31,14 +32,6 @@ public class SkillSelectUI : MonoBehaviour
 
     private Coroutine selectTimeCoroutine;
     private List<SkillSelect> randomSkills = new List<SkillSelect>();
-
-    private void Awake()
-    {
-        if (Shared.skillSelectUI == null)
-        {
-            Shared.skillSelectUI = this;
-        }
-    }
 
     private void Start()
     {
@@ -162,7 +155,7 @@ public class SkillSelectUI : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         PlayerSkillManager newSkill = obj.AddComponent<PlayerSkillManager>();
-        newSkill.Init(skill, player.transform, battleManager);
+        newSkill.Init(skill, player.transform, spawnManager, battleManager);
 
         Close();
     }

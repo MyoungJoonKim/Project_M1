@@ -220,9 +220,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
+  damageTextManager: {fileID: 1289991515110263958, guid: ae45aa0710493a444a071814251e5180,
+    type: 3}
   isDead: 0
   monsterData: {fileID: 0}
   rewardExp: 10
+  spawnManager: {fileID: 5493505135185944649, guid: 3b54fce62e4744843a235bfb23fd5151,
+    type: 3}
   battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
     type: 3}
   expDropManager: {fileID: 4367770574063436676, guid: 9ecccb6d317861348a1b22bed87dcad9,

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2428676404866427715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3090469546161908672}
+  - component: {fileID: 2463712412602884052}
+  - component: {fileID: 8886214636637905696}
+  m_Layer: 0
+  m_Name: Event Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3090469546161908672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428676404866427715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2463712412602884052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428676404866427715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508b068b540988141a40e03e0b55fc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTextUI: {fileID: 0}
+  eventWave: 5
+  durationTime: 45
+  eventSkillData: {fileID: 11400000, guid: a4ccc483efae23b439ed2cbee6a7f981, type: 2}
+  player: {fileID: 0}
+  skillRoot: {fileID: 0}
+  playerSkillManager: {fileID: 6464971097754314513, guid: 68756557d4f9958439478b8f609cc167,
+    type: 3}
+  eventSpawnManager: {fileID: 8886214636637905696}
+  battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
+    type: 3}
+  spawnManager: {fileID: 0}
+  pillarManager: {fileID: 0}
+--- !u!114 &8886214636637905696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428676404866427715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a079640a874c146bac42373491313e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventMonsterPrefabs:
+  - {fileID: 4762235425215752772, guid: c6cab51adfe6094498f6aca1862b0c32, type: 3}
+  - {fileID: 7471956681850668795, guid: 60971e65992a3114cae30464ec7fbc38, type: 3}
+  eventMonsterDatas:
+  - {fileID: 11400000, guid: af6d89b934495854998fafb1a74f9d04, type: 2}
+  - {fileID: 11400000, guid: 40e5ec7328818d744917d00239dbbece, type: 2}
+  leftX: -69
+  rightX: 69
+  startY: 65
+  endY: -70
+  monsterCount: 28

@@ -26,16 +26,16 @@ public class LobbyUserDataUI : MonoBehaviour
         while(true)
         {
             if (userExpSlider != null) 
-                userExpSlider.value = Shared.userManager.GetUserExp();
+                userExpSlider.value = CoreService.userManager.GetUserExp();
 
             if (userIcon != null)
-                userIcon.sprite = Shared.userManager.userData.userIcon;
+                userIcon.sprite = CoreService.userManager.userData.userIcon;
 
             if (userNameText != null)
-                userNameText.text = $"{Shared.userManager.userData.userName}";
+                userNameText.text = $"{CoreService.userManager.userData.userName}";
 
             if (userLevelText != null)
-                userLevelText.text = $"Lv. {Shared.userManager.GetUserLevel()}";
+                userLevelText.text = $"Lv. {CoreService.userManager.GetUserLevel()}";
 
             yield return null;
         }

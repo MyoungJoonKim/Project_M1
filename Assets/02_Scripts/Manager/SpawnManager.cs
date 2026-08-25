@@ -60,22 +60,11 @@ public class SpawnManager : MonoBehaviour
     // 풀 제거 예약 중인 몬스터 ID. Release 도중 Clear 되는 문제 방지용
     private readonly HashSet<string> pendingRemoveMonsterIDs = new();
 
-    private void Awake()
-    {
-        Shared.spawnManager = this;
-    }
-
     private void Start()
     {
         // 전체 몬스터 풀을 미리 만들지 않는다.
         // 현재 웨이브가 시작될 때 해당 웨이브 몬스터 풀만 만든다.
         roundCoroutine = StartCoroutine(RoundRoutine());
-    }
-
-    private void OnDestroy()
-    {
-        if (Shared.spawnManager == this)
-            Shared.spawnManager = null;
     }
 
     private IEnumerator RoundRoutine()

@@ -9,7 +9,8 @@ public class PlayerSkillManager : MonoBehaviour
 
     [Header("Active Skill Data")]
     [SerializeField] private ActiveSkillData skillData;
-    
+
+    private SpawnManager spawnManager;
     private BattleManager battleManager;
     
     private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();
@@ -22,10 +23,15 @@ public class PlayerSkillManager : MonoBehaviour
     public ActiveSkillData Data => skillData;
 
 
-    public void Init(ActiveSkillData data, Transform _player, BattleManager _battleManager)
+    public void Init(
+        ActiveSkillData data, 
+        Transform _player, 
+        SpawnManager _spawnManager, 
+        BattleManager _battleManager)
     {
         skillData = data;
         player = _player;
+        spawnManager = _spawnManager;
         battleManager = _battleManager;
         currentLevel = 1;
         
@@ -100,7 +106,7 @@ public class PlayerSkillManager : MonoBehaviour
             }
             else if (skillData.skillType == SkillType.EventSummon)
             {
-                skillObjects[i].transform.position = Shared.spawnManager.GetRandomPosition();
+                skillObjects[i].transform.position = spawnManager.GetRandomPosition();
             }
             else
             {
@@ -111,6 +117,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             skillObjects[i].SetUp(
                 player,
+                spawnManager,
                 battleManager,
                 i,
                 count,
@@ -200,7 +207,7 @@ public class PlayerSkillManager : MonoBehaviour
     {
         List<Monster> list = new List<Monster>();
 
-        foreach (Monster monster in Shared.spawnManager.GetActiveMonsters())
+        foreach (Monster monster in spawnManager.GetActiveMonsters())
         {
             if (monster == null || monster.isDead)
                 continue;

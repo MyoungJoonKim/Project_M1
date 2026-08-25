@@ -923,7 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f6bfacc4b4a804eb7fdbbcc890c385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBlink: 1
+  isTextBlink: 1
   whiteColor: {r: 1, g: 1, b: 1, a: 1}
   grayColor: {r: 1, g: 1, b: 1, a: 0.35}
   speed: 2
@@ -1389,6 +1389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingBar: {fileID: 1944355385}
   gamePlayButton: {fileID: 512669511}
+  textBlink: {fileID: 1206535314}
 --- !u!1001 &1944355383
 PrefabInstance:
   m_ObjectHideFlags: 0

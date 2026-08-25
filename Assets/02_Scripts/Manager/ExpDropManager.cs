@@ -12,7 +12,7 @@ public class ExpDropManager : MonoBehaviour
 
     [Header("Pool")]
     [SerializeField] private int startPoolSizePerType = 25;
-    [SerializeField] private int maxActiveGemCount = 200;
+    [SerializeField] private int maxActiveGemCount = 60;
 
     private readonly Dictionary<int, Queue<ExpGem>> pool = new();
     private readonly List<ExpGem> activeGems = new();

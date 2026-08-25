@@ -20,7 +20,7 @@ public class UserNameInput : MonoBehaviour
 
     private void Open()
     {
-        if (Shared.userManager.userData.userName.Length < minLength)
+        if (CoreService.userManager.userData.userName.Length < minLength)
             panel.SetActive(true);
         else
             panel.SetActive(false);
@@ -30,7 +30,7 @@ public class UserNameInput : MonoBehaviour
     {
         if (inputField.text.Length >= minLength)
         {
-            Shared.userManager.userData.userName = inputField.text;
+            CoreService.userManager.userData.userName = inputField.text;
             panel.SetActive(false);
         }
         else

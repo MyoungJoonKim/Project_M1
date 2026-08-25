@@ -17,13 +17,13 @@ public class SceneLoadManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.sceneLoadManager != null && Shared.sceneLoadManager != this)
+        if (CoreService.sceneLoadManager != null && CoreService.sceneLoadManager != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        Shared.sceneLoadManager = this;
+        CoreService.sceneLoadManager = this;
         DontDestroyOnLoad(gameObject);
     }
 

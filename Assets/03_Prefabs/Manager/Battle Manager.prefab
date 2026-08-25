@@ -45,7 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8075827404899058192, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
+  spawnManager: {fileID: 5493505135185944649, guid: 3b54fce62e4744843a235bfb23fd5151,
+    type: 3}
   expDropManager: {fileID: 4367770574063436676, guid: 9ecccb6d317861348a1b22bed87dcad9,
+    type: 3}
+  damageTextManager: {fileID: 1289991515110263958, guid: ae45aa0710493a444a071814251e5180,
+    type: 3}
+  playerSkillManager: {fileID: 6464971097754314513, guid: 68756557d4f9958439478b8f609cc167,
     type: 3}
   isBattlePlaying: 0
   killRecord: 0

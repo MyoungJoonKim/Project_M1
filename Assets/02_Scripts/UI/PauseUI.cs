@@ -150,8 +150,8 @@ public class PauseUI : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        if (Shared.sceneLoadManager != null)
-            Shared.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
+        if (CoreService.sceneLoadManager != null)
+            CoreService.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
     }
 
     public void OnClickSoundButton()

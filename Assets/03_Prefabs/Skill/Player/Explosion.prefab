@@ -51,6 +51,8 @@ MonoBehaviour:
   effectRoot: {fileID: 99457054157588933}
   effectObject: {fileID: 9180323447453115890}
   collider2D: {fileID: 43389482669535542}
+  eventManager: {fileID: 2463712412602884052, guid: dc531376546d3574db988166feb29fe0,
+    type: 3}
 --- !u!58 &43389482669535542
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private PauseUI pauseUI;
 
     [Header("Manager")]
+    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private BattleManager battleManager;
 
     private Coroutine levelTextCoroutine;
@@ -98,8 +99,8 @@ public class BattleUI : MonoBehaviour
             if (roundText == null)
                 yield break;
 
-            if (Shared.spawnManager != null)
-                roundText.text = $"R {Shared.spawnManager.CurrentRoundNumber} / W {Shared.spawnManager.CurrentWaveIndex + 1} ";
+            if (spawnManager != null)
+                roundText.text = $"R {spawnManager.CurrentRoundNumber} / W {spawnManager.CurrentWaveIndex + 1} ";
             else
                 roundText.text = "Round - / Wave -";
 

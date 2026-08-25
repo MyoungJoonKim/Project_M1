@@ -5,7 +5,7 @@ using UnityEngine;
 public class TextBlink : MonoBehaviour
 {
     private TextMeshProUGUI TouchTheScreen;
-    public bool textBlink = true;
+    public bool isTextBlink = true;
 
     [Header("Colors")]
     [SerializeField] private Color whiteColor = new Color(1f, 1f, 1f, 1f);
@@ -16,16 +16,13 @@ public class TextBlink : MonoBehaviour
 
     private void Awake()
     {
-        if (Shared.TextBlink == null)
-            Shared.TextBlink = this;
-
         TouchTheScreen = GetComponent<TextMeshProUGUI>();
         StartCoroutine(TextBlinkEffect());
     }
 
     private IEnumerator TextBlinkEffect()
     {
-        while (textBlink)
+        while (isTextBlink)
         {
             float t = Mathf.PingPong(Time.time * speed, 1f);
             TouchTheScreen.color = Color.Lerp(grayColor, whiteColor, t);

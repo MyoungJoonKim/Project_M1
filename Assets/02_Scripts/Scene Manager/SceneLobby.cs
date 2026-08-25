@@ -4,6 +4,6 @@ public class SceneLobby : MonoBehaviour
 {
     public void OnButtonGamePlay()
     {
-        Shared.sceneLoadManager.ChangeScene(SceneType.BATTLE, true);
+        CoreService.sceneLoadManager.ChangeScene(SceneType.BATTLE, true);
     }
 }

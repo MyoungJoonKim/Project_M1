@@ -7,7 +7,10 @@ public class BattleManager : MonoBehaviour
     public Player player;
 
     [Header("Manager")]
+    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private ExpDropManager expDropManager;
+    [SerializeField] private DamageTextManager damageTextManager;
+    [SerializeField] private PlayerSkillManager playerSkillManager;
 
     public float GameTime {  get; private set; }
     public bool isBattlePlaying;
@@ -36,20 +39,20 @@ public class BattleManager : MonoBehaviour
         if (rewardUI != null)
             StartCoroutine(rewardUI.GameOverUI(!player.isDead));
 
-        if (Shared.spawnManager != null)
+        if (spawnManager != null)
         {
-            Shared.spawnManager.StopSpawn();
-            Shared.spawnManager.ClearMonsterTargets();
+            spawnManager.StopSpawn();
+            spawnManager.ClearMonsterTargets();
         }
 
-        if (Shared.playerSkillManager != null)
-            Shared.playerSkillManager.StopAllSkills();
+        if (playerSkillManager != null)
+            playerSkillManager.StopAllSkills();
 
         if (expDropManager != null)
             expDropManager.ClearAll();
 
-        if (Shared.damageTextManager != null)
-            Shared.damageTextManager.ClearAll();
+        if (damageTextManager != null)
+            damageTextManager.ClearAll();
     }
 
     IEnumerator GameTimeUpdate()

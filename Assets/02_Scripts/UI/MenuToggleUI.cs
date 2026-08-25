@@ -86,7 +86,7 @@ public class MenuToggleUI : MonoBehaviour
     {
         while (!isUnlock)
         {
-            if (Shared.userManager.GetUserLevel() >= lockOffLevel)
+            if (CoreService.userManager.GetUserLevel() >= lockOffLevel)
             {
                 SetUnlockMenu();
                 break;
@@ -120,7 +120,7 @@ public class MenuToggleUI : MonoBehaviour
 
     public void OnClickToggleButton()
     {
-        if (Shared.userManager.GetUserLevel() < lockOffLevel)
+        if (CoreService.userManager.GetUserLevel() < lockOffLevel)
         {
             textFadeOut.Open(lockOffLevel);
         }

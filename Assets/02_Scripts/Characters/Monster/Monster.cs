@@ -25,6 +25,7 @@ public class Monster : Character
     [SerializeField] private float rewardExp = 10f;
 
     [Header("Manager")]
+    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private BattleManager battleManager;
     [SerializeField] private ExpDropManager expDropManager;
 
@@ -80,14 +81,14 @@ public class Monster : Character
 
     private void OnEnable()
     {
-        if (Shared.spawnManager != null)
-            Shared.spawnManager.RegisterMonster(this);
+        if (spawnManager != null)
+            spawnManager.RegisterMonster(this);
     }
 
     private void OnDisable()
     {
-        if (Shared.spawnManager != null)
-            Shared.spawnManager.UnRegisterMonster(this);
+        if (spawnManager != null)
+            spawnManager.UnRegisterMonster(this);
     }
 
     public void SetPlayer(Player player)

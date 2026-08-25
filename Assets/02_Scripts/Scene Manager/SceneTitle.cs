@@ -5,10 +5,13 @@ using UnityEngine.UI;
 public class SceneTitle : MonoBehaviour
 {
     [Header("Title Loading Bar")]
-    public Slider loadingBar;
+    [SerializeField] private Slider loadingBar;
 
     [Header("Title GamePlay Button")]
-    public GameObject gamePlayButton;
+    [SerializeField] private GameObject gamePlayButton;
+
+    [Header("Title Text Effect")]
+    [SerializeField] private TextBlink textBlink;
 
     private void Start()
     {
@@ -17,7 +20,7 @@ public class SceneTitle : MonoBehaviour
     }
     public void OnButtonGamePlay()
     {
-        Shared.TextBlink.textBlink = false;
+        textBlink.isTextBlink = false;
         gamePlayButton.gameObject.SetActive(false);
         loadingBar.gameObject.SetActive(true);
         StartCoroutine(LoadingBarUpdate(loadingBar, 2f));
@@ -38,6 +41,6 @@ public class SceneTitle : MonoBehaviour
             if (bar.value == timer)
                 break;
         }
-        Shared.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
+        CoreService.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
     }
 }

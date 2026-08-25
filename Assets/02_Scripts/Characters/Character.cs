@@ -33,7 +33,10 @@ public class Character : MonoBehaviour
     public Dictionary<StatType, float> stats = new();
     public Dictionary<MaxStatType, float> maxStats = new();
 
+    [SerializeField] protected DamageTextManager damageTextManager;
+
     protected bool deadHandled;
+
     public bool isDead;
 
     public event Action StatBarChange;
@@ -134,7 +137,7 @@ public class Character : MonoBehaviour
             Vector3 offset = new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(3f, 6f), 0f);
 
             Vector3 textPositon = transform.position + offset;
-            Shared.damageTextManager.ShowDamage(damage, textPositon);
+            damageTextManager.ShowDamage(damage, textPositon);
         }    
 
         if (stats[StatType.Hp] <= 0)

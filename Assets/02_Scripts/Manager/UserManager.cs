@@ -7,19 +7,19 @@ public class UserManager : MonoBehaviour
     
     private void Awake()
     {
-        if (Shared.userManager != null && Shared.userManager != this)
+        if (CoreService.userManager != null && CoreService.userManager != this)
         {
             Destroy(gameObject);
             return;
         }
-        Shared.userManager = this;
+        CoreService.userManager = this;
         DontDestroyOnLoad(gameObject);
     }
 
     private void OnDestroy()
     {
-        if (Shared.userManager == this)
-            Shared.userManager = null;
+        if (CoreService.userManager == this)
+            CoreService.userManager = null;
     }
 
     public void AddGold(int amount)

@@ -23,6 +23,9 @@ public class Player : Character
     [SerializeField] private PassiveSkillManager passiveSkillManager;
     [SerializeField] private BattleManager battleManager;
 
+    [Header("UI")]
+    [SerializeField] private SkillSelectUI skillSelectUI;
+
     private PlayerController playerController;
     private PlayerAnimator playerAnimator;
     private SpriteRenderer spriteRenderer;
@@ -55,7 +58,7 @@ public class Player : Character
 
     private void Start()
     {
-        Shared.skillSelectUI.Open();
+        skillSelectUI.Open();
         grave.SetActive(false);
 
         if (deadCheckCoroutine != null)
@@ -115,8 +118,7 @@ public class Player : Character
         Debug.Log("플레이어 현재 최대체력" + GetMaxStat(MaxStatType.MaxHp));
         Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
 
-        Shared.skillSelectUI.Open();
-
+        skillSelectUI.Open();
     }
 
     public void GameWin()

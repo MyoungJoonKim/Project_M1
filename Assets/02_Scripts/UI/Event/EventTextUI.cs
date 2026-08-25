@@ -15,6 +15,7 @@ public class EventTextUI : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private BattleManager battleManager;
+    [SerializeField] private EventManager eventManager;
 
     private Coroutine warningTextCoroutine;
     private Coroutine timeTextCoroutine;
@@ -70,7 +71,7 @@ public class EventTextUI : MonoBehaviour
 
     private IEnumerator UpdateTimeUI()
     {
-        while (!Shared.eventManager.EventFail)
+        while (!eventManager.EventFail)
         {
             if (battleManager == null)
             {
@@ -81,7 +82,7 @@ public class EventTextUI : MonoBehaviour
             if (timeText == null)
                 yield break;
 
-            float time = Shared.eventManager.Timer;
+            float time = eventManager.Timer;
 
             int second = Mathf.FloorToInt(time % 60f);
 

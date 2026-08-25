@@ -42,11 +42,6 @@ public class EventManager : MonoBehaviour
         StartCoroutine(WarningEvent());
     }
 
-    private void Awake()
-    {
-        if (Shared.eventManager == null)
-            Shared.eventManager = this;
-    }
     public void StartEventSkill()
     {
         if (playerSkillManager == null)
@@ -87,7 +82,7 @@ public class EventManager : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         playerSkillManager = obj.AddComponent<PlayerSkillManager>();
-        playerSkillManager.Init(eventSkillData, player, battleManager);
+        playerSkillManager.Init(eventSkillData, player, spawnManager, battleManager);
     }
 
     private IEnumerator WarningEvent()

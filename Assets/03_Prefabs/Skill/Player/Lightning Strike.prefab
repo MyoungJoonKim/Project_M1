@@ -51,6 +51,8 @@ MonoBehaviour:
   effectRoot: {fileID: 9176862371710044624}
   effectObject: {fileID: 6370281479144246687}
   collider2D: {fileID: 3784027473713730211}
+  eventManager: {fileID: 2463712412602884052, guid: dc531376546d3574db988166feb29fe0,
+    type: 3}
 --- !u!50 &2424897552444206243
 Rigidbody2D:
   serializedVersion: 4
