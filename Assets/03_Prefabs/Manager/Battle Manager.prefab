@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8075827404899058192, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
+  expDropManager: {fileID: 4367770574063436676, guid: 9ecccb6d317861348a1b22bed87dcad9,
+    type: 3}
   isBattlePlaying: 0
   killRecord: 0

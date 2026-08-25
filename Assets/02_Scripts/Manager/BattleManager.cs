@@ -6,22 +6,14 @@ public class BattleManager : MonoBehaviour
     [Header("Character Player")]
     public Player player;
 
+    [Header("Manager")]
+    [SerializeField] private ExpDropManager expDropManager;
+
     public float GameTime {  get; private set; }
     public bool isBattlePlaying;
     public int killRecord;
 
     private Coroutine gameTimeCoroutine;
-
-
-    //private void Awake()
-    //{
-    //    Shared.battleManager = this;
-    //}
-    //private void OnDestroy()
-    //{
-    //    if (Shared.battleManager == this)
-    //        Shared.battleManager = null;
-    //}
 
     private void Start()
     {
@@ -53,8 +45,8 @@ public class BattleManager : MonoBehaviour
         if (Shared.playerSkillManager != null)
             Shared.playerSkillManager.StopAllSkills();
 
-        if (Shared.expDropManager != null)
-            Shared.expDropManager.ClearAll();
+        if (expDropManager != null)
+            expDropManager.ClearAll();
 
         if (Shared.damageTextManager != null)
             Shared.damageTextManager.ClearAll();

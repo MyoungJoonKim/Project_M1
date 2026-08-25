@@ -26,6 +26,7 @@ public class Monster : Character
 
     [Header("Manager")]
     [SerializeField] private BattleManager battleManager;
+    [SerializeField] private ExpDropManager expDropManager;
 
     public BattleManager BattleManager => battleManager;
 
@@ -221,8 +222,8 @@ public class Monster : Character
             bossSliderUI.SetActiveBar(false);
         }
 
-        if (player != null && Shared.expDropManager != null)
-            Shared.expDropManager.SpawnExpGem(transform.position, GetRewardExp());
+        if (player != null && expDropManager != null)
+            expDropManager.SpawnExpGem(transform.position, GetRewardExp());
 
         ReleaseMonster(true);
     }

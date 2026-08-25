@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ExpDropManager : MonoBehaviour
 {
-    [Header("Exp Gem Prefab")]
-    [SerializeField] private ExpGem[] expGemPrefab;
+    [Header("ExpGem Data")]
+    [SerializeField] private ExpGemData[] expGemData;
+
+    [Header("ExpGem Root")]
+    [SerializeField] private Transform expGemRoot;
 
     [Header("Pool")]
     [SerializeField] private int startPoolSizePerType = 25;
@@ -16,29 +20,21 @@ public class ExpDropManager : MonoBehaviour
 
     private void Awake()
     {
-        Shared.expDropManager = this;
         CreatePool();
     }
 
-    private void OnDestroy()
-    {
-        if (Shared.expDropManager == this)
-            Shared.expDropManager = null;
-    }
-
-
     private void CreatePool()
     {
-        if (expGemPrefab == null)
+        if (expGemData == null)
             return;
 
-        for (int i = 0; i < expGemPrefab.Length; i++)
+        for (int i = 0; i < expGemData.Length; i++)
         {
             pool[i] = new Queue<ExpGem>();
 
             for (int j = 0; j < startPoolSizePerType; j++)
             {
-                ExpGem gem = Instantiate(expGemPrefab[i], transform);
+                ExpGem gem = Instantiate(expGemData[i].prefab, expGemRoot);
                 gem.gameObject.SetActive(false);
                 gem.SetManager(this);
                 gem.SetPoolIndex(i);
@@ -73,7 +69,7 @@ public class ExpDropManager : MonoBehaviour
 
     private ExpGem GetGem(int index)
     {
-        if (expGemPrefab == null || index < 0 || index >= expGemPrefab.Length)
+        if (expGemData == null || index < 0 || index >= expGemData.Length)
             return null;
 
         if (!pool.ContainsKey(index))
@@ -82,7 +78,7 @@ public class ExpDropManager : MonoBehaviour
         if (pool[index].Count > 0)
             return pool[index].Dequeue();
 
-        ExpGem gem = Instantiate(expGemPrefab[index], transform);
+        ExpGem gem = Instantiate(expGemData[index].prefab, expGemRoot);
         gem.gameObject.SetActive(false);
         gem.SetManager(this);
         gem.SetPoolIndex(index);
@@ -108,17 +104,17 @@ public class ExpDropManager : MonoBehaviour
 
     private int GetExpGemIndex(float expAmount)
     {
-        if (expGemPrefab == null || expGemPrefab.Length == 0)
+        if (expGemData == null || expGemData.Length == 0)
             return -1;
 
-        int index = Mathf.FloorToInt((expAmount - 1f) / 50f);
-
-        if (index < 0)
-            index = 0;
-
-        if (index >= expGemPrefab.Length)
-            index = expGemPrefab.Length - 1;
-
+        int index = 0;
+        for (int i = 0; i < expGemData.Length; i++)
+        {
+           if (expAmount >= expGemData[i].minExp)
+                index = i;
+           else
+                break;
+        }
         return index;
     }
 
@@ -129,8 +125,4 @@ public class ExpDropManager : MonoBehaviour
             Release(activeGems[i]);
         }
     }
-
-
-
-
 }
