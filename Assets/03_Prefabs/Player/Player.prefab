@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5541820239383319460}
+  - component: {fileID: 8075827404899058192}
   - component: {fileID: 7769728539209853250}
   - component: {fileID: 5410421366426683625}
   - component: {fileID: 4913481436875277316}
@@ -37,6 +38,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8075827404899058192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676646107584259991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f57f7f87f92184d80dfa18f38f77e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: 
+  isDead: 0
+  startHp: 50
+  startAtk: 1
+  startDef: 1
+  startMoveSpeed: 10
+  startLevel: 1
+  startExp: 0
+  startMaxExp: 100
+  grave: {fileID: 0}
+  skillRoot: {fileID: 0}
+  joyStick: {fileID: 0}
+  passiveSkillManager: {fileID: 0}
+  battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
+    type: 3}
 --- !u!114 &7769728539209853250
 MonoBehaviour:
   m_ObjectHideFlags: 0

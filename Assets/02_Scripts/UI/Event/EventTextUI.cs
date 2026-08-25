@@ -13,6 +13,9 @@ public class EventTextUI : MonoBehaviour
     [SerializeField] private TMP_Text warningTextUI;
     [SerializeField] private TMP_Text timeText;
 
+    [Header("Manager")]
+    [SerializeField] private BattleManager battleManager;
+
     private Coroutine warningTextCoroutine;
     private Coroutine timeTextCoroutine;
 
@@ -69,7 +72,7 @@ public class EventTextUI : MonoBehaviour
     {
         while (!Shared.eventManager.EventFail)
         {
-            if (Shared.battleManager == null)
+            if (battleManager == null)
             {
                 yield return null;
                 continue;

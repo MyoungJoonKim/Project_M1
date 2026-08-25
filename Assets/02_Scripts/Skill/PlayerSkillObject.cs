@@ -30,12 +30,14 @@ public class PlayerSkillObject : MonoBehaviour
 
     private Coroutine skillCoroutine;
     private PassiveSkillManager passiveSkillManager;
+    private BattleManager battleManager;
 
     private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
 
     public void SetUp(
         Transform playerTransform,
+        BattleManager _battleManager,
         int objectIndex,
         int objectCount,
         float damageValue,
@@ -49,6 +51,7 @@ public class PlayerSkillObject : MonoBehaviour
 
         passiveSkillManager = player.GetComponentInParent<PassiveSkillManager>();
 
+        battleManager = _battleManager;
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
@@ -73,7 +76,7 @@ public class PlayerSkillObject : MonoBehaviour
     {
         while (true)
         {
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -122,7 +125,7 @@ public class PlayerSkillObject : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+        if (battleManager == null || !battleManager.isBattlePlaying)
             return;
 
         if (!canAttack) 

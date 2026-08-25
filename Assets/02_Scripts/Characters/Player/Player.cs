@@ -21,6 +21,7 @@ public class Player : Character
 
     [Header("Manager")]
     [SerializeField] private PassiveSkillManager passiveSkillManager;
+    [SerializeField] private BattleManager battleManager;
 
     private PlayerController playerController;
     private PlayerAnimator playerAnimator;
@@ -140,8 +141,8 @@ public class Player : Character
         if (skillRoot != null)
             skillRoot.SetActive(false);
 
-        if (Shared.battleManager != null)
-            Shared.battleManager.EndGame(this);
+        if (battleManager != null)
+            battleManager.EndGame(this);
     }
 
     public void OnDead()
@@ -158,8 +159,8 @@ public class Player : Character
             playerController.enabled = false;
         }
 
-        if (Shared.battleManager != null)
-            Shared.battleManager.EndGame(this);
+        if (battleManager != null)
+            battleManager.EndGame(this);
         
         if (playerAnimator != null)
         {

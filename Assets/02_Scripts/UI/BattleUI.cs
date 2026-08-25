@@ -15,6 +15,9 @@ public class BattleUI : MonoBehaviour
     [Header("UIs")]
     [SerializeField] private PauseUI pauseUI;
 
+    [Header("Manager")]
+    [SerializeField] private BattleManager battleManager;
+
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
     private Coroutine roundTextCoroutine;
@@ -31,7 +34,7 @@ public class BattleUI : MonoBehaviour
     {
         while (true)
         {
-            if (Shared.battleManager == null || player == null)
+            if (battleManager == null || player == null)
             {
                 yield return null;
                 continue;
@@ -50,13 +53,13 @@ public class BattleUI : MonoBehaviour
     {
         while (true)
         {
-            if (Shared.battleManager == null)
+            if (battleManager == null)
             {
                 yield return null;
                 continue;
             }
 
-            if (!Shared.battleManager.isBattlePlaying)
+            if (!battleManager.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -65,7 +68,7 @@ public class BattleUI : MonoBehaviour
             if (timeText == null)
                 yield break;
 
-            float time = Shared.battleManager.GameTime;
+            float time = battleManager.GameTime;
 
             int minute = Mathf.FloorToInt(time / 60f);
             int second = Mathf.FloorToInt(time % 60f);
@@ -80,13 +83,13 @@ public class BattleUI : MonoBehaviour
     {
         while (true)
         {
-            if (Shared.battleManager == null)
+            if (battleManager == null)
             {
                 yield return null;
                 continue;
             }
 
-            if (!Shared.battleManager.isBattlePlaying)
+            if (!battleManager.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -142,9 +145,9 @@ public class BattleUI : MonoBehaviour
         if (player != null)
             return;
 
-        if (Shared.battleManager != null && Shared.battleManager.player != null)
+        if (battleManager != null && battleManager.player != null)
         {
-            player = Shared.battleManager.player;
+            player = battleManager.player;
             return;
         }
 

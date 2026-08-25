@@ -39,7 +39,12 @@ public class MonsterAttack : MonoBehaviour
         if (data == null) 
             return;
 
-        Player target = Shared.battleManager != null ? Shared.battleManager.player : null;
+        Transform targetTransform = monster.GetTarget();
+
+        if (targetTransform == null)
+            return;
+
+        Player target = targetTransform.GetComponent<Player>();
 
         if (target == null ||  target.isDead)
             return;
@@ -57,20 +62,15 @@ public class MonsterAttack : MonoBehaviour
         isAttacking = true;
 
         if (monsterAnimator != null)
-        {
             monsterAnimator.Attack();
-            target.TakeDamage(damage, false);
-            target.OnHit();
-        }
+
+        target.TakeDamage(damage, false);
+        target.OnHit();
+
         isAttacking = false;
     }
     public void StopAttack()
     {
         isAttacking = false;
-    }
-
-    public bool IsAttacking()
-    {
-        return isAttacking;
     }
 }

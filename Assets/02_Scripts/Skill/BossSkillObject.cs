@@ -13,6 +13,8 @@ public class BossSkillObject : MonoBehaviour
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
 
+    private BattleManager battleManager;
+
     private SkillType skillType;
 
     private int index;
@@ -37,6 +39,7 @@ public class BossSkillObject : MonoBehaviour
     public void SetUp(
         Transform bossTransform,
         Transform playerTransform,
+        BattleManager _battleManager,
         int objectIndex,
         int objectCount,
         float damageValue,
@@ -47,6 +50,7 @@ public class BossSkillObject : MonoBehaviour
     {
         boss = bossTransform;
         targetPlayer = playerTransform;
+        battleManager = _battleManager;
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
@@ -54,6 +58,8 @@ public class BossSkillObject : MonoBehaviour
         speed = speedValue;
         hitInterval = hitIntervalValue;
         skillType = type;
+
+        battleManager = boss.GetComponent<BattleManager>();
 
         angle = (360f / totalCount) * index;
 
@@ -63,13 +69,15 @@ public class BossSkillObject : MonoBehaviour
             skillCoroutine = null;
         }
         skillCoroutine = StartCoroutine(SkillTypeCoroutine());
+
+
     }
 
     private IEnumerator SkillTypeCoroutine()
     {
         while (true)
         {
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -106,7 +114,7 @@ public class BossSkillObject : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+        if (battleManager == null || !battleManager.isBattlePlaying)
             return;
 
         if (!canAttack)

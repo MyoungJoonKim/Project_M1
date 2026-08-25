@@ -27,6 +27,8 @@ public class RewardUI : MonoBehaviour
     [Header("Button")]
     [SerializeField] private Button endButton;
 
+    private BattleManager battleManager;
+
     private int rewardGold;
     private int rewardExp;
     private bool rewardApplied;
@@ -34,6 +36,8 @@ public class RewardUI : MonoBehaviour
 
     private void Start()
     {
+        battleManager = GetComponent<BattleManager>();
+
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
     }
@@ -49,7 +53,7 @@ public class RewardUI : MonoBehaviour
         if (gameOverUI != null)
             gameOverUI.SetActive(true);
 
-        if (Shared.battleManager == null)
+        if (battleManager == null)
             return;
 
         if (Shared.userManager == null)
@@ -57,8 +61,8 @@ public class RewardUI : MonoBehaviour
 
         rewardApplied = false;
 
-        rewardGold = Shared.battleManager.GetRewardGold();
-        rewardExp = Shared.battleManager.GetRewardUserExp();
+        rewardGold = battleManager.GetRewardGold();
+        rewardExp = battleManager.GetRewardUserExp();
 
         BattleUI battleUI = FindAnyObjectByType<BattleUI>();
 
@@ -71,7 +75,7 @@ public class RewardUI : MonoBehaviour
             survivalTimeText.text = battleUI.TimeText;
 
         if (killRecordText != null)
-            killRecordText.text = $"{Shared.battleManager.killRecord}";
+            killRecordText.text = $"{battleManager.killRecord}";
 
         if (addGoldText != null)
             addGoldText.text = $"{rewardGold}";

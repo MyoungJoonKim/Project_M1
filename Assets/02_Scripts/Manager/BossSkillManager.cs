@@ -11,6 +11,8 @@ public class BossSkillManager : MonoBehaviour
     [Header("Skill Data")]
     [SerializeField] private ActiveSkillData skillData;
 
+    private BattleManager battleManager;
+
     public ActiveSkillData Data => skillData;
     private Coroutine skillLoop;
 
@@ -20,7 +22,7 @@ public class BossSkillManager : MonoBehaviour
 
 
 
-    public void Init(MonsterData monsterData, ActiveSkillData _skillData, Transform bossTransform, Transform playerTransform)
+    public void Init(MonsterData monsterData, ActiveSkillData _skillData, Transform bossTransform, Transform playerTransform, BattleManager _battleManager)
     {
         if (monsterData == null) 
             return;
@@ -42,6 +44,7 @@ public class BossSkillManager : MonoBehaviour
         skillData = _skillData;
         bossMonster = bossTransform;
         targetPlayer = playerTransform;
+        battleManager = _battleManager;
 
         if (bossMonster == null || targetPlayer == null)
             return;
@@ -105,6 +108,7 @@ public class BossSkillManager : MonoBehaviour
             skillObjects[i].SetUp(
                 bossMonster,
                 targetPlayer,
+                battleManager,
                 i,
                 count,
                 skillData.damage[currentLevel],

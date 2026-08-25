@@ -225,6 +225,8 @@ MonoBehaviour:
   isDead: 0
   monsterData: {fileID: 0}
   rewardExp: 0
+  battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
+    type: 3}
   target: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
 --- !u!114 &2059320282485644563
 MonoBehaviour:

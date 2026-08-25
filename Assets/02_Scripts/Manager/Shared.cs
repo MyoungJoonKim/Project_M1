@@ -5,7 +5,7 @@ public class Shared : MonoBehaviour
 {
     public static SceneLoadManager sceneLoadManager;
 
-    public static BattleManager battleManager;
+    public static UserManager userManager;
 
     public static ExpDropManager expDropManager;
 
@@ -13,7 +13,6 @@ public class Shared : MonoBehaviour
 
     public static SpawnManager spawnManager;
 
-    public static UserManager userManager;
 
     public static EventManager eventManager;
 

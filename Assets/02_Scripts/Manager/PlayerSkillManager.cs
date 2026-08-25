@@ -10,6 +10,7 @@ public class PlayerSkillManager : MonoBehaviour
     [Header("Active Skill Data")]
     [SerializeField] private ActiveSkillData skillData;
     
+    private BattleManager battleManager;
     
     private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();
 
@@ -21,16 +22,11 @@ public class PlayerSkillManager : MonoBehaviour
     public ActiveSkillData Data => skillData;
 
 
-    private void OnDestroy()
-    {
-        if (Shared.playerSkillManager == this)
-            Shared.playerSkillManager = null;
-    }
-
-    public void Init(ActiveSkillData data, Transform _player)
+    public void Init(ActiveSkillData data, Transform _player, BattleManager _battleManager)
     {
         skillData = data;
         player = _player;
+        battleManager = _battleManager;
         currentLevel = 1;
         
         if (skillData.skillType == SkillType.EventSummon)
@@ -115,6 +111,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             skillObjects[i].SetUp(
                 player,
+                battleManager,
                 i,
                 count,
                 skillData.damage[currentLevel - 1],

@@ -37,6 +37,9 @@ public class SpawnManager : MonoBehaviour
     [Header("Limit")]
     [SerializeField] private int maxActiveMonsterCount = 80;
 
+    [Header("Manager")]
+    [SerializeField] private BattleManager battleManager;
+
     private int currentRoundIndex;
     private int currentWaveIndex;
     private int spawnIndex;
@@ -81,7 +84,7 @@ public class SpawnManager : MonoBehaviour
 
         while (true)
         {
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -94,7 +97,7 @@ public class SpawnManager : MonoBehaviour
 
             yield return StartCoroutine(PlayRound(round));
 
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -116,14 +119,14 @@ public class SpawnManager : MonoBehaviour
 
         for (currentWaveIndex = 0; currentWaveIndex < round.waves.Count; currentWaveIndex++)
         {
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
                 yield break;
 
             WaveData wave = round.waves[currentWaveIndex];
 
             yield return StartCoroutine(PlayWave(wave));
 
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
                 yield break;
 
             bool isLastWave = currentWaveIndex == round.waves.Count - 1;
@@ -132,7 +135,7 @@ public class SpawnManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(bossSpawnDelay);
 
-                if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                if (battleManager == null || !battleManager.isBattlePlaying)
                     yield break;
 
                 PrepareMonsterPool(wave.bossMonster);
@@ -152,7 +155,7 @@ public class SpawnManager : MonoBehaviour
                 // 보스가 죽을 때까지 현재 라운드 유지
                 while (boss != null && boss.gameObject.activeSelf && !boss.isDead)
                 {
-                    if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+                    if (battleManager == null || !battleManager.isBattlePlaying)
                         yield break;
 
                     yield return null;
@@ -177,7 +180,7 @@ public class SpawnManager : MonoBehaviour
 
         while (timer < waveSpawnDuration)
         {
-            if (Shared.battleManager == null || !Shared.battleManager.isBattlePlaying)
+            if (battleManager == null || !battleManager.isBattlePlaying)
                 yield break;
 
             for (int i = 0; i < spawnCountPerTick; i++)
@@ -247,13 +250,13 @@ public class SpawnManager : MonoBehaviour
 
     public Monster SpawnMonster(MonsterData data)
     {
-        if (Shared.battleManager == null)
+        if (battleManager == null)
         {
             Debug.LogError("보스 생성 실패 원인 : BattleManager null");
             return null;
         }
 
-        if (!Shared.battleManager.isBattlePlaying)
+        if (!battleManager.isBattlePlaying)
         {
             Debug.LogError("보스 생성 실패 원인 : 전투 종료 상태");
             return null;

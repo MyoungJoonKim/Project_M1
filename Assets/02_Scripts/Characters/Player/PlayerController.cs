@@ -6,12 +6,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private JoyStick JoyStick;
 
     private PlayerAnimator playerAnimator;
+    private Player player;
     private Rigidbody2D rb;
     private float speed = 10f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
         playerAnimator = GetComponent<PlayerAnimator>();
     }
 
@@ -22,8 +24,6 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Player player = Shared.battleManager.player;
-
         if (player == null || player.isDead)
         {
             rb.velocity = Vector2.zero;

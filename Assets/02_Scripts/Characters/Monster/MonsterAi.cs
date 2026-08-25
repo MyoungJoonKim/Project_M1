@@ -6,6 +6,7 @@ public class MonsterAi : MonoBehaviour
     private Monster monster;
     private MonsterAttack monsterAttack;
     private MonsterAnimator monsterAnimator;
+    private BattleManager battleManager;
     private Rigidbody2D rb;
     private Coroutine stateCheckCoroutine;
 
@@ -20,6 +21,7 @@ public class MonsterAi : MonoBehaviour
         monster = GetComponent<Monster>();
         monsterAttack = GetComponent<MonsterAttack>();
         monsterAnimator = GetComponent<MonsterAnimator>();
+        battleManager = monster.GetComponent<BattleManager>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -31,7 +33,7 @@ public class MonsterAi : MonoBehaviour
             return;
         }
 
-        if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
+        if (battleManager != null && !battleManager.isBattlePlaying)
         {
             StopAI();
             return;
@@ -99,7 +101,7 @@ public class MonsterAi : MonoBehaviour
 
     private void StateUpdate()
     {
-        if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
+        if (battleManager != null && !battleManager.isBattlePlaying)
         {
             StopAI();
             return;
@@ -196,7 +198,7 @@ public class MonsterAi : MonoBehaviour
             return;
         }
 
-        if (Shared.battleManager != null && !Shared.battleManager.isBattlePlaying)
+        if (battleManager != null && !battleManager.isBattlePlaying)
         {
             StopAI();
             return;

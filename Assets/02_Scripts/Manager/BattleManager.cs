@@ -13,10 +13,15 @@ public class BattleManager : MonoBehaviour
     private Coroutine gameTimeCoroutine;
 
 
-    private void Awake()
-    {
-        Shared.battleManager = this;
-    }
+    //private void Awake()
+    //{
+    //    Shared.battleManager = this;
+    //}
+    //private void OnDestroy()
+    //{
+    //    if (Shared.battleManager == this)
+    //        Shared.battleManager = null;
+    //}
 
     private void Start()
     {
@@ -24,11 +29,6 @@ public class BattleManager : MonoBehaviour
         StartBattle();
     }
 
-    private void OnDestroy()
-    {
-        if (Shared.battleManager == this)
-            Shared.battleManager = null;
-    }
 
     // ∏ÛΩ∫≈Õ ≈∏∞Ÿ √ﬂ¿˚ ∏ÿ√„.
     public void EndGame(Player player)

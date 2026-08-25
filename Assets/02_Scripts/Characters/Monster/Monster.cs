@@ -24,6 +24,10 @@ public class Monster : Character
     [Header("Monster Reward")]
     [SerializeField] private float rewardExp = 10f;
 
+    [Header("Manager")]
+    [SerializeField] private BattleManager battleManager;
+
+    public BattleManager BattleManager => battleManager;
 
     public Transform target;
 
@@ -151,7 +155,7 @@ public class Monster : Character
         {
             if (manager.Data == skill)
             {
-                manager.Init(monsterData, skill, bossMonster, player.transform);
+                manager.Init(monsterData, skill, bossMonster, player.transform, battleManager);
                 return;
             }
         }
@@ -161,7 +165,7 @@ public class Monster : Character
         obj.transform.localPosition = Vector3.zero;
 
         BossSkillManager newSkill = obj.AddComponent<BossSkillManager>();
-        newSkill.Init(monsterData, skill, bossMonster, player.transform);
+        newSkill.Init(monsterData, skill, bossMonster, player.transform, battleManager);
     }
 
     public void ResetMonster(bool useAI = true)
@@ -278,8 +282,8 @@ public class Monster : Character
     {
         StopMonster();
 
-        if (addKillCount && Shared.battleManager != null)
-            Shared.battleManager.killRecord++;
+        if (addKillCount && battleManager != null)
+            battleManager.killRecord++;
 
         if (monsterPool != null)
             monsterPool.Release(this);
