@@ -148,7 +148,7 @@ MonoBehaviour:
     type: 3}
   battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
     type: 3}
-  expDropManager: {fileID: 4367770574063436676, guid: 9ecccb6d317861348a1b22bed87dcad9,
+  dropManager: {fileID: 4367770574063436676, guid: 9ecccb6d317861348a1b22bed87dcad9,
     type: 3}
   target: {fileID: 0}
 --- !u!114 &-9184620259715550428

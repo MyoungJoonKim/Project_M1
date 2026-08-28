@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class ExpGem : MonoBehaviour
 {
-    private ExpDropManager manager;
+    private DropManager dropmanager;
 
     private int poolIndex;
     private float expAmount;
 
-    public void SetManager(ExpDropManager manager)
+    public void SetManager(DropManager dropmanager)
     {
-        this.manager = manager;
+        this.dropmanager = dropmanager;
     }
 
     public void SetPoolIndex(int index)
@@ -36,8 +36,8 @@ public class ExpGem : MonoBehaviour
 
         player.AddExp(expAmount);
 
-        if (manager != null)
-            manager.Release(this);
+        if (dropmanager != null)
+            dropmanager.Release(this);
         else
             gameObject.SetActive(false);
     }

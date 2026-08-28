@@ -8,7 +8,7 @@ public class BattleManager : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private SpawnManager spawnManager;
-    [SerializeField] private ExpDropManager expDropManager;
+    [SerializeField] private DropManager dropManager;
     [SerializeField] private DamageTextManager damageTextManager;
     [SerializeField] private PlayerSkillManager playerSkillManager;
 
@@ -48,8 +48,8 @@ public class BattleManager : MonoBehaviour
         if (playerSkillManager != null)
             playerSkillManager.StopAllSkills();
 
-        if (expDropManager != null)
-            expDropManager.ClearAll();
+        if (dropManager != null)
+            dropManager.ClearAll();
 
         if (damageTextManager != null)
             damageTextManager.ClearAll();
