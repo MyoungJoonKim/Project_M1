@@ -27,8 +27,6 @@ public class RewardUI : MonoBehaviour
     [Header("Button")]
     [SerializeField] private Button endButton;
 
-    private BattleManager battleManager;
-
     private int rewardGold;
     private int rewardExp;
     private bool rewardApplied;
@@ -36,8 +34,6 @@ public class RewardUI : MonoBehaviour
 
     private void Start()
     {
-        battleManager = GetComponent<BattleManager>();
-
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
     }
@@ -53,16 +49,16 @@ public class RewardUI : MonoBehaviour
         if (gameOverUI != null)
             gameOverUI.SetActive(true);
 
-        if (battleManager == null)
+        if (BattleManager.Instance == null)
             return;
 
-        if (CoreService.userManager == null)
+        if (UserManager.Instance == null)
             return;
 
         rewardApplied = false;
 
-        rewardGold = battleManager.GetRewardGold();
-        rewardExp = battleManager.GetRewardUserExp();
+        rewardGold = BattleManager.Instance.GetRewardGold();
+        rewardExp = BattleManager.Instance.GetRewardUserExp();
 
         BattleUI battleUI = FindAnyObjectByType<BattleUI>();
 
@@ -75,7 +71,7 @@ public class RewardUI : MonoBehaviour
             survivalTimeText.text = battleUI.TimeText;
 
         if (killRecordText != null)
-            killRecordText.text = $"{battleManager.killRecord}";
+            killRecordText.text = $"{BattleManager.Instance.killRecord}";
 
         if (addGoldText != null)
             addGoldText.text = $"{rewardGold}";
@@ -95,7 +91,7 @@ public class RewardUI : MonoBehaviour
         if (bar == null)
             yield break;
 
-        UserData data = CoreService.userManager.userData;
+        UserData data = UserManager.Instance.userData;
 
         float exp = data.userExp;
         float maxExp = data.userMaxExp;
@@ -162,11 +158,11 @@ public class RewardUI : MonoBehaviour
 
         rewardApplied = true;
 
-        if (CoreService.userManager == null)
+        if (UserManager.Instance == null)
             return;
 
-        CoreService.userManager.AddGold(rewardGold);
-        CoreService.userManager.AddUserExp(rewardExp);
+        UserManager.Instance.AddGold(rewardGold);
+        UserManager.Instance.AddUserExp(rewardExp);
     }
 
     public void OnClickEndButton()
@@ -175,7 +171,7 @@ public class RewardUI : MonoBehaviour
 
         ApplyReward();
 
-        if (CoreService.sceneLoadManager != null)
-            CoreService.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
+        if (SceneLoadManager.Instance != null)
+            SceneLoadManager.Instance.ChangeScene(SceneType.LOBBY, false);
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    public static BattleManager Instance;
+
     [Header("Character Player")]
     public Player player;
 
@@ -17,13 +19,28 @@ public class BattleManager : MonoBehaviour
     public int killRecord;
 
     private Coroutine gameTimeCoroutine;
-
+    
     private void Start()
     {
         Time.timeScale = 1f;
         StartBattle();
     }
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+            Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
 
     // ∏ÛΩ∫≈Õ ≈∏∞Ÿ √ﬂ¿˚ ∏ÿ√„.
     public void EndGame(Player player)

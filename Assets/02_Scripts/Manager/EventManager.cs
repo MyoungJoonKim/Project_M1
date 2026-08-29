@@ -16,10 +16,8 @@ public class EventManager : MonoBehaviour
     [Header("Event Managers")]
     [SerializeField] private PlayerSkillManager playerSkillManager;
     [SerializeField] private EventSpawnManager eventSpawnManager;
-    [SerializeField] private BattleManager battleManager;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
-
 
     private Pillar pillar;
     private Pillar currentActivePillar;
@@ -82,14 +80,14 @@ public class EventManager : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         playerSkillManager = obj.AddComponent<PlayerSkillManager>();
-        playerSkillManager.Init(eventSkillData, player, spawnManager, battleManager);
+        playerSkillManager.Init(eventSkillData, player, spawnManager, BattleManager.Instance);
     }
 
     private IEnumerator WarningEvent()
     {
         while (true)
         {
-            if (battleManager == null || !battleManager.isBattlePlaying)
+            if (BattleManager.Instance == null || !BattleManager.Instance.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -128,8 +126,8 @@ public class EventManager : MonoBehaviour
 
         while (currentDurationTime > 0f)
         {
-            if (battleManager == null || !battleManager.isBattlePlaying)
-            {
+            if (BattleManager.Instance == null || !BattleManager.Instance.isBattlePlaying)
+            {   
                 currentActivePillar = null;
                 isEventStart= false;
                 yield break;

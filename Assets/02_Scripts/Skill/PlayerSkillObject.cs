@@ -33,8 +33,9 @@ public class PlayerSkillObject : MonoBehaviour
 
     private Coroutine skillCoroutine;
     private SpawnManager spawnManager;
-    private BattleManager battleManager;
     private PassiveSkillManager passiveSkillManager;
+
+    BattleManager battleManager = BattleManager.Instance;
 
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
     private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();

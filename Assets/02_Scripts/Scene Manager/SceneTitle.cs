@@ -41,6 +41,6 @@ public class SceneTitle : MonoBehaviour
             if (bar.value == timer)
                 break;
         }
-        CoreService.sceneLoadManager.ChangeScene(SceneType.LOBBY, false);
+        SceneLoadManager.Instance.ChangeScene(SceneType.LOBBY, false);
     }
 }

@@ -13,8 +13,6 @@ public class BossSkillObject : MonoBehaviour
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
 
-    private BattleManager battleManager;
-
     private SkillType skillType;
 
     private int index;
@@ -50,7 +48,7 @@ public class BossSkillObject : MonoBehaviour
     {
         boss = bossTransform;
         targetPlayer = playerTransform;
-        battleManager = _battleManager;
+        BattleManager.Instance = _battleManager;
         index = objectIndex;
         totalCount = objectCount;
         damage = damageValue;
@@ -58,8 +56,6 @@ public class BossSkillObject : MonoBehaviour
         speed = speedValue;
         hitInterval = hitIntervalValue;
         skillType = type;
-
-        battleManager = boss.GetComponent<BattleManager>();
 
         angle = (360f / totalCount) * index;
 
@@ -77,7 +73,7 @@ public class BossSkillObject : MonoBehaviour
     {
         while (true)
         {
-            if (battleManager == null || !battleManager.isBattlePlaying)
+            if (BattleManager.Instance == null || !BattleManager.Instance.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -114,7 +110,7 @@ public class BossSkillObject : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (battleManager == null || !battleManager.isBattlePlaying)
+        if (BattleManager.Instance == null || !BattleManager.Instance.isBattlePlaying)
             return;
 
         if (!canAttack)

@@ -25,7 +25,6 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private float scaleSpeed = 5f;
     [SerializeField] private Vector3 selectPosition = new Vector3(0f, 0f, 0f);
 
-
     private Coroutine lockCheckCoroutine;
     private Coroutine iconScaleCoroutine;
 
@@ -86,7 +85,7 @@ public class MenuToggleUI : MonoBehaviour
     {
         while (!isUnlock)
         {
-            if (CoreService.userManager.GetUserLevel() >= lockOffLevel)
+            if (UserManager.Instance.GetUserLevel() >= lockOffLevel)
             {
                 SetUnlockMenu();
                 break;
@@ -120,7 +119,7 @@ public class MenuToggleUI : MonoBehaviour
 
     public void OnClickToggleButton()
     {
-        if (CoreService.userManager.GetUserLevel() < lockOffLevel)
+        if (UserManager.Instance.GetUserLevel() < lockOffLevel)
         {
             textFadeOut.Open(lockOffLevel);
         }

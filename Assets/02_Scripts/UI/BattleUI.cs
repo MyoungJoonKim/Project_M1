@@ -17,7 +17,6 @@ public class BattleUI : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private SpawnManager spawnManager;
-    [SerializeField] private BattleManager battleManager;
 
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
@@ -35,7 +34,7 @@ public class BattleUI : MonoBehaviour
     {
         while (true)
         {
-            if (battleManager == null || player == null)
+            if (BattleManager.Instance == null || player == null)
             {
                 yield return null;
                 continue;
@@ -54,13 +53,13 @@ public class BattleUI : MonoBehaviour
     {
         while (true)
         {
-            if (battleManager == null)
+            if (BattleManager.Instance == null)
             {
                 yield return null;
                 continue;
             }
 
-            if (!battleManager.isBattlePlaying)
+            if (!BattleManager.Instance.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -69,7 +68,7 @@ public class BattleUI : MonoBehaviour
             if (timeText == null)
                 yield break;
 
-            float time = battleManager.GameTime;
+            float time = BattleManager.Instance.GameTime;
 
             int minute = Mathf.FloorToInt(time / 60f);
             int second = Mathf.FloorToInt(time % 60f);
@@ -84,13 +83,13 @@ public class BattleUI : MonoBehaviour
     {
         while (true)
         {
-            if (battleManager == null)
+            if (BattleManager.Instance == null)
             {
                 yield return null;
                 continue;
             }
 
-            if (!battleManager.isBattlePlaying)
+            if (!BattleManager.Instance.isBattlePlaying)
             {
                 yield return null;
                 continue;
@@ -146,9 +145,9 @@ public class BattleUI : MonoBehaviour
         if (player != null)
             return;
 
-        if (battleManager != null && battleManager.player != null)
+        if (BattleManager.Instance != null && BattleManager.Instance.player != null)
         {
-            player = battleManager.player;
+            player = BattleManager.Instance.player;
             return;
         }
 

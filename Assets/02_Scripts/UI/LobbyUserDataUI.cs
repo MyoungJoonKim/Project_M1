@@ -15,7 +15,6 @@ public class LobbyUserDataUI : MonoBehaviour
     [SerializeField] private TMP_Text userNameText;
     [SerializeField] private TMP_Text userLevelText;
 
-
     private void Start()
     {
         StartCoroutine(userDataUpdate());
@@ -26,16 +25,16 @@ public class LobbyUserDataUI : MonoBehaviour
         while(true)
         {
             if (userExpSlider != null) 
-                userExpSlider.value = CoreService.userManager.GetUserExp();
+                userExpSlider.value = UserManager.Instance.GetUserExp();
 
             if (userIcon != null)
-                userIcon.sprite = CoreService.userManager.userData.userIcon;
+                userIcon.sprite = UserManager.Instance.userData.userIcon;
 
             if (userNameText != null)
-                userNameText.text = $"{CoreService.userManager.userData.userName}";
+                userNameText.text = $"{UserManager.Instance.userData.userName}";
 
             if (userLevelText != null)
-                userLevelText.text = $"Lv. {CoreService.userManager.GetUserLevel()}";
+                userLevelText.text = $"Lv. {UserManager.Instance.GetUserLevel()}";
 
             yield return null;
         }

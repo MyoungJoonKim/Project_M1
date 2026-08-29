@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CoreService : MonoBehaviour
 {
-    public static UserManager userManager;
+    //public static UserManager userManager;
     
-    public static SceneLoadManager sceneLoadManager;
+    //public static SceneLoadManager sceneLoadManager;
 }

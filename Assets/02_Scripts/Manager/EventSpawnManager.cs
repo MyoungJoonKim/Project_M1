@@ -21,14 +21,9 @@ public class EventSpawnManager : MonoBehaviour
 
     private GameObject currentMonsterPrefab;
     private MonsterData currentMonsterData;
-    private BattleManager battleManager;
     private List<GameObject> monsters = new List<GameObject>();
     private Coroutine moveCoroutine;
 
-    private void Start()
-    {
-        battleManager = GetComponent<BattleManager>();
-    }
 
     private void CreatePool()
     {
@@ -55,7 +50,7 @@ public class EventSpawnManager : MonoBehaviour
 
     public void SpawnEventWave(int roundIndex)
     {
-        if (battleManager == null || !battleManager.isBattlePlaying)
+        if (BattleManager.Instance == null || !BattleManager.Instance.isBattlePlaying)
             return;
 
         if (eventMonsterPrefabs == null|| eventMonsterDatas == null)

@@ -26,10 +26,7 @@ public class Monster : Character
 
     [Header("Manager")]
     [SerializeField] private SpawnManager spawnManager;
-    [SerializeField] private BattleManager battleManager;
     [SerializeField] private DropManager dropManager;
-
-    public BattleManager BattleManager => battleManager;
 
     public Transform target;
 
@@ -157,7 +154,7 @@ public class Monster : Character
         {
             if (manager.Data == skill)
             {
-                manager.Init(monsterData, skill, bossMonster, player.transform, battleManager);
+                manager.Init(monsterData, skill, bossMonster, player.transform, BattleManager.Instance);
                 return;
             }
         }
@@ -167,7 +164,7 @@ public class Monster : Character
         obj.transform.localPosition = Vector3.zero;
 
         BossSkillManager newSkill = obj.AddComponent<BossSkillManager>();
-        newSkill.Init(monsterData, skill, bossMonster, player.transform, battleManager);
+        newSkill.Init(monsterData, skill, bossMonster, player.transform, BattleManager.Instance);
     }
 
     public void ResetMonster(bool useAI = true)
@@ -284,8 +281,8 @@ public class Monster : Character
     {
         StopMonster();
 
-        if (addKillCount && battleManager != null)
-            battleManager.killRecord++;
+        if (addKillCount && BattleManager.Instance != null)
+            BattleManager.Instance.killRecord++;
 
         if (monsterPool != null)
             monsterPool.Release(this);

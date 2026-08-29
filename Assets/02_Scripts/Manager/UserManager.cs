@@ -2,24 +2,27 @@ using UnityEngine;
 
 public class UserManager : MonoBehaviour
 {
+    public static UserManager Instance;
+
     public UserData userData = new UserData();
 
     
     private void Awake()
     {
-        if (CoreService.userManager != null && CoreService.userManager != this)
+        if (Instance == null)
         {
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        CoreService.userManager = this;
-        DontDestroyOnLoad(gameObject);
+        else
+        Destroy(gameObject);
+        
     }
 
     private void OnDestroy()
     {
-        if (CoreService.userManager == this)
-            CoreService.userManager = null;
+        if (Instance == this)
+            Instance = null;
     }
 
     public void AddGold(int amount)

@@ -5,16 +5,12 @@ public class EventMonsterAttack : MonoBehaviour
     [Header("Monster")]
     [SerializeField] private Monster monster;
 
-    private BattleManager battleManager;
-
     private static float lastAttackTime = -999f;
 
     private void Awake()
     {
         if (monster == null)
             monster = GetComponent<Monster>();
-
-        battleManager = GetComponent<BattleManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,10 +18,9 @@ public class EventMonsterAttack : MonoBehaviour
         TryAttack(collision);
     }
 
-
     public void TryAttack(Collider2D collision)
     {
-        if (battleManager == null || !battleManager.isBattlePlaying)
+        if (BattleManager.Instance == null || !BattleManager.Instance.isBattlePlaying)
             return;
 
         if (monster == null || monster.isDead)

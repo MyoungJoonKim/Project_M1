@@ -12,19 +12,26 @@ public enum SceneType
 
 public class SceneLoadManager : MonoBehaviour
 {
+    public static SceneLoadManager Instance;
+
     public SceneType scene;
     public SceneType nextScene;
 
     private void Awake()
     {
-        if (CoreService.sceneLoadManager != null && CoreService.sceneLoadManager != this)
+        if (Instance == null)
         {
-            Destroy(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+        else
+            Destroy(gameObject);
+    }
 
-        CoreService.sceneLoadManager = this;
-        DontDestroyOnLoad(gameObject);
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     public void ChangeScene(SceneType next, bool loading = false)

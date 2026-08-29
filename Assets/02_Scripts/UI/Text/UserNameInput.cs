@@ -11,7 +11,6 @@ public class UserNameInput : MonoBehaviour
     [SerializeField] private int maxLength = 10;
     [SerializeField] private int minLength = 2;
 
-
     private void Start()
     {
         inputField.characterLimit = maxLength;
@@ -20,7 +19,7 @@ public class UserNameInput : MonoBehaviour
 
     private void Open()
     {
-        if (CoreService.userManager.userData.userName.Length < minLength)
+        if (UserManager.Instance.userData.userName.Length < minLength)
             panel.SetActive(true);
         else
             panel.SetActive(false);
@@ -30,7 +29,7 @@ public class UserNameInput : MonoBehaviour
     {
         if (inputField.text.Length >= minLength)
         {
-            CoreService.userManager.userData.userName = inputField.text;
+            UserManager.Instance.userData.userName = inputField.text;
             panel.SetActive(false);
         }
         else

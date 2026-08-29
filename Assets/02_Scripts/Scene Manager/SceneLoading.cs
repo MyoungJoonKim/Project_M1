@@ -7,7 +7,6 @@ public class SceneLoading : MonoBehaviour
     [Header("Loading Bar Slider")]
     [SerializeField] private Slider loadingBar;
 
-
     private void Start()
     {
         StartCoroutine(LoadingBarUpdate(loadingBar,2f));
@@ -28,6 +27,6 @@ public class SceneLoading : MonoBehaviour
             if (bar.value == timer)
                 break;
         }
-        CoreService.sceneLoadManager.ChangeScene(CoreService.sceneLoadManager.nextScene, false);
+        SceneLoadManager.Instance.ChangeScene(SceneLoadManager.Instance.nextScene, false);
     }
 }

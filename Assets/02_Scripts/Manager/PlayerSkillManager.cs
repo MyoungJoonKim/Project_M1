@@ -11,17 +11,14 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField] private ActiveSkillData skillData;
 
     private SpawnManager spawnManager;
-    private BattleManager battleManager;
-    
-    private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();
-
-    private int currentLevel = 1;
-
     private Coroutine skillLoop;
+    
+    private int currentLevel = 1;
 
     public int CurrentLevel => currentLevel;
     public ActiveSkillData Data => skillData;
 
+    private readonly List<PlayerSkillObject> skillObjects = new List<PlayerSkillObject> ();
 
     public void Init(
         ActiveSkillData data, 
@@ -32,7 +29,7 @@ public class PlayerSkillManager : MonoBehaviour
         skillData = data;
         player = _player;
         spawnManager = _spawnManager;
-        battleManager = _battleManager;
+        BattleManager.Instance = _battleManager;
         currentLevel = 1;
         
         if (skillData.skillType == SkillType.EventSummon)
@@ -118,7 +115,7 @@ public class PlayerSkillManager : MonoBehaviour
             skillObjects[i].SetUp(
                 player,
                 spawnManager,
-                battleManager,
+                BattleManager.Instance,
                 i,
                 count,
                 skillData.damage[currentLevel - 1],
