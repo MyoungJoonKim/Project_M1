@@ -63,10 +63,11 @@ MonoBehaviour:
   startMaxExp: 100
   grave: {fileID: 0}
   skillRoot: {fileID: 0}
+  hitEffect: {fileID: 6528741374018660059, guid: a6fa43cda611ec646a4f84a95023cbd7,
+    type: 3}
   joyStick: {fileID: 0}
   passiveSkillManager: {fileID: 0}
-  battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
-    type: 3}
+  skillSelectUI: {fileID: 0}
 --- !u!114 &7769728539209853250
 MonoBehaviour:
   m_ObjectHideFlags: 0

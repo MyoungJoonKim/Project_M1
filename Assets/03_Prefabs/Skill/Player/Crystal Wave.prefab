@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6433409380644600800}
   - component: {fileID: -4485514550751744402}
-  - component: {fileID: 1212315594714956211}
   - component: {fileID: 2112876450683231923}
+  - component: {fileID: 1212315594714956211}
   m_Layer: 0
   m_Name: Crystal Wave
   m_TagString: Untagged
@@ -53,33 +53,6 @@ MonoBehaviour:
   collider2D: {fileID: 2112876450683231923}
   eventManager: {fileID: 2463712412602884052, guid: dc531376546d3574db988166feb29fe0,
     type: 3}
---- !u!50 &1212315594714956211
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466711331275666377}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!60 &2112876450683231923
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -128,6 +101,33 @@ PolygonCollider2D:
       - {x: 7, y: -2.5}
       - {x: -2, y: 0}
   m_UseDelaunayMesh: 0
+--- !u!50 &1212315594714956211
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466711331275666377}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &51194774555728855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ PrefabInstance:
     - target: {fileID: 3156866507962234106, guid: 645ebd7cef59b7b40b27c29bf3e99cf2,
         type: 3}
       propertyPath: m_Name
-      value: Crystals front attack
+      value: Skill Object
       objectReference: {fileID: 0}
     - target: {fileID: 3497727557614110310, guid: 645ebd7cef59b7b40b27c29bf3e99cf2,
         type: 3}

@@ -10,6 +10,10 @@ public class PlayerSkillManager : MonoBehaviour
     [Header("Active Skill Data")]
     [SerializeField] private ActiveSkillData skillData;
 
+    [Header("Manager")]
+    [SerializeField] private EventManager eventManager;
+
+    private BattleManager battleManager;
     private SpawnManager spawnManager;
     private Coroutine skillLoop;
     
@@ -29,13 +33,11 @@ public class PlayerSkillManager : MonoBehaviour
         skillData = data;
         player = _player;
         spawnManager = _spawnManager;
-        BattleManager.Instance = _battleManager;
+        battleManager = _battleManager;
         currentLevel = 1;
         
         if (skillData.skillType == SkillType.EventSummon)
             return;
-
-        CreateSkill();
 
         if (skillData.skillType == SkillType.TargetExplosion || 
             skillData.skillType == SkillType.Summon || 
@@ -46,6 +48,9 @@ public class PlayerSkillManager : MonoBehaviour
 
             skillLoop = StartCoroutine(SkillLoop());
         }
+        else
+            CreateSkill();
+
     }
 
     public void LevelUp()
@@ -85,7 +90,19 @@ public class PlayerSkillManager : MonoBehaviour
                 continue;
             }
 
-            if (skillData.skillType == SkillType.TargetExplosion)
+            Transform targetTransform = null;
+
+            if (skillData.skillType == SkillType.Direction)
+            {
+                targetTransform = GetDirectionTarget();
+
+                if (targetTransform == null)
+                {
+                    skillObjects[i].gameObject.SetActive(false);
+                    continue;
+                }
+            }
+            else if (skillData.skillType == SkillType.TargetExplosion)
             {
                 Monster target = GetRandomMonster();
 
@@ -94,6 +111,7 @@ public class PlayerSkillManager : MonoBehaviour
                     skillObjects[i].gameObject.SetActive(false);
                     continue;
                 }
+                targetTransform = target.transform;
 
                 skillObjects[i].transform.position = target.transform.position;
             }
@@ -114,8 +132,9 @@ public class PlayerSkillManager : MonoBehaviour
 
             skillObjects[i].SetUp(
                 player,
+                targetTransform,
                 spawnManager,
-                BattleManager.Instance,
+                battleManager,
                 i,
                 count,
                 skillData.damage[currentLevel - 1],
@@ -199,7 +218,25 @@ public class PlayerSkillManager : MonoBehaviour
 
         skillObjects.Clear();
     }
-    
+    private Transform GetDirectionTarget()
+    {
+        Monster monster = GetRandomMonster();
+
+        if (monster != null)
+            return monster.transform;
+
+        if (eventManager != null)
+        {
+            Pillar pillar = eventManager.CurrentActivePillar;
+
+            if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
+            {
+                return pillar.transform;
+            }
+        }
+        return null;
+    }
+
     public Monster GetRandomMonster()
     {
         List<Monster> list = new List<Monster>();
@@ -211,7 +248,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             float distance = Vector2.Distance(player.position, monster.transform.position);
 
-            if (distance < skillData.range[currentLevel - 1])
+            if (distance <= skillData.range[currentLevel - 1])
                 list.Add(monster);
         }
 

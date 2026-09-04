@@ -684,8 +684,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1782,8 +1782,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1915953412364729979, guid: 4e4fa6a03b081fe4cb695153fb361397,
         type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915953412364729979, guid: 4e4fa6a03b081fe4cb695153fb361397,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915953412364729979, guid: 4e4fa6a03b081fe4cb695153fb361397,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915953412364729979, guid: 4e4fa6a03b081fe4cb695153fb361397,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915953412364729979, guid: 4e4fa6a03b081fe4cb695153fb361397,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915953412364729979, guid: 4e4fa6a03b081fe4cb695153fb361397,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 2418009535014688341, guid: 4e4fa6a03b081fe4cb695153fb361397,
         type: 3}

@@ -37,7 +37,7 @@ public class ExpGem : MonoBehaviour
         player.AddExp(expAmount);
 
         if (dropmanager != null)
-            dropmanager.Release(this);
+            dropmanager.ReleaseExpGem(this);
         else
             gameObject.SetActive(false);
     }

@@ -221,7 +221,10 @@ public class Monster : Character
         }
 
         if (player != null && dropManager != null)
+        {
             dropManager.SpawnExpGem(transform.position, GetRewardExp());
+            dropManager.SpawnDeadEffect(transform.position);
+        }
 
         ReleaseMonster(true);
     }
@@ -275,6 +278,11 @@ public class Monster : Character
     public void SetManagedPool(IObjectPool<Monster> pool)
     {
         monsterPool = pool;
+    }
+
+    public void SetSpawnManager(SpawnManager manager)
+    {
+        spawnManager = manager;
     }
 
     public void ReleaseMonster(bool addKillCount = true)

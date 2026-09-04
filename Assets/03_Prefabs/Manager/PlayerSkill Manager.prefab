@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b11a39a1a3fb2134a9007adf778b895f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillData: {fileID: 0}
   player: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
+  skillData: {fileID: 0}
+  eventManager: {fileID: 2463712412602884052, guid: dc531376546d3574db988166feb29fe0,
+    type: 3}

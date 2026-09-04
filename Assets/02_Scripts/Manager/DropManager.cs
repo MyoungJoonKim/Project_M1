@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -11,23 +12,39 @@ public class DropManager : MonoBehaviour
     [SerializeField] private ExpGemData[] expGemData;
 
     [Header("Pool Root")]
+    [SerializeField] private Transform deadEffectRoot;
     [SerializeField] private Transform expGemRoot;
 
     [Header("Pool")]
-    [SerializeField] private int startPoolSizePerType = 25;
+    [SerializeField] private float effectDuration = 1f;
+    [SerializeField] private int startPoolSize = 25;
     [SerializeField] private int maxActiveGemCount = 60;
 
-    //private readonly Dictionary<int, Queue<ExpGem>> effectPool = new();
+    private readonly Queue<GameObject> effectPool = new();
     private readonly Dictionary<int, Queue<ExpGem>> expPool = new();
     private readonly List<ExpGem> activeGems = new();
 
 
     private void Awake()
     {
-        CreatePool();
+        CreateExpPool();
+        CreateDeadEffectPool();
     }
 
-    private void CreatePool()
+    private void CreateDeadEffectPool()
+    {
+        if (deadEffect == null)
+            return;
+
+        for (int i = 0; i < startPoolSize; i++)
+        {
+            GameObject effect = Instantiate(deadEffect, deadEffectRoot);
+            effect.SetActive(false);
+            effectPool.Enqueue(effect);
+        }
+    }
+
+    private void CreateExpPool()
     {
         if (expGemData == null)
             return;
@@ -36,7 +53,7 @@ public class DropManager : MonoBehaviour
         {
             expPool[i] = new Queue<ExpGem>();
 
-            for (int j = 0; j < startPoolSizePerType; j++)
+            for (int j = 0; j < startPoolSize; j++)
             {
                 ExpGem gem = Instantiate(expGemData[i].prefab, expGemRoot);
                 gem.gameObject.SetActive(false);
@@ -45,6 +62,35 @@ public class DropManager : MonoBehaviour
                 expPool[i].Enqueue(gem);
             }
         }
+    }
+    public void SpawnDeadEffect(Vector3 position)
+    {
+        if (deadEffect == null)
+            return;
+
+        GameObject effect;
+
+        if (effectPool.Count > 0)
+        {
+            effect = effectPool.Dequeue();
+        }
+        else
+        {
+            effect = Instantiate(deadEffect, deadEffectRoot);
+        }
+
+        effect.transform.position = position;
+        effect.transform.rotation = Quaternion.identity;
+        effect.gameObject.SetActive(true);
+        ReleaseDeadEffect(effect);
+
+    }
+
+    private IEnumerator ReleaseDeadEffect(GameObject effect)
+    {
+        yield return new WaitForSeconds(effectDuration);
+        effect.gameObject.SetActive(false);
+        effectPool.Enqueue(effect);
     }
 
     public void SpawnExpGem(Vector3 position, float expAmount)
@@ -56,7 +102,7 @@ public class DropManager : MonoBehaviour
 
         // 맵에 경험치잼이 너무 많이 쌓이면 오래된 잼부터 회수
         if (activeGems.Count >= maxActiveGemCount)
-            Release(activeGems[0]);
+            ReleaseExpGem(activeGems[0]);
 
         ExpGem gem = GetGem(index);
 
@@ -89,7 +135,7 @@ public class DropManager : MonoBehaviour
         return gem;
     }
 
-    public void Release(ExpGem gem)
+    public void ReleaseExpGem(ExpGem gem)
     {
         if (gem == null)
             return;
@@ -126,7 +172,7 @@ public class DropManager : MonoBehaviour
     {
         for (int i = activeGems.Count - 1; i >= 0; i--)
         {
-            Release(activeGems[i]);
+            ReleaseExpGem(activeGems[i]);
         }
     }
 }

@@ -15,6 +15,7 @@ public class Player : Character
     [Header("Player prefab")]
     [SerializeField] private GameObject grave;
     [SerializeField] private GameObject skillRoot;
+    [SerializeField] private GameObject hitEffect;
 
     [Header("Player JoyStick Panel")]
     [SerializeField] private GameObject joyStick;
@@ -30,6 +31,7 @@ public class Player : Character
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidbody2D;
     private Coroutine deadCheckCoroutine;
+    private Coroutine hitEffectCoroutine;
 
 
     private void Awake()
@@ -59,6 +61,9 @@ public class Player : Character
     {
         skillSelectUI.Open();
         grave.SetActive(false);
+
+        if (hitEffect != null)
+            hitEffect.SetActive(false);
 
         if (deadCheckCoroutine != null)
             StopCoroutine(deadCheckCoroutine);
@@ -181,6 +186,36 @@ public class Player : Character
 
     public void OnHit()
     {
-        playerAnimator.Hit();
+        if (hitEffect != null)
+        {
+            ParticleSystem particle = hitEffect.GetComponentInChildren<ParticleSystem>();
+
+            if (particle != null)
+            {
+                if (hitEffectCoroutine != null)
+                {
+                    StopCoroutine(hitEffectCoroutine);
+                    hitEffectCoroutine = null;
+                }
+                hitEffect.SetActive(true);
+                particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                particle.Play();
+
+                hitEffectCoroutine = StartCoroutine(ReleaseHitEffect());
+            }
+        }
+
+        if (playerAnimator != null)
+            playerAnimator.Hit();
+    }
+
+    private IEnumerator ReleaseHitEffect()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (hitEffect != null)
+            hitEffect.SetActive(false);
+
+        hitEffectCoroutine = null;
     }
 }

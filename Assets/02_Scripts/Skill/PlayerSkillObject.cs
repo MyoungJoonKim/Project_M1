@@ -12,10 +12,10 @@ public class PlayerSkillObject : MonoBehaviour
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
 
-    [Header("Manager")]
-    [SerializeField] private EventManager eventManager;
+    
 
     private SkillType skillType;
+    private Transform target;
 
     private int index;
     private int totalCount;
@@ -33,15 +33,15 @@ public class PlayerSkillObject : MonoBehaviour
 
     private Coroutine skillCoroutine;
     private SpawnManager spawnManager;
+    private BattleManager battleManager;
     private PassiveSkillManager passiveSkillManager;
-
-    BattleManager battleManager = BattleManager.Instance;
 
     private Dictionary<Prop, float> propLastHitTimes = new Dictionary<Prop, float>();
     private Dictionary<Monster, float> monsterLastHitTimes = new Dictionary<Monster, float>();
 
     public void SetUp(
         Transform playerTransform,
+        Transform targetTransform,
         SpawnManager _spawnManager,
         BattleManager _battleManager,
         int objectIndex,
@@ -54,6 +54,7 @@ public class PlayerSkillObject : MonoBehaviour
         SkillType type)
     {
         player = playerTransform;
+        target = targetTransform;
 
         passiveSkillManager = player.GetComponentInParent<PassiveSkillManager>();
 
@@ -233,8 +234,6 @@ public class PlayerSkillObject : MonoBehaviour
         if (isTrigger)
             return;
 
-        Transform target = GetDirectionTarget();
-
         if (target == null)
         {
             SetEffectActive(false);
@@ -264,50 +263,6 @@ public class PlayerSkillObject : MonoBehaviour
             return;
         isTrigger = true;
         SetEffectActive(true);
-    }
-
-    private Transform GetDirectionTarget()
-    {
-        Monster monster = GetRandomMonster();
-
-        if (monster != null)
-            return monster.transform;
-
-        if (eventManager != null)
-        {
-            Pillar pillar = eventManager.CurrentActivePillar;
-
-            if (pillar != null && pillar.CurrentState == PillarState.RuneActive)
-            {
-                return pillar.transform;
-            }
-        }
-        return null;
-    }
-    private Monster GetRandomMonster()
-    {
-        if (spawnManager == null)
-            return null;
-
-        List<Monster> monsters = new List<Monster>();
-
-        foreach (Monster monster in spawnManager.GetActiveMonsters())
-        {
-            if (monster == null || monster.isDead)
-                continue;
-
-            float distance = Vector2.Distance(player.position, monster.transform.position);
-
-            if (distance <= range)
-                monsters.Add(monster);
-        }
-
-        if (monsters.Count == 0)
-            return null;
-
-        int rand = Random.Range(0, monsters.Count);
-
-        return monsters[rand];
     }
 
     private void SetEffectActive(bool value)

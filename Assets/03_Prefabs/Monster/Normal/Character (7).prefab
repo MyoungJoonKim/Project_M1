@@ -223,15 +223,13 @@ MonoBehaviour:
   damageTextManager: {fileID: 1289991515110263958, guid: ae45aa0710493a444a071814251e5180,
     type: 3}
   isDead: 0
-  monsterData: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: 0bda864df1ab2eb4589091334aad6138, type: 2}
   rewardExp: 10
   spawnManager: {fileID: 5493505135185944649, guid: 3b54fce62e4744843a235bfb23fd5151,
     type: 3}
-  battleManager: {fileID: 5209024930895569565, guid: 2105256318c9ed04197e0b6151dc3769,
-    type: 3}
   dropManager: {fileID: 4367770574063436676, guid: 9ecccb6d317861348a1b22bed87dcad9,
     type: 3}
-  target: {fileID: 0}
+  target: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e, type: 3}
 --- !u!114 &6564505630289037585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfde38171c06964a8801a3787c03162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleFlip: {fileID: 0}
+  scaleFlip: {fileID: 4357351810918520840}
   animator: {fileID: 5703514070934806871}
 --- !u!95 &5703514070934806871
 Animator:

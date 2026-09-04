@@ -288,9 +288,10 @@ public class SpawnManager : MonoBehaviour
         monster.transform.rotation = Quaternion.identity;
 
         monster.SetMonsterData(data);
-        monster.gameObject.SetActive(true);
+        monster.SetSpawnManager(this);
         monster.SetPlayer(player);
         monster.SetTarget(player.transform);
+        monster.gameObject.SetActive(true);
         monster.ResetMonster();
 
         if (data.monsterType == MonsterType.Boss)
