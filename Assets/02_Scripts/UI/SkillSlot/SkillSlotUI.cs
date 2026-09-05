@@ -61,11 +61,6 @@ public class SkillSlotUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        if (icon != null)
-        {
-            icon.sprite = null;
-        }
-
         if (skillNameText != null)
             skillNameText.text = "";
 

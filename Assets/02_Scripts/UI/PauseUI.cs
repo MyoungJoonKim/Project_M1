@@ -129,6 +129,7 @@ public class PauseUI : MonoBehaviour
             }
         }
     }
+
     public void OnClickPlayButton()
     {
         if (skillListUICoroutine != null)
@@ -140,6 +141,7 @@ public class PauseUI : MonoBehaviour
         optionUI.SetActive(false);
         Time.timeScale = 1f;
     }
+
     public void OnClickLobbyButton()
     {
         if (giveUpConfirmUI != null)

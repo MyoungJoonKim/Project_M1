@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 8434640564283663815}
+  skillNameText: {fileID: 0}
+  skillInfoText: {fileID: 0}
   stars:
   - {fileID: 5594388765893732024}
   - {fileID: 3880859996073725803}
@@ -99,9 +101,6 @@ MonoBehaviour:
   - {fileID: 3455179908166662143}
   onStar: {fileID: 21300000, guid: 06c487ef7d0a52e45affa9b5203e224b, type: 3}
   offStar: {fileID: 21300000, guid: 67f584718dfc4a142bfe20e5962fdef4, type: 3}
-  skillNameText: {fileID: 0}
-  skillInfoText: {fileID: 0}
-  button: {fileID: 0}
 --- !u!1 &7877432263493638225
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,8 +166,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 68a7bd402e7bf8e47b5725bd06574a7a, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -176,7 +175,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.5
+  m_PixelsPerUnitMultiplier: 100
 --- !u!1001 &2619303205211077944
 PrefabInstance:
   m_ObjectHideFlags: 0
