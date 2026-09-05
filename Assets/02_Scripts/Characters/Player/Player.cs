@@ -20,16 +20,21 @@ public class Player : Character
     [Header("Player JoyStick Panel")]
     [SerializeField] private GameObject joyStick;
 
-    [Header("Manager")]
-    [SerializeField] private PassiveSkillManager passiveSkillManager;
+    [Header("Camera Shake Effect")]
+    [SerializeField] private CameraShake cameraShake;
 
     [Header("UI")]
     [SerializeField] private SkillSelectUI skillSelectUI;
 
-    private PlayerController playerController;
+    [Header("Manager")]
+    [SerializeField] private PassiveSkillManager passiveSkillManager;
+
+
+    private Rigidbody2D rigidbody2D;
     private PlayerAnimator playerAnimator;
     private SpriteRenderer spriteRenderer;
-    private Rigidbody2D rigidbody2D;
+    private PlayerController playerController;
+
     private Coroutine deadCheckCoroutine;
     private Coroutine hitEffectCoroutine;
 
@@ -205,8 +210,13 @@ public class Player : Character
             }
         }
 
+        if (cameraShake != null)
+            cameraShake.Shake(0.2f, 0.1f);
+
         if (playerAnimator != null)
             playerAnimator.Hit();
+
+        Handheld.Vibrate();
     }
 
     private IEnumerator ReleaseHitEffect()

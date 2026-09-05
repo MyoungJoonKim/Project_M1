@@ -24,18 +24,22 @@ public class Monster : Character
     [Header("Monster Reward")]
     [SerializeField] private float rewardExp = 10f;
 
+    [Header("Target")]
+    [SerializeField] private Transform target;
+
     [Header("Manager")]
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private DropManager dropManager;
 
-    public Transform target;
 
     private Player player;
-    private MonsterAi monsterAi;
-    private MonsterAnimator monsterAnimator;
-    private MonsterAttack monsterAttack;
-    private BossSliderUI bossSliderUI;
     private Rigidbody2D rb;
+    private MonsterAi monsterAi;
+    private MonsterAttack monsterAttack;
+    private MonsterAnimator monsterAnimator;
+
+    private BossSliderUI bossSliderUI;
+
     private Coroutine deadCheckCoroutine;
 
     private IObjectPool<Monster> monsterPool;
@@ -43,10 +47,10 @@ public class Monster : Character
 
     private void Awake()
     {
-        monsterAi = GetComponent<MonsterAi>();
-        monsterAnimator = GetComponent<MonsterAnimator>();
-        monsterAttack = GetComponent<MonsterAttack>();
         rb = GetComponent<Rigidbody2D>();
+        monsterAi = GetComponent<MonsterAi>();
+        monsterAttack = GetComponent<MonsterAttack>();
+        monsterAnimator = GetComponent<MonsterAnimator>();
 
         if (monsterData != null)
             ApplyMonsterData(monsterData);
@@ -93,10 +97,16 @@ public class Monster : Character
         this.player = player;
 
         if (player == null)
+        {
+            Debug.Log("Monster: player null");
             return;
+        }
 
         if (monsterData == null)
+        {
+            Debug.Log("Monster: monsterData null");
             return;
+        } 
 
         if (monsterData.monsterType != MonsterType.Boss)
             return;
@@ -120,7 +130,10 @@ public class Monster : Character
     public void ApplyMonsterData(MonsterData data)
     {
         if (data == null)
+        {
+            Debug.Log("Monster: data null");
             return;
+        }
 
         monsterData = data;
         characterName = data.monsterName;
@@ -141,10 +154,16 @@ public class Monster : Character
     private void BossSkill(ActiveSkillData skill)
     {
         if (skill == null)
+        {
+            Debug.Log("Monster: skill null");
             return;
+        }
 
-        if (player == null) 
+        if (player == null)
+        {
+            Debug.Log("Monster: player null");
             return;
+        }
 
         Transform bossMonster = this.gameObject.transform;
 

@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
+  damageTextManager: {fileID: 1289991515110263958, guid: ae45aa0710493a444a071814251e5180,
+    type: 3}
   isDead: 0
   propData: {fileID: 11400000, guid: c003702e1823ee349bf6303b8a388c7f, type: 2}
   collider2D: {fileID: 477302145426832607}
@@ -56,7 +58,9 @@ MonoBehaviour:
   runePrillar: {fileID: 477302145426832602}
   brokenPillar: {fileID: 8544788029502099957}
   runeSprite: {fileID: 477302145118265273}
-  eventManager: {fileID: 0}
+  eventManager: {fileID: 2463712412602884052, guid: dc531376546d3574db988166feb29fe0,
+    type: 3}
+  eventSliderUI: {fileID: 0}
 --- !u!114 &836779840141798822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prop: {fileID: 3638449296801202715}
   runeHpBar: {fileID: 0}
+  offset: -2.5
 --- !u!1001 &1790611960812176962
 PrefabInstance:
   m_ObjectHideFlags: 0

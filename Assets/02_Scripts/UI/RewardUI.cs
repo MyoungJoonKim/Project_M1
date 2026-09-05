@@ -50,10 +50,16 @@ public class RewardUI : MonoBehaviour
             gameOverUI.SetActive(true);
 
         if (BattleManager.Instance == null)
+        {
+            Debug.Log("RewardUI: BattleManager Instance null");
             return;
+        }
 
         if (UserManager.Instance == null)
+        {
+            Debug.Log("RewardUI: UserManager Instance null");
             return;
+        }
 
         rewardApplied = false;
 
