@@ -17,6 +17,11 @@ public class SceneLoadManager : MonoBehaviour
     public SceneType scene;
     public SceneType nextScene;
 
+    private void Start()
+    {
+        SoundManager.Instance.PlaySceneBGM(scene);
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,6 +31,7 @@ public class SceneLoadManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
     }
 
     private void OnDestroy()
@@ -43,11 +49,13 @@ public class SceneLoadManager : MonoBehaviour
         {
             nextScene = next;
             scene = SceneType.LOADING;
+            SoundManager.Instance.PlaySceneBGM(scene);
             SceneManager.LoadScene((int)SceneType.LOADING);
             return;
         }
 
         scene = next;
+        SoundManager.Instance.PlaySceneBGM(next);
         SceneManager.LoadScene((int)next);
 
         switch (next)

@@ -156,6 +156,8 @@ public class SkillSelectUI : MonoBehaviour
         PlayerSkillManager newSkill = obj.AddComponent<PlayerSkillManager>();
         newSkill.Init(skill, player.transform, spawnManager, BattleManager.Instance);
 
+        SoundManager.Instance.PlayButtonClick();
+
         Close();
     }
     

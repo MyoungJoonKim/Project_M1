@@ -107,6 +107,22 @@ public class BossSkillObject : MonoBehaviour
                 break;
         }
     }
+    private void SFXSkillType(SkillType type)
+    {
+        switch (type)
+        {
+            case SkillType.Projection:
+                SoundManager.Instance.PlaySlashBallSkill();
+                break;
+            case SkillType.Summon:
+                SoundManager.Instance.PlayDustPuffSkill();
+                break;
+            case SkillType.TargetExplosion:
+                SoundManager.Instance.PlayEnergyExplosionSkill();
+                break;
+        }
+    }
+
 
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -127,6 +143,7 @@ public class BossSkillObject : MonoBehaviour
             {
                 player.TakeDamage(damage, true);
                 player.OnHit();
+                SFXSkillType(this.skillType);
 
                 playerLastHitTimes[player] = Time.time;
             }

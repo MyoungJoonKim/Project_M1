@@ -140,12 +140,16 @@ public class PauseUI : MonoBehaviour
 
         optionUI.SetActive(false);
         Time.timeScale = 1f;
+
+        SoundManager.Instance.PlayButtonClick();
     }
 
     public void OnClickLobbyButton()
     {
         if (giveUpConfirmUI != null)
             giveUpConfirmUI.SetActive(true);
+
+        SoundManager.Instance.PlayButtonClick();
     }
 
     public void OnClickGiveUpButton()
@@ -154,6 +158,8 @@ public class PauseUI : MonoBehaviour
 
         if (SceneLoadManager.Instance != null)
             SceneLoadManager.Instance.ChangeScene(SceneType.LOBBY, false);
+
+        SoundManager.Instance.PlayButtonClick();
     }
 
     public void OnClickSoundButton()
@@ -164,5 +170,7 @@ public class PauseUI : MonoBehaviour
             soundIcon.sprite = soundOn;
         else 
             soundIcon.sprite = soundOff;
+
+        SoundManager.Instance.PlayButtonClick();
     }
 }

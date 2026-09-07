@@ -158,5 +158,7 @@ public class BattleUI : MonoBehaviour
     {
         if (pauseUI != null)
             pauseUI.Open();
+
+        SoundManager.Instance.PlayButtonClick();
     }
 }

@@ -38,6 +38,7 @@ public class UserNameInput : MonoBehaviour
             if (placeholderText != null)
                 placeholderText.text = "두글자 이상 입력해주세요.";
         }
+        SoundManager.Instance.PlayButtonClick();
     }
 
 

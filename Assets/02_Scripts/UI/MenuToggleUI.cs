@@ -123,5 +123,6 @@ public class MenuToggleUI : MonoBehaviour
         {
             textFadeOut.Open(lockOffLevel);
         }
+        SoundManager.Instance.PlayButtonClick();
     }
 }

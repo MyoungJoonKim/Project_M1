@@ -130,6 +130,32 @@ public class PlayerSkillObject : MonoBehaviour
                 break;
         }
     }
+    private void SFXSkillType(SkillType type)
+    {
+        switch (type)
+        {
+            case SkillType.Rotation:
+                SoundManager.Instance.PlayElectricSkill();
+                break;
+            case SkillType.Area:
+                SoundManager.Instance.PlaySunAreaSkill();
+                break;
+            case SkillType.Summon:
+                SoundManager.Instance.PlayPoisonCloudSkill();
+                break;
+            case SkillType.TargetExplosion:
+                SoundManager.Instance.PlayExplosionSkill();
+                break;
+            case SkillType.Direction:
+                SoundManager.Instance.PlayCrystalWave();
+                break;
+            case SkillType.Projection:
+                break;
+            case SkillType.EventSummon:
+                SoundManager.Instance.PlayLightningStrikeSkill();
+                break;
+        }
+    }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -159,6 +185,7 @@ public class PlayerSkillObject : MonoBehaviour
             {
                 monster.TakeDamage(finalDamage, true);
                 monster.OnHit();
+                SFXSkillType(this.skillType);
 
                 monsterLastHitTimes[monster] = Time.time;
             }
@@ -176,6 +203,7 @@ public class PlayerSkillObject : MonoBehaviour
             if (Time.time >= propLastHitTimes[pillar] + hitInterval)
             {
                 pillar.TakeDamage(finalDamage, true);
+                SFXSkillType(this.skillType);
 
                 propLastHitTimes[pillar] = Time.time;
             }
@@ -190,6 +218,7 @@ public class PlayerSkillObject : MonoBehaviour
             if (Time.time >= propLastHitTimes[prop] + hitInterval)
             {
                 prop.TakeDamage(finalDamage, true);
+                SFXSkillType(this.skillType);
 
                 propLastHitTimes[prop] = Time.time;
             }

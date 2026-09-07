@@ -64,6 +64,7 @@ public class ExpGem : MonoBehaviour
             }
 
             player.AddExp(expAmount);
+            SoundManager.Instance.PlayPickup();
 
             if (dropmanager != null)
                 dropmanager.ReleaseExpGem(this);

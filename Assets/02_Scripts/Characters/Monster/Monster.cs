@@ -226,6 +226,8 @@ public class Monster : Character
 
     public void OnDead()
     {
+        SoundManager.Instance.PlayMonsterDead();
+
         if (monsterAi != null)
             monsterAi.StopAI();
 

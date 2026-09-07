@@ -20,6 +20,7 @@ public class SceneTitle : MonoBehaviour
     }
     public void OnButtonGamePlay()
     {
+        SoundManager.Instance.PlayButtonClick();
         textBlink.isTextBlink = false;
         gamePlayButton.gameObject.SetActive(false);
         loadingBar.gameObject.SetActive(true);

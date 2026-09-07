@@ -158,6 +158,8 @@ public class Player : Character
 
     public void OnDead()
     {
+        SoundManager.Instance.PlayPlayerDead();
+
         if (rigidbody2D != null)
         {
             rigidbody2D.velocity = Vector2.zero;
@@ -217,6 +219,7 @@ public class Player : Character
             playerAnimator.Hit();
 
         Handheld.Vibrate();
+        SoundManager.Instance.PlayPlayerHit();
     }
 
     private IEnumerator ReleaseHitEffect()

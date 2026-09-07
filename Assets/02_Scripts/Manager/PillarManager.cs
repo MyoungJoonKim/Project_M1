@@ -28,7 +28,4 @@ public class PillarManager : MonoBehaviour
 
         return selectedPillar;
     }
-
-
-
 }

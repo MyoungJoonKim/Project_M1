@@ -99,6 +99,7 @@ public class Pillar : Prop
             if (stats[StatType.Hp] <= 0)
             {
                 ChangeState(PillarState.Broken);
+                SoundManager.Instance.PlayPillarBroken();
 
                 if (eventManager != null)
                     eventManager.StartEventSkill();

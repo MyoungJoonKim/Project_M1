@@ -179,5 +179,7 @@ public class RewardUI : MonoBehaviour
 
         if (SceneLoadManager.Instance != null)
             SceneLoadManager.Instance.ChangeScene(SceneType.LOBBY, false);
+
+        SoundManager.Instance.PlayButtonClick();
     }
 }

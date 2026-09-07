@@ -100,6 +100,7 @@ public class EventManager : MonoBehaviour
             {
                 lastEventRound = roundIndex;
                 yield return StartCoroutine(StartPillarEvent(roundIndex));
+                SoundManager.Instance.PlayWarning();
             }
             yield return null;
         }
