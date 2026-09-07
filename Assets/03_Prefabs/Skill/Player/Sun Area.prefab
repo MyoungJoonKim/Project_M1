@@ -51,8 +51,6 @@ MonoBehaviour:
   effectRoot: {fileID: 1206498299807332550}
   effectObject: {fileID: 2965683749858822712}
   collider2D: {fileID: 3748152919347009163}
-  eventManager: {fileID: 2463712412602884052, guid: dc531376546d3574db988166feb29fe0,
-    type: 3}
 --- !u!58 &3748152919347009163
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -341,7 +339,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+      maxColor: {r: 1, g: 0.5443787, b: 0, a: 0.5882353}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9990,8 +9988,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.6207441, b: 0.20392156, a: 1}
-  m_Intensity: 44.98055
+  m_Color: {r: 1, g: 0.8399712, b: 0.6650944, a: 0.78039217}
+  m_Intensity: 0
   m_Range: 6
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

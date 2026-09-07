@@ -83,7 +83,6 @@ public class PassiveSkillManager : MonoBehaviour
         float rate = 1f + (value * level);
 
         pickupCollider2D.radius *= rate;
-        Debug.Log($"기본 범위{value}, 범위증가 적용{pickupCollider2D.radius}");
     }
 
     public Dictionary<PassiveSkillData, int> GetPassiveSkills()

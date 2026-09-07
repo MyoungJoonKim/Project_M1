@@ -7,6 +7,7 @@ TagManager:
   - damagetext
   - Enemy
   - Prop
+  - Pickup
   layers:
   - Default
   - TransparentFX

@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79b8772810c7a5459b853da98e7df05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCollider: {fileID: 2049150536025940465, guid: d74f59d01d8796741b161f963a906c6e,
+    type: 3}
+  pickupRange: {fileID: 4690324480848783566, guid: 7ab495ffb2452eb44ace582b6c43071f,
+    type: 3}
 --- !u!212 &3282171305467320652
 SpriteRenderer:
   m_ObjectHideFlags: 0

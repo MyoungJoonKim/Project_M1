@@ -10,6 +10,7 @@ public class LobbyUserDataUI : MonoBehaviour
 
     [Header("User Icon")]
     [SerializeField] private Image userIcon;
+    [SerializeField] private Image userAnimationIcon;
 
     [Header("User Texts")]
     [SerializeField] private TMP_Text userNameText;
@@ -29,6 +30,9 @@ public class LobbyUserDataUI : MonoBehaviour
 
             if (userIcon != null)
                 userIcon.sprite = UserManager.Instance.userData.userIcon;
+
+            if (userAnimationIcon != null)
+                userAnimationIcon.sprite = UserManager.Instance.userData.userIcon;
 
             if (userNameText != null)
                 userNameText.text = $"{UserManager.Instance.userData.userName}";
