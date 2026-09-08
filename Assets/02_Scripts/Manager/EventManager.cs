@@ -100,8 +100,8 @@ public class EventManager : MonoBehaviour
             {
                 lastEventRound = roundIndex;
                 yield return StartCoroutine(StartPillarEvent(roundIndex));
-                SoundManager.Instance.PlayWarning();
             }
+
             yield return null;
         }
     }
@@ -114,6 +114,7 @@ public class EventManager : MonoBehaviour
         currentDurationTime = durationTime;
 
         eventTextUI.Open();
+        SoundManager.Instance.PlayWarning();
 
         currentActivePillar = pillarManager.SetActiveRandRune(roundIndex);
 

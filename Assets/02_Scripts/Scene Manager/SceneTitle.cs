@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SceneTitle : MonoBehaviour
 {
@@ -10,13 +11,17 @@ public class SceneTitle : MonoBehaviour
     [Header("Title GamePlay Button")]
     [SerializeField] private GameObject gamePlayButton;
 
-    [Header("Title Text Effect")]
+    [Header("Title Texts")]
+    [SerializeField] private TMP_Text versionText;
     [SerializeField] private TextBlink textBlink;
 
     private void Start()
     {
         if (loadingBar != null)
             loadingBar.gameObject.SetActive(false);
+
+        if (textBlink != null)
+            versionText.text = $"{Application.version}";
     }
     public void OnButtonGamePlay()
     {

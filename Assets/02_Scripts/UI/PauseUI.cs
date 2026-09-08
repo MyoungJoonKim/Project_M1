@@ -7,12 +7,8 @@ public class PauseUI : MonoBehaviour
 {
     [Header("UI Panel")]
     [SerializeField] private GameObject optionUI;
+    [SerializeField] private GameObject soundOptionUI;
     [SerializeField] private GameObject giveUpConfirmUI;
-
-    [Header("Image Sprites")]
-    [SerializeField] private Image soundIcon;
-    [SerializeField] private Sprite soundOn; 
-    [SerializeField] private Sprite soundOff;
 
     [Header("Skill List UI")]
     [SerializeField] private SkillSlotUI[] activeSlots;
@@ -20,19 +16,15 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Transform skillRoot;
     [SerializeField] private PassiveSkillManager passiveSkillManager;
 
-    private bool activeSound;
     private Coroutine skillListUICoroutine;
-
 
     private void Start()
     {
-        activeSound = true;
-
-        if (soundIcon.sprite == null)
-            soundIcon.sprite = soundOn;
-
         if (optionUI != null)
             optionUI.SetActive(false);
+
+        if (soundOptionUI != null)
+            soundOptionUI.SetActive(false);
 
         if (giveUpConfirmUI != null)
             giveUpConfirmUI.SetActive(false);
@@ -162,14 +154,10 @@ public class PauseUI : MonoBehaviour
         SoundManager.Instance.PlayButtonClick();
     }
 
-    public void OnClickSoundButton()
+    public void OnClickSoundOptionButton()
     {
-        activeSound = !activeSound;
-
-        if (activeSound)
-            soundIcon.sprite = soundOn;
-        else 
-            soundIcon.sprite = soundOff;
+        if (soundOptionUI != null)
+            soundOptionUI.SetActive(!soundOptionUI.activeSelf);
 
         SoundManager.Instance.PlayButtonClick();
     }

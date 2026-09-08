@@ -304,7 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498b2b64270c51f408f55c37155c6233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: f72929e13746b3c43971d62d0910833b, type: 2}
   bgmSource: {fileID: 6512302421664620259}
   sfxSource: {fileID: 4263908190413865253}
   TitleBgm: {fileID: 8300000, guid: 2cebe5ef59f447d4d803665e3ecf1a2f, type: 3}
@@ -326,3 +325,4 @@ MonoBehaviour:
   dustPuff: {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
   slashBall: {fileID: 8300000, guid: 88b1cbe3caa3fee4b8b103b5edd7aba9, type: 3}
   energyExplosion: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
+  audioMixer: {fileID: 24100000, guid: f72929e13746b3c43971d62d0910833b, type: 2}

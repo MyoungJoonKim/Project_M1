@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
-public class SoundManager : MonoBehaviour
+public partial class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-
-    [Header("Audio Mixer")]
-    [SerializeField] private AudioMixer audioMixer;
 
     [Header("Audio Source")]
     [SerializeField] private AudioSource bgmSource;
@@ -58,6 +52,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    
     public void PlaySceneBGM(SceneType sceneType)
     {
         switch (sceneType)

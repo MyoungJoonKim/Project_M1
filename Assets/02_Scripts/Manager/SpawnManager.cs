@@ -128,15 +128,10 @@ public class SpawnManager : MonoBehaviour
                 Monster boss = SpawnMonster(wave.bossMonster);
 
                 if (boss == null)
-                {
-                    Debug.LogError($"보스 생성 실패 : {wave.bossMonster.monsterID}");
-
                     yield break;
-                }
-
-                Debug.Log($"보스 생성 성공 : {wave.bossMonster.monsterID}");
 
                 CloseMonsterSpawn(wave.bossMonster);
+                SoundManager.Instance.PlayWarning();
 
                 // 보스가 죽을 때까지 현재 라운드 유지
                 while (boss != null && boss.gameObject.activeSelf && !boss.isDead)
