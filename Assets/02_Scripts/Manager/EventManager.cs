@@ -14,10 +14,10 @@ public class EventManager : MonoBehaviour
     [SerializeField] private Transform skillRoot;
     
     [Header("Event Managers")]
-    [SerializeField] private PlayerSkillManager playerSkillManager;
-    [SerializeField] private EventSpawnManager eventSpawnManager;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PillarManager pillarManager;
+    [SerializeField] private EventSpawnManager eventSpawnManager;
+    [SerializeField] private PlayerSkillManager playerSkillManager;
 
     private Pillar pillar;
     private Pillar currentActivePillar;
@@ -42,11 +42,26 @@ public class EventManager : MonoBehaviour
 
     public void StartEventSkill()
     {
-        if (playerSkillManager == null)
+        if (playerSkillManager == null ||
+            !playerSkillManager.gameObject.activeInHierarchy)
+        {
+            playerSkillManager = null;
             CreateSkillManager();
+        }
 
         if (playerSkillManager == null)
+        {
+            Debug.LogError("EventManager: PlayerSkillManager null");
             return;
+        }
+
+        playerSkillManager.Init(
+            eventSkillData,
+            player,
+            spawnManager,
+            this,
+            BattleManager.Instance
+        );
 
         playerSkillManager.CreateEventSkill();
     }
@@ -54,33 +69,26 @@ public class EventManager : MonoBehaviour
     {
         if (eventSkillData == null)
         {
-            Debug.Log("스킬 데이터가 없습니다.");
+            Debug.LogError("EventManager: eventSkillData null");
             return;
         }
 
-        if (skillRoot == null)
-        {
-            Debug.Log("SkillRoot 연결되지 않았습니다.");
-            return;
-        }
+        GameObject obj = new GameObject("EventSkillManager");
 
-        PlayerSkillManager[] managers = skillRoot.GetComponentsInChildren<PlayerSkillManager>(true);
-
-        foreach (PlayerSkillManager manager in managers)
-        {
-            if (manager.Data == eventSkillData)
-            {
-                playerSkillManager = manager;
-                return;
-            }
-        }
-
-        GameObject obj = new GameObject(eventSkillData.skillName);
-        obj.transform.parent = skillRoot;
+        obj.transform.SetParent(transform);
         obj.transform.localPosition = Vector3.zero;
 
+        obj.SetActive(true);
+
         playerSkillManager = obj.AddComponent<PlayerSkillManager>();
-        playerSkillManager.Init(eventSkillData, player, spawnManager, BattleManager.Instance);
+
+        playerSkillManager.Init(
+            eventSkillData,
+            player,
+            spawnManager,
+            this,
+            BattleManager.Instance
+        );
     }
 
     private IEnumerator WarningEvent()

@@ -45,8 +45,8 @@ MonoBehaviour:
   - 210
   - 220
   hitInterval:
-  - 0.3
   - 0.25
+  - 0.22
   - 0.2
   - 0.15
   - 0.1

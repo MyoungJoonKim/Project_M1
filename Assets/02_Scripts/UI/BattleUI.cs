@@ -8,9 +8,10 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Player player;
 
     [Header("Texts")]
-    [SerializeField] private TMP_Text levelText;
+    [SerializeField] private TMP_Text[] levelText;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text roundText;
+    [SerializeField] private TMP_Text waveText;
 
     [Header("UIs")]
     [SerializeField] private PauseUI pauseUI;
@@ -43,7 +44,8 @@ public class BattleUI : MonoBehaviour
             if (levelText != null)
             {
                 float currentLevel = player.GetStat(StatType.Level);
-                levelText.text = $"Lv. {currentLevel}";
+                levelText[0].text = $"Lv. {currentLevel}";
+                levelText[1].text = $"Lv. {currentLevel}";
             }
             yield return null;
         }
@@ -99,9 +101,12 @@ public class BattleUI : MonoBehaviour
                 yield break;
 
             if (spawnManager != null)
-                roundText.text = $"R {spawnManager.CurrentRoundNumber} / W {spawnManager.CurrentWaveIndex + 1} ";
+            {
+                roundText.text = $"{spawnManager.CurrentRoundNumber} / {spawnManager.MaxRoundCount} ";
+                waveText.text = $"{spawnManager.CurrentWaveIndex + 1} / {spawnManager.MaxWaveCount} ";
+            }
             else
-                roundText.text = "Round - / Wave -";
+                roundText.text = "- / -";
 
             yield return null;
         }

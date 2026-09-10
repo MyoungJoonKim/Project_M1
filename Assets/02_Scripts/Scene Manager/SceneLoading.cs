@@ -17,37 +17,50 @@ public class SceneLoading : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(LoadingBarUpdate(loadingBar,3f));
-        StartCoroutine(BackgroundUpdate(3f));
+        StartCoroutine(LoadBattleScene());
     }
 
-    private IEnumerator LoadingBarUpdate(Slider bar, float timer)
+    private IEnumerator LoadBattleScene()
     {
-        if (bar == null)
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{SceneLoadManager.Instance.nextScene}");
+
+        asyncOperation.allowSceneActivation = false;    
+
+        if (loadingBar == null)
             yield break;
 
-        bar.value = bar.minValue;
-        bar.maxValue = timer;
+        loadingBar.minValue = 0f;
+        loadingBar.maxValue = 1f;
+        loadingBar.value = 0f;
 
-        while (true)
+        StartCoroutine(BackgroundTextUpdate());
+
+        while (!asyncOperation.isDone)
         {
-            bar.value += 0.02f;
-            yield return new WaitForSeconds(0.01f);
-            if (bar.value == timer)
-                break;
+            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+
+            loadingBar.value = progress;
+
+            if (asyncOperation.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(3f);
+
+                loadingBar.maxValue = 1f;
+                
+                StopCoroutine(BackgroundTextUpdate());
+
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return null;
         }
-        SceneLoadManager.Instance.ChangeScene(SceneLoadManager.Instance.nextScene, false);
     }
 
-    private IEnumerator BackgroundUpdate(float timer)
+    private IEnumerator BackgroundTextUpdate()
     {
         while (true)
         {
             RandomUpdateText();
-            yield return new WaitForSeconds(1f);
-
-            if (loadingBar.value == timer)
-                break;
+            yield return new WaitForSeconds(2f);
         }
     }
 

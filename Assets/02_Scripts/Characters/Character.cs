@@ -128,7 +128,9 @@ public class Character : MonoBehaviour
         float def = GetStat(StatType.Def);
         float finalDamage = Mathf.Max(1f, damage - def);
 
-        stats[StatType.Hp] -= finalDamage;
+        float currentHp = GetStat(StatType.Hp);
+        SetStat(StatType.Hp, currentHp - finalDamage);
+
         StatBarChange?.Invoke();
 
         //피해량 텍스트 ui 출력 함수
@@ -140,9 +142,9 @@ public class Character : MonoBehaviour
             damageTextManager.ShowDamage(damage, textPositon);
         }    
 
-        if (stats[StatType.Hp] <= 0)
+        if (stats[StatType.Hp] <= 0f)
         {
-            stats[StatType.Hp] = 0;
+            stats[StatType.Hp] = 0f;
             isDead = true;
         }
     }

@@ -19,8 +19,9 @@ public class SkillSelectUI : MonoBehaviour
     [SerializeField] private List<PassiveSkillData> passiveSkills;
 
     [Header("Manager")]
-    [SerializeField] private PassiveSkillManager passiveSkillManager;
     [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private EventManager eventManager;
+    [SerializeField] private PassiveSkillManager passiveSkillManager;
 
     [Header("Skill Select Timer")]
     [SerializeField] private float SelectTime = 30f;
@@ -154,7 +155,7 @@ public class SkillSelectUI : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         PlayerSkillManager newSkill = obj.AddComponent<PlayerSkillManager>();
-        newSkill.Init(skill, player.transform, spawnManager, BattleManager.Instance);
+        newSkill.Init(skill, player.transform, spawnManager, eventManager,BattleManager.Instance);
 
         SoundManager.Instance.PlayButtonClick();
 

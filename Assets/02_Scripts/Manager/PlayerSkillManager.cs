@@ -10,11 +10,9 @@ public class PlayerSkillManager : MonoBehaviour
     [Header("Active Skill Data")]
     [SerializeField] private ActiveSkillData skillData;
 
-    [Header("Manager")]
-    [SerializeField] private EventManager eventManager;
-
-    private BattleManager battleManager;
     private SpawnManager spawnManager;
+    private EventManager eventManager;
+    private BattleManager battleManager;
     private Coroutine skillLoop;
     
     private int currentLevel = 1;
@@ -27,12 +25,15 @@ public class PlayerSkillManager : MonoBehaviour
     public void Init(
         ActiveSkillData data, 
         Transform _player, 
-        SpawnManager _spawnManager, 
-        BattleManager _battleManager)
+        SpawnManager _spawnManager,
+        EventManager _eventManager,
+        BattleManager _battleManager
+        )
     {
         skillData = data;
         player = _player;
         spawnManager = _spawnManager;
+        eventManager = _eventManager;
         battleManager = _battleManager;
         currentLevel = 1;
         

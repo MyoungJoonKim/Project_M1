@@ -23,7 +23,7 @@ public class DamageText : MonoBehaviour
     public void SetUp(float damage)
     {
         if (textMeshPro != null)
-            textMeshPro.text = damage.ToString();
+            textMeshPro.text = damage.ToString("F0");
 
         StopEffect();
         effectCoroutine = StartCoroutine(TextEffect());

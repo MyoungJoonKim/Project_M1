@@ -75,7 +75,7 @@ public class ExpGem : MonoBehaviour
 
     private IEnumerator GemMoveCoroutine(Player player)
     {
-        float speed = 10f;
+        float speed = 15f;
 
         while (true)
         {

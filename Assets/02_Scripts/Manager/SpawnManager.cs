@@ -44,6 +44,8 @@ public class SpawnManager : MonoBehaviour
 
     public int CurrentWaveIndex => currentWaveIndex;
     public int CurrentRoundIndex => currentRoundIndex;
+    public int MaxWaveCount = 11;
+    public int MaxRoundCount => rounds.Length;
 
     private readonly List<Monster> activeMonsters = new();
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
@@ -284,9 +286,9 @@ public class SpawnManager : MonoBehaviour
 
         monster.SetMonsterData(data);
         monster.SetSpawnManager(this);
+        monster.gameObject.SetActive(true);
         monster.SetPlayer(player);
         monster.SetTarget(player.transform);
-        monster.gameObject.SetActive(true);
         monster.ResetMonster();
 
         if (data.monsterType == MonsterType.Boss)

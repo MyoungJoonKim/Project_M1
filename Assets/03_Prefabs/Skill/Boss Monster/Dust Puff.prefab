@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 6386461652087588831, guid: faba7cc91943b0a4896facd157e478ca, type: 3}
+  targetPlayer: {fileID: 5541820239383319460, guid: d74f59d01d8796741b161f963a906c6e,
+    type: 3}
   effectRoot: {fileID: 5588913076350117575}
   effectObject: {fileID: 5169875694630556836}
   collider2D: {fileID: 1277677902342265053}

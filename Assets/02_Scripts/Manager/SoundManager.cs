@@ -37,7 +37,7 @@ public partial class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip slashBall;
     [SerializeField] private AudioClip energyExplosion;
 
-    private float sfxInterval = 0.03f;
+    private float sfxInterval = 0.045f;
     private float lastSfxTime = -999f;
 
 
@@ -76,67 +76,67 @@ public partial class SoundManager : MonoBehaviour
 
     public void PlayButtonClick()
     {
-        PlaySFX(buttonClick);
+        PlaySFX(buttonClick, sfxInterval);
     }
     public void PlayPlayerHit()
     {
-        PlaySFX(playerHit);
+        PlaySFX(playerHit, sfxInterval);
     }
     public void PlayPlayerDead()
     {
-        PlaySFX(playerDead);
+        PlaySFX(playerDead, sfxInterval);
     }
     public void PlayMonsterDead()
     {
-        PlaySFX(monsterDead);
+        PlaySFX(monsterDead, sfxInterval);
     }
     public void PlayPickup()
     {
-        PlaySFX(expPickup);
+        PlaySFX(expPickup, sfxInterval);
     }
     public void PlayWarning()
     {
-        PlaySFX(warning);
+        PlaySFX(warning, sfxInterval);
     }
     public void PlayPillarBroken()
     {
-        PlaySFX(pillarBroken);
+        PlaySFX(pillarBroken, sfxInterval);
     }
-    public void PlaySunAreaSkill()
+    public void PlaySunAreaSkill(float interval)
     {
-        PlaySFX(sunArea);
+        PlaySFX(sunArea, interval);
     }
-    public void PlayElectricSkill()
+    public void PlayElectricSkill(float interval)
     {
-        PlaySFX(electricBall);
+        PlaySFX(electricBall, interval);
     }
     public void PlayExplosionSkill()
     {
-        PlaySFX(explosion);
+        PlaySFX(explosion, sfxInterval);
     }
     public void PlayCrystalWave()
     {
-        PlaySFX(crystalWave);
+        PlaySFX(crystalWave, sfxInterval);
     }
-    public void PlayPoisonCloudSkill()
+    public void PlayPoisonCloudSkill(float interval)
     {
-        PlaySFX(poisonCloud);
+        PlaySFX(poisonCloud, interval);
     }
     public void PlayLightningStrikeSkill()
     {
-        PlaySFX(lightningStrike);
+        PlaySFX(lightningStrike, sfxInterval);
     }
     public void PlayDustPuffSkill()
     {
-        PlaySFX(dustPuff);
+        PlaySFX(dustPuff, sfxInterval);
     }
     public void PlaySlashBallSkill()
     {
-        PlaySFX(slashBall);
+        PlaySFX(slashBall, sfxInterval);
     }
     public void PlayEnergyExplosionSkill()
     {
-        PlaySFX(energyExplosion);
+        PlaySFX(energyExplosion, sfxInterval);
     }
 
     private void PlayBGM(AudioClip bgm)
@@ -149,12 +149,12 @@ public partial class SoundManager : MonoBehaviour
         bgmSource.Play();
     }
 
-    private void PlaySFX(AudioClip sfx)
+    private void PlaySFX(AudioClip sfx, float interval)
     {
         if (sfx == null) 
             return;
 
-        if (Time.unscaledTime < lastSfxTime + sfxInterval)
+        if (Time.unscaledTime < lastSfxTime + interval)
             return;
 
         lastSfxTime = Time.unscaledTime;

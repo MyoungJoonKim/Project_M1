@@ -135,13 +135,13 @@ public class PlayerSkillObject : MonoBehaviour
         switch (type)
         {
             case SkillType.Rotation:
-                SoundManager.Instance.PlayElectricSkill();
+                SoundManager.Instance.PlayElectricSkill(hitInterval);
                 break;
             case SkillType.Area:
-                SoundManager.Instance.PlaySunAreaSkill();
+                SoundManager.Instance.PlaySunAreaSkill(hitInterval);
                 break;
             case SkillType.Summon:
-                SoundManager.Instance.PlayPoisonCloudSkill();
+                SoundManager.Instance.PlayPoisonCloudSkill(hitInterval);
                 break;
             case SkillType.TargetExplosion:
                 SoundManager.Instance.PlayExplosionSkill();
