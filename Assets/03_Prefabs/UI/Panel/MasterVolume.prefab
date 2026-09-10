@@ -63,6 +63,9 @@ MonoBehaviour:
   soundIcon: {fileID: 1575218074008881614}
   soundOn: {fileID: 21300000, guid: ef482ba870365004fbd0ee78604f1f61, type: 3}
   soundOff: {fileID: 21300000, guid: e72eee42cf5c1c34cad1c3b14582eb14, type: 3}
+  masterSlider: {fileID: 0}
+  bgmSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!1 &8647847978065402657
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: 50}
+  m_AnchoredPosition: {x: -10, y: 45}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6306954750195148335
@@ -289,7 +292,7 @@ PrefabInstance:
     - target: {fileID: 5560541617779103111, guid: 77f4068a95fbf924a9cc60ef66111c9e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -60
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 5560541617779103111, guid: 77f4068a95fbf924a9cc60ef66111c9e,
         type: 3}
@@ -374,7 +377,7 @@ PrefabInstance:
     - target: {fileID: 7334505357438436465, guid: 77f4068a95fbf924a9cc60ef66111c9e,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334505357438436465, guid: 77f4068a95fbf924a9cc60ef66111c9e,
         type: 3}
@@ -655,7 +658,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 68a7bd402e7bf8e47b5725bd06574a7a,
+      objectReference: {fileID: 21300000, guid: 6c5d2b0942b4081418263112b7882c29,
         type: 3}
     - target: {fileID: 8363618215233469433, guid: 7b7a784d1e59df740a3537bbbf1a1216,
         type: 3}
@@ -675,7 +678,7 @@ PrefabInstance:
     - target: {fileID: 8363618215233469433, guid: 7b7a784d1e59df740a3537bbbf1a1216,
         type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 100000
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

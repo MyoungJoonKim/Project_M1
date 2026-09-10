@@ -50,6 +50,7 @@ public class SceneLoading : MonoBehaviour
                 StopCoroutine(BackgroundTextUpdate());
 
                 asyncOperation.allowSceneActivation = true;
+                SoundManager.Instance.PlaySceneBGM(SceneLoadManager.Instance.nextScene);
             }
             yield return null;
         }

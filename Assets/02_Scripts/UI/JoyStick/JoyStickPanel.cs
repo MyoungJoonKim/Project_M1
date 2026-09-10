@@ -4,27 +4,27 @@ using UnityEngine.EventSystems;
 public class JoyStickPanel : MonoBehaviour
 {
     [Header("Joystick")]
-    [SerializeField] private JoyStick joyStick;
+    [SerializeField] private Joystick joystick;
 
     public void OnPointerDown(BaseEventData eventData)
     {
         PointerEventData data = (PointerEventData)eventData;
 
         // 클릭한 위치에 조이스틱 생성
-        joyStick.transform.position = data.position;
+        joystick.transform.position = data.position;
 
-        joyStick.gameObject.SetActive(true);
-        joyStick.OnDown(data);
+        joystick.gameObject.SetActive(true);
+        joystick.OnDown(data);
 }
 
     public void OnPointerUp(BaseEventData eventData)
     {
-        joyStick.gameObject.SetActive(false);
-        joyStick.OnUp((PointerEventData)eventData);
+        joystick.gameObject.SetActive(false);
+        joystick.OnUp((PointerEventData)eventData);
     }
 
     public void OnDrag(BaseEventData eventData)
     {
-        joyStick.OnDrag((PointerEventData)eventData);
+        joystick.OnDrag((PointerEventData)eventData);
     }
 }

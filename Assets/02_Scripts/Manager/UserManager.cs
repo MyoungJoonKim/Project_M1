@@ -4,6 +4,13 @@ public class UserManager : MonoBehaviour
 {
     public static UserManager Instance;
 
+    [Header("Option Settings")]
+    public bool isJoystickVisible = true;
+    public bool isDamageTextVisible = true;
+    public float masterVolume = 1f;
+    public float bgmVolume = 1f;
+    public float sfxVolume = 1f;
+
     public UserData userData = new UserData();
 
     
@@ -23,6 +30,31 @@ public class UserManager : MonoBehaviour
     {
         if (Instance == this)
             Instance = null;
+    }
+
+    public void SetJoystickVisible(bool visible)
+    {
+        isJoystickVisible = visible;
+    }
+
+    public void SetDamageTextVisible(bool visible)
+    {
+        isDamageTextVisible = visible;
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = volume;
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        bgmVolume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxVolume = volume;
     }
 
     public void AddGold(int amount)

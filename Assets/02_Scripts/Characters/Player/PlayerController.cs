@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Move Controller")]
-    [SerializeField] private JoyStick JoyStick;
+    [SerializeField] private Joystick joystick;
 
     private PlayerAnimator playerAnimator;
     private Player player;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 플레이어 조이스틱 이동
-        Vector2 input = JoyStick.Input;
+        Vector2 input = joystick.Input;
 
         if (input == null)
             return;

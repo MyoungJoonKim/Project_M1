@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DamageTextManager : MonoBehaviour
 {
+    public static DamageTextManager Instance { get; private set; }
+
     [Header("Prefab")]
     [SerializeField] private DamageText damageTextPrefab;
 
@@ -13,12 +17,25 @@ public class DamageTextManager : MonoBehaviour
     [SerializeField] private int startPoolSize = 50;
     [SerializeField] private int maxPoolSize = 100;
 
+    private bool isDamageTextVisible = true;
+
     private readonly Queue<DamageText> pool = new();
     private readonly List<DamageText> activeTexts = new();
 
     private void Awake()
-    {
+    {if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
         CreatePool();
+    }
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     private void CreatePool()
@@ -37,6 +54,9 @@ public class DamageTextManager : MonoBehaviour
 
     public void ShowDamage(float damage, Vector3 position)
     {
+        if (isDamageTextVisible == false)
+            return;
+
         DamageText text = GetText();
 
         if (text == null)
@@ -44,6 +64,7 @@ public class DamageTextManager : MonoBehaviour
 
         text.transform.position = position;
         text.transform.rotation = Quaternion.identity;
+
         text.gameObject.SetActive(true);
 
         activeTexts.Add(text);
@@ -85,5 +106,13 @@ public class DamageTextManager : MonoBehaviour
         {
             Release(activeTexts[i]);
         }
+    }
+
+    public void SetDamageTextVisible(bool visible)
+    {
+        isDamageTextVisible = visible;
+
+        if (isDamageTextVisible == false)
+            ClearAll();
     }
 }

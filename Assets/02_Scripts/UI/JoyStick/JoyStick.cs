@@ -2,34 +2,42 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class JoyStick : MonoBehaviour
+public class Joystick : MonoBehaviour
 {
-    [Header("Joystick Ball Icon")]
-    [SerializeField] private Image IMGBALL;
+    [Header("Joystick Icon")]
+    [SerializeField] private Image joystickCircle;
+    [SerializeField] private Image joystickBall;
 
     private float radius = 30f;
 
     public Vector2 Input = Vector2.zero;
 
+
+    public void SetJoystickVisible(bool visible)
+    {
+        joystickCircle.enabled = visible;
+        joystickBall.enabled = visible;
+    }
+
     public void OnDown(PointerEventData eventData)
     {
-        IMGBALL.rectTransform.anchoredPosition = Vector2.zero;
+        joystickBall.rectTransform.anchoredPosition = Vector2.zero;
     }
 
     public void OnUp(PointerEventData eventData)
     {
         Input = Vector2.zero;
-        IMGBALL.rectTransform.anchoredPosition = Vector2.zero;
+        joystickBall.rectTransform.anchoredPosition = Vector2.zero;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(IMGBALL.rectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(joystickBall.rectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
         {
             Input = localPoint / radius;
             Input = (Input.magnitude > 1f) ? Input.normalized : Input;
 
-            IMGBALL.rectTransform.anchoredPosition = Input * radius;
+            joystickBall.rectTransform.anchoredPosition = Input * radius;
         }
     }
 }
