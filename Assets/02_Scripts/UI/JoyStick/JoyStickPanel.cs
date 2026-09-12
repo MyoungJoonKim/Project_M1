@@ -6,6 +6,11 @@ public class JoyStickPanel : MonoBehaviour
     [Header("Joystick")]
     [SerializeField] private Joystick joystick;
 
+    private void Start()
+    {
+        joystick.gameObject.SetActive(false);
+    }
+
     public void OnPointerDown(BaseEventData eventData)
     {
         PointerEventData data = (PointerEventData)eventData;

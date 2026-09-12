@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: System_Text
+  m_EditorClassIdentifier: 
+  m_SharedTableData: {fileID: 11400000, guid: d17531715d003414cb8ba0385ab2b8fc, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 0830abd91b49a164a9b2c4a63a2313f7, type: 2}
+  - {fileID: 11400000, guid: 421493bd921d4f84eaaea2de03260974, type: 2}
+  m_Extensions:
+  - rid: 8035909654213296147
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds:
+    - rid: 8035909654213296147
+      type: {class: GoogleSheetsExtension, ns: UnityEditor.Localization.Plugins.Google,
+        asm: Unity.Localization.Editor}
+      data:
+        m_Collection: {fileID: 11400000}
+        m_SheetsServiceProvider: {fileID: 11400000, guid: e6f11b2235b58884187fe48d72f4b274,
+          type: 2}
+        m_SpreadsheetId: 1_VLJErUbULdpAZse0RPXnkIbjSgLj99eIR31dw8Xs7c
+        m_SheetId: 1428588656
+        m_Columns:
+        - rid: 8035909654213296149
+        - rid: 8035909654213296150
+        - rid: 8035909654213296151
+        m_RemoveMissingPulledKeys: 1
+    - rid: 8035909654213296149
+      type: {class: KeyColumn, ns: UnityEditor.Localization.Plugins.Google.Columns,
+        asm: Unity.Localization.Editor}
+      data:
+        m_Column: A
+    - rid: 8035909654213296150
+      type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns,
+        asm: Unity.Localization.Editor}
+      data:
+        m_Column: B
+        m_LocaleIdentifier:
+          m_Code: ko
+        m_IncludeComments: 0
+    - rid: 8035909654213296151
+      type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns,
+        asm: Unity.Localization.Editor}
+      data:
+        m_Column: D
+        m_LocaleIdentifier:
+          m_Code: en
+        m_IncludeComments: 0
