@@ -14,9 +14,11 @@ public enum SkillType
 [CreateAssetMenu(fileName = "ActiveSkillData", menuName ="Game Data/ActiveSkill Data")]
 public class ActiveSkillData : ScriptableObject
 {
-    [Header("Info")]
+    [Header("Localization Key")]
     public string skillName;
     public string skillInfo;
+
+    [Header("Info")]
     public SkillType skillType;
     public GameObject skillPrefab;
     public Sprite icon;

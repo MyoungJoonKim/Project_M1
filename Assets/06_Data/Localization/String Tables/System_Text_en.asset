@@ -17,7 +17,32 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: d17531715d003414cb8ba0385ab2b8fc, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 345155161858048
+    m_Localized: 'Destroy the pillar within the time limit!
+
+      Monsters are swarming
+      in!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348249648046080
+    m_Localized: 'Victory
+
+
+      Survival Time'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348249648046081
+    m_Localized: 'Death
+
+
+      Survival Time'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348636899745792
+    m_Localized: Reward
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

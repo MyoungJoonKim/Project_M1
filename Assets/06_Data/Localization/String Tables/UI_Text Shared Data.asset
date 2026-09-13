@@ -23,6 +23,98 @@ MonoBehaviour:
     m_Key: TITLE_TAP_SCREEN
     m_Metadata:
       m_Items: []
+  - m_Id: 369653030363136
+    m_Key: LOBBY_GAME_PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937152
+    m_Key: LOBBY_MENU_STORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937153
+    m_Key: LOBBY_MENU_EQUIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937154
+    m_Key: LOBBY_MENU_BATTLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369653084889090
+    m_Key: LOBBY_MENU_MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937155
+    m_Key: LOBBY_MENU_ABILITY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070784
+    m_Key: OPTION_TITLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070785
+    m_Key: OPTION_MASTER_VOLUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070786
+    m_Key: OPTION_BGM_VOLUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070787
+    m_Key: OPTION_SFX_VOLUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070788
+    m_Key: OPTION_JOYSTICK_VISIBLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070789
+    m_Key: OPTION_DAMAGE_VISIBLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373550545412096
+    m_Key: LOBBY_NICKNAME_TITLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373872420495360
+    m_Key: LOBBY_NICKNAME_PLACEHOLDER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 384314224189440
+    m_Key: LOBBY_NICKNAME_PLACEHOLDER_WARNING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 374266248863744
+    m_Key: UI_APPLY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382098490826752
+    m_Key: LOBBY_LOCK_MESSAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388826162831360
+    m_Key: BATTLE_PAUSE_PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388826217357312
+    m_Key: BATTLE_SKILL_LIST_ACTIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388826217357313
+    m_Key: BATTLE_SKILL_LIST_PASSIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390206403420160
+    m_Key: BATTLE_GIVEUP_TITLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390206403420161
+    m_Key: BATTLE_GIVEUP_CONTENTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390206403420162
+    m_Key: BATTLE_GIVEUP_LOBBY
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

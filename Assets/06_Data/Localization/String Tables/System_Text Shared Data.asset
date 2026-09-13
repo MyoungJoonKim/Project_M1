@@ -14,7 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: System_Text
   m_TableCollectionNameGuidString: d17531715d003414cb8ba0385ab2b8fc
-  m_Entries: []
+  m_Entries:
+  - m_Id: 345155161858048
+    m_Key: EVENT_WARNING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348249648046080
+    m_Key: REWARD_VICTORY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348249648046081
+    m_Key: REWARD_GAME_OVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348636899745792
+    m_Key: REWARD_CONTENTS
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

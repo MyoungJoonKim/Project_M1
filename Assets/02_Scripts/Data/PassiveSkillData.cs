@@ -13,9 +13,11 @@ public enum PassiveType
 [CreateAssetMenu(fileName = "PassiveSkillData", menuName ="Game Data/PassiveSkill Data")]
 public class PassiveSkillData : ScriptableObject
 {
-    [Header("Info")]
+    [Header("Localization Key")]
     public string passiveSkillName;
     public string skillInfo;
+
+    [Header("Info")]
     public PassiveType passiveType;
     public Sprite icon;
 

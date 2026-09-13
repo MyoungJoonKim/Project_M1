@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class SkillSlotUI : MonoBehaviour
 {
@@ -28,10 +29,10 @@ public class SkillSlotUI : MonoBehaviour
             icon.sprite = data.icon;
 
         if (skillNameText != null)
-            skillNameText.text = data.skillName;
+            skillNameText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillName);
 
         if (skillInfoText != null)
-            skillInfoText.text = data.skillInfo;
+            skillInfoText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillInfo);
 
         UpdateStars(level);
     }
@@ -49,10 +50,10 @@ public class SkillSlotUI : MonoBehaviour
             icon.sprite = data.icon;
 
         if (skillNameText != null)
-            skillNameText.text = data.passiveSkillName;
+            skillNameText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.passiveSkillName);
 
         if (skillInfoText != null)
-            skillInfoText.text = data.skillInfo;
+            skillInfoText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillInfo);
 
         UpdateStars(level);
     }

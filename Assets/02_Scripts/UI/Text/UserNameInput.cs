@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class UserNameInput : MonoBehaviour
 {
@@ -11,9 +12,17 @@ public class UserNameInput : MonoBehaviour
     [SerializeField] private int maxLength = 10;
     [SerializeField] private int minLength = 2;
 
+
+    private TMP_Text placeholderText;
+
     private void Start()
     {
         inputField.characterLimit = maxLength;
+
+        placeholderText = inputField.placeholder as TMP_Text;
+
+        placeholderText.text = placeholderText.text = LocalizationSettings.StringDatabase.GetLocalizedString("UI_Text", "LOBBY_NICKNAME_PLACEHOLDER");
+
         Open();
     }
 
@@ -34,9 +43,8 @@ public class UserNameInput : MonoBehaviour
         }
         else
         {
-            TMP_Text placeholderText = inputField.placeholder as TMP_Text;
             if (placeholderText != null)
-                placeholderText.text = "두글자 이상 입력해주세요.";
+                placeholderText.text = LocalizationSettings.StringDatabase.GetLocalizedString("UI_Text", "LOBBY_NICKNAME_PLACEHOLDER_WARNING");
         }
         SoundManager.Instance.PlayButtonClick();
     }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: ActiveSkillData_LightningStrike
   m_EditorClassIdentifier: 
-  skillName: Lightning Strike
-  skillInfo: "\uB79C\uB364 \uC704\uCE58\uC5D0 \uB5A8\uC5B4\uC9C0\uB294 \uBC88\uAC1C"
+  skillName: SKILL_NAME_LIGHTNING_STRIKE
+  skillInfo: SKILL_INFO_LIGHTNING_STRIKE
   skillType: 6
   skillPrefab: {fileID: 6634605696528871231, guid: b0654be0ad45d4743a69bf76fbbd251e,
     type: 3}

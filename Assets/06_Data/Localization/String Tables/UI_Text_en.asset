@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: c0ef952c0f333564faab94298120cfcb, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2953962533526175747
   m_TableData:
   - m_Id: 2035646164992
     m_Localized: Slime Raising
@@ -26,6 +27,110 @@ MonoBehaviour:
     m_Localized: Tap the Screen
     m_Metadata:
       m_Items: []
+  - m_Id: 369653030363136
+    m_Localized: Start Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070787
+    m_Localized: Effect Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070786
+    m_Localized: BGM Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070785
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369653084889090
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070784
+    m_Localized: Option Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937152
+    m_Localized: Store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937153
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937154
+    m_Localized: Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370032421937155
+    m_Localized: Ability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070788
+    m_Localized: 'Show
+
+      Joystick'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371803710070789
+    m_Localized: 'Show
+
+      Damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373550545412096
+    m_Localized: Nickname Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 374266248863744
+    m_Localized: Apply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373872420495360
+    m_Localized: Please enter a nickname.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382098490826752
+    m_Localized: Unlock content after level {0}
+    m_Metadata:
+      m_Items:
+      - rid: 2953962533526175747
+  - m_Id: 384314224189440
+    m_Localized: Please enter at least two characters.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388826162831360
+    m_Localized: Game Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388826217357312
+    m_Localized: Active Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 388826217357313
+    m_Localized: Passive Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390206403420160
+    m_Localized: Return to the lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390206403420161
+    m_Localized: "If you give up on the game, \nyou won't get the reward!\nShall
+      we return to the lobby?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390206403420162
+    m_Localized: Give up
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2953962533526175747
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 382098490826752

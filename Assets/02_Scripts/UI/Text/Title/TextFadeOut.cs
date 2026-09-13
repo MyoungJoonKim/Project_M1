@@ -1,7 +1,8 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine.Localization;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class TextFadeOut : MonoBehaviour
@@ -59,8 +60,13 @@ public class TextFadeOut : MonoBehaviour
     private IEnumerator TextFadeOutEffect(int lockOffLevel)
     {
         text.gameObject.SetActive(true);
-        text.text = $"{lockOffLevel}∑π∫ß ¿Ã»ƒ ƒ¡≈Ÿ√˜ «ÿ¡¶";
 
+        LocalizedString localizedString = new LocalizedString("UI_Text", "LOBBY_LOCK_MESSAGE");
+
+        localizedString.Arguments = new object[] {lockOffLevel};
+
+        text.text = localizedString.GetLocalizedString();
+        
         Color color = text.color;
         color.a = 1f;
         text.color = color;

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: ActiveSkillData_Crystal Wave
   m_EditorClassIdentifier: 
-  skillName: "\uD06C\uB9AC\uC2A4\uD0C8 \uC6E8\uC774\uBE0C"
-  skillInfo: "\uC801\uBC29\uD5A5\uC73C\uB85C \uD37C\uC9C0\uBA70 \uD0C0\uACA9\uD558\uB294
-    \uACB0\uC815"
+  skillName: SKILL_NAME_CRYSTAL_WAVE
+  skillInfo: SKILL_INFO_CRYSTAL_WAVE
   skillType: 3
   skillPrefab: {fileID: 466711331275666377, guid: 2071fbf825d8bc84482d7f06d9da1cd3,
     type: 3}

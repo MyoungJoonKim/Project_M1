@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: SkillData_Dust Puff
   m_EditorClassIdentifier: 
-  skillName: Dust Puff
-  skillInfo: 
+  skillName: SKILL_NAME_DUST_PUFF
+  skillInfo: SKILL_INFO_DUST_PUFF
   skillType: 2
   skillPrefab: {fileID: 4896527606262000952, guid: d298c4ae650fd6245b20a1ac09f67849,
     type: 3}

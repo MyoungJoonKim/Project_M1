@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: SkillData_Energy Explosion
   m_EditorClassIdentifier: 
-  skillName: Energy Explosion
-  skillInfo: 
+  skillName: SKILL_NAME_ENERGY_EXPLOSION
+  skillInfo: SKILL_INFO_ENERGY_EXPLOSION
   skillType: 4
   skillPrefab: {fileID: 6478131276754736680, guid: 106171beab3d0964abc36ff85565760e,
     type: 3}

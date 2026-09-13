@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308786c1d8dea704f8e0a247122b299a, type: 3}
   m_Name: SkillData_Slash Ball
   m_EditorClassIdentifier: 
-  skillName: Slash Ball
-  skillInfo: 
+  skillName: SKILL_NAME_SLASH_BALL
+  skillInfo: SKILL_INFO_SLASH_BALL
   skillType: 5
   skillPrefab: {fileID: 3168274473560397715, guid: b0d26e0537522de43b098683af631071,
     type: 3}

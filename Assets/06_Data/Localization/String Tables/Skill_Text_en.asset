@@ -17,7 +17,119 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 98218b3223a7f4743accdd3c72d40856, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 357534276820992
+    m_Localized: Sun Area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541248
+    m_Localized: A solar curtain that burns the surrounding area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541249
+    m_Localized: Crystal Wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541250
+    m_Localized: A crystal that strikes while spreading in the direction of the enemy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541251
+    m_Localized: Electric Ball
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541252
+    m_Localized: Add 1 rotating electric sphere
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541253
+    m_Localized: Explosion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541254
+    m_Localized: Explosion in the surrounding area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541255
+    m_Localized: Lightning Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541256
+    m_Localized: Lightning falling at random locations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541257
+    m_Localized: Poison Cloud
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541258
+    m_Localized: Summon poisonous fog cloud in the surrounding area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541259
+    m_Localized: Damage Reduction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541260
+    m_Localized: "Reduces damage \ntaken by 15%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541261
+    m_Localized: Damage Candy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541262
+    m_Localized: "Skill damage \nincreased by 10%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541263
+    m_Localized: Exp Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541264
+    m_Localized: "Experience gain \nincreased by 15%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541265
+    m_Localized: Magnet Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541266
+    m_Localized: "Increase acquisition \nrange by 25%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541267
+    m_Localized: Speed Drug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541268
+    m_Localized: "Movement speed \nincreased by 12%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541269
+    m_Localized: Dust Puff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541270
+    m_Localized: Shockwave attack by stomping hard on the ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541271
+    m_Localized: Energy Explosion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541272
+    m_Localized: Drop an energy sphere from above and it explodes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541273
+    m_Localized: Slash Ball
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541274
+    m_Localized: Slash ball throw
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

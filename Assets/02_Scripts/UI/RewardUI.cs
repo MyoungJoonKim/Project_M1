@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class RewardUI : MonoBehaviour
@@ -69,9 +70,9 @@ public class RewardUI : MonoBehaviour
         BattleUI battleUI = FindAnyObjectByType<BattleUI>();
 
         if (titleText != null && !isVictory)
-            titleText.text = "사망\n\n생존시간";
+            titleText.text = LocalizationSettings.StringDatabase.GetLocalizedString("System_Text", "REWARD_GAME_OVER");
         else if (titleText != null && isVictory)
-            titleText.text = "승리\n\n생존시간";
+            titleText.text = LocalizationSettings.StringDatabase.GetLocalizedString("System_Text", "REWARD_VICTORY"); ;
 
         if (survivalTimeText != null && battleUI != null)
             survivalTimeText.text = battleUI.TimeText;

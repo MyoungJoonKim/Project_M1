@@ -14,7 +14,119 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: Skill_Text
   m_TableCollectionNameGuidString: 98218b3223a7f4743accdd3c72d40856
-  m_Entries: []
+  m_Entries:
+  - m_Id: 357534276820992
+    m_Key: SKILL_NAME_SUN_AREA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541248
+    m_Key: SKILL_INFO_SUN_AREA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541249
+    m_Key: SKILL_NAME_CRYSTAL_WAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541250
+    m_Key: SKILL_INFO_CRYSTAL_WAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541251
+    m_Key: SKILL_NAME_ELECTRIC_BALL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541252
+    m_Key: SKILL_INFO_ELECTRIC_BALL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541253
+    m_Key: SKILL_NAME_EXPLOSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541254
+    m_Key: SKILL_INFO_EXPLOSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541255
+    m_Key: SKILL_NAME_LIGHTNING_STRIKE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541256
+    m_Key: SKILL_INFO_LIGHTNING_STRIKE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541257
+    m_Key: SKILL_NAME_POISON_CLOUD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541258
+    m_Key: SKILL_INFO_POISON_CLOUD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541259
+    m_Key: SKILL_NAME_DAMAGE_REDUCTION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541260
+    m_Key: SKILL_INFO_DAMAGE_REDUCTION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541261
+    m_Key: SKILL_NAME_DAMAGE_CANDY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541262
+    m_Key: SKILL_INFO_DAMAGE_CANDY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541263
+    m_Key: SKILL_NAME_EXP_POTION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541264
+    m_Key: SKILL_INFO_EXP_POTION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541265
+    m_Key: SKILL_NAME_MAGNET_ITEM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541266
+    m_Key: SKILL_INFO_MAGNET_ITEM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541267
+    m_Key: SKILL_NAME_SPEED_DRUG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541268
+    m_Key: SKILL_INFO_SPEED_DRUG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541269
+    m_Key: SKILL_NAME_DUST_PUFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541270
+    m_Key: SKILL_INFO_DUST_PUFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541271
+    m_Key: SKILL_NAME_ENERGY_EXPLOSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541272
+    m_Key: SKILL_INFO_ENERGY_EXPLOSION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541273
+    m_Key: SKILL_NAME_SLASH_BALL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357534335541274
+    m_Key: SKILL_INFO_SLASH_BALL
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
