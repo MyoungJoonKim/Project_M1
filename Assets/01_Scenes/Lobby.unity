@@ -122,6 +122,64 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &26175116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1084721790767190022, guid: e59d36addcdb9df41b1c3a37262ad148,
+    type: 3}
+  m_PrefabInstance: {fileID: 1724888341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &26175117 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1517293801450590301, guid: e59d36addcdb9df41b1c3a37262ad148,
+    type: 3}
+  m_PrefabInstance: {fileID: 1724888341}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26175116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &26175118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26175116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:d17531715d003414cb8ba0385ab2b8fc
+    m_TableEntryReference:
+      m_KeyId: 1045854371749888
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 26175117}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1001 &71809637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3961,6 +4019,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1120738901892398508, guid: e59d36addcdb9df41b1c3a37262ad148,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 190
+      objectReference: {fileID: 0}
     - target: {fileID: 1328638830445553937, guid: e59d36addcdb9df41b1c3a37262ad148,
         type: 3}
       propertyPath: bgmSlider
@@ -3976,6 +4039,11 @@ PrefabInstance:
       propertyPath: masterSlider
       value: 
       objectReference: {fileID: 428181896}
+    - target: {fileID: 1517293801450590301, guid: e59d36addcdb9df41b1c3a37262ad148,
+        type: 3}
+      propertyPath: m_text
+      value: "\uD55C\uAD6D\uC5B4"
+      objectReference: {fileID: 0}
     - target: {fileID: 1532099834516997705, guid: e59d36addcdb9df41b1c3a37262ad148,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -4119,7 +4187,7 @@ PrefabInstance:
     - target: {fileID: 2571699543994072649, guid: e59d36addcdb9df41b1c3a37262ad148,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2895066528631339628, guid: e59d36addcdb9df41b1c3a37262ad148,
         type: 3}
@@ -4241,6 +4309,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CloseUI, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7844923244902152330, guid: e59d36addcdb9df41b1c3a37262ad148,
+        type: 3}
+      propertyPath: m_Name
+      value: LanguageUI Button
+      objectReference: {fileID: 0}
     - target: {fileID: 8445102279909360841, guid: e59d36addcdb9df41b1c3a37262ad148,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -4270,6 +4343,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546992254587072083, guid: e59d36addcdb9df41b1c3a37262ad148,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8546992254587072083, guid: e59d36addcdb9df41b1c3a37262ad148,
         type: 3}
@@ -4304,7 +4382,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1084721790767190022, guid: e59d36addcdb9df41b1c3a37262ad148,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 26175118}
   m_SourcePrefab: {fileID: 100100000, guid: e59d36addcdb9df41b1c3a37262ad148, type: 3}
 --- !u!224 &1724888342 stripped
 RectTransform:

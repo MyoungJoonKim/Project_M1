@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: REWARD_CONTENTS
     m_Metadata:
       m_Items: []
+  - m_Id: 1045854371749888
+    m_Key: SETTING_LANGUAGE
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

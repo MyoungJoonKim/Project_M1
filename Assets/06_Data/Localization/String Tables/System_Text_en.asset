@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Localized: Reward
     m_Metadata:
       m_Items: []
+  - m_Id: 1045854371749888
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
