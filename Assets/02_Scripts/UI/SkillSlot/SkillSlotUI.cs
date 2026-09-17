@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Localization.Settings;
+using DG.Tweening;
 
 public class SkillSlotUI : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class SkillSlotUI : MonoBehaviour
     [SerializeField] private Image[] stars;
     [SerializeField] private Sprite onStar;
     [SerializeField] private Sprite offStar;
+
+    [Header("Skill Card")]
+    [SerializeField] private GameObject cardPanel;
+    [SerializeField] private CanvasGroup panelGroup;
 
 
     public void SetSlot(ActiveSkillData data, int level)
@@ -88,5 +93,29 @@ public class SkillSlotUI : MonoBehaviour
             else
                 stars[i].sprite = offStar;
         }
+    }
+
+    public Tween SkillCardOpen(float delay = 0f)
+    {
+        cardPanel.transform.DOKill();
+        panelGroup.DOKill();
+
+        cardPanel.transform.localScale = Vector3.one * 0.4f;
+        cardPanel.transform.localRotation = Quaternion.Euler(0f, 90f, -10f);
+        panelGroup.alpha = 0f;
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.SetDelay(delay);
+
+        sequence.Append(cardPanel.transform.DORotate(Vector3.zero, 0.25f).SetEase(Ease.OutQuad));
+
+        sequence.Join(cardPanel.transform.DOScale(1.15f, 0.25f).SetEase(Ease.OutBack));
+
+        sequence.Join(panelGroup.DOFade(1f, 0.15f));
+
+        sequence.Append(cardPanel.transform.DOScale(1f, 0.08f).SetEase(Ease.OutQuad));
+
+        sequence.SetUpdate(true);
+        return sequence;
     }
 }

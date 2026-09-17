@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 9000113142338502152}
   - component: {fileID: 3234084255830214680}
   - component: {fileID: 2361153986930106980}
+  - component: {fileID: 7554907570959539362}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -379,6 +380,7 @@ RectTransform:
   - {fileID: 2887028730665618119}
   - {fileID: 6897628752759119865}
   - {fileID: 1120738901892398508}
+  - {fileID: 6740972699065145093}
   m_Father: {fileID: 2032068108658654024}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -424,6 +426,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &7554907570959539362
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043055023150671335}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2221635911109426342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,7 +1449,6 @@ RectTransform:
   m_Children:
   - {fileID: 9000113142338502152}
   - {fileID: 4929988284354104416}
-  - {fileID: 6740972699065145093}
   m_Father: {fileID: 2420161970395964543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1863,7 +1876,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2032068108658654024}
+    m_TransformParent: {fileID: 9000113142338502152}
     m_Modifications:
     - target: {fileID: 4685646141124007408, guid: 3ecdb3c7af0fc624d9fb94da8ee9f265,
         type: 3}
@@ -1943,12 +1956,12 @@ PrefabInstance:
     - target: {fileID: 4685646141124007408, guid: 3ecdb3c7af0fc624d9fb94da8ee9f265,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -170
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 4685646141124007408, guid: 3ecdb3c7af0fc624d9fb94da8ee9f265,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -525
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 4685646141124007408, guid: 3ecdb3c7af0fc624d9fb94da8ee9f265,
         type: 3}
@@ -2010,6 +2023,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PauseUI, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 6633549641286125391, guid: 3ecdb3c7af0fc624d9fb94da8ee9f265,
+        type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 7554907570959539362}
+    - target: {fileID: 6633549641286125391, guid: 3ecdb3c7af0fc624d9fb94da8ee9f265,
+        type: 3}
+      propertyPath: panelParent
+      value: 
+      objectReference: {fileID: 2571699543994072649}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

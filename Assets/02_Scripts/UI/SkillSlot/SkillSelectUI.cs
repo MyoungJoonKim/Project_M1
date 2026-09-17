@@ -27,6 +27,7 @@ public class SkillSelectUI : MonoBehaviour
     [SerializeField] private float SelectTime = 30f;
     [SerializeField] private TMP_Text selectTimeText;
 
+
     public bool isSelectUI;
     private float currentSelectTime;
 
@@ -61,6 +62,7 @@ public class SkillSelectUI : MonoBehaviour
             {
                 slots[i].gameObject.SetActive(true);
                 SetSkillSlot(i, randomSkills[i]);
+                slots[i].SkillCardOpen(i * 0.15f);
             }
             else
                 slots[i].gameObject.SetActive(false);
@@ -72,8 +74,11 @@ public class SkillSelectUI : MonoBehaviour
         selectTimeCoroutine = StartCoroutine(SelectTimeUpdate());
     }
 
+
     public void Close()
     {
+        CloseUI closeUI = GetComponent<CloseUI>();
+
         isSelectUI = false;
 
         if (selectTimeCoroutine != null)
@@ -82,7 +87,9 @@ public class SkillSelectUI : MonoBehaviour
             selectTimeCoroutine = null;
         }
 
-        panel.SetActive(false);
+        if (closeUI != null) 
+            closeUI.OnClickCloseUI();
+
         Time.timeScale = 1f;
     }
     

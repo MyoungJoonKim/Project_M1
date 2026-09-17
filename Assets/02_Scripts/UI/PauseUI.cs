@@ -23,10 +23,14 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Joystick joystick;
     [SerializeField] private PassiveSkillManager passiveSkillManager;
 
+    private OpenUI openUI;
+
     private Coroutine skillListUICoroutine;
 
     private void Start()
     {
+        openUI = optionUI.GetComponentInChildren<OpenUI>();
+
         SetOptionSetting();
 
         if (joystickToggle != null)
@@ -55,9 +59,6 @@ public class PauseUI : MonoBehaviour
 
     public void Open()
     {
-        if (pauseUI != null)
-            pauseUI.SetActive(true);
-
         if (giveUpConfirmUI != null)
             giveUpConfirmUI.SetActive(false);
 
@@ -67,6 +68,17 @@ public class PauseUI : MonoBehaviour
             StopCoroutine(skillListUICoroutine);
 
         skillListUICoroutine = StartCoroutine(SkillListUIUpdate());
+    }
+    public void Close()
+    {
+        if (skillListUICoroutine != null)
+        {
+            StopCoroutine(skillListUICoroutine);
+            skillListUICoroutine = null;
+        }
+        Time.timeScale = 1f;
+
+        SoundManager.Instance.PlayButtonClick();
     }
 
     private IEnumerator SkillListUIUpdate()
@@ -165,24 +177,11 @@ public class PauseUI : MonoBehaviour
         }
     }
 
-    public void OnClickPlayButton()
-    {
-        if (skillListUICoroutine != null)
-        {
-            StopCoroutine(skillListUICoroutine);
-            skillListUICoroutine = null;
-        }
-
-        pauseUI.SetActive(false);
-        Time.timeScale = 1f;
-
-        SoundManager.Instance.PlayButtonClick();
-    }
 
     public void OnClickLobbyButton()
     {
-        if (giveUpConfirmUI != null)
-            giveUpConfirmUI.SetActive(true);
+        if (openUI != null)
+            openUI.OnClickOpenUI();
 
         SoundManager.Instance.PlayButtonClick();
     }
@@ -201,6 +200,9 @@ public class PauseUI : MonoBehaviour
     {
         if (optionUI != null)
             optionUI.SetActive(!optionUI.activeSelf);
+
+        if (openUI != null)
+            openUI.OnClickOpenUI();
 
         SoundManager.Instance.PlayButtonClick();
     }

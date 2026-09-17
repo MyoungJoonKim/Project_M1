@@ -19,6 +19,9 @@ public class BattleUI : MonoBehaviour
     [Header("Manager")]
     [SerializeField] private SpawnManager spawnManager;
 
+    private OpenUI openUI;
+    private CloseUI closeUI;
+
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
     private Coroutine roundTextCoroutine;
@@ -27,6 +30,9 @@ public class BattleUI : MonoBehaviour
 
     private void Start()
     {
+        openUI = GetComponent<OpenUI>();
+        closeUI = GetComponent<CloseUI>();
+
         FindPlayer();
         StartBattleUI();
     }
@@ -161,9 +167,19 @@ public class BattleUI : MonoBehaviour
 
     public void OnClickPauseButton()
     {
+        if (openUI != null) 
+            openUI.OnClickOpenUI();
+
         if (pauseUI != null)
             pauseUI.Open();
+    }
 
-        SoundManager.Instance.PlayButtonClick();
+    public void OnClickPlayButton()
+    {
+        if (closeUI != null)
+            closeUI.OnClickCloseUI();
+
+        if (pauseUI != null)
+            pauseUI.Close();
     }
 }
