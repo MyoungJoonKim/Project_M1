@@ -18,7 +18,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -100f);
 
 
-    private void LateUpdate()
+    // 플레이어 기준 탑뷰 시점.
+    private void Update()
     {
         if (Player == null)
             return;

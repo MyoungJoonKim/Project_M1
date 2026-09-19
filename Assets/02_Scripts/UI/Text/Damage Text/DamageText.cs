@@ -1,18 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class DamageText : MonoBehaviour
 {
     [Header("TMP")]
-    [SerializeField] private TextMeshPro textMeshPro;
+    [SerializeField] private TMP_Text damageText;
+    [SerializeField] private RectTransform textTransform;
 
-    [Header("Text Effect Value")]
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float lifeTime = 1f;
+    [Header("Text Effect")]
+    [SerializeField] private float duration = 0.8f;
+    [SerializeField] private float popScale = 1.4f;
+    [SerializeField] private float moveDistance = 3f;
 
     private DamageTextManager manager;
-    private Coroutine effectCoroutine;
+    private Sequence sequence;
 
     public void SetManager(DamageTextManager manager)
     {
@@ -21,37 +24,47 @@ public class DamageText : MonoBehaviour
 
     public void SetUp(float damage)
     {
-        if (textMeshPro != null)
-            textMeshPro.text = damage.ToString("F0");
-
-        StopEffect();
-        effectCoroutine = StartCoroutine(TextEffect());
-    }
-
-    private IEnumerator TextEffect()
-    {
-        float timer = lifeTime;
-
-        while (timer > 0f)
+        if (sequence != null)
         {
-            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
-            timer -= Time.deltaTime;
-            yield return null;
+            sequence.Kill();
+            sequence = null;
         }
 
-        effectCoroutine = null;
+        damageText.DOKill();
+        textTransform.DOKill();
 
-        if (manager != null)
-            manager.Release(this);
-        else
-            gameObject.SetActive(false);
+        damageText.text = Mathf.CeilToInt(damage).ToString("F0");
+
+        damageText.alpha = 1f;
+        textTransform.localScale = Vector3.one * 0.4f;
+
+        Vector2 startPosition = textTransform.anchoredPosition;
+
+        sequence = DOTween.Sequence();
+
+        sequence.Append(textTransform.DOScale(popScale, 0.12f).SetEase(Ease.OutBack));
+
+        sequence.Append(textTransform.DOScale(1f, 0.12f).SetEase(Ease.OutQuad));
+
+        sequence.Insert(0f, textTransform.DOAnchorPosY(startPosition.y + moveDistance, duration).SetEase(Ease.OutQuad));
+
+        sequence.Insert(duration * 0.55f, damageText.DOFade(0f, duration * 0.45f));
+
+        sequence.OnComplete(() => 
+        { 
+            manager.Release(this); 
+        });
+
+        sequence.SetUpdate(true);
+
     }
-    public void StopEffect()
+
+    public void OnDisable()
     {
-        if (effectCoroutine != null)
+        if (sequence != null)
         {
-            StopCoroutine(effectCoroutine);
-            effectCoroutine = null;
+            sequence.Kill();
+            sequence = null;
         }
     }
 

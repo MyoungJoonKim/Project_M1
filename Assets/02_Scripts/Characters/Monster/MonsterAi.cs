@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class MonsterAi : MonoBehaviour
 {
+    private Rigidbody2D rb;
     private Monster monster;
     private MonsterAttack monsterAttack;
     private MonsterAnimator monsterAnimator;
-    private Rigidbody2D rb;
+
     private Coroutine stateCheckCoroutine;
 
     public MonsterState currentState = MonsterState.Idle;
+
 
     private void Start()
     {
         stateCheckCoroutine = StartCoroutine(StateCheck());
     }
+
     private void Awake()
     {
         monster = GetComponent<Monster>();
@@ -23,7 +26,7 @@ public class MonsterAi : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (monster == null || monster.isDead)
         {

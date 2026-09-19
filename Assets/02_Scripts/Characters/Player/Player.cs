@@ -123,9 +123,9 @@ public class Player : Character
         float newMaxExp = GetMaxStat(MaxStatType.MaxExp) * 1.5f;
         SetMaxStat(MaxStatType.MaxExp, newMaxExp);
 
-        Debug.Log("플레이어 현재 레벨" + GetStat(StatType.Level));
-        Debug.Log("플레이어 현재 최대체력" + GetMaxStat(MaxStatType.MaxHp));
-        Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
+        //Debug.Log("플레이어 현재 레벨" + GetStat(StatType.Level));
+        //Debug.Log("플레이어 현재 최대체력" + GetMaxStat(MaxStatType.MaxHp));
+        //Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
 
         skillSelectUI.Open();
     }

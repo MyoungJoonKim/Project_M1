@@ -9,6 +9,7 @@ public class CameraShake : MonoBehaviour
 
     private Coroutine shakeCoroutine;
 
+    // 피격 시 카메라 흔들림 효과용.
     public void Shake(float duration, float strength)
     {
         if (shakeCoroutine != null)

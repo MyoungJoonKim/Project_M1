@@ -286,11 +286,6 @@ public class Monster : Character
         return target;
     }
 
-    public void SetRewardExp(float exp)
-    {
-        rewardExp = exp;
-    }
-
     public float GetRewardExp()
     {
         return rewardExp;

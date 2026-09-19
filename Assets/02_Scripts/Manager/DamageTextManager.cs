@@ -94,7 +94,7 @@ public class DamageTextManager : MonoBehaviour
 
         activeTexts.Remove(text);
 
-        text.StopEffect();
+        text.OnDisable();
         text.gameObject.SetActive(false);
 
         pool.Enqueue(text);

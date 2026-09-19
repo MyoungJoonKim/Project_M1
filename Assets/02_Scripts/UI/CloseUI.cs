@@ -11,7 +11,7 @@ public class CloseUI : MonoBehaviour
     [SerializeField] private CanvasGroup panel;
 
     [Header("UI Effect")]
-    [SerializeField] private float speed = 7f;
+    [SerializeField] private float speed = 10f;
 
     public void OnClickCloseUI()
     {
@@ -37,5 +37,8 @@ public class CloseUI : MonoBehaviour
 
         if (panelParent != null)
             panelParent.SetActive(false);
+
+        panel.alpha = 1f;
+        panel.transform.localScale = Vector3.one;
     }
 }

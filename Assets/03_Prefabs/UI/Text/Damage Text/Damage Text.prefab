@@ -50,9 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b1a08c3966b324291e853e94f9ff9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMeshPro: {fileID: 5404745750961546337}
-  moveSpeed: 1
-  lifeTime: 0.5
+  damageText: {fileID: 5404745750961546337}
+  textTransform: {fileID: 6675264444260585729}
+  duration: 0.8
+  popScale: 1.4
+  moveDistance: 3
 --- !u!23 &3562426073750938133
 MeshRenderer:
   m_ObjectHideFlags: 0

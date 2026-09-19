@@ -9,8 +9,8 @@ public class BattleManager : MonoBehaviour
     public Player player;
 
     [Header("Manager")]
-    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private DropManager dropManager;
+    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private DamageTextManager damageTextManager;
     [SerializeField] private PlayerSkillManager playerSkillManager;
 
@@ -107,7 +107,10 @@ public class BattleManager : MonoBehaviour
     // À¯Àú °ñµå È¹µæ·®
     public int GetRewardGold()
     {
-        return killRecord * 2;
+        int rewardGold = 0;
+        rewardGold += killRecord;
+
+        return  rewardGold;
     }
 
     // À¯Àú °æÇèÄ¡ È¹µæ·®
