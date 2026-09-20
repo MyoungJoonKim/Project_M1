@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum PassiveType
 {
+    HpBonus,
     ExpBonus,
     MoveSpeed,
     PickupRange,
@@ -15,7 +16,7 @@ public class PassiveSkillData : ScriptableObject
 {
     [Header("Localization Key")]
     public string passiveSkillName;
-    public string skillInfo;
+    public string skillDescription;
 
     [Header("Info")]
     public PassiveType passiveType;

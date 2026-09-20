@@ -16,7 +16,7 @@ public class ActiveSkillData : ScriptableObject
 {
     [Header("Localization Key")]
     public string skillName;
-    public string skillInfo;
+    public string skillDescription;
 
     [Header("Info")]
     public SkillType skillType;

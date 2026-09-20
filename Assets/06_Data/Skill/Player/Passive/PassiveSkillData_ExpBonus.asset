@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PassiveSkillData_ExpBonus
   m_EditorClassIdentifier: 
   passiveSkillName: SKILL_NAME_EXP_POTION
-  skillInfo: SKILL_INFO_EXP_POTION
+  skillDescription: SKILL_DESCRIPTION_EXP_POTION
   passiveType: 0
   icon: {fileID: 21300000, guid: 7c93a8171412aab4890d9317291cc899, type: 3}
   maxLevel: 5

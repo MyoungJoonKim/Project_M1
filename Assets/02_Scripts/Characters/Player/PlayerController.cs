@@ -5,10 +5,10 @@ public class PlayerController : MonoBehaviour
     [Header("Player Move Controller")]
     [SerializeField] private Joystick joystick;
 
-    private PlayerAnimator playerAnimator;
     private Player player;
     private Rigidbody2D rb;
-    private float speed = 10f;
+    private PlayerAnimator playerAnimator;
+
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         Vector2 move = input.normalized;
-        rb.velocity = move * speed;
+        rb.velocity = move * player.stats[StatType.MoveSpeed];
 
 
         // 플레이어 좌우 반전

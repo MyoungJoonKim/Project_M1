@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 5218303303840451650}
   skillNameText: {fileID: 2797264800443172582}
-  skillInfoText: {fileID: 5917298922078484936}
+  skillDescriptionText: {fileID: 5917298922078484936}
   stars:
   - {fileID: 8883225378250447917}
   - {fileID: 234003568291345918}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 5917298922078484936}
   - component: {fileID: 3748379329775502800}
   m_Layer: 5
-  m_Name: Skill Info
+  m_Name: Skill Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

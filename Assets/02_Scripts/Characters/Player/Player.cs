@@ -4,10 +4,10 @@ using UnityEngine;
 public class Player : Character
 {
     [Header("Player Default Stats")]
-    [SerializeField] private float startHp = 50f;
+    [SerializeField] private float startHp = 500f;
     [SerializeField] private float startAtk = 1f;
-    [SerializeField] private float startDef = 1f;
-    [SerializeField] private float startMoveSpeed = 10f;
+    [SerializeField] private float startDef = 5f;
+    [SerializeField] private float startMoveSpeed = 12f;
     [SerializeField] private float startLevel = 1f;
     [SerializeField] private float startExp = 0f;
     [SerializeField] private float startMaxExp = 100f;

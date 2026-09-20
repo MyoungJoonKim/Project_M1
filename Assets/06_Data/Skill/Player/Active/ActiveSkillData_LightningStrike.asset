@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_LightningStrike
   m_EditorClassIdentifier: 
   skillName: SKILL_NAME_LIGHTNING_STRIKE
-  skillInfo: SKILL_INFO_LIGHTNING_STRIKE
+  skillDescription: SKILL_DESCRIPTION_LIGHTNING_STRIKE
   skillType: 6
   skillPrefab: {fileID: 6634605696528871231, guid: b0654be0ad45d4743a69bf76fbbd251e,
     type: 3}

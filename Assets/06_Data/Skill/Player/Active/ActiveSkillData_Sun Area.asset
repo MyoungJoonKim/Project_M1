@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_Sun Area
   m_EditorClassIdentifier: 
   skillName: SKILL_NAME_SUN_AREA
-  skillInfo: SKILL_INFO_SUN_AREA
+  skillDescription: SKILL_DESCRIPTION_SUN_AREA
   skillType: 1
   skillPrefab: {fileID: 1206498299807332555, guid: af6c1e3f046eecd4d81330aeb285600f,
     type: 3}

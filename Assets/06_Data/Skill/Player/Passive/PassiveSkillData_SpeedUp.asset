@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PassiveSkillData_SpeedUp
   m_EditorClassIdentifier: 
   passiveSkillName: SKILL_NAME_SPEED_DRUG
-  skillInfo: SKILL_INFO_SPEED_DRUG
+  skillDescription: SKILL_DESCRIPTION_SPEED_DRUG
   passiveType: 1
   icon: {fileID: 21300000, guid: 31386f8ef53e6d3458a85ce7ea83bf64, type: 3}
   maxLevel: 5

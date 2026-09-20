@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_Electric Ball
   m_EditorClassIdentifier: 
   skillName: SKILL_NAME_ELECTRIC_BALL
-  skillInfo: SKILL_INFO_ELECTRIC_BALL
+  skillDescription: SKILL_DESCRIPTION_ELECTRIC_BALL
   skillType: 0
   skillPrefab: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991,
     type: 3}

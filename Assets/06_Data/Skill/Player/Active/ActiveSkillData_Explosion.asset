@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_Explosion
   m_EditorClassIdentifier: 
   skillName: SKILL_NAME_EXPLOSION
-  skillInfo: SKILL_INFO_EXPLOSION
+  skillDescription: SKILL_DESCRIPTION_EXPLOSION
   skillType: 4
   skillPrefab: {fileID: 1011184593278320210, guid: e75cee982fae73b42987a690a401e26d,
     type: 3}

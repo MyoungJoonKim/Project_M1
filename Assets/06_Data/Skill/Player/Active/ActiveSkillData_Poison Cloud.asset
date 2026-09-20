@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillData_Poison Cloud
   m_EditorClassIdentifier: 
   skillName: SKILL_NAME_POISON_CLOUD
-  skillInfo: SKILL_INFO_POISON_CLOUD
+  skillDescription: SKILL_DESCRIPTION_POISON_CLOUD
   skillType: 2
   skillPrefab: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf,
     type: 3}

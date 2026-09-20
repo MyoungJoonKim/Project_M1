@@ -9,7 +9,7 @@ public class SkillSlotUI : MonoBehaviour
     [Header("Skill Info")]
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text skillNameText;
-    [SerializeField] private TMP_Text skillInfoText;
+    [SerializeField] private TMP_Text skillDescriptionText;
 
     [Header("Skill Level Star")]
     [SerializeField] private Image[] stars;
@@ -36,8 +36,8 @@ public class SkillSlotUI : MonoBehaviour
         if (skillNameText != null)
             skillNameText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillName);
 
-        if (skillInfoText != null)
-            skillInfoText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillInfo);
+        if (skillDescriptionText != null)
+            skillDescriptionText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillDescription);
 
         UpdateStars(level);
     }
@@ -57,8 +57,8 @@ public class SkillSlotUI : MonoBehaviour
         if (skillNameText != null)
             skillNameText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.passiveSkillName);
 
-        if (skillInfoText != null)
-            skillInfoText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillInfo);
+        if (skillDescriptionText != null)
+            skillDescriptionText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Skill_Text", data.skillDescription);
 
         UpdateStars(level);
     }
@@ -70,8 +70,8 @@ public class SkillSlotUI : MonoBehaviour
         if (skillNameText != null)
             skillNameText.text = "";
 
-        if (skillInfoText != null)
-            skillInfoText.text = "";
+        if (skillDescriptionText != null)
+            skillDescriptionText.text = "";
 
         UpdateStars(0);
     }
