@@ -125,6 +125,14 @@ MonoBehaviour:
     m_Localized: Give up
     m_Metadata:
       m_Items: []
+  - m_Id: 3688394971455488
+    m_Localized: Unlock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3758516113285120
+    m_Localized: Don't have enough gold.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

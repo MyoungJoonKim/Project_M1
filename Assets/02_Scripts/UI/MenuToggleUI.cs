@@ -121,7 +121,7 @@ public class MenuToggleUI : MonoBehaviour
     {
         if (UserManager.Instance.GetUserLevel() < lockOffLevel)
         {
-            textFadeOut.Open(lockOffLevel);
+            textFadeOut.MenuLockMessageOpen(lockOffLevel);
         }
         SoundManager.Instance.PlayButtonClick();
     }

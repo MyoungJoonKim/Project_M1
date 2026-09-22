@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 98218b3223a7f4743accdd3c72d40856, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2953962737865064453
   m_TableData:
   - m_Id: 357534276820992
     m_Localized: Sun Area
@@ -137,7 +138,8 @@ MonoBehaviour:
   - m_Id: 2861196794437632
     m_Localized: Bonus Defense +{0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2953962737865064453
   - m_Id: 2861196794437633
     m_Localized: Damage Bonus
     m_Metadata:
@@ -145,7 +147,8 @@ MonoBehaviour:
   - m_Id: 2861196794437634
     m_Localized: Bonus Damage +{0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2953962737865064453
   - m_Id: 2861196794437635
     m_Localized: Hp Bonus
     m_Metadata:
@@ -153,7 +156,8 @@ MonoBehaviour:
   - m_Id: 2861196794437636
     m_Localized: Bonus Max Health +{0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2953962737865064453
   - m_Id: 2861196794437637
     m_Localized: Speed Bonus
     m_Metadata:
@@ -161,7 +165,17 @@ MonoBehaviour:
   - m_Id: 2861196794437638
     m_Localized: Bonus move speed +{0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2953962737865064453
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2953962737865064453
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 2861196794437638
+        - id: 2861196794437636
+        - id: 2861196794437634
+        - id: 2861196794437632

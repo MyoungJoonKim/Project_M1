@@ -115,6 +115,14 @@ MonoBehaviour:
     m_Key: BATTLE_GIVEUP_LOBBY
     m_Metadata:
       m_Items: []
+  - m_Id: 3688394971455488
+    m_Key: LOBBY_UNLOCK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3758516113285120
+    m_Key: LOBBY_UNLOCK_MESSAGE
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

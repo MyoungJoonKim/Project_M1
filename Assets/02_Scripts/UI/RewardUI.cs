@@ -133,7 +133,7 @@ public class RewardUI : MonoBehaviour
 
             bar.maxValue = maxExp;
             bar.value = exp;
-
+            
             RefreshUserExpUI(level, exp, maxExp);
 
             yield return new WaitForSecondsRealtime(0.001f);

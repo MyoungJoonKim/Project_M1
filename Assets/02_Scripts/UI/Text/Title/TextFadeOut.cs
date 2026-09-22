@@ -12,6 +12,9 @@ public class TextFadeOut : MonoBehaviour
     [SerializeField] private TMP_Text text;
     [SerializeField] private float fadeTime = 3f;
 
+    [Header("Localization Key")]
+    [SerializeField] private string key;
+
     private Coroutine backgroundFadeOutCoroutine;
     private Coroutine textFadeOutCoroutine;
 
@@ -21,7 +24,18 @@ public class TextFadeOut : MonoBehaviour
         text.gameObject.SetActive(false);
     }
 
-    public void Open(int lockOffLevel)
+    public void MenuLockMessageOpen(int lockOffLevel)
+    {
+        if (backgroundFadeOutCoroutine != null || textFadeOutCoroutine != null)
+        {
+            StopCoroutine(backgroundFadeOutCoroutine);
+            StopCoroutine(textFadeOutCoroutine);
+        }
+        backgroundFadeOutCoroutine = StartCoroutine(BackgroundFadeOutEffect());
+        textFadeOutCoroutine = StartCoroutine(TextFadeOutEffect(lockOffLevel));
+    }
+
+    public void AbilityLockMessageOpen(int lockOffLevel)
     {
         if (backgroundFadeOutCoroutine != null || textFadeOutCoroutine != null)
         {
@@ -61,7 +75,7 @@ public class TextFadeOut : MonoBehaviour
     {
         text.gameObject.SetActive(true);
 
-        LocalizedString localizedString = new LocalizedString("UI_Text", "LOBBY_LOCK_MESSAGE");
+        LocalizedString localizedString = new LocalizedString("UI_Text", $"{key}");
 
         localizedString.Arguments = new object[] {lockOffLevel};
 

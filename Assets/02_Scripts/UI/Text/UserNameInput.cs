@@ -39,6 +39,7 @@ public class UserNameInput : MonoBehaviour
         if (inputField.text.Length >= minLength)
         {
             UserManager.Instance.userData.userName = inputField.text;
+            UserManager.Instance.SaveUserData();
             closeUI.OnClickCloseUI();
         }
         else

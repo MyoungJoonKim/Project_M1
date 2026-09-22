@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AbilityData", menuName = "Game Data/Ability Data")]
+[System.Serializable]
 public class AbilityData : ScriptableObject
 {
     [Header("Localization Key")]
@@ -11,7 +12,7 @@ public class AbilityData : ScriptableObject
 
     [Header("Info")]
     public Sprite icon;
-    public PassiveType passiveType;
+    public PassiveType abilityType;
 
     [Header("LevelUp Base")]
     public int[] unlockLevel;
