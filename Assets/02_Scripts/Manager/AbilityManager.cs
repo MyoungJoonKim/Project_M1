@@ -12,9 +12,13 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
 
     [Header("Description Panels")]
+    [SerializeField] private RectTransform viewPort;
+    [SerializeField] private RectTransform descriptionRect;
     [SerializeField] private GameObject descriptionPanel;
     [SerializeField] private GameObject descriptionClosePanel;
     [SerializeField] private TextFadeOut textFadeOut;
+    [SerializeField] private float offsetX = 380f;
+    [SerializeField] private float padding = 300f;
 
     [Header("Description Texts")]
     [SerializeField] private TMP_Text nameText;
@@ -77,6 +81,8 @@ public class AbilityManager : MonoBehaviour
 
         selectedSlot = slot;
 
+        SetDescriptionPosition(slot.GetComponent<RectTransform>());
+
         openUI.OnClickOpenUI();
 
         if (descriptionClosePanel != null) 
@@ -115,6 +121,29 @@ public class AbilityManager : MonoBehaviour
             descriptionClosePanel.SetActive(false);
 
         selectedSlot = null;
+    }
+
+
+    private void SetDescriptionPosition(RectTransform target)
+    {
+        if (target == null || descriptionPanel == null || viewPort == null)
+            return;
+
+        Vector3 position = target.position;
+
+        position.x += offsetX;
+
+        Vector2 localPosition = viewPort.InverseTransformPoint(position);
+
+        float panelHeight = descriptionRect.rect.height;
+
+        localPosition.y = Mathf.Clamp(
+            localPosition.y,
+            viewPort.rect.yMin + panelHeight * descriptionRect.pivot.y + padding,
+            viewPort.rect.yMax - panelHeight * (1f - descriptionRect.pivot.y) - padding
+            );
+
+        descriptionRect.anchoredPosition = localPosition;
     }
 
     private void RefreshDescription()

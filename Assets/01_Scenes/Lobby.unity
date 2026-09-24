@@ -4423,6 +4423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1359599666 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8133537247144993391, guid: 2fffe407dc3e62148ab588072e61f6b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 131627321}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1398643829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4771,7 +4777,7 @@ PrefabInstance:
     - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
       propertyPath: lockOffLevel
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
@@ -9046,9 +9052,13 @@ MonoBehaviour:
   - {fileID: 1751898992570673377}
   - {fileID: 7701811950367247513}
   scrollRect: {fileID: 6645801631736785498}
+  viewPort: {fileID: 2075390505}
+  descriptionRect: {fileID: 1359599666}
   descriptionPanel: {fileID: 131627329}
   descriptionClosePanel: {fileID: 65605352}
   textFadeOut: {fileID: 1126139001}
+  offsetX: 380
+  padding: 300
   nameText: {fileID: 131627328}
   descriptionText: {fileID: 131627326}
   levelText: {fileID: 131627327}
