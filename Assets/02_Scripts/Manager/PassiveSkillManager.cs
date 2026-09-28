@@ -12,12 +12,16 @@ public class PassiveSkillManager : MonoBehaviour
     public float SkillDamageRate { get; private set; } = 1f;
     public float DamageReductionRate { get; private set; } = 0f;
 
+    private float abiltyDamageBonus;
+    private float abiltyDamageReduction;
+
     private Player player;
 
     private void Awake()
     {
         player = GetComponent<Player>();
 
+        AddAbilityStat();
     }
 
     public void LevelUp(PassiveSkillData data)
@@ -57,10 +61,10 @@ public class PassiveSkillManager : MonoBehaviour
                 ExpBonusRate = 1f + (value * level);
                 break;
             case PassiveType.DamageBonus:
-                SkillDamageRate = 1f + (value * level);
+                SkillDamageRate = 1f + abiltyDamageBonus + (value * level);
                 break;
             case PassiveType.DamageReduction:
-                DamageReductionRate = value * level;
+                DamageReductionRate = abiltyDamageReduction + (value * level);
                 break;
             case PassiveType.PickupRange:
                 PickupRangeRate(value, level);
@@ -69,6 +73,18 @@ public class PassiveSkillManager : MonoBehaviour
                 MoveSpeedRate(value, level);
                 break;
         }
+    }
+    private void AddAbilityStat()
+    {
+        if (UserManager.Instance == null)
+            return;
+
+        float damageBonus = UserManager.Instance.GetAbilityLevel(PassiveType.DamageBonus);
+        float damageReduction = UserManager.Instance.GetAbilityLevel(PassiveType.DamageReduction);
+
+        SkillDamageRate = 1f + abiltyDamageBonus;
+        DamageReductionRate = abiltyDamageReduction;
+
     }
 
     private void MoveSpeedRate(float value, int level)

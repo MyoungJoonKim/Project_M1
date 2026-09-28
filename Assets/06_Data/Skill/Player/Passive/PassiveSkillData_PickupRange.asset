@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passiveSkillName: SKILL_NAME_MAGNET_ITEM
   skillDescription: SKILL_DESCRIPTION_MAGNET_ITEM
-  passiveType: 2
+  passiveType: 3
   icon: {fileID: 21300000, guid: 7e71e4a87b4ad7d488fbc4c73b8dcdc3, type: 3}
   maxLevel: 5
   valuePerLevel: 0.25

@@ -55,6 +55,8 @@ public class Player : Character
             startMaxExp
             );
 
+        AddAbilityStat();
+
         passiveSkillManager = GetComponent<PassiveSkillManager>();
         playerController = GetComponent<PlayerController>();
         playerAnimator = GetComponent<PlayerAnimator>();
@@ -128,6 +130,30 @@ public class Player : Character
         //Debug.Log("플레이어 현재 필요 경험치" + GetMaxStat(MaxStatType.MaxExp));
 
         skillSelectUI.Open();
+    }
+
+    private void AddAbilityStat()
+    {
+        if (UserManager.Instance == null)
+            return;
+
+        float hpBonus = UserManager.Instance.GetAbilityLevel(PassiveType.HpBonus);
+
+        if (hpBonus > 0f)
+        {
+            float maxHp = GetMaxStat(MaxStatType.MaxHp);
+            maxHp *= 1f + hpBonus;
+
+            SetMaxStat(MaxStatType.MaxHp, maxHp);
+            SetStat(StatType.Hp, maxHp);
+
+            float moveSpeedBonus = UserManager.Instance.GetAbilityLevel(PassiveType.MoveSpeed);
+
+            if (moveSpeedBonus > 0f)
+            {
+                stats[StatType.MoveSpeed] *= 1f + moveSpeedBonus;
+            }
+        }
     }
 
     public void GameWin()

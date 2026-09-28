@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passiveSkillName: SKILL_NAME_DAMAGE_REDUCTION
   skillDescription: SKILL_DESCRIPTION_DAMAGE_REDUCTION
-  passiveType: 4
+  passiveType: 5
   icon: {fileID: 21300000, guid: 324849b1831425c4e9f6f7e0acb6a6d6, type: 3}
   maxLevel: 5
   valuePerLevel: 0.15

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class BattleUI : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class BattleUI : MonoBehaviour
     [Header("Texts")]
     [SerializeField] private TMP_Text[] levelText;
     [SerializeField] private TMP_Text timeText;
-    [SerializeField] private TMP_Text roundText;
     [SerializeField] private TMP_Text waveText;
+
+    [Header("Slider")]
+    [SerializeField] private Slider waveSlider;
 
     [Header("UIs")]
     [SerializeField] private PauseUI pauseUI;
@@ -24,7 +27,8 @@ public class BattleUI : MonoBehaviour
 
     private Coroutine levelTextCoroutine;
     private Coroutine timeTextCoroutine;
-    private Coroutine roundTextCoroutine;
+    private Coroutine waveTextCoroutine;
+    private Coroutine waveSliderCoroutine;
 
     public string TimeText => timeText.text;
 
@@ -87,7 +91,7 @@ public class BattleUI : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateRoundUI()
+    private IEnumerator UpdateWaveUI()
     {
         while (true)
         {
@@ -103,16 +107,37 @@ public class BattleUI : MonoBehaviour
                 continue;
             }
 
-            if (roundText == null)
-                yield break;
-
             if (spawnManager != null)
             {
-                roundText.text = $"{spawnManager.CurrentRoundNumber} / {spawnManager.MaxRoundCount} ";
-                waveText.text = $"{spawnManager.CurrentWaveIndex + 1} / {spawnManager.MaxWaveCount} ";
+                int currentWave = Mathf.Clamp(spawnManager.CurrentWaveIndex + 1, 1, spawnManager.MaxWaveCount);
+
+                waveText.text = $"{currentWave} / {spawnManager.MaxWaveCount} ";
             }
             else
-                roundText.text = "- / -";
+                waveText.text = "- / -";
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator UpdateWaveSlider()
+    {
+        int maxCount = spawnManager.MaxRoundCount * spawnManager.MaxWaveCount;
+
+        waveSlider.maxValue = maxCount;
+        waveSlider.minValue = 0;
+        waveSlider.value = 0;
+
+        while (true)
+        {
+            if (spawnManager.CurrentRoundIndex < 1)
+            {
+                waveSlider.value = spawnManager.CurrentWaveIndex + 1;
+            }
+            else
+            {
+                waveSlider.value = spawnManager.CurrentWaveIndex + 11;
+            }
 
             yield return null;
         }
@@ -130,10 +155,15 @@ public class BattleUI : MonoBehaviour
 
         timeTextCoroutine = StartCoroutine(UpdateTimeUI());
 
-        if (roundTextCoroutine != null)
-            StopCoroutine(roundTextCoroutine);
+        if (waveTextCoroutine != null)
+            StopCoroutine(waveTextCoroutine);
 
-        roundTextCoroutine = StartCoroutine(UpdateRoundUI());
+        waveTextCoroutine = StartCoroutine(UpdateWaveUI());
+
+        if (waveSliderCoroutine != null)
+            StopCoroutine(waveSliderCoroutine);
+
+        waveSliderCoroutine = StartCoroutine(UpdateWaveSlider());
     }
 
     public void StopBattleUI()
@@ -144,10 +174,16 @@ public class BattleUI : MonoBehaviour
             timeTextCoroutine = null;
         }
 
-        if (roundTextCoroutine != null)
+        if (waveTextCoroutine != null)
         {
-            StopCoroutine(roundTextCoroutine);
-            roundTextCoroutine = null;
+            StopCoroutine(waveTextCoroutine);
+            waveTextCoroutine = null;
+        }
+
+        if (waveSliderCoroutine != null)
+        {
+            StopCoroutine(waveSliderCoroutine);
+            waveSliderCoroutine = null;
         }
     }
 

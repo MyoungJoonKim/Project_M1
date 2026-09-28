@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
 
     public int CurrentWaveIndex => currentWaveIndex;
     public int CurrentRoundIndex => currentRoundIndex;
-    public int MaxWaveCount = 11;
+    public int MaxWaveCount = 10;
     public int MaxRoundCount => rounds.Length;
 
     private readonly List<Monster> activeMonsters = new();
@@ -68,6 +68,9 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator RoundRoutine()
     {
+        // 첫 라운드 시작 시 스폰 대기시간.
+        yield return new WaitForSeconds(2f);
+
         currentRoundIndex = 0;
 
         while (true)
