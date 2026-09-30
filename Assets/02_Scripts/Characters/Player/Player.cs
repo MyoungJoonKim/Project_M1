@@ -137,22 +137,22 @@ public class Player : Character
         if (UserManager.Instance == null)
             return;
 
-        float hpBonus = UserManager.Instance.GetAbilityLevel(PassiveType.HpBonus);
+        float hpBonus = UserManager.Instance.GetAbilityBonus(PassiveType.HpBonus);
 
         if (hpBonus > 0f)
         {
             float maxHp = GetMaxStat(MaxStatType.MaxHp);
-            maxHp *= 1f + hpBonus;
+            maxHp += hpBonus * 100f;
 
             SetMaxStat(MaxStatType.MaxHp, maxHp);
             SetStat(StatType.Hp, maxHp);
+        }
 
-            float moveSpeedBonus = UserManager.Instance.GetAbilityLevel(PassiveType.MoveSpeed);
+        float moveSpeedBonus = UserManager.Instance.GetAbilityBonus(PassiveType.MoveSpeed);
 
-            if (moveSpeedBonus > 0f)
-            {
-                stats[StatType.MoveSpeed] *= 1f + moveSpeedBonus;
-            }
+        if (moveSpeedBonus > 0f)
+        {
+            stats[StatType.MoveSpeed] *= 1f + (moveSpeedBonus * 0.1f);
         }
     }
 

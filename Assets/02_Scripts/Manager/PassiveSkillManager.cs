@@ -79,11 +79,11 @@ public class PassiveSkillManager : MonoBehaviour
         if (UserManager.Instance == null)
             return;
 
-        float damageBonus = UserManager.Instance.GetAbilityLevel(PassiveType.DamageBonus);
-        float damageReduction = UserManager.Instance.GetAbilityLevel(PassiveType.DamageReduction);
+        abiltyDamageBonus = UserManager.Instance.GetAbilityBonus(PassiveType.DamageBonus);
+        abiltyDamageReduction = UserManager.Instance.GetAbilityBonus(PassiveType.DamageReduction);
 
-        SkillDamageRate = 1f + abiltyDamageBonus;
-        DamageReductionRate = abiltyDamageReduction;
+        SkillDamageRate = 1f + (abiltyDamageBonus * 0.1f);
+        DamageReductionRate = abiltyDamageReduction * 0.1f;
 
     }
 

@@ -193,7 +193,7 @@ public class UserManager : MonoBehaviour
         return true;
     }
 
-    public float GetAbilityLevel(PassiveType type)
+    public float GetAbilityBonus(PassiveType type)
     {
         AbilityData data = GetAbilityData(type);
 

@@ -51,7 +51,7 @@ public class SceneLoading : MonoBehaviour
 
             if (asyncOperation.progress >= 0.9f)
             {
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSecondsRealtime(3f);
 
                 loadingBar.maxValue = 1f;
                 

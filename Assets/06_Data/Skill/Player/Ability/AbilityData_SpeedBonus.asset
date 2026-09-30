@@ -16,8 +16,8 @@ MonoBehaviour:
   abilityDescription: ABILITY_DESCRIPTION_SPEED_BONUS
   icon: {fileID: 21300000, guid: 9c635924390c704498348c498e44a802, type: 3}
   abilityType: 2
-  unlockLevel: 010000000300000004000000
-  unlockCost: 00000000c80000002c010000
+  unlockLevel: 020000000300000004000000
+  unlockCost: 64000000c80000002c010000
   bonusValue:
   - 1
   - 2

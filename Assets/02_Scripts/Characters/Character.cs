@@ -126,6 +126,18 @@ public class Character : MonoBehaviour
         float def = GetStat(StatType.Def);
         float finalDamage = Mathf.Max(1f, damage - def);
 
+        if (this is Player)
+        {
+            PassiveSkillManager passiveSkillManager = GetComponent<PassiveSkillManager>();
+
+            if (passiveSkillManager != null)
+            {
+                finalDamage *= 1f - passiveSkillManager.DamageReductionRate;
+            }
+        }
+
+        finalDamage = Mathf.Max(1f, finalDamage);
+
         float currentHp = GetStat(StatType.Hp);
         SetStat(StatType.Hp, currentHp - finalDamage);
 

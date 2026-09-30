@@ -4777,7 +4777,7 @@ PrefabInstance:
     - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
       propertyPath: lockOffLevel
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5942750775000032501, guid: eb7cc6c6a108f6c41b9d31a7b1d8ca4b,
         type: 3}
