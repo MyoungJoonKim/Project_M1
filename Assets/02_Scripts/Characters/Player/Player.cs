@@ -35,7 +35,7 @@ public class Player : Character
     private SpriteRenderer spriteRenderer;
     private PlayerController playerController;
 
-    private Coroutine deadCheckCoroutine;
+    private Coroutine deathCheckCoroutine;
     private Coroutine hitEffectCoroutine;
 
 
@@ -72,22 +72,22 @@ public class Player : Character
         if (hitEffect != null)
             hitEffect.SetActive(false);
 
-        if (deadCheckCoroutine != null)
-            StopCoroutine(deadCheckCoroutine);
+        if (deathCheckCoroutine != null)
+            StopCoroutine(deathCheckCoroutine);
 
-        deadCheckCoroutine = StartCoroutine(DeadCheck());
+        deathCheckCoroutine = StartCoroutine(DeathCheckRoutine());
     }
 
-    private IEnumerator DeadCheck()
+    private IEnumerator DeathCheckRoutine()
     {
         while (true)
         {
             if (isDead && !deadHandled)
             {
                 deadHandled = true;
-                OnDead();
+                HandleDeath();
 
-                deadCheckCoroutine = null;
+                deathCheckCoroutine = null;
                 yield break;
             }
             yield return null;
@@ -156,7 +156,7 @@ public class Player : Character
         }
     }
 
-    public void GameWin()
+    public void HandleVictory()
     {
         if (rigidbody2D != null)
         {
@@ -182,7 +182,7 @@ public class Player : Character
             BattleManager.Instance.EndGame(this);
     }
 
-    public void OnDead()
+    public void HandleDeath()
     {
         SoundManager.Instance.PlayPlayerDead();
 
@@ -217,7 +217,7 @@ public class Player : Character
             grave.SetActive(true);
     }
 
-    public void OnHit()
+    public void HandleHit()
     {
         if (hitEffect != null)
         {

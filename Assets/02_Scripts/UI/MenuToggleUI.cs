@@ -7,7 +7,7 @@ public class MenuToggleUI : MonoBehaviour
 {
     [Header("Lobby Menu Icons")]
     [SerializeField] private Toggle menuToggle;
-    [SerializeField] private GameObject MenuIcon;
+    [SerializeField] private GameObject menuIcon;
     [SerializeField] private GameObject lockIcon;
     [SerializeField] private GameObject lockButton;
     [SerializeField] private TMP_Text text;
@@ -17,7 +17,7 @@ public class MenuToggleUI : MonoBehaviour
     [SerializeField] private TextFadeOut textFadeOut;
 
     [Header("Menu Lock Off")]
-    [SerializeField] private int lockOffLevel;
+    [SerializeField] private int unLockLevel;
 
     [Header("Icon Scale")]
     [SerializeField] private float normalScale = 1f;
@@ -31,15 +31,15 @@ public class MenuToggleUI : MonoBehaviour
     private Vector3 normalPosition;
     private bool isUnlock;
 
-    public int LockOffLevel => lockOffLevel;
+    public int UnLockLevel => unLockLevel;
 
     private void Start()
     {
         normalPosition = Vector3.zero;
         SetLockMenu();
 
-        lockCheckCoroutine = StartCoroutine(MenuLockUpdate());
-        iconScaleCoroutine = StartCoroutine(MenuIconScaleUpdate());
+        lockCheckCoroutine = StartCoroutine(UnlockCheckRoutine());
+        iconScaleCoroutine = StartCoroutine(MenuIconAimationRoutine());
     }
 
     private void SetLockMenu()
@@ -50,8 +50,8 @@ public class MenuToggleUI : MonoBehaviour
         if (lockIcon != null)
             lockIcon.SetActive(true);
 
-        if (MenuIcon != null)
-            MenuIcon.SetActive(false);
+        if (menuIcon != null)
+            menuIcon.SetActive(false);
 
         if (text != null)
             text.gameObject.SetActive(false);
@@ -61,7 +61,7 @@ public class MenuToggleUI : MonoBehaviour
         
         isUnlock = false;
     }
-    private void SetUnlockMenu()
+    private void SetLockedState()
     {
         if (menuToggle != null)
             menuToggle.interactable = true;
@@ -72,8 +72,8 @@ public class MenuToggleUI : MonoBehaviour
         if (lockButton != null)
             lockButton.SetActive(false);
 
-        if (MenuIcon != null)
-            MenuIcon.SetActive(true);
+        if (menuIcon != null)
+            menuIcon.SetActive(true);
 
         if (text != null)
             text.gameObject.SetActive(true);
@@ -81,20 +81,20 @@ public class MenuToggleUI : MonoBehaviour
         isUnlock = true;
     }
 
-    private IEnumerator MenuLockUpdate()
+    private IEnumerator UnlockCheckRoutine()
     {
         while (!isUnlock)
         {
-            if (UserManager.Instance.GetUserLevel() >= lockOffLevel)
+            if (UserManager.Instance.GetUserLevel() >= unLockLevel)
             {
-                SetUnlockMenu();
+                SetLockedState();
                 break;
             }
             yield return null;
         }
     }
 
-    private IEnumerator MenuIconScaleUpdate()
+    private IEnumerator MenuIconAimationRoutine()
     {
         while (true)
         {
@@ -107,9 +107,9 @@ public class MenuToggleUI : MonoBehaviour
             float scale = menuToggle.isOn ? selectScale : normalScale;
             Vector3 position = menuToggle.isOn ? selectPosition : normalPosition;
 
-            MenuIcon.transform.localScale = Vector3.Lerp(MenuIcon.transform.localScale, Vector3.one * scale, Time.unscaledDeltaTime * scaleSpeed);
+            menuIcon.transform.localScale = Vector3.Lerp(menuIcon.transform.localScale, Vector3.one * scale, Time.unscaledDeltaTime * scaleSpeed);
 
-            MenuIcon.transform.localPosition = Vector3.Lerp(MenuIcon.transform.localPosition, position, Time.unscaledDeltaTime * scaleSpeed);
+            menuIcon.transform.localPosition = Vector3.Lerp(menuIcon.transform.localPosition, position, Time.unscaledDeltaTime * scaleSpeed);
 
             menuPanel.SetActive(menuToggle.isOn);
 
@@ -119,9 +119,9 @@ public class MenuToggleUI : MonoBehaviour
 
     public void OnClickToggleButton()
     {
-        if (UserManager.Instance.GetUserLevel() < lockOffLevel)
+        if (UserManager.Instance.GetUserLevel() < unLockLevel)
         {
-            textFadeOut.MenuLockMessageOpen(lockOffLevel);
+            textFadeOut.MenuLockMessageOpen(unLockLevel);
         }
         SoundManager.Instance.PlayButtonClick();
     }

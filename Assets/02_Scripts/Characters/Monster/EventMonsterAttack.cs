@@ -53,7 +53,7 @@ public class EventMonsterAttack : MonoBehaviour
         }
 
         target.TakeDamage(damage, false);
-        target.OnHit();
+        target.HandleHit();
     }
 
     public static void ResetAttackTime()

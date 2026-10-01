@@ -33,46 +33,46 @@ public class Monster : Character
 
 
     private Player player;
-    private Rigidbody2D rb;
-    private MonsterAi monsterAi;
+    private MonsterAI monsterAI;
     private MonsterAttack monsterAttack;
     private MonsterAnimator monsterAnimator;
 
-    private BossSliderUI bossSliderUI;
+    private BossHealthUI bossSliderUI;
 
-    private Coroutine deadCheckCoroutine;
+    private Rigidbody2D rigidbody2D;
+    private Coroutine deathCheckCoroutine;
 
     private IObjectPool<Monster> monsterPool;
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        monsterAi = GetComponent<MonsterAi>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        monsterAI = GetComponent<MonsterAI>();
         monsterAttack = GetComponent<MonsterAttack>();
         monsterAnimator = GetComponent<MonsterAnimator>();
 
         if (monsterData != null)
             ApplyMonsterData(monsterData);
 
-        deadCheckCoroutine = StartCoroutine(DeadCheck());
+        deathCheckCoroutine = StartCoroutine(DeathCheckRoutine());
     }
 
-    private IEnumerator DeadCheck()
+    private IEnumerator DeathCheckRoutine()
     {
         while (true)
         {
             if (isDead && !deadHandled)
             {
                 deadHandled = true;
-                OnDead();
+                HandleDeath();
 
-                deadCheckCoroutine = null;
+                deathCheckCoroutine = null;
 
                 if (monsterData.monsterID == "B2")
                 {
                     Debug.Log("보스처치");
-                    player.GameWin();
+                    player.HandleVictory();
                 }
                 yield break;
             }
@@ -89,7 +89,7 @@ public class Monster : Character
     private void OnDisable()
     {
         if (spawnManager != null)
-            spawnManager.UnRegisterMonster(this);
+            spawnManager.UnregisterMonster(this);
     }
 
     public void SetPlayer(Player player)
@@ -111,9 +111,9 @@ public class Monster : Character
         if (monsterData.monsterType != MonsterType.Boss)
             return;
 
-        BossSkill(monsterData.projectionSkill);
-        BossSkill(monsterData.summonSkill);
-        BossSkill(monsterData.targetExplosionSkill);
+        SetBossSkill(monsterData.summonSkill);
+        SetBossSkill(monsterData.projectionSkill);
+        SetBossSkill(monsterData.targetExplosionSkill);
     }
 
     public void SetMonsterData(MonsterData data)
@@ -151,7 +151,7 @@ public class Monster : Character
             0f
         );
     }
-    private void BossSkill(ActiveSkillData skill)
+    private void SetBossSkill(ActiveSkillData skill)
     {
         if (skill == null)
         {
@@ -194,10 +194,10 @@ public class Monster : Character
         float maxHp = GetMaxStat(MaxStatType.MaxHp);
         SetStat(StatType.Hp, maxHp);
 
-        if (rb != null)
+        if (rigidbody2D != null)
         {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.angularVelocity = 0f;
         }
 
         if (monsterAttack != null)
@@ -207,29 +207,29 @@ public class Monster : Character
             monsterAnimator.SetMove(false);
 
         // 일반 몬스터만 AI 초기화 (이벤트몬스터만 제외)
-        if (useAI && monsterAi != null)
-            monsterAi.ResetAI();
+        if (useAI && monsterAI != null)
+            monsterAI.ResetAI();
 
-        if (deadCheckCoroutine != null)
+        if (deathCheckCoroutine != null)
         {
-            StopCoroutine(deadCheckCoroutine);
-            deadCheckCoroutine = null;
+            StopCoroutine(deathCheckCoroutine);
+            deathCheckCoroutine = null;
         }
 
-        deadCheckCoroutine = StartCoroutine(DeadCheck());
+        deathCheckCoroutine = StartCoroutine(DeathCheckRoutine());
     }
 
-    public void SetBossSliderUI(BossSliderUI sliderUI)
+    public void SetBossSliderUI(BossHealthUI sliderUI)
     {
         bossSliderUI = sliderUI;
     }
 
-    public void OnDead()
+    public void HandleDeath()
     {
         SoundManager.Instance.PlayMonsterDead();
 
-        if (monsterAi != null)
-            monsterAi.StopAI();
+        if (monsterAI != null)
+            monsterAI.StopAI();
 
         if (monsterData.monsterType == MonsterType.Boss)
         {
@@ -244,13 +244,13 @@ public class Monster : Character
         if (player != null && dropManager != null)
         {
             dropManager.SpawnExpGem(transform.position, GetRewardExp());
-            dropManager.SpawnDeadEffect(transform.position);
+            dropManager.SpawnDeathEffect(transform.position);
         }
 
         ReleaseMonster(true);
     }
 
-    public void OnHit()
+    public void HandleHit()
     {
         if (monsterAnimator != null)
             monsterAnimator.Hit();
@@ -260,16 +260,16 @@ public class Monster : Character
     {
         SetTarget(null);
 
-        if (monsterAi != null)
-            monsterAi.StopAI();
+        if (monsterAI != null)
+            monsterAI.StopAI();
 
         if (monsterAttack != null)
             monsterAttack.StopAttack();
 
-        if (rb != null)
+        if (rigidbody2D != null)
         {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.angularVelocity = 0f;
         }
 
         if (monsterAnimator != null)
@@ -291,7 +291,7 @@ public class Monster : Character
         return rewardExp;
     }
 
-    public void SetManagedPool(IObjectPool<Monster> pool)
+    public void SetPool(IObjectPool<Monster> pool)
     {
         monsterPool = pool;
     }

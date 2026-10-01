@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EventSliderUI : MonoBehaviour
+public class PillarHealthUI : MonoBehaviour
 {
     [Header("Prop")]
     [SerializeField] private Prop prop;

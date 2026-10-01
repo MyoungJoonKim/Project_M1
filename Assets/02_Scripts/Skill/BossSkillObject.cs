@@ -64,12 +64,12 @@ public class BossSkillObject : MonoBehaviour
             StopCoroutine(skillCoroutine);
             skillCoroutine = null;
         }
-        skillCoroutine = StartCoroutine(SkillTypeCoroutine());
+        skillCoroutine = StartCoroutine(SkillTypeRoutine());
 
 
     }
 
-    private IEnumerator SkillTypeCoroutine()
+    private IEnumerator SkillTypeRoutine()
     {
         while (true)
         {
@@ -96,8 +96,8 @@ public class BossSkillObject : MonoBehaviour
 
         switch (skillType)
         {
-            case SkillType.Projection:
-                ProjectionSkill();
+            case SkillType.Projectile:
+                ProjectileSkill();
                 break;
             case SkillType.Summon:
                 SummonSkill();
@@ -111,7 +111,7 @@ public class BossSkillObject : MonoBehaviour
     {
         switch (type)
         {
-            case SkillType.Projection:
+            case SkillType.Projectile:
                 SoundManager.Instance.PlaySlashBallSkill();
                 break;
             case SkillType.Summon:
@@ -142,7 +142,7 @@ public class BossSkillObject : MonoBehaviour
             if (Time.time >= playerLastHitTimes[player] + hitInterval)
             {
                 player.TakeDamage(damage, true);
-                player.OnHit();
+                player.HandleHit();
                 SFXSkillType(this.skillType);
 
                 playerLastHitTimes[player] = Time.time;
@@ -175,7 +175,7 @@ public class BossSkillObject : MonoBehaviour
         SetEffectActive(true);
     }
 
-    private void ProjectionSkill()
+    private void ProjectileSkill()
     {
         if (targetPlayer == null)
         {
