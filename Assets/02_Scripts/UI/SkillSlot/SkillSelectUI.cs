@@ -151,7 +151,7 @@ public class SkillSelectUI : MonoBehaviour
         {
             if (manager.Data == skill)
             {
-                manager.LevelUp();
+                manager.LevelUpSkill();
                 Close();
                 return;
             }

@@ -17,12 +17,12 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponent<PlayerAnimator>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Move();
     }
 
-    void Move()
+    private void Move()
     {
         if (player == null || player.isDead)
         {

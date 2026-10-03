@@ -65,7 +65,7 @@ public class MonsterAttack : MonoBehaviour
             monsterAnimator.Attack();
 
         target.TakeDamage(damage, false);
-        target.OnHit();
+        target.HandleHit();
 
         isAttacking = false;
     }

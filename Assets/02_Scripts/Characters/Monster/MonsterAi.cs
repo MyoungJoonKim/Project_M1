@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MonsterAi : MonoBehaviour
+public class MonsterAI : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Monster monster;
@@ -15,7 +15,7 @@ public class MonsterAi : MonoBehaviour
 
     private void Start()
     {
-        stateCheckCoroutine = StartCoroutine(StateCheck());
+        stateCheckCoroutine = StartCoroutine(StateCheckRoutine());
     }
 
     private void Awake()
@@ -53,7 +53,7 @@ public class MonsterAi : MonoBehaviour
         }
     }
 
-    private IEnumerator StateCheck()
+    private IEnumerator StateCheckRoutine()
     {
         while (monster != null && !monster.isDead)
         {
@@ -75,7 +75,7 @@ public class MonsterAi : MonoBehaviour
         if (stateCheckCoroutine != null)
             StopCoroutine(stateCheckCoroutine);
 
-        stateCheckCoroutine = StartCoroutine(StateCheck());
+        stateCheckCoroutine = StartCoroutine(StateCheckRoutine());
     }
 
     public void StopAI()

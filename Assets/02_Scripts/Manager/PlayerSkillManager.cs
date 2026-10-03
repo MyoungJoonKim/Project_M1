@@ -54,7 +54,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     }
 
-    public void LevelUp()
+    public void LevelUpSkill()
     {
         currentLevel++;
 
@@ -105,7 +105,7 @@ public class PlayerSkillManager : MonoBehaviour
             }
             else if (skillData.skillType == SkillType.TargetExplosion)
             {
-                Monster target = GetRandomMonster();
+                Monster target = FindRandomMonster();
 
                 if (target == null)
                 {
@@ -118,11 +118,11 @@ public class PlayerSkillManager : MonoBehaviour
             }
             else if (skillData.skillType == SkillType.Summon)
             {
-                skillObjects[i].transform.position = GetRandomPosition();
+                skillObjects[i].transform.position = GetRandomSkillPosition();
             }
             else if (skillData.skillType == SkillType.EventSummon)
             {
-                skillObjects[i].transform.position = spawnManager.GetRandomPosition();
+                skillObjects[i].transform.position = spawnManager.GetRandomSpawnPosition();
             }
             else
             {
@@ -146,7 +146,7 @@ public class PlayerSkillManager : MonoBehaviour
                 skillData.skillType
                 );
 
-            skillObjects[i].SetAttack(true);
+            skillObjects[i].SetAttackEnabled(true);
         } 
     }
     private void ClearSkillObjects()
@@ -161,7 +161,7 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-    public void CreateEventSkill()
+    public void StartEventSkill()
     {
         if (skillData == null)
             return;
@@ -221,7 +221,7 @@ public class PlayerSkillManager : MonoBehaviour
     }
     private Transform GetDirectionTarget()
     {
-        Monster monster = GetRandomMonster();
+        Monster monster = FindRandomMonster();
 
         if (monster != null)
             return monster.transform;
@@ -238,7 +238,7 @@ public class PlayerSkillManager : MonoBehaviour
         return null;
     }
 
-    public Monster GetRandomMonster()
+    public Monster FindRandomMonster()
     {
         List<Monster> list = new List<Monster>();
 
@@ -259,7 +259,7 @@ public class PlayerSkillManager : MonoBehaviour
         return list[Random.Range(0, list.Count)];
     }
 
-    private Vector3 GetRandomPosition()
+    private Vector3 GetRandomSkillPosition()
     {
         Vector2 offset = Random.insideUnitCircle * skillData.range[currentLevel - 1];
         return player.position + new Vector3(offset.x, offset.y, 0f);

@@ -63,7 +63,7 @@ public class EventManager : MonoBehaviour
             BattleManager.Instance
         );
 
-        playerSkillManager.CreateEventSkill();
+        playerSkillManager.StartEventSkill();
     }
     private void CreateSkillManager()
     {
@@ -124,7 +124,7 @@ public class EventManager : MonoBehaviour
         eventTextUI.Open();
         SoundManager.Instance.PlayWarning();
 
-        currentActivePillar = pillarManager.SetActiveRandRune(roundIndex);
+        currentActivePillar = pillarManager.SetActivateRandomRune(roundIndex);
 
         if (currentActivePillar == null)
         {

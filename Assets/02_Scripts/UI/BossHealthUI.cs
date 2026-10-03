@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BossSliderUI : MonoBehaviour
+public class BossHealthUI : MonoBehaviour
 {
     [Header("Boss Monster")]
     [SerializeField] private Monster monster;

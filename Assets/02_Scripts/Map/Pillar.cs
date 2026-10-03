@@ -20,27 +20,27 @@ public class Pillar : Prop
     [SerializeField] private EventManager eventManager;
 
     [Header("UI")]
-    [SerializeField] private EventSliderUI eventSliderUI;
+    [SerializeField] private PillarHealthUI eventSliderUI;
 
 
     private PillarState currentState;
     public PillarState CurrentState => currentState;
 
-    public bool CanActiveRune => currentState == PillarState.Base;
+    public bool CanActivateRune => currentState == PillarState.Base;
     public bool IsBroken => currentState == PillarState.Broken; // 이벤트 성공 시 스킬가져오기 수정할 것.
 
     private Coroutine brokenCoroutine;
 
     private void Start()
     {
-        eventSliderUI = GetComponent<EventSliderUI>();
+        eventSliderUI = GetComponent<PillarHealthUI>();
 
         ChangeState(PillarState.Base);
 
         if (brokenCoroutine != null ) 
             StopCoroutine(brokenCoroutine);
 
-        brokenCoroutine = StartCoroutine(PillarBroken());
+        brokenCoroutine = StartCoroutine(PillarBrokenRoutine());
     }
 
     private void Update()
@@ -83,7 +83,7 @@ public class Pillar : Prop
         gameObject.GetComponent<SpriteRenderer>().enabled = isOn;
     }
 
-    private IEnumerator PillarBroken()
+    private IEnumerator PillarBrokenRoutine()
     {
         while (currentState == PillarState.RuneActive)
         {
@@ -112,7 +112,7 @@ public class Pillar : Prop
         brokenCoroutine = null;
     }
 
-    public void ActiveRune(int roundIndex)
+    public void ActivateRune(int roundIndex)
     {
         if (currentState != PillarState.Base)
             return;
@@ -135,7 +135,7 @@ public class Pillar : Prop
             brokenCoroutine = null;
         }
 
-        brokenCoroutine = StartCoroutine(PillarBroken());
+        brokenCoroutine = StartCoroutine(PillarBrokenRoutine());
     }
 
     public bool CanTakeDamage()

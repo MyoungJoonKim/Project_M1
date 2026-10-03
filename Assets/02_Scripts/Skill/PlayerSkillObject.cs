@@ -12,13 +12,12 @@ public class PlayerSkillObject : MonoBehaviour
     [SerializeField] private GameObject effectObject;
     [SerializeField] private Collider2D collider2D;
 
-    
 
     private SkillType skillType;
     private Transform target;
 
-    private int index;
-    private int totalCount;
+    private int objectIndex;
+    private int objectCount;
 
     private float damage;
     private float range;
@@ -29,9 +28,9 @@ public class PlayerSkillObject : MonoBehaviour
     private float angle;
 
     private bool canAttack = true;
-    private bool isTrigger = false;
+    private bool isActivated = false;
 
-    private Coroutine skillCoroutine;
+    private Coroutine skillUpdateCoroutine;
     private SpawnManager spawnManager;
     private BattleManager battleManager;
     private PassiveSkillManager passiveSkillManager;
@@ -44,8 +43,8 @@ public class PlayerSkillObject : MonoBehaviour
         Transform targetTransform,
         SpawnManager _spawnManager,
         BattleManager _battleManager,
-        int objectIndex,
-        int objectCount,
+        int _objectIndex,
+        int _objectCount,
         float damageValue,
         float rangeValue,
         float radiusValue,
@@ -60,8 +59,8 @@ public class PlayerSkillObject : MonoBehaviour
 
         spawnManager = _spawnManager;
         battleManager = _battleManager;
-        index = objectIndex;
-        totalCount = objectCount;
+        objectIndex = _objectIndex;
+        objectCount = _objectCount;
         damage = damageValue;
         range = rangeValue;
         radius = radiusValue;
@@ -70,17 +69,17 @@ public class PlayerSkillObject : MonoBehaviour
         skillType = type;
 
         SetEffectSize(radius);
-        angle = (360f / totalCount) * index;
+        angle = (360f / objectCount) * objectIndex;
 
-        if (skillCoroutine != null)
+        if (skillUpdateCoroutine != null)
         {
-            StopCoroutine(skillCoroutine);
-            skillCoroutine = null;
+            StopCoroutine(skillUpdateCoroutine);
+            skillUpdateCoroutine = null;
         }
-        skillCoroutine = StartCoroutine(SkillTypeCoroutine());
+        skillUpdateCoroutine = StartCoroutine(SkillUpdateRoutine());
     }
 
-    private IEnumerator SkillTypeCoroutine()
+    private IEnumerator SkillUpdateRoutine()
     {
         while (true)
         {
@@ -89,18 +88,18 @@ public class PlayerSkillObject : MonoBehaviour
                 yield return null;
                 continue;
             }
-            UpdateSkillType();
+            UpdateSkillBehavior();
             yield return null;
         }
     }
 
-    public void SetAttack(bool value)
+    public void SetAttackEnabled(bool value)
     {
         canAttack = value;
     }
 
 
-    private void UpdateSkillType()
+    private void UpdateSkillBehavior()
     {
         if (player == null)
             return;
@@ -122,8 +121,8 @@ public class PlayerSkillObject : MonoBehaviour
             case SkillType.Direction:
                 DirectionSkill();
                 break;
-            case SkillType.Projection:
-                ProjectionSkill();
+            case SkillType.Projectile:
+                ProjectileSkill();
                 break;
             case SkillType.EventSummon:
                 EventSummonSkill();
@@ -149,7 +148,7 @@ public class PlayerSkillObject : MonoBehaviour
             case SkillType.Direction:
                 SoundManager.Instance.PlayCrystalWave();
                 break;
-            case SkillType.Projection:
+            case SkillType.Projectile:
                 break;
             case SkillType.EventSummon:
                 SoundManager.Instance.PlayLightningStrikeSkill();
@@ -184,7 +183,7 @@ public class PlayerSkillObject : MonoBehaviour
             if (Time.time >= monsterLastHitTimes[monster] + hitInterval)
             {
                 monster.TakeDamage(finalDamage, true);
-                monster.OnHit();
+                monster.HandleHit();
                 SFXSkillType(this.skillType);
 
                 monsterLastHitTimes[monster] = Time.time;
@@ -244,23 +243,23 @@ public class PlayerSkillObject : MonoBehaviour
 
     private void SummonSkill()
     {
-        if (isTrigger)
+        if (isActivated)
             return;
-        isTrigger = true;
+        isActivated = true;
         SetEffectActive(true);
     }
 
     private void TargetExplosionSkill()
     {
-        if (isTrigger)
+        if (isActivated)
             return;
-        isTrigger = true;
+        isActivated = true;
         SetEffectActive(true);
     }
 
     private void DirectionSkill()
     {
-        if (isTrigger)
+        if (isActivated)
             return;
 
         if (target == null)
@@ -268,7 +267,7 @@ public class PlayerSkillObject : MonoBehaviour
             SetEffectActive(false);
             return;
         }
-        isTrigger = true;
+        isActivated = true;
 
         Vector3 startPosition = player.position;
         transform.position = startPosition;
@@ -279,18 +278,18 @@ public class PlayerSkillObject : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, directionAngle);
 
         SetEffectActive(true);
-        StartCoroutine(DirectionSkillEnd());
+        StartCoroutine(DirectionSkillClear());
     }
 
-    private void ProjectionSkill()
+    private void ProjectileSkill()
     {
     }
 
     private void EventSummonSkill()
     {
-        if (isTrigger)
+        if (isActivated)
             return;
-        isTrigger = true;
+        isActivated = true;
         SetEffectActive(true);
     }
 
@@ -324,14 +323,14 @@ public class PlayerSkillObject : MonoBehaviour
     public void StopSkill()
     {
         canAttack = false;
-        isTrigger = false;
+        isActivated = false;
         monsterLastHitTimes.Clear();
         propLastHitTimes.Clear();
 
-        if (skillCoroutine != null)
+        if (skillUpdateCoroutine != null)
         {
-            StopCoroutine(skillCoroutine);
-            skillCoroutine = null;
+            StopCoroutine(skillUpdateCoroutine);
+            skillUpdateCoroutine = null;
         }
 
         if (collider2D != null)
@@ -341,11 +340,11 @@ public class PlayerSkillObject : MonoBehaviour
             effectObject.SetActive(false);
     }
 
-    private IEnumerator DirectionSkillEnd()
+    private IEnumerator DirectionSkillClear()
     {
         yield return new WaitForSeconds(2);
         SetEffectActive(false);
-        isTrigger = false;
+        isActivated = false;
     }
 
 }

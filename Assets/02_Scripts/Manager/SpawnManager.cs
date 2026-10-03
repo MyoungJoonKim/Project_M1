@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private RoundData[] rounds;
 
     [Header("UI")]
-    [SerializeField] private BossSliderUI bossSliderUI;
+    [SerializeField] private BossHealthUI bossSliderUI;
 
     [Header("Wave Settings")]
     [SerializeField] private float waveSpawnDuration = 6f;
@@ -51,22 +51,22 @@ public class SpawnManager : MonoBehaviour
     private readonly Dictionary<string, IObjectPool<Monster>> pool = new();
 
     // 몬스터 ID별 현재 살아있는 수
-    private readonly Dictionary<string, int> activeCountByMonsterID = new();
+    private readonly Dictionary<string, int> activeMonsterCountById = new();
 
     // 웨이브가 끝나서 앞으로 더 이상 스폰하지 않을 몬스터 ID
-    private readonly HashSet<string> spawnClosedMonsterIDs = new();
+    private readonly HashSet<string> completeSpawnMonsterIds = new();
 
     // 풀 제거 예약 중인 몬스터 ID. Release 도중 Clear 되는 문제 방지용
-    private readonly HashSet<string> pendingRemoveMonsterIDs = new();
+    private readonly HashSet<string> pendingPoolRemoveIds = new();
 
     private void Start()
     {
         // 전체 몬스터 풀을 미리 만들지 않는다.
         // 현재 웨이브가 시작될 때 해당 웨이브 몬스터 풀만 만든다.
-        roundCoroutine = StartCoroutine(RoundRoutine());
+        roundCoroutine = StartCoroutine(RoundLoop());
     }
 
-    private IEnumerator RoundRoutine()
+    private IEnumerator RoundLoop()
     {
         // 첫 라운드 시작 시 스폰 대기시간.
         yield return new WaitForSeconds(2f);
@@ -135,7 +135,7 @@ public class SpawnManager : MonoBehaviour
                 if (boss == null)
                     yield break;
 
-                CloseMonsterSpawn(wave.bossMonster);
+                StopMonsterSpawn(wave.bossMonster);
                 SoundManager.Instance.PlayWarning();
 
                 // 보스가 죽을 때까지 현재 라운드 유지
@@ -171,7 +171,7 @@ public class SpawnManager : MonoBehaviour
 
             for (int i = 0; i < spawnCountPerTick; i++)
             {
-                MonsterData data = GetNextMonster(wave);
+                MonsterData data = GetNextMonsterData(wave);
                 SpawnMonster(data);
             }
 
@@ -181,7 +181,7 @@ public class SpawnManager : MonoBehaviour
 
         // 이 웨이브 몬스터는 앞으로 더 이상 생성하지 않음.
         // 단, 아직 살아있는 몬스터가 있으면 풀은 유지하고, 전부 죽으면 제거됨.
-        CloseWaveSpawn(wave);
+        CompleteWaveSpawn(wave);
     }
 
     private void PrepareWavePool(WaveData wave)
@@ -197,30 +197,30 @@ public class SpawnManager : MonoBehaviour
 
     private void PrepareMonsterPool(MonsterData data)
     {
-        CreatePoolMonster(data);
+        CreateMonsterPool(data);
     }
 
-    private void CloseWaveSpawn(WaveData wave)
+    private void CompleteWaveSpawn(WaveData wave)
     {
         if (wave == null || wave.normalMonsters == null)
             return;
 
         foreach (MonsterData data in wave.normalMonsters)
         {
-            CloseMonsterSpawn(data);
+            StopMonsterSpawn(data);
         }
     }
 
-    private void CloseMonsterSpawn(MonsterData data)
+    private void StopMonsterSpawn(MonsterData data)
     {
         if (data == null || string.IsNullOrEmpty(data.monsterID))
             return;
 
-        spawnClosedMonsterIDs.Add(data.monsterID);
+        completeSpawnMonsterIds.Add(data.monsterID);
         TryRemoveUnusedPool(data.monsterID);
     }
 
-    private MonsterData GetNextMonster(WaveData wave)
+    private MonsterData GetNextMonsterData(WaveData wave)
     {
         if (wave == null || wave.normalMonsters == null || wave.normalMonsters.Count == 0)
             return null;
@@ -277,14 +277,14 @@ public class SpawnManager : MonoBehaviour
             return null;
 
         if (!pool.ContainsKey(data.monsterID))
-            CreatePoolMonster(data);
+            CreateMonsterPool(data);
 
         if (!pool.ContainsKey(data.monsterID))
             return null;
 
         Monster monster = pool[data.monsterID].Get();
 
-        monster.transform.position = GetRandomPosition();
+        monster.transform.position = GetRandomSpawnPosition();
         monster.transform.rotation = Quaternion.identity;
 
         monster.SetMonsterData(data);
@@ -303,7 +303,7 @@ public class SpawnManager : MonoBehaviour
         return monster;
     }
 
-    public Vector2 GetRandomPosition()
+    public Vector2 GetRandomSpawnPosition()
     {
         Vector2 pos;
         int count = 0;
@@ -323,7 +323,7 @@ public class SpawnManager : MonoBehaviour
         return pos;
     }
 
-    private void CreatePoolMonster(MonsterData data)
+    private void CreateMonsterPool(MonsterData data)
     {
         if (data == null || data.prefab == null)
             return;
@@ -346,7 +346,7 @@ public class SpawnManager : MonoBehaviour
             {
                 Monster monster = Instantiate(data.prefab);
                 monster.name = $"{data.monsterID}_Pooled";
-                monster.SetManagedPool(newPool);
+                monster.SetPool(newPool);
                 monster.gameObject.SetActive(false);
                 return monster;
             },
@@ -376,13 +376,13 @@ public class SpawnManager : MonoBehaviour
 
         string id = data.monsterID;
 
-        if (!activeCountByMonsterID.ContainsKey(id))
-            activeCountByMonsterID[id] = 0;
+        if (!activeMonsterCountById.ContainsKey(id))
+            activeMonsterCountById[id] = 0;
 
-        activeCountByMonsterID[id]++;
+        activeMonsterCountById[id]++;
     }
 
-    public void UnRegisterMonster(Monster monster)
+    public void UnregisterMonster(Monster monster)
     {
         if (monster == null)
             return;
@@ -397,12 +397,12 @@ public class SpawnManager : MonoBehaviour
 
         string id = data.monsterID;
 
-        if (activeCountByMonsterID.ContainsKey(id))
+        if (activeMonsterCountById.ContainsKey(id))
         {
-            activeCountByMonsterID[id]--;
+            activeMonsterCountById[id]--;
 
-            if (activeCountByMonsterID[id] < 0)
-                activeCountByMonsterID[id] = 0;
+            if (activeMonsterCountById[id] < 0)
+                activeMonsterCountById[id] = 0;
         }
 
         TryRemoveUnusedPool(id);
@@ -413,21 +413,21 @@ public class SpawnManager : MonoBehaviour
         if (string.IsNullOrEmpty(monsterID))
             return;
 
-        if (!spawnClosedMonsterIDs.Contains(monsterID))
+        if (!completeSpawnMonsterIds.Contains(monsterID))
             return;
 
         int activeCount = 0;
 
-        if (activeCountByMonsterID.ContainsKey(monsterID))
-            activeCount = activeCountByMonsterID[monsterID];
+        if (activeMonsterCountById.ContainsKey(monsterID))
+            activeCount = activeMonsterCountById[monsterID];
 
         if (activeCount > 0)
             return;
 
-        if (pendingRemoveMonsterIDs.Contains(monsterID))
+        if (pendingPoolRemoveIds.Contains(monsterID))
             return;
 
-        pendingRemoveMonsterIDs.Add(monsterID);
+        pendingPoolRemoveIds.Add(monsterID);
         StartCoroutine(RemovePoolNextFrame(monsterID));
     }
 
@@ -436,15 +436,15 @@ public class SpawnManager : MonoBehaviour
         // ObjectPool.Release가 완전히 끝난 다음 프레임에 Clear 한다.
         yield return null;
 
-        pendingRemoveMonsterIDs.Remove(monsterID);
+        pendingPoolRemoveIds.Remove(monsterID);
 
-        if (!spawnClosedMonsterIDs.Contains(monsterID))
+        if (!completeSpawnMonsterIds.Contains(monsterID))
             yield break;
 
         int activeCount = 0;
 
-        if (activeCountByMonsterID.ContainsKey(monsterID))
-            activeCount = activeCountByMonsterID[monsterID];
+        if (activeMonsterCountById.ContainsKey(monsterID))
+            activeCount = activeMonsterCountById[monsterID];
 
         if (activeCount > 0)
             yield break;
@@ -455,8 +455,8 @@ public class SpawnManager : MonoBehaviour
             pool.Remove(monsterID);
         }
 
-        activeCountByMonsterID.Remove(monsterID);
-        spawnClosedMonsterIDs.Remove(monsterID);
+        activeMonsterCountById.Remove(monsterID);
+        completeSpawnMonsterIds.Remove(monsterID);
 
         Debug.Log($"{monsterID} 풀 제거 완료");
     }
@@ -504,9 +504,9 @@ public class SpawnManager : MonoBehaviour
 
         pool.Clear();
         activeMonsters.Clear();
-        activeCountByMonsterID.Clear();
-        spawnClosedMonsterIDs.Clear();
-        pendingRemoveMonsterIDs.Clear();
+        activeMonsterCountById.Clear();
+        completeSpawnMonsterIds.Clear();
+        pendingPoolRemoveIds.Clear();
     }
 
     public List<Monster> GetActiveMonsters()

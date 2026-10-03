@@ -28,10 +28,10 @@ public class DropManager : MonoBehaviour
     private void Awake()
     {
         CreateExpPool();
-        CreateDeadEffectPool();
+        CreateDeathEffectPool();
     }
 
-    private void CreateDeadEffectPool()
+    private void CreateDeathEffectPool()
     {
         if (deadEffect == null)
             return;
@@ -63,7 +63,7 @@ public class DropManager : MonoBehaviour
             }
         }
     }
-    public void SpawnDeadEffect(Vector3 position)
+    public void SpawnDeathEffect(Vector3 position)
     {
         if (deadEffect == null)
             return;
