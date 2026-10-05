@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Localization.Settings;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class SceneLoading : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class SceneLoading : MonoBehaviour
     [SerializeField] private TMP_Text gameTipText;
 
 
-    private List<string> gameTipKeys = new List<string>()
+    private readonly List<string> gameTipKeys = new List<string>()
     {
         "TIP_001",
         "TIP_002",
@@ -22,6 +23,9 @@ public class SceneLoading : MonoBehaviour
         "TIP_005",
     };
 
+    private readonly List<string> loadedGameTips = new List<string>();
+
+    private Coroutine backgroundTextCoroutine;
 
     private void Start()
     {
@@ -30,38 +34,82 @@ public class SceneLoading : MonoBehaviour
 
     private IEnumerator LoadBattleScene()
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync($"{SceneLoadManager.Instance.nextScene}");
-
-        asyncOperation.allowSceneActivation = false;    
-
-        if (loadingBar == null)
+        if (SceneLoadManager.Instance == null)
             yield break;
+        
+        SceneType nextScene = SceneLoadManager.Instance.nextScene;
 
-        loadingBar.minValue = 0f;
-        loadingBar.maxValue = 1f;
-        loadingBar.value = 0f;
-
-        StartCoroutine(BackgroundTextUpdate());
-
-        while (!asyncOperation.isDone)
+        if (loadingBar != null)
         {
-            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+            loadingBar.minValue = 0f;
+            loadingBar.maxValue = 1f;
+            loadingBar.value = 0f;
+        }
 
-            loadingBar.value = progress;
+        yield return null;
 
-            if (asyncOperation.progress >= 0.9f)
+        yield return LocalizationSettings.InitializationOperation;
+
+        loadedGameTips.Clear();
+
+        if (gameTipText != null)
+        {
+            foreach (string key in gameTipKeys)
             {
-                yield return new WaitForSecondsRealtime(3f);
+                var operation = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("GameTip_Text", key);
 
-                loadingBar.maxValue = 1f;
-                
-                StopCoroutine(BackgroundTextUpdate());
+                yield return operation;
 
-                asyncOperation.allowSceneActivation = true;
-                SoundManager.Instance.PlaySceneBGM(SceneLoadManager.Instance.nextScene);
+                if (operation.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(operation.Result))
+                {
+                    loadedGameTips.Add(operation.Result);
+                }
+            }
+        }
+
+        backgroundTextCoroutine = StartCoroutine(BackgroundTextUpdate());
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene.ToString());
+
+        if (asyncOperation == null)
+        {
+            Debug.LogError("SceneLoading: 씬 로딩 요청 실패");
+
+            if (backgroundTextCoroutine != null)
+            {
+                StopCoroutine(backgroundTextCoroutine);
+                backgroundTextCoroutine = null;
+            }
+            yield break;
+        }
+
+        asyncOperation.allowSceneActivation = false;
+
+        while (asyncOperation.progress < 0.9f)
+        {
+            if (loadingBar != null)
+            {
+                loadingBar.value =
+                    Mathf.Clamp01(asyncOperation.progress / 0.9f);
             }
             yield return null;
         }
+
+        if (loadingBar != null)
+            loadingBar.value = 1f;
+
+        yield return new WaitForSecondsRealtime(3f);
+
+        if (backgroundTextCoroutine != null)
+        {
+            StopCoroutine(backgroundTextCoroutine);
+            backgroundTextCoroutine = null;
+        }
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySceneBGM(nextScene);
+
+        asyncOperation.allowSceneActivation = true;
     }
 
     private IEnumerator BackgroundTextUpdate()
@@ -75,8 +123,11 @@ public class SceneLoading : MonoBehaviour
 
     private void GameTipText()
     {
-        int rand = Random.Range(0, gameTipKeys.Count);
+        if (gameTipText == null || loadedGameTips.Count == 0)
+            return;
 
-        gameTipText.text = LocalizationSettings.StringDatabase.GetLocalizedString("GameTip_Text", gameTipKeys[rand]);
+        int rand = Random.Range(0, loadedGameTips.Count);
+
+        gameTipText.text = loadedGameTips[rand];
     }
 }

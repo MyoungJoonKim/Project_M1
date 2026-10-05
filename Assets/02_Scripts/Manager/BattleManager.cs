@@ -22,7 +22,6 @@ public class BattleManager : MonoBehaviour
     
     private void Start()
     {
-        Time.timeScale = 1f;
         StartBattle();
     }
 
@@ -34,6 +33,8 @@ public class BattleManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        Time.timeScale = 1f;
     }
 
     private void OnDestroy()

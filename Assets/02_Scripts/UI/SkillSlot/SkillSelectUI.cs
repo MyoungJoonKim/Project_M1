@@ -34,9 +34,10 @@ public class SkillSelectUI : MonoBehaviour
     private Coroutine selectTimeCoroutine;
     private List<SkillSelect> randomSkills = new List<SkillSelect>();
 
-    private void Start()
+    private void Awake()
     {
-        panel.SetActive(false);
+        if (panel != null)
+            panel.SetActive(false);
     }
 
     private class SkillSelect
